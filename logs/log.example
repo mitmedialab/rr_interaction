@@ -1,0 +1,4 @@
+Logs will be default be saved here in the logs/ directory.
+
+See the README and the log config file in src/rr_log_config.json for more
+information.

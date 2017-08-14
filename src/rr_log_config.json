@@ -1,0 +1,74 @@
+{
+    "version": 1,
+    "disable_existing_loggers": false,
+
+    "formatters": {
+        "basic_format": {
+            "format": "[%(levelname)s] [%(asctime)s] [%(filename)s:%(funcName)s:%(lineno)d] - %(message)s"
+        }
+    },
+
+    "handlers": {
+
+        "console": {
+            "class": "logging.StreamHandler",
+            "level": "DEBUG",
+            "formatter": "basic_format",
+            "stream": "ext://sys.stdout"
+        },
+
+        "info_file_handler": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "level": "DEBUG",
+            "formatter": "basic_format",
+            "filename": "../logs/rr_debug.log",
+            "maxBytes": 50000000,
+            "backupCount": 20,
+            "encoding": "utf8"
+        },
+
+        "error_file_handler": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "level": "ERROR",
+            "formatter": "basic_format",
+            "filename": "../logs/rr_error.log",
+            "maxBytes": 50000000,
+            "backupCount": 20,
+            "encoding": "utf8"
+        },
+
+        "rosout": {
+            "class": "rospy.impl.rosout.RosOutHandler",
+            "level": "DEBUG",
+            "formatter": "basic_format"
+        }
+    },
+
+    "loggers": {
+        "rr_script_handler": {
+            "level": "DEBUG",
+            "handlers": ["rosout"]
+        },
+        "rr_script_parser": {
+            "level": "DEBUG",
+            "handlers": ["rosout"]
+        },
+        "rr_interaction_node": {
+            "level": "DEBUG",
+            "handlers": ["rosout"]
+        },
+        "rr_personalization_manager": {
+            "level": "DEBUG",
+            "handlers": ["rosout"]
+        },
+        "rr_ros": {
+            "level": "DEBUG",
+            "handlers": ["rosout"]
+        }
+    },
+
+    "root": {
+        "level": "DEBUG",
+        "handlers": ["console", "info_file_handler", "error_file_handler"]
+    }
+}
