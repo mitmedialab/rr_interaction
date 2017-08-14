@@ -1,3 +1,17 @@
+# vim/gvim swap files
+*.swp
+*.swo
+
+# OS generated #
+.DS_Store*
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+[Tt]humbs.db
+
+# part of git's automatically generated list of python stuff to ignore
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
