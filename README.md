@@ -18,6 +18,22 @@ connection, as well as several other nodes.
 
 - [toml](https://github.com/uiri/toml)
 
+
+### Opal tablet communication
+
+Commands to the [opal tablet](https://github.com/mitmedialab/SAR-opal-base) are
+sent over a rosbridge\_server websocket connection. For communication with the
+tablet to occur, you need to have the rosbridge\_server running, using the
+following command:
+
+`roslaunch rosbridge_server rosbridge_websocket.launch`
+
+You will also need to ensure that the opal tablet's config file lists the IP
+address or hostname of the machine running roscore. The [opal
+tablet](https://github.com/mitmedialab/SAR-opal-base) documentation explains
+how to update the config file (it's simple; you change a line in a text file
+and copy it to the tablet).
+
 ## Usage
 
 TODO
