@@ -1,0 +1,73 @@
+# Configuration of the robot's questions and audio.
+
+#######################################################################
+# Generic responses for when a user times out or reaches the max number of
+# attempts for a question. One of the responses listed in the array will be
+# chosen randomly. These can be overridden for individual questions below in
+# the question configuration.
+timeout = ["timeout_speech", "thing_robot_says"]
+max_attempt = ["asdf", "arwefds", "wedf"]
+
+#######################################################################
+## EXAMPLE QUESTION.
+#######################################################################
+# [questions.questionname]
+## The filename of the question audio.
+#question = question_audio
+#
+## If the user times out (we don't get any response at all), the robot does this.
+#timeout = ["timeout_speech", "thing_robot_says"]
+#
+## If the user reaches the max number of answer attempts, the robot does this.
+#max_attempt = ["too_many_tries", "robot_says_stuff"]
+#
+## Array of possible user responses to the question, and for each user response,
+## the response the robot should make. The user responses should be a
+## space-delimited set of things that have to be present in the user response
+## that we get from the ASR for the robot to make the associated response.
+#   [[questions.questionname.user_input]]
+#   user_responses = ["yes", "of course"]
+#   robot_responses = ["ads", "sdasd"]
+#
+#   [[questions.questionname.user_input]]
+#   user_responses = ["no", "have not"]
+#   robot_responses = ["ads", "sdasd"]
+#
+#   [[questions.questionname.user_input]]
+#   user_responses = ["any"]
+#   robot_responses = ["ads", "sdasd"]
+#######################################################################
+[questions.questionname2]
+question = question_audio
+timeout = ["timeout_speech", "thing_robot_says"]
+max_attempt = ["too_many_tries", "robot_says_stuff"]
+    [[questions.questionname.user_input]]
+    user_responses = ["yes", "of course"]
+    robot_responses = ["ads", "sdasd"]
+
+    [[questions.questionname.user_input]]
+    user_responses = ["no", "have not"]
+    robot_responses = ["ads", "sdasd"]
+
+    [[questions.questionname.user_input]]
+    user_responses = ["any"]
+    robot_responses = ["ads", "sdasd"]
+
+
+
+#######################################################################
+## EXAMPLE AUDIO.
+#######################################################################
+#[audio.audioname]
+## Name of the audio file.
+#name = "filename"
+## Animations that should be played during the audio.
+#animations = [ { time = 0.1, anim = "EXCITED" },
+#               { time = 0.1, anim = "PERKUP" } ]
+#######################################################################
+[audio.audioname]
+# Name of the audio file.
+name = "filename"
+# Animations that should be played during the audio.
+animations = [ { time = 0.1, anim = "EXCITED" },
+                { time = 0.1, anim = "PERKUP" } ]

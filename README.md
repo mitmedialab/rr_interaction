@@ -24,9 +24,77 @@ TODO
 
 ### Configuration
 
-#### Interaction config
+#### Interaction config (config.toml)
 
-TODO
+The top-level interaction config file is written using
+[toml](https://github.com/toml-lang/toml). It should be called `config.toml`
+and should be located in the top-level of the project repository. You can see
+an example config: `config.example.toml`.
+
+The options you can set in this config file include:
+
+- **study\_path**: The relative path from the config file (located at the top of
+  the project respository) to the directory with scripts for the current study
+  or project. The default is the `interaction_scripts/demo/` directory. We
+  recommend creating a new directory in `interaction_scripts/` for each study
+  or project.
+
+- **story\_script\_path**: The relative path from the `study_path` directory to
+  the directory containing story scripts. For example, the demo story scripts
+  are in a subdirectory of the `interaction_scripts/demo` directory named
+  `story_scripts`. If the story scripts are not in a subdirectory, set to the
+  empty string. If story and session scripts are in the same directory, this
+  may be the same as the `story_script_path` option.
+
+- **session\_script\_path**: The relative path from the `study_path` directory to
+  the directory containing session scripts. For example, the demo session
+  scripts are in a subdirectory of the `interaction_scripts/demo` directory
+  named `session_scripts`. If the session scripts are not in a subdirectory,
+  set to the empty string. If story and session scripts are in the same
+  directory, this may be the same as the `session:w
+  _script_path` option.
+
+- **study\_config**: The relative path from the `study_path` directory to the
+  study's config file (containing, e.g., definitions for questions, audio, and
+  animations).
+
+- **audio\_base\_dir**: The full path to a directory containing audio files
+  (only used if audio is streamed to the robot, e.g., if the audio entrainer is
+  used, which by default it is). The full path is necessary because the [audio
+  entrainer](https://github.com/mitmedialab/rr_audio_entrainer) expects full
+  filepaths when you send it audio (i.e., it expects you to give it a wav file
+  it can open). So to accommodate this, you can either specify full filepaths
+  in your script (which is tedious and not recommended), or, in this config
+  file, specify a directory on your file system where you have put all the wav
+  files that will be used. These then get streamed to the robot. But you should
+  only do one or the other! Note that if you put full filepaths in your script
+  (not recommended), you should leave the `audio_base_dir` option in the config
+  file blank (i.e., put an empty string there or delete it entirely from the
+  file). In this case, you should also leave `viseme_base_dir` blank and put
+  your viseme text files in the same directory as your audio files, because
+  currently, we assume that viseme files have the same name as their audio
+  files, and just replace the file extension.
+
+- **phoneme\_base\_dir**: The full path to a directory containing audio files
+  (only used if audio is streamed to the robot, e.g., if the audio entrainer is
+  used, which by default it is).
+
+#### Script config
+
+The script config file is written using
+[toml](https://github.com/toml-lang/toml). You can name it whatever you want,
+so long as it has the `.toml` file extension and you specify where it is in the
+top-level interaction config file. Put this config file in your study directory
+(specified in the top-level config file in the filed `study_path`).
+
+This config file contains configuration of the robot's questions and audio,
+including sets of possible user responses to questions, robot responses to
+those user responses, default robot responses when a user times out or doesn't
+respond after a maximum number of tries, and lists of animations that should
+get played alongside audio files.
+
+See the example included in the demo project for more details:
+`interaction_scripts/demo/demo_config.toml`.
 
 #### Log config
 
