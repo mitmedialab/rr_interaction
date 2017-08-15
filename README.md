@@ -180,7 +180,6 @@ The interaction script lists what happens during an interaction session. It
 should list, in order, the actions the program should take. These actions
 include the following, which are described in more detail below:
 
-- ADD
 - SET
 - ROBOT
 - OPAL
@@ -188,31 +187,6 @@ include the following, which are described in more detail below:
 - REPEAT
 - STORY
 - QUESTION
-
-#### ADD
-
-`ADD` is used to add a list of robot commands that can be used in response to a
-particular trigger. Triggers may be actions the user takes, such as selecting a
-correct or incorrect response for a question, input from sensors, or a
-particular repeating action in the script, such as an introductory comment
-before telling a story. `ADD` should list the trigger and the file containing
-the list of robot commands. For example, the following command will load the
-commands listed in `incorrect.txt` as response options for incorrect actions
-taken by the user:
-
-`ADD INCORRECT_RESPONSE incorrect.txt`
-
-Currently, the following lists can be added:
-
-- CORRECT\_RESPONSES: Responses to correct user actions
-- INCORRECT\_RESPONSES: Responses to incorrect user actions
-- ANSWER\_FEEDBACK: Responses indicating which action was correct (regardless
-  of whether the user performed a correct or incorrect action)
-- START\_RESPONSES: Responses to the user selecting a "start" button
-- NO\_RESPONSES: Responses to the user selecting a "no" button
-- STORY\_INTROS: Introductory comment before telling a story
-- STORY\_CLOSINGS: Closing comment after telling a story
-- TIMEOUT\_CLOSINGS: Responses for when the maximum game time is reached
 
 #### SET
 

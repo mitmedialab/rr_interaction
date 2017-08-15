@@ -5,15 +5,18 @@
 # attempts for a question. One of the responses listed in the array will be
 # chosen randomly. These can be overridden for individual questions below in
 # the question configuration.
-timeout = ["timeout_speech", "thing_robot_says"]
-max_attempt = ["asdf", "arwefds", "wedf"]
+timeout = ["Hm", "Didnthear"]
+max_attempt = ["ThatsCool"]
+
+story_intro = ["OkayIHaveAGoodIdea", "HmLetsSee"]
+story_closing = ["ThisIsSuchFun", "ThisIsMyFavoriteGame", "OkayMyStorysOver"]
 
 #######################################################################
 ## EXAMPLE QUESTION.
 #######################################################################
 # [questions.questionname]
-## The filename of the question audio.
-#question = question_audio
+## The filename of the question audio (wav file).
+#question = "question_audio"
 #
 ## If the user times out (we don't get any response at all), the robot does this.
 #timeout = ["timeout_speech", "thing_robot_says"]
@@ -37,27 +40,76 @@ max_attempt = ["asdf", "arwefds", "wedf"]
 #   user_responses = ["any"]
 #   robot_responses = ["ads", "sdasd"]
 #######################################################################
-[questions.questionname2]
-question = question_audio
-timeout = ["timeout_speech", "thing_robot_says"]
-max_attempt = ["too_many_tries", "robot_says_stuff"]
-    [[questions.questionname.user_input]]
-    user_responses = ["yes", "of course"]
-    robot_responses = ["ads", "sdasd"]
-
-    [[questions.questionname.user_input]]
-    user_responses = ["no", "have not"]
-    robot_responses = ["ads", "sdasd"]
-
-    [[questions.questionname.user_input]]
+[questions.favorite_color]
+question = "rr1_intro_03"
+    [[questions.favorite_color.user_input]]
     user_responses = ["any"]
-    robot_responses = ["ads", "sdasd"]
+    robot_responses = ["rr1_intro04"]
 
+[questions.what_like_do]
+question = "rr1_intro_06"
+    [[questions.what_like_do.user_input]]
+    user_responses = ["nothing"]
+    robot_responses = ["NothingThatsOkay]
+    [[questions.what_like_do.user_input]]
+    user_responses = ["any"]
+    robot_responses = ["rr1_intro_07"]
 
+[questions.like_dance]
+question = "rr1_intro_08"
+    [[questions.like_dance.user_input]]
+    user_responses = ["any"]
+    robot_responses = ["rr1_intro_09"]
+
+[questions.help_practice]
+question = "rr1_backstory_03"
+    [[questions.help_practice.user_input]]
+    user_responses = ["yes", "of course", "yeah", "okay"]
+    robot_responses = ["rr1_backstory_04"]
+    [[questions.help_practice.user_input]]
+    user_responses = ["no", "nah", "nope", "uh"]
+    robot_responses = ["rr1_backstory_05"]
+
+[questions.listen_to_story]
+question = "rr1_story_02"
+timeout = ["", ""]
+max_attempt = ["", ""]
+    [[questions.listen_to_story.user_input]]
+    user_responses = ["yes", "of course", "yeah", "okay", "story"]
+    robot_responses = ["rr1_story_03"]
+    [[questions.listen_to_story.user_input]]
+    user_responses = ["any"]
+    robot_responses = ["AwComeOnItllBeFun"]
+
+[questions.liked_story]
+question = "rr1_story_06"
+timeout = ["", ""]
+max_attempt = ["", ""]
+    [[questions.liked_story.user_input]]
+    user_responses = ["yes", "of course", "yeah", "story", "like"]
+    robot_responses = ["Yay", "Yeah, it was fun!"]
+    [[questions.liked_story.user_input]]
+    user_responses = ["no", "didn't"]
+    robot_responses = ["YouDidntSorry", "AwIllHaveToPracticeMore"]
+
+[questions.questionname2]
+question = "question_audio"
+timeout = ["", ""]
+max_attempt = ["", ""]
+    [[questions.questionname.user_input]]
+    user_responses = ["", ""]
+    robot_responses = ["", ""]
 
 #######################################################################
 ## EXAMPLE AUDIO.
 #######################################################################
+## We assume that the audio filename is "audioname.wav". We also assume that
+## there are no special animations to play with the audio. If you want to
+## override either of these defaults, specify it here. For example, if the audio
+## name is "audioname" but the audio file name is not "audioname.wav" but
+## instead "somethingelse.wav", you would need to specify that here. If you want
+## to choreograph animations that get played during the speech, you need to
+## specify those here.
 #[audio.audioname]
 ## Name of the audio file.
 #name = "filename"
@@ -65,9 +117,20 @@ max_attempt = ["too_many_tries", "robot_says_stuff"]
 #animations = [ { time = 0.1, anim = "EXCITED" },
 #               { time = 0.1, anim = "PERKUP" } ]
 #######################################################################
-[audio.audioname]
+[audio.Yay]
 # Name of the audio file.
-name = "filename"
+name = "Yay"
 # Animations that should be played during the audio.
-animations = [ { time = 0.1, anim = "EXCITED" },
-                { time = 0.1, anim = "PERKUP" } ]
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.AwIllHaveToPracticeMore]
+# Name of the audio file.
+name = "AwIllHaveToPracticeMore"
+# Animations that should be played during the audio.
+animations = [ { time = 0.1, anim = "SILENT_SAD" } ]
+
+[audio.rr1_intro_01]
+# Name of the audio file.
+name = "rr1_intro_01"
+# Animations that should be played during the audio.
+animations = [ { time = 0.1, anim = "PERKUP" } ]
