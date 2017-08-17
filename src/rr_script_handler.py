@@ -478,9 +478,9 @@ class rr_script_handler():
                     self._max_game_time = datetime.timedelta(minutes=
                             int(elements[2]))
                     self._logger.info("Set MAX_GAME_TIME to " + elements[2])
-                elif "MAX_STORIES" in elements[1]:
+                elif "MAX_REPEATS" in elements[1]:
                     self._max_stories = int(elements[2])
-                    self._logger.info("Set MAX_STORIES to " + elements[2])
+                    self._logger.info("Set MAX_REPEATS to " + elements[2])
 
             #########################################################
             # For WAIT lines, wait for the specified user response,
@@ -520,12 +520,12 @@ class rr_script_handler():
                     return
 
                 # Figure out how many times we should repeat the script.
-                if "MAX_STORIES" in elements[1]:
+                if "MAX_REPEATS" in elements[1]:
                     try:
                         self._max_repetitions = self._max_stories
                     except AttributeError:
                         self._logger.exception("Tried to set MAX_REPETITIONS to"
-                                + " MAX_STORIES, but MAX_STORIES has not been "
+                                + " MAX_REPEATS, but MAX_REPEATS has not been "
                                 + "set . Setting to 1 repetition instead.")
                         self._max_repetitions = 1
                 else:
