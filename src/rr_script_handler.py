@@ -51,9 +51,8 @@ class rr_script_handler():
     # moving on to the next script line (in seconds).
     WAIT_TIME = 20
 
-    def __init__(self, ros_node, session, participant, script_path,
-            story_script_path, session_script_path, database, queue,
-            percent_correct_to_level):
+    def __init__(self, ros_node, session, participant, study_path,
+            story_script_path, session_script_path, database, queue):
         """ Save references to ROS connection and logger, get scripts and
         set up to read script lines.
         """
@@ -64,8 +63,8 @@ class rr_script_handler():
         # Save reference to our ros node so we can publish messages.
         self._ros_node = ros_node
 
-        # Save script paths so we can load scripts later.
-        self._script_path = script_path
+        # Save study path and script paths so we can load scripts later.
+        self._study_path = study_path
 
         if (story_script_path is None):
             self._story_script_path = ""
@@ -77,14 +76,13 @@ class rr_script_handler():
         else:
             self._session_script_path = session_script_path
 
-        # We get a reference to the main node's queue so we can
-        # give it messages.
+        # We get a reference to the main node queue so we can give it messages.
         self._main_node_queue = queue
 
-        # Set up personalization manager so we can get personalized
-        # stories for this participant.
+        # Set up the personalization manager so we can pick personalized content
+        # for this participant.
         self._personalization_man = rr_personalization_manager(session,
-                participant, database, percent_correct_to_level)
+                participant, database)
 
         # Set up script parser.
         self._script_parser = rr_script_parser()
@@ -205,17 +203,17 @@ class rr_script_handler():
                 # Otherwise, we need to repeat again. Reload the repeating
                 # script.
                 else:
-                    # Create a script parser for the filename provided,
-                    # assume it is in the session_scripts directory.
+                    # Create a script parser for the filename provided.
+                    # Assume it is in the session_scripts directory.
                     self._repeat_parser = rr_script_parser()
                     try:
-                        self._repeat_parser.load_script(self._script_path
+                        self._repeat_parser.load_script(self._study_path
                                 + self._session_script_path
                                 + self._repeating_script_name)
                     except IOError:
                         self._logger.exception("Script parser could not open "
                             + "session script to repeat! Skipping REPEAT line.")
-                        sself._repeating = False
+                        self._repeating = False
                         return
             # Otherwise we're at the end of the main script.
             else:
@@ -293,7 +291,7 @@ class rr_script_handler():
                     # assuming it is in the story scripts directory.
                     self._story_parser = rr_script_parser()
                     try:
-                        self._story_parser.load_script(self._script_path
+                        self._story_parser.load_script(self._study_path
                            + self._story_script_path
                            + self._personalization_man.get_next_story_script())
                     except IOError:
@@ -364,7 +362,7 @@ class rr_script_handler():
                     # assumed to have properties for one object on each
                     # line.
                     to_load = self._read_list_from_file(
-                            self._script_path + self._session_script_path +
+                            self._study_path + self._session_script_path +
                             elements[2])
                     for obj in to_load:
                         self._ros_node.send_opal_command("LOAD_OBJECT", obj)
@@ -510,7 +508,7 @@ class rr_script_handler():
                 self._repeat_parser = rr_script_parser()
                 self._repeating_script_name = elements[2]
                 try:
-                    self._repeat_parser.load_script(self._script_path
+                    self._repeat_parser.load_script(self._study_path
                             + self._session_script_path
                             + elements[2])
                 except IOError:
