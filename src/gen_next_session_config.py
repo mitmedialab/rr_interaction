@@ -47,6 +47,7 @@ def generate_next_session_config(participant, stories, story_dir):
     # available, which story scenes should this participant pick from next?
     # TODO
 
+    # TODO Also add places where we manually add robot catchphrase entrainment?
 
 
 
@@ -63,7 +64,7 @@ def update_performance(log, performance):
     # The participant log contains the participant ID, the session number, and
     # which stories the participant heard and which story scenes they told
     # stories in for the most recent session.
-    print "Updating %s..." % log["pid"]
+    print "Updating {}...".format(log["pid"])
 
     # If we haven't recorded anything for this participant or session before,
     # make new dictionaries to hold the data.
@@ -90,10 +91,10 @@ def read_toml(toml_file):
         # out information about the file that couldn't be read and re-raise the
         # exception.
         except TypeError as e:
-            print "Didn't read file right: %s. Error: %s" % (tf, e)
+            print "Didn't read file right: {}. Error: {}".format(tf, e)
             raise
         except TomlDecodeError as e:
-            print "Bad toml in file: %s. Error: %s" % (tf, e)
+            print "Bad toml in file: {}. Error: {}".format(tf, e)
             raise
 
 
@@ -151,11 +152,11 @@ if __name__ == '__main__':
         # incremented number.
         outname = args.outdir[0] + os.path.splitext(base)[0] + num + \
                 os.path.splitext(base)[1]
-        print "Saving updated performance record to %s..." % outname
+        print "Saving updated performance record to {}...".format(outname)
         with open(outname, "w") as o:
             toml.dump(performance, o)
     except TypeError as e:
-        print "Error writing to file: %s\nError: %s" % (outname, e)
+        print "Error writing to file: {}\nError: {}".format(outname, e)
 
     # Generate a config file for each participant's next session.
     print "Generating config files for next session!"
