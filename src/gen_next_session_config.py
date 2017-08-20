@@ -97,6 +97,13 @@ def read_toml(toml_file):
             print "Bad toml in file: {}. Error: {}".format(tf, e)
             raise
 
+def rreplace(string, substring, new, num_occurrence):
+    """ Replace a substring in a string with a new substring, starting at the
+    right, for num_occurrences number of occurrences.
+    """
+    li = string.rsplit(substring, num_occurrence)
+    return new.join(li)
+
 
 if __name__ == '__main__':
     # Args are:
@@ -139,19 +146,22 @@ if __name__ == '__main__':
 
     # Save the record of participants' past performance to a new file.
     try:
-        base = os.path.basename(args.performance[0])
+        base, ext = os.path.splitext(os.path.basename(args.performance[0]))
         # Get the number from the performance record's filename and increment
         # it so that we can add it to the new file's name, and thus know which
         # is the latest performance record.
         res = re.findall(r'\d+', base)
         num = ""
-        #TODO gets study code number instead of number at end -- fix?
+        # If we find at least one number, use the last one (because there may
+        # be a number earlier on, e.g., as part of a study code).
         if len(res) > 0:
-            num = str(int(res[0]) + 1)
-        # Use the same name and file extension as before, just with the
-        # incremented number.
-        outname = args.outdir[0] + os.path.splitext(base)[0] + num + \
-                os.path.splitext(base)[1]
+            num = int(res[len(res) - 1])
+        # Remove the rightmost instance of that number from the base filename.
+        base = rreplace(base, str(num), "", 1)
+
+        # Increment the number and append it back to the filename, and add the
+        # file extension back on.
+        outname = args.outdir[0] + base + str(num + 1) + ext
         print "Saving updated performance record to {}...".format(outname)
         with open(outname, "w") as o:
             toml.dump(performance, o)
