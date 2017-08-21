@@ -289,6 +289,7 @@ class rr_script_handler():
                     # it is in the story scripts directory.
                     self._story_parser = rr_script_parser()
                     try:
+                        # TODO update how we get stories
                         self._story_parser.load_script(self._study_path
                            + self._story_script_path
                            + self._personalization_man.get_next_story_script())
@@ -315,32 +316,15 @@ class rr_script_handler():
             elif "STORY" in elements[0] and "SETUP" in elements[1]:
                 self._logger.debug("STORY SETUP")
                 # Pick the next story to play.
+                # TODO update story picking and setup
                 self._personalization_man.pick_next_story()
 
             #########################################################
             # For ROBOT lines, send command to the robot.
             elif "ROBOT" in elements[0]:
                 self._logger.debug("ROBOT")
-                # Play a randomly selected story intro from the list.
-                if "STORY_INTRO" in elements[1]:
-                    self._ros_node.send_robot_command("DO",
-                        response="ROBOT_NOT_SPEAKING",
-                        timeout=datetime.timedelta(seconds=int(
-                            self.WAIT_TIME)),
-                        properties=self._story_intros[
-                            random.randint(0,len(self._story_intros)-1)])
-
-                # Play a randomly selected story closing from the list.
-                elif "STORY_CLOSING" in elements[1]:
-                    self._ros_node.send_robot_command("DO",
-                        response="ROBOT_NOT_SPEAKING",
-                        timeout=datetime.timedelta(seconds=int(
-                            self.WAIT_TIME)),
-                        properties=self._story_closings[
-                            random.randint(0,len(self._story_closings)-1)])
-
                 # Send a command to the robot, with properties.
-                elif len(elements) > 2:
+                if len(elements) > 2:
                     self._ros_node.send_robot_command(elements[1],
                         response="ROBOT_NOT_SPEAKING",
                         timeout=datetime.timedelta(seconds=int(
@@ -415,13 +399,11 @@ class rr_script_handler():
                 self.wait_for_response(elements[1], int(elements[2]))
 
             #########################################################
-            # For QUESTION lines, save the question type and question number for
-            # later use.
-            elif "QUESTION" in elements[0] and len(elements) >= 3:
-                self._current_question_type = elements[1]
-                self._current_question_num = int(elements[2])
-                self._logger.info("Current question: type " + elements[1]
-                        + ", num " + elements[2])
+            # For QUESTION lines, load and play the specified question, using
+            # the script config file question definition.
+            elif "QUESTION" in elements[0] and len(elements) >= 2:
+                # TODO play question in elements[1]
+                self._logger.info("Current question: " + elements[1])
 
             #########################################################
             # For REPEAT lines, repeat lines in the specified script file the
@@ -678,14 +660,6 @@ class rr_script_handler():
         self._end_game = True
 
 
-    def set_start_level(self, level):
-        """ When the game starts, a level to start at can be provided.  Pass
-        this to the personalization manager to deal with, since it deals with
-        picking the levels of stories to play.
-        """
-        self._personalization_man.set_start_level(level)
-
-
     def pause_game_timer(self):
         """ Track how much time we spend paused so when we check whether we
         have reached the max game time, we don't include time spent paused.
@@ -705,6 +679,7 @@ class rr_script_handler():
                - self._pause_start_time
         # Reset pause start time.
         self._pause_start_time = None
+
 
     def wait_for_last_response_again(self):
         """ Wait for the same response that we just waited for again, with the
@@ -739,6 +714,7 @@ class rr_script_handler():
             self._ros_node.send_opal_command("LOAD_OBJECT", json.dumps(toload))
 
 
+    # TODO load stories for this game
     def _load_next_story(self):
         """ Get the next story, set up the game scene with scene and answer
         slots, and load scene graphics.
