@@ -26,9 +26,10 @@
 # SOFTWARE.
 
 import sys # exit and argv
-import json # for reading config file
+import json # For reading log config file.
+import toml # For reading our config files.
 import rospy # ROS
-import argparse # to parse command line arguments
+import argparse # To parse command line arguments.
 import signal # catching SIGINT signal
 import logging # log messages
 import Queue # for getting messages from ROS callback threads
@@ -132,68 +133,82 @@ class rr_interaction_node():
         # Set up ROS node publishers and subscribers.
         self._ros_ss = rr_ros(self._queue)
 
-        # Read config file to get relative file path to game scripts.
+        # Read config file to get relative file path to interaction scripts.
         try:
-            config_file = "rr_config.demo.json" if participant == "DEMO" \
-                    else "rr_config.json"
-            with open(config_file) as json_file:
-                json_data = json.load(json_file)
-                self._logger.debug("Reading game config file...: %s", json_data)
-                if ("script_path" in json_data):
-                    script_path = json_data["script_path"]
+            config_file = "../config.demo.toml" if participant == "DEMO" \
+                    else "../config.toml"
+            with open(config_file) as tf:
+                toml_data = toml.load(tf)
+                self._logger.debug("Reading game config file...: %s", toml_data)
+                # Directory with scripts for this study.
+                if "study_path" in toml_data:
+                    study_path = toml_data["study_path"]
                 else:
                     self._logger.error("Could not read relative path to game "
-                        + "scripts! Expected option \"script_path\" to be in "
+                        + "scripts! Expected option \"study_path\" to be in "
                         + "the config file. Exiting because we need the "
                         + "scripts to run the game.")
                     return
-                if ("story_script_path" in json_data):
-                    story_script_path = json_data["story_script_path"]
+                # Study script config file location.
+                if "study_config" in toml_data:
+                    study_config = toml_data["study_config"]
+                else:
+                    self._logger.error("Could not read name of study_config!"
+                            + "Expected option \"study_config\" to be in config"
+                            + " file. Exiting because we need the study config"
+                            + " to continue.")
+                    return
+                # Directory of story scripts.
+                if "story_script_path" in toml_data:
+                    story_script_path = toml_data["story_script_path"]
                 else:
                     self._logger.error("Could not read path to story scripts! "
                         + "Expected option \"story_script_path\" to be in "
-                        + "config file. Assuming story scripts are in the main"
-                        + " game script directory and not a sub-directory.")
+                        + "config file. Assuming story scripts are in the main "
+                        + "study directory and not a sub-directory.")
                     story_script_path = None
-                if ("session_script_path" in json_data):
-                    session_script_path = json_data["session_script_path"]
+                # Directory of session scripts.
+                if "session_script_path" in toml_data:
+                    session_script_path = toml_data["session_script_path"]
                 else:
                     self._logger.error("Could not read path to session scripts! "
                         + "Expected option \"session_script_path\" to be in "
                         + "config file. Assuming session scripts are in the main"
-                        + "game script directory and not a sub-directory.")
+                        + " study directory and not a sub-directory.")
                     session_script_path = None
-                if ("database") in json_data:
-                    database = json_data["database"]
+                # Directory of audio files.
+                if "audio_base_dir" in toml_data:
+                    audio_base_dir = toml_data["audio_base_dir"]
                 else:
-                    self._logger.error("""Could not read name of database!
-                        Expected option \"database\" to be in the config file.
-                        Assuming database is named \"socialstories.db\"""")
-                    database = "socialstories.db"
-                if ("percent_correct_to_level") in json_data:
-                    percent_correct_to_level = json_data[
-                            "percent_correct_to_level"]
+                    self._logger.error("Could not read audio base directory "
+                            + "path! Expected option \"audio_base_dir\" to be"
+                            + "in config file. Assuming audio files are in the"
+                            + " main study directory.")
+                    audio_base_dir = None
+                # Directory of viseme files.
+                if "viseme_base_dir" in toml_data:
+                    viseme_base_dir = toml_data["viseme_base_dir"]
                 else:
-                    self._logger.error("""Could not read the percent questions
-                        correct needed to level! Expected option
-                        \"percent_correct_to_level\" to be in the config file.
-                        Defaulting to 75%.""")
-                    percent_correct_to_level = 0.75
+                    self._logger.error("Could not read viseme base directory "
+                            + "path! Expected option \"viseme_base_dir\" to be"
+                            + "in config file.Assuming audio files are in the"
+                            + " main study directory.")
+                    viseme_base_dir = None
         except Exception as e:
-            self._logger.exception("Could not read your json config file \""
-                + config_file + "\". Does the file exist? Is it valid json?"
-                + " Exiting because we need the config file to run the game.")
+            self._logger.exception("Could not read your toml config file \""
+                + config_file + "\". Does the file exist? Is it valid toml?"
+                + " Exiting because we need the config file to continue.")
             return
 
-        # Load script.
+        # Load script. #TODO update args.
         try:
             script_handler = rr_script_handler(self._ros_ss, session,
-                participant, script_path, story_script_path,
+                participant, study_path, story_script_path,
                 session_script_path, database, self._queue,
                 percent_correct_to_level)
         except IOError as e:
             self._logger.exception("Did not load the session script... exiting "
-                + "because we need the session script to run the game.")
+                + "because we need the session script to continue.")
             return
         else:
             # Flag to indicate whether we should exit.
