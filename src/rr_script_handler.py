@@ -42,6 +42,9 @@ class ScriptHandler(object):
     to replace how scripts are stored and accessed (e.g., in a database versus
     in text files).
     """
+    # We use all our instance attributes to track many aspects of the robot
+    # interaction, so it's not actually too many.
+    # pylint: disable=too-many-instance-attributes
 
     # Constants for script playback:
     # Time to pause after showing answer feedback and playing robot
@@ -56,6 +59,8 @@ class ScriptHandler(object):
         """ Save references to ROS connection and logger, get scripts and
         set up to read script lines.
         """
+        # Sorry pylint, in this case, we need all the arguments.
+        # pylint: disable=too-many-arguments
         # Set up logger.
         self._logger = logging.getLogger(__name__)
         self._logger.info("Setting up script handler...")
@@ -121,12 +126,12 @@ class ScriptHandler(object):
         # The script will tell us the max number of stories.
         self._max_stories = 1
 
-        # The maximum number of incorrect user responses before the game moves
+        # The maximum number of incorrect user responses before we should move
         # on (can also be set in the script).
         self._max_incorrect_responses = 2
 
         # Set the maximum game time, in minutes. This can also be set in the
-        # game script.
+        # interaction script.
         self._max_game_time = datetime.timedelta(minutes=10)
 
         # Sometimes we may need to know what the last user response we waited
@@ -146,10 +151,18 @@ class ScriptHandler(object):
 
     def iterate_once(self):
         """ Get the next command from the script and execute it. """
+        # Pylint's branch limit is too low in this case; we have a lot of
+        # script parsing cases to handle.
+        # pylint: disable=too-many-branches
         try:
             # We check whether we've reached the game time limit when we load
             # new stories or when we are about to start a repeating script over
             # again.
+
+            # Get the next line to parse. Scripts are nested: at the top level
+            # we're in the main session script. From there, we can enter either
+            # a story script or a repeating script. We can also enter a story
+            # script from a repeating script, or vice versa.
 
             # Get next line from story script.
             if self._doing_story and self._story_parser is not None:
@@ -165,9 +178,18 @@ class ScriptHandler(object):
                                    "script.")
                 line = self._script_parser.next_line()
 
-        # We didn't read a line!
-        # If we get a stop iteration exception, we're at the end of the file
-        # and will stop iterating over lines.
+            # Make sure we got a line before we try parsing it. We might not
+            # get a line if the file has closed or if next_line has some other
+            # problem.
+            if not line:
+                self._logger.warning("[iterate_once] Tried to get next line "
+                                     "to parse, but got None!")
+                return
+            # Okay, we actually do have a line. Parse it! Take action!
+            self._parse_line(line)
+
+        # If we get a stop iteration exception instead of a line, we're at the
+        # end of the file and will stop iterating over lines.
         except StopIteration:
             # If we were doing a story, now we're done. Go back to the previous
             # script.
@@ -191,7 +213,7 @@ class ScriptHandler(object):
                     self._logger.info("Done repeating!")
                     self._repeating = False
                 # Otherwise, we need to repeat again. Reload the repeating
-                # script.
+                # script so we can repeat it.
                 else:
                     # Create a script parser for the filename provided.
                     # Assume it is in the session_scripts directory.
@@ -229,201 +251,195 @@ class ScriptHandler(object):
             self._logger.exception("Unexpected exception! {}".format(exc))
             raise
 
+    def _parse_line(self, line):
+        """ Parse a script line and take action. """
+        # Pylint seems to think we have too many branches and statements here.
+        # One option would be to split the parsing into smaller functions for
+        # each type of line encountered (e.g., call a "repeat_script" function
+        # when we find a REPEAT line instead of parsing and dealing with it
+        # right there), but there's not that much benefit to splitting it right
+        # now.
+        # pylint: disable=too-many-branches
+        # pylint: disable=too-many-statements
+        # Got a line - print for debugging.
+        self._logger.debug("LINE: " + repr(line))
+
+        # Parse line! Split on tabs.
+        elements = line.rstrip().split('\t')
+        self._logger.debug("... {} elements: {}".format(
+            len(elements), elements))
+
+        # Skip blank lines.
+        if len(elements) < 1:
+            self._logger.info("Line was empty! Going to next line...")
+            return
+
+        # Do different stuff depending on what the first element is.
         #########################################################
-        # We got a line: parse it!
-        else:
-            # Make sure we got a line before we try parsing it. We might not
-            # get a line if the file has closed or if next_line has some other
-            # problem.
-            if not line:
-                self._logger.warning("[iterate_once] Tried to get next line, "
-                                     "but got None!")
+        # For STORY lines, play the next story for the participant.
+        if len(elements) == 1 and "STORY" in elements[0]:
+            self._logger.debug("STORY")
+            # If line indicates we need to start a story, do so.
+            self._doing_story = True
+            # Create a script parser for the filename provided,
+            # assuming it is in the story scripts directory.
+            self._story_parser = ScriptParser()
+            try:
+                # TODO update how we get stories
+                self._story_parser.load_script(
+                    self._study_path + self._story_script_path +
+                    self._personalization_man.get_next_story_script())
+            except IOError:
+                self._logger.exception("Script parser could not open story "
+                                       "script! Skipping STORY line.")
+                self._doing_story = False
+            except AttributeError:
+                self._logger.exception("Script parser could not open story "
+                                       "script because no script was loaded!"
+                                       "Skipping STORY line.")
+                self._doing_story = False
+            except NoStoryFound:
+                self._logger.exception("Script parser could not get the next "
+                                       "story script because no script was "
+                                       "found by the personalization manager!"
+                                       " Skipping STORY line.")
+                self._doing_story = False
+
+        # Line has 2+ elements, so check the other commands.
+        #########################################################
+        # For STORY SETUP lines, pick the next story to play so we can load
+        # its graphics and play back the story.
+        elif "STORY" in elements[0] and "SETUP" in elements[1]:
+            self._logger.debug("STORY SETUP")
+            # Pick the next story to play.
+            # TODO update story picking and setup
+            self._personalization_man.pick_next_story()
+
+        #########################################################
+        # For ROBOT lines, send command to the robot.
+        elif "ROBOT" in elements[0]:
+            self._logger.debug("ROBOT")
+            # Send a command to the robot, with properties.
+            if len(elements) > 2:
+                self._ros_node.send_robot_command(
+                    elements[1],
+                    response="ROBOT_NOT_SPEAKING",
+                    timeout=datetime.timedelta(
+                        seconds=int(self.WAIT_TIME)),
+                    properties=elements[2])
+
+            # Send a command to the robot, without properties.
+            else:
+                self._ros_node.send_robot_command(elements[1], "")
+
+        #########################################################
+        # For OPAL lines, send command to Opal game
+        # TODO update what Opal commands we need.
+        elif "OPAL" in elements[0]:
+            self._logger.debug("OPAL")
+            if "LOAD_ALL" in elements[1] and len(elements) >= 3:
+                # Load all objects listed in file -- the file is assumed to
+                # have properties for one object on each line.
+                to_load = self._read_list_from_file(
+                    self._study_path + self._session_script_path +
+                    elements[2])
+                for obj in to_load:
+                    self._ros_node.send_opal_command("LOAD_OBJECT", obj)
+
+            # Get the next story and load graphics into the game.
+            elif "LOAD_STORY" in elements[1]:
+                self._load_next_story()
+
+            # Load answers for game.
+            elif "LOAD_ANSWERS" in elements[1] and len(elements) >= 3:
+                self._load_answers(elements[2])
+
+            # Send an opal command, with properties.
+            elif len(elements) > 2:
+                self._ros_node.send_opal_command(elements[1], elements[2])
+
+            # Send an opal command, without properties.
+            else:
+                self._ros_node.send_opal_command(elements[1])
+
+        #########################################################
+        # For PAUSE lines, sleep for the specified number of seconds before
+        # continuing script playback.
+        elif "PAUSE" in elements[0] and len(elements) >= 2:
+            self._logger.debug("PAUSE")
+            try:
+                time.sleep(int(elements[1]))
+            except ValueError:
+                self._logger.exception("Not pausing! PAUSE was given an "
+                                       "invalid argument. Should be an int!")
+
+        #########################################################
+        # For SET lines, set the specified constant.
+        elif "SET" in elements[0] and len(elements) >= 3:
+            self._logger.debug("SET")
+            if "MAX_INCORRECT_RESPONSES" in elements[1]:
+                self._max_incorrect_responses = int(elements[2])
+                self._logger.info("Set MAX_INCORRECT_RESPONSES to {}".format(
+                    elements[2]))
+            elif "MAX_GAME_TIME" in elements[1]:
+                self._max_game_time = datetime.timedelta(
+                    minutes=int(elements[2]))
+                self._logger.info("Set MAX_GAME_TIME to {}".format(
+                    elements[2]))
+            elif "MAX_REPEATS" in elements[1]:
+                self._max_stories = int(elements[2])
+                self._logger.info("Set MAX_REPEATS to {}".format(
+                    elements[2]))
+
+        #########################################################
+        # For WAIT lines, wait for the specified user response,
+        # or for a timeout.
+        elif "WAIT" in elements[0] and len(elements) >= 3:
+            self._logger.debug("WAIT")
+            self.wait_for_response(elements[1], int(elements[2]))
+
+        #########################################################
+        # For QUESTION lines, load and play the specified question, using
+        # the script config file question definition.
+        elif "QUESTION" in elements[0] and len(elements) >= 2:
+            # TODO play question in elements[1]
+            self._logger.info("Current question: " + elements[1])
+
+        #########################################################
+        # For REPEAT lines, repeat lines in the specified script file the
+        # specified number of times.
+        elif "REPEAT" in elements[0] and len(elements) >= 3:
+            self._logger.debug("REPEAT")
+            self._repeating = True
+            self._repetitions = 0
+            # Create a script parser for the filename provided, assume it
+            # is in the session_scripts directory.
+            self._repeat_parser = ScriptParser()
+            self._repeating_script_name = elements[2]
+            try:
+                self._repeat_parser.load_script(
+                    self._study_path + self._session_script_path
+                    + elements[2])
+            except IOError:
+                self._logger.exception("Script parser could not open session "
+                                       "script to repeat! Skipping REPEAT.")
+                self._repeating = False
                 return
 
-            # Got a line - print for debugging.
-            self._logger.debug("LINE: " + repr(line))
-
-            # Parse line! Split on tabs.
-            elements = line.rstrip().split('\t')
-            self._logger.debug("... {} elements: {}".format(
-                len(elements), elements))
-
-            if len(elements) < 1:
-                self._logger.info("Line was empty! Going to next line...")
-                return
-
-            # Do different stuff depending on what the first element is.
-            #########################################################
-            # Some STORY lines have only one part to the command.
-            elif len(elements) == 1:
-                # For STORY lines, play the next story for the participant.
-                if "STORY" in elements[0]:
-                    self._logger.debug("STORY")
-                    # If line indicates we need to start a story, do so.
-                    self._doing_story = True
-                    # Create a script parser for the filename provided,
-                    # assuming it is in the story scripts directory.
-                    self._story_parser = ScriptParser()
-                    try:
-                        # TODO update how we get stories
-                        self._story_parser.load_script(
-                            self._study_path + self._story_script_path +
-                            self._personalization_man.get_next_story_script())
-                    except IOError:
-                        self._logger.exception("Script parser could not open "
-                                               "story script! Skipping STORY "
-                                               "line.")
-                        self._doing_story = False
-                    except AttributeError:
-                        self._logger.exception("Script parser could not open "
-                                               "story script because no script"
-                                               " was loaded! Skipping STORY "
-                                               "line.")
-                        self._doing_story = False
-                    except NoStoryFound:
-                        self._logger.exception("Script parser could not get "
-                                               "the next story script because "
-                                               "no script was found by the "
-                                               "personalization manager! "
-                                               "Skipping STORY line.")
-                        self._doing_story = False
-
-            # Line has 2+ elements, so check the other commands.
-            #########################################################
-            # For STORY SETUP lines, pick the next story to play so we can load
-            # its graphics and play back the story.
-            elif "STORY" in elements[0] and "SETUP" in elements[1]:
-                self._logger.debug("STORY SETUP")
-                # Pick the next story to play.
-                # TODO update story picking and setup
-                self._personalization_man.pick_next_story()
-
-            #########################################################
-            # For ROBOT lines, send command to the robot.
-            elif "ROBOT" in elements[0]:
-                self._logger.debug("ROBOT")
-                # Send a command to the robot, with properties.
-                if len(elements) > 2:
-                    self._ros_node.send_robot_command(
-                        elements[1],
-                        response="ROBOT_NOT_SPEAKING",
-                        timeout=datetime.timedelta(seconds=int(
-                            self.WAIT_TIME)),
-                        properties=elements[2])
-
-                # Send a command to the robot, without properties.
-                else:
-                    self._ros_node.send_robot_command(elements[1], "")
-
-            #########################################################
-            # For OPAL lines, send command to Opal game
-            elif "OPAL" in elements[0]:
-                self._logger.debug("OPAL")
-                if "LOAD_ALL" in elements[1] and len(elements) >= 3:
-                    # Load all objects listed in file -- the file is assumed to
-                    # have properties for one object on each line.
-                    to_load = self._read_list_from_file(
-                        self._study_path + self._session_script_path +
-                        elements[2])
-                    for obj in to_load:
-                        self._ros_node.send_opal_command("LOAD_OBJECT", obj)
-
-                # Get the next story and load graphics into game.
-                elif "LOAD_STORY" in elements[1]:
-                    self._load_next_story()
-
-                # Load answers for game.
-                elif "LOAD_ANSWERS" in elements[1] and len(elements) >= 3:
-                    self._load_answers(elements[2])
-
-                # Send an opal command, with properties.
-                elif len(elements) > 2:
-                    self._ros_node.send_opal_command(elements[1], elements[2])
-
-                # Send an opal command, without properties.
-                else:
-                    self._ros_node.send_opal_command(elements[1])
-
-            #########################################################
-            # For PAUSE lines, sleep for the specified number of seconds before
-            # continuing script playback.
-            elif "PAUSE" in elements[0] and len(elements) >= 2:
-                self._logger.debug("PAUSE")
+            # Figure out how many times we should repeat the script.
+            if "MAX_REPEATS" in elements[1]:
                 try:
-                    time.sleep(int(elements[1]))
-                except ValueError:
-                    self._logger.exception("Not pausing! PAUSE command was "
-                                           "given an invalid argument (should "
-                                           "be an int)!")
-
-            #########################################################
-            # For SET lines, set the specified constant.
-            elif "SET" in elements[0] and len(elements) >= 3:
-                self._logger.debug("SET")
-                if "MAX_INCORRECT_RESPONSES" in elements[1]:
-                    self._max_incorrect_responses = int(elements[2])
-                    self._logger.info("Set MAX_INCORRECT_RESPONSES to "
-                                      "{}".format(elements[2]))
-                elif "MAX_GAME_TIME" in elements[1]:
-                    self._max_game_time = datetime.timedelta(
-                        minutes=int(elements[2]))
-                    self._logger.info("Set MAX_GAME_TIME to {}".format(
-                        elements[2]))
-                elif "MAX_REPEATS" in elements[1]:
-                    self._max_stories = int(elements[2])
-                    self._logger.info("Set MAX_REPEATS to {}".format(
-                        elements[2]))
-
-            #########################################################
-            # For WAIT lines, wait for the specified user response,
-            # or for a timeout.
-            elif "WAIT" in elements[0] and len(elements) >= 3:
-                self._logger.debug("WAIT")
-                self.wait_for_response(elements[1], int(elements[2]))
-
-            #########################################################
-            # For QUESTION lines, load and play the specified question, using
-            # the script config file question definition.
-            elif "QUESTION" in elements[0] and len(elements) >= 2:
-                # TODO play question in elements[1]
-                self._logger.info("Current question: " + elements[1])
-
-            #########################################################
-            # For REPEAT lines, repeat lines in the specified script file the
-            # specified number of times.
-            elif "REPEAT" in elements[0] and len(elements) >= 3:
-                self._logger.debug("REPEAT")
-                self._repeating = True
-                self._repetitions = 0
-                # Create a script parser for the filename provided, assume it
-                # is in the session_scripts directory.
-                self._repeat_parser = ScriptParser()
-                self._repeating_script_name = elements[2]
-                try:
-                    self._repeat_parser.load_script(
-                        self._study_path + self._session_script_path
-                        + elements[2])
-                except IOError:
-                    self._logger.exception("Script parser could not open "
-                                           "session script to repeat! Skipping"
-                                           " REPEAT line.")
-                    self._repeating = False
-                    return
-
-                # Figure out how many times we should repeat the script.
-                if "MAX_REPEATS" in elements[1]:
-                    try:
-                        self._max_repetitions = self._max_stories
-                    except AttributeError:
-                        self._logger.exception("Tried to set MAX_REPETITIONS "
-                                               "to MAX_REPEATS, but "
-                                               "MAX_REPEATS has not been set. "
-                                               "Defaulting to 1 repetition.")
-                        self._max_repetitions = 1
-                else:
-                    self._max_repetitions = int(elements[1])
-                self._logger.debug("Going to repeat {} {} time(s).".format(
-                    elements[2], self._max_repetitions))
+                    self._max_repetitions = self._max_stories
+                except AttributeError:
+                    self._logger.exception("Tried to set MAX_REPETITIONS to "
+                                           "MAX_REPEATS, but MAX_REPEATS has "
+                                           "not been set. Defaulting to 1 "
+                                           "repetition.")
+                    self._max_repetitions = 1
+            else:
+                self._max_repetitions = int(elements[1])
+            self._logger.debug("Going to repeat {} {} time(s).".format(
+                elements[2], self._max_repetitions))
 
     def _read_list_from_file(self, filename):
         """ Read a list of robot responses from a file, return a list of the
@@ -445,6 +461,7 @@ class ScriptHandler(object):
         elapsed. If the response is incorrect, allow multiple attempts up to
         the maximum number of incorrect responses.
         """
+        # TODO What kinds of responses will we be waiting for now?
         # We don't use i in the loop, but you can't really loop without it.
         # pylint: disable=unused-variable
         for i in range(0, self._max_incorrect_responses):
