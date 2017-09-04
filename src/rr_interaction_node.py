@@ -62,7 +62,7 @@ class InteractionHandler(object):
         """ Initialize anything that needs initialization. """
         # Create variable for our ROS node. We give it a value later.
         self._ros_ss = None
-        # We don't start stopped.
+        # Flag to indicate whether we should exit. We don't start stopped.
         self._stop = False
         # Set up queue that we use to get messages from ROS callbacks.
         self._queue = Queue.Queue()
@@ -88,21 +88,22 @@ class InteractionHandler(object):
                                    not be logging to rosout!""")
 
     def parse_arguments(self):
-        """ Parse python arguments. The game node requires the session number
-        and participant ID be provided so the appropriate game scripts and
-        performance logs can be loaded.
+        """ Parse python arguments. The interaction handler requires the
+        session number and participant ID be provided so the appropriate
+        scripts and performance logs can be loaded.
         """
         parser = argparse.ArgumentParser(description="""Start the main
-            interaction node, which orchestrates the game: loads scripts, uses
-            ROS to tell the robot and tablet what to do.\nRequires roscore to
-            be running and requires rosbridge_server for communication with the
-            Opal tablet (where game content is shown).""")
+            interaction handler, which orchestrates the interaction: loads
+            scripts, uses ROS to tell the robot and tablet what to do.
+            \nRequires roscore to be running and requires rosbridge_server
+            for communication with the Opal tablet (where some interaction
+            content is shown).""")
         parser.add_argument("session", action="store", nargs="?", type=int,
                             default=-1, help="""Indicate which session this is
-                            so the appropriate game scripts can be loaded.""")
+                            so the appropriate scripts can be loaded.""")
         parser.add_argument("participant", action="store", nargs="?", type=str,
                             default='DEMO', help="""Indicate which participant
-                            this is so the appropriate game scripts can be
+                            this is so the appropriate scripts can be
                             loaded.""")
 
         # Parse the args we got, and print them out.
@@ -127,34 +128,24 @@ class InteractionHandler(object):
         else:
             return (args.session, args.participant)
 
-    def launch_game(self, session, participant):
-        """ Load game based on the current session and participant. """
-        # Log session and participant ID.
-        self._logger.info("\n==============================\nRELATIONAL ROBOT"
-                          "\nSession: {}, Participant ID: {}".format(
-                              session, participant))
-
-        # Set up ROS node publishers and subscribers.
-        self._ros_ss = RosNode(self._queue)
-
-        # Read config file to get paths to interaction scripts, script
-        # directories, and more.
+    def _read_config(self, config):
+        """ Read in the main toml config file. """
+        # We don't actually have too many branches here; we need to try reading
+        # each value from the config file separately.
+        # pylint: disable=too-many-branches
         try:
-            config_file = "../config.demo.toml" if participant == "DEMO" \
-                else "../config.toml"
-            with open(config_file) as tof:
+            with open(config) as tof:
                 toml_data = toml.load(tof)
-            self._logger.debug("Reading config file...: {}".format(
-                toml_data))
+            self._logger.debug("Reading config file...: {}".format(toml_data))
             # Directory with scripts for this study.
             if "study_path" in toml_data:
                 study_path = toml_data["study_path"]
             else:
-                self._logger.error("Could not read relative path to game "
+                self._logger.error("Could not read path to interaction "
                                    "scripts! Expected option \"study_path\" to"
                                    "be in the config file. Exiting because we "
-                                   "need the scripts to run the game.")
-                return
+                                   "need the scripts to run the interaction.")
+                exit(1)
             # Study script config file location.
             if "study_config" in toml_data:
                 study_config = toml_data["study_config"]
@@ -163,7 +154,7 @@ class InteractionHandler(object):
                                    "Expected option \"study_config\" to be"
                                    " in config file. Exiting because we "
                                    "need the study config to continue.")
-                return
+                exit(1)
             # Directory of story scripts.
             if "story_script_path" in toml_data:
                 story_script_path = toml_data["story_script_path"]
@@ -203,14 +194,34 @@ class InteractionHandler(object):
                                    "in the main study directory.")
                 viseme_base_dir = None
         except Exception as exc:  # pylint: disable=broad-except
-            self._logger.exception("Could not read your toml config file "
-                                   "\"" + str(config_file) + "\". Does the "
-                                   "file exist? Is it valid toml? Exiting "
-                                   "because we need the config file to "
-                                   "continue. Error: ".format(exc))
-            return
+            self._logger.exception("Could not read your toml config file \"" +
+                                   str(config) + "\". Does the file exist? Is "
+                                   "it valid toml? Exiting because we need the"
+                                   " config file to continue. {}".format(exc))
+            exit(1)
+        return study_path, study_config, story_script_path, \
+            session_script_path, audio_base_dir, viseme_base_dir
 
-        # Load script. #TODO update args.
+    def launch_interaction(self, session, participant):
+        """ Launch interaction based on the current session and participant.
+        """
+        # Log session and participant ID.
+        self._logger.info("\n==============================\nRELATIONAL ROBOT"
+                          "\nSession: {}, Participant ID: {}".format(
+                              session, participant))
+
+        # Set up ROS node publishers and subscribers.
+        self._ros_ss = RosNode(self._queue)
+
+        # Read config file to get paths to interaction scripts, script
+        # directories, and more. If this is a demo interaction, load the demo
+        # config file; otherwise try reading in the regular config file.
+        study_path, study_config, story_script_path, session_script_path, \
+            audio_base_dir, viseme_base_dir = self._read_config(
+                "../config.demo.toml" if participant == "DEMO" else
+                "../config.toml")
+
+        # Load script.
         try:
             script_handler = rr_script_handler(self._ros_ss, session,
                                                participant, study_path,
@@ -221,22 +232,28 @@ class InteractionHandler(object):
             self._logger.exception("Did not load the session script... exiting"
                                    " because we need the session script to "
                                    "continue. Error: {}").format(ioe)
-            return
+            exit(1)
 
-        # Flag to indicate whether we should exit.
-        self._stop = False
+        # We've loaded a script and are all configured. Start!
+        self.run_interaction(script_handler)
 
-        # Flags for game control.
-        started = False
+    def run_interaction(self, script_handler):
+        """ Run the interaction until we reach the end of the script or are
+        told to exit.
+        """
+        # Flags for interaction control.
         paused = False
         log_timer = datetime.datetime.now()
 
         # Set up signal handler to catch SIGINT (e.g., ctrl-c).
         signal.signal(signal.SIGINT, self._signal_handler)
 
-        # Ready to start the game. Send a "READY" message.
-        self._logger.info("Ready to start!")
-
+        # Start the interaction!
+        self._logger.info("Starting interaction!")
+        # Loop until we reach the end of the script or are told to exit.
+        # TODO We should receive PAUSE, RESUME, and EXIT messages in case we
+        # need to pause partway through the interaction or if we need to exit
+        # early.
         while not self._stop:
             try:
                 try:
@@ -244,107 +261,49 @@ class InteractionHandler(object):
                     # wait if there isn't.
                     msg = self._queue.get(False)
                 except Queue.Empty:
-                    # no data yet!
+                    # No data yet!
                     pass
                 else:
                     # Got a message! Parse:
-                    # Wait for START command before starting to
-                    # iterate over the script.
-                    if "START" in msg and not started:
-                        self._logger.info("Starting game!")
-                        # Pass on the start level, if it was given.
-                        msg_parts = msg.split("\t")
-                        if len(msg_parts) > 1:
-                            try:
-                                script_handler.set_start_level(
-                                    int(msg_parts[1]))
-                                self._logger.info("Got start level: " +
-                                                  msg_parts[1])
-                            except ValueError:
-                                self._logger.warning("Was given a start " +
-                                    "level that wasn't an int! "
-                                    + msg_parts[1])
-                        started = True
-
-                    # If we get a PAUSE command, pause iteration over
-                    # the script.
-                    elif "PAUSE" in msg and not paused:
-                        self._logger.info("Game paused!")
+                    # If we get a PAUSE command, pause script iteration.
+                    if "PAUSE" in msg and not paused:
+                        self._logger.info("Interaction paused!")
                         log_timer = datetime.datetime.now()
                         paused = True
                         script_handler.pause_game_timer()
 
-                    # If we are paused and get a CONTINUE command,
-                    # we can resume iterating over the script. If
-                    # we're not paused, ignore.
-                    elif "CONTINUE" in msg and paused:
-                        self._logger.info("Resuming game!")
+                    # If we are paused and get a RESUME command, we can resume
+                    # iterating over the script. If we're not paused, ignore.
+                    elif "RESUME" in msg and paused:
+                        self._logger.info("Resuming interaction!")
                         paused = False
                         script_handler.resume_game_timer()
 
-                    # When we receive an END command, we need to
-                    # exit gracefully. Stop all repeating scripts
-                    # and story scripts, go directly to the end.
-                    elif "END" in msg and started:
-                        self._logger.info("Ending game!")
+                    # When we receive an EXIT command, we need to exit
+                    # gracefully. Stop all repeating scripts and story scripts,
+                    # go directly to the end.
+                    elif "EXIT" in msg:
+                        self._logger.info("Ending interaction!")
                         script_handler.set_end_game()
 
-                    # When we receive a WAIT_FOR_RESPONSE command,
-                    # we can unpause the game, but go directly to
-                    # waiting for a user response rather than
-                    # reading the next script line.
-                    elif "WAIT_FOR_RESPONSE" in msg and started:
-                        self._logger.info("Waiting for user response!")
-                        if (script_handler.wait_for_last_response_again()):
-                            # If we get a response, we can unpause
-                            # (but we may not have been paused).
-                            paused = False
-                            script_handler.resume_game_timer()
-                        else:
-                            # We timed out again, don't resume.
-                            self._logger.info("Did not get response!")
-
-                    # When we receive a SKIP_RESPONSE command, we
-                    # unpause the game, and instead of waiting for
-                    # user response, we skip waiting, and continue
-                    # with the next script line.
-                    elif "SKIP_RESPONSE" in msg and started:
-                        self._logger.info("Skipping waiting for response!")
-                        # Treat the skipped response as a NO or as
-                        # INCORRECT, then let the game resume play
-                        # normally.
-                        script_handler.skip_wait_for_response()
-                        # Unpause and continue the game.
-                        paused = False
-                        script_handler.resume_game_timer()
-                        # Announce the game is resuming.
-
-                # If the game has been started and is not paused,
-                # parse and handle the next script line.
-                if started and not paused:
+                # If the interaction is not paused, parse and handle the next
+                # script line.
+                if not paused:
                     script_handler.iterate_once()
 
-                elif not started or paused:
-                    # Print a log message periodically stating that
-                    # we are waiting for a command to continue.
-                    if (datetime.datetime.now() - log_timer >
-                            datetime.timedelta(seconds=int(5))):
-                        if paused:
-                            self._logger.info("Game paused... waiting for "
-                                              "command to continue or skip "
-                                              "response.")
-                        elif not started:
-                            self._logger.info("Waiting for command to start.")
-                        log_timer = datetime.datetime.now()
+                # If the interaction is paused, print a periodic log message
+                # stating that we are waiting for a RESUME command.
+                elif (datetime.datetime.now() - log_timer >
+                        datetime.timedelta(seconds=int(5))):
+                    self._logger.info("Interaction paused... waiting for "
+                                      "command to resume.")
+                    log_timer = datetime.datetime.now()
 
             except StopIteration:
                 self._logger.info("Finished script!")
 
-        # TODO wait after exiting this loop for the main
-        # SessionManager to close the process??
-
-    def _signal_handler(self, sig, frame):
-        """ Handle signals caught """
+    def _signal_handler(self, sig):
+        """ Handle signals caught. """
         if sig == signal.SIGINT:
             self._logger.info("Got keyboard interrupt! Exiting.")
             self._stop = True
@@ -352,11 +311,11 @@ class InteractionHandler(object):
 
 
 if __name__ == '__main__':
-    # Try launching the game!
+    # Try launching the interaction!
     try:
         INTERACTION_HANDLER = InteractionHandler()
         (SESSION, PARTICIPANT) = INTERACTION_HANDLER.parse_arguments()
-        INTERACTION_HANDLER.launch_game(SESSION, PARTICIPANT)
+        INTERACTION_HANDLER.launch_interaction(SESSION, PARTICIPANT)
 
     # If roscore isn't running or shuts down unexpectedly...
     except rospy.ROSInterruptException:
