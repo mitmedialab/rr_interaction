@@ -1,46 +1,49 @@
-# Jacqueline Kory Westlund
-# August 2017
-#
-# The MIT License (MIT)
-#
-# Copyright (c) 2017 Personal Robots Group
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+"""
+Jacqueline Kory Westlund
+August 2017
 
-import rospy # ROS
-import datetime # For header times and timeouts.
-import time # For sleep.
-import logging # For log messages.
-import Queue # For queuing messages for the main game loop.
-from r1d1_msgs.msg import TegaAction # Send commands to Tega.
-from r1d1_msgs.msg import TegaState # ROS msgs to get info from Tega.
-from sar_opal_msgs.msg import OpalCommand # Send commands an Opal device.
-from sar_opal_msgs.msg import OpalAction # Get Opal device state and actions.
-from rr_msgs.msg import EntrainAudio # Send audio to the audio entrainer.
-from rr_msgs.msg import InteractionState # Send state to the audio entrainer.
-from std_msgs.msg import Header # Standard ROS msg header.
-from std_msgs.msg import String # Get string state from audio entrainer.
+The MIT License (MIT)
 
-class rr_ros():
+Copyright (c) 2017 Personal Robots Group
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
+import rospy  # ROS
+import datetime  # For header times and timeouts.
+import time  # For sleep.
+import logging  # For log messages.
+from r1d1_msgs.msg import TegaAction  # Send commands to Tega.
+from r1d1_msgs.msg import TegaState  # ROS msgs to get info from Tega.
+from sar_opal_msgs.msg import OpalCommand  # Send commands an Opal device.
+from sar_opal_msgs.msg import OpalAction  # Get Opal device state and actions.
+from rr_msgs.msg import EntrainAudio  # Send audio to the audio entrainer.
+from rr_msgs.msg import InteractionState  # Send state to the audio entrainer.
+from std_msgs.msg import Header  # Standard ROS msg header.
+from std_msgs.msg import String  # Get string state from audio entrainer.
+
+
+class rr_ros(object):
     """ ROS node: Set up rostopics we publish, subscribe to rostopics
     we care about, functions to send and receive messages.
     """
+    # pylint: disable=too-many-instance-attributes
 
     def __init__(self, queue):
         """ Initialize ROS """
@@ -51,43 +54,54 @@ class rr_ros():
         # Set up logger
         self._logger = logging.getLogger(__name__)
 
-        # Initialize the flags we use to track responses from the robot and from
-        # the user.
+        # Initialize the flags we use to track responses from the robot and
+        # from the user.
         self._robot_doing_action = False
         self._robot_speaking = False
         self._response_received = None
         self._touched_object = ""
+        self._correct_incorrect_response_received = False
+        self.start_response_received = False
+
+        # We don't start out waiting for anything.
+        self._waiting_for_start = False
+        self._waiting_for_correct_incorrect = False
+        self._waiting_for_robot_speaking = False
 
         # Set up rostopics we publish:
         self._logger.info("We will publish to topics: rr/opal_command, /tega, "
-                + "/rr/entrain_audio, /rr/state")
+                          + "/rr/entrain_audio, /rr/state")
         # Commands to the Opal game.
         self._opal_pub = rospy.Publisher('/rr/opal_command', OpalCommand,
-                queue_size = 10)
+                                         queue_size=10)
         # Commands to the Tega robot.
-        self._tega_pub = rospy.Publisher('/tega', TegaAction, queue_size = 10)
+        self._tega_pub = rospy.Publisher('/tega', TegaAction, queue_size=10)
         # Commands to entrain audio.
-        self._entrainer_pub = rospy.Publisher('/rr/entrain_audio', EntrainAudio,
-                queue_size = 10)
+        self._entrainer_pub = rospy.Publisher('/rr/entrain_audio',
+                                              EntrainAudio,
+                                              queue_size=10)
         # Interaction state messages.
         self._state_pub = rospy.Publisher('/rr/state', InteractionState,
-                queue_size = 10)
+                                          queue_size=10)
 
         # Set up rostopics we subscribe to:
-        self._logger.info("Subscribing to topics: /rr/opal_action, /tega_state,"
-                + " /rr/audio_entrainer")
+        self._logger.info("Subscribing to topics: /rr/opal_action, "
+                          + "/tega_state, /rr/audio_entrainer")
         # State from the Opal game.
-        rospy.Subscriber('/rr/opal_action', OpalAction, self.on_opal_action_msg)
+        rospy.Subscriber('/rr/opal_action', OpalAction,
+                         self.on_opal_action_msg)
         # State from the Tega robot.
         rospy.Subscriber('/tega_state', TegaState, self.on_tega_state_msg)
         # State from the audio entrainer.
         rospy.Subscriber('/rr/audio_entrainer', String, self.on_entrainer_msg)
 
-
     # TODO check whether there are any new opal commands not included here.
     def send_opal_command(self, command, properties=None, response=None,
-            timeout=None):
+                          timeout=None):
         """ Publish opal command message. Optionally, wait for a response. """
+        # pylint: disable=too-many-return-statements
+        # pylint: disable=too-many-branches
+        # pylint: disable=too-many-statements
         if self._opal_pub is None:
             self._logger.warning("OpalCommand ROS publisher is none!")
             return
@@ -117,8 +131,9 @@ class rr_ros():
             if properties:
                 msg.properties = properties
             else:
-                self._logger.warning("Did not get properties for a "
-                    + "SIDEKICK_SAY command! Not sending empty command.")
+                self._logger.warning("Did not get properties for a " +
+                                     "SIDEKICK_SAY command! Not sending " +
+                                     " empty command.")
                 return
         elif "LOAD_OBJECT" in command:
             msg.command = OpalCommand.LOAD_OBJECT
@@ -126,8 +141,9 @@ class rr_ros():
             if properties:
                 msg.properties = properties
             else:
-                self._logger.warning("Did not get properties for a "
-                    + "LOAD_OBJECT command! Not sending empty command.")
+                self._logger.warning("Did not get properties for a " +
+                                     "LOAD_OBJECT command! Not sending empty" +
+                                     " command.")
                 return
         elif "CLEAR" in command:
             msg.command = OpalCommand.CLEAR
@@ -141,8 +157,9 @@ class rr_ros():
             if properties:
                 msg.properties = properties
             else:
-                self._logger.warning("Did not get properties for a "
-                    + "MOVE_OBJECT command! Not sending empty command.")
+                self._logger.warning("Did not get properties for a " +
+                                     "MOVE_OBJECT command! Not sending empty" +
+                                     " command.")
                 return
         elif "HIGHLIGHT" in command:
             msg.command = OpalCommand.HIGHLIGHT_OBJECT
@@ -150,8 +167,9 @@ class rr_ros():
             if properties:
                 msg.properties = properties
             else:
-                self._logger.warning("Did not get properties for a "
-                    + "HIGHLIGHT_OBJECT command! Adding null properties.")
+                self._logger.warning("Did not get properties for a " +
+                                     "HIGHLIGHT_OBJECT command! Adding null" +
+                                     "properties.")
         elif "REQUEST_KEYFRAME" in command:
             msg.command = OpalCommand.REQUEST_KEYFRAME
         elif "FADE_SCREEN" in command:
@@ -171,8 +189,9 @@ class rr_ros():
             if properties:
                 msg.properties = properties
             else:
-                self._logger.warning("Did not get properties for a "
-                    + "SET_CORRECT command! Not sending empty command.")
+                self._logger.warning("Did not get properties for a " +
+                                     "SET_CORRECT command! Not sending empty" +
+                                     " command.")
                 return
         elif "SHOW_CORRECT" in command:
             msg.command = OpalCommand.SHOW_CORRECT
@@ -184,8 +203,9 @@ class rr_ros():
             if properties:
                 msg.properties = properties
             else:
-                self._logger.warning("Did not get properties for a "
-                    + "SETUP_STORY_SCENE command! Not sending empty command.")
+                self._logger.warning("Did not get properties for a " +
+                                     "SETUP_STORY_SCENE command! Not sending" +
+                                     " empty command.")
                 return
         else:
             self._logger.warning("Not sending invalid OpalCommand: ", command)
@@ -199,10 +219,10 @@ class rr_ros():
         if response and timeout:
             self.wait_for_response(response, timeout)
 
-
     def send_tega_command(self, command, response=None,
-            timeout=None):
-        """ Publish tega command message and optionally wait for a response. """
+                          timeout=None):
+        """ Publish a tega command message and optionally wait for a response.
+        """
         if self._tega_pub is None:
             self._logger.warning("TegaAction ROS publisher is none!")
             return
@@ -223,7 +243,6 @@ class rr_ros():
         if response and timeout:
             self.wait_for_response(response, timeout)
 
-
     def send_entrain_audio_message(self, speech, visemes, age, entrain):
         """ Publish EntrainAudio message. """
         if self._entrainer_pub is None:
@@ -237,9 +256,8 @@ class rr_ros():
         msg.viseme_file = visemes
         msg.age = age
         msg.entrain = entrain
-        self.entrainer_pub.publish(msg)
+        self._entrainer_pub.publish(msg)
         rospy.loginfo(msg)
-
 
     def send_interaction_state(self, is_user_turn):
         """ Publish an interaction state message. """
@@ -258,11 +276,11 @@ class rr_ros():
         self._state_pub.publish(msg)
         self._logger.debug(msg)
 
-
     def on_opal_action_msg(self, data):
         """ Called when we receive OpalAction messages """
-        self._logger.info("Received OpalAction message: ACTION=" + data.action +
-                ", MESSAGE=" + data.message + ", OBJECT=" + data.objectName)
+        self._logger.info("Received OpalAction message: ACTION=" + data.action
+                          + ", MESSAGE=" + data.message + ", OBJECT="
+                          + data.objectName)
 
         # Currently, we are only using OpalAction messages to get
         # responses from the user. So we only care whether the action
@@ -291,12 +309,13 @@ class rr_ros():
                         self._touched_object = parts[1]
                     else:
                         self._touched_object = parts[0]
-                except:
+                except Exception as exception:
                     self._touched_object = ""
                     self._logger.warning("Tried to get name of touched object "
-                            + "that was correct or incorrect, but could not "
-                            + "parse it: " + str(data.objectName))
-            pass
+                                         + "that was correct or incorrect, but"
+                                         + " could not parse it: "
+                                         + str(data.objectName))
+                    self._logger.warning(str(exception))
         elif "release" in data.action:
             # No object
             pass
@@ -313,7 +332,6 @@ class rr_ros():
             # objectName, position, objectTwoName, positionTwo
             pass
 
-
     def on_tega_state_msg(self, data):
         """ Called when we receive TegaState messages. """
         # When we get robot state messages, set a flag indicating
@@ -321,18 +339,18 @@ class rr_ros():
         self._robot_speaking = data.is_playing_sound
         self._robot_doing_action = data.doing_motion
         self._logger.info("Received TegaState message:"
-                + " doing_motion=" + str(data.doing_motion)
-                + ", motion is=" + str(data.in_motion)
-                + ", playing_sound=" + str(data.is_playing_sound)
-                + ", fidget_set=" + str(data.fidget_set))
+                          + " doing_motion=" + str(data.doing_motion)
+                          + ", motion is=" + str(data.in_motion)
+                          + ", playing_sound=" + str(data.is_playing_sound)
+                          + ", fidget_set=" + str(data.fidget_set))
         # TODO do something with this? See tega teleop.
 
-
     def on_entrainer_msg(self, data):
-        """ Called when we receive String messages from the audio entrainer. """
+        """ Called when we receive String log messages from the audio
+        entrainer.
+        """
         self._logger.info("Receive audio entrainer message: " + str(data))
         # TODO do something with this?
-
 
     def wait_for_response(self, response, timeout):
         """ Wait for particular user or robot responses for the
@@ -358,8 +376,9 @@ class rr_ros():
             self._waiting_for_correct_incorrect = False
             self._waiting_for_robot_speaking = True
         else:
-            self._logger.warning("Told to wait for " + response + " but that " +
-                "isn't one of the allowed responses to wait for!")
+            self._logger.warning("Told to wait for " + str(response)
+                                 + " but that isn't one of the allowed"
+                                 + " responses to wait for!")
             return
 
         self._logger.info("waiting for " + response + "...")
@@ -369,11 +388,11 @@ class rr_ros():
             # Check periodically whether we've received the response we
             # were waiting for, and if so, we're done waiting.
             if (self._waiting_for_start and self.start_response_received) \
-                    or (self._waiting_for_correct_incorrect and \
+                    or (self._waiting_for_correct_incorrect and
                         self._correct_incorrect_response_received) \
-                    or (self._waiting_for_robot_speaking \
-                    and not self._robot_speaking \
-                    and not self._robot_doing_action):
+                    or (self._waiting_for_robot_speaking
+                        and not self._robot_speaking
+                        and not self._robot_doing_action):
                 self._logger.info("Got " + response + " response!")
                 # Reset waiting flags
                 self._waiting_for_start = False
@@ -387,4 +406,3 @@ class rr_ros():
         self._waiting_for_robot_speaking = False
         self._logger.info("Timed out! Moving on...")
         return "TIMEOUT", ""
-
