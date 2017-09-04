@@ -52,7 +52,7 @@ class ScriptHandler(object):
     WAIT_TIME = 20
 
     def __init__(self, ros_node, session, participant, study_path,
-                 story_script_path, session_script_path, database, queue):
+                 story_script_path, session_script_path):
         """ Save references to ROS connection and logger, get scripts and
         set up to read script lines.
         """
@@ -76,14 +76,10 @@ class ScriptHandler(object):
         else:
             self._session_script_path = session_script_path
 
-        # We get a reference to the main node queue so we can give it messages.
-        self._main_node_queue = queue
-
         # Set up the personalization manager so we can pick personalized
         # content for this participant.
         self._personalization_man = rr_personalization_manager(session,
-                                                               participant,
-                                                               database)
+                                                               participant)
         # Set up script parser.
         self._script_parser = ScriptParser()
         # These are other script parsers we may use later.
@@ -115,11 +111,6 @@ class ScriptHandler(object):
         self._doing_story = False
         self._repeating = False
         self._end_game = False
-
-        # When we start, we are not asking a question, and so there is no
-        # current question type or number.
-        self._current_question_type = ""
-        self._current_question_num = 0
 
         # For counting repetitions of a repeating script.
         self._repetitions = 0
@@ -479,18 +470,9 @@ class ScriptHandler(object):
                 self._logger.info("Done waiting. Did not get valid response!")
                 return False
 
-            # If we received no user response before timing out, send a TIMEOUT
-            # message and pause the game.
+            # TODO If we received no user response before timing out...
             elif "TIMEOUT" in response:
-                # Announce we timed out.
-                self._ros_node.send_game_state("TIMEOUT")
-                # Pause game and wait to be told whether we should try waiting
-                # again for a response or whether we should skip it and move
-                # on. Queue up the pause command so the main interaction loop
-                # can take action.
-                self._main_node_queue.put("PAUSE")
-                # Announce the game is pausing.
-                self._ros_node.send_game_state("PAUSE")
+                # Previous behavior (we no longer have a game monitor):
                 # Indicate that we did not get a response.  We don't break and
                 # let the user try again because the external game monitor
                 # deals with TIMEOUT events, and will tell us whether to try
@@ -500,11 +482,6 @@ class ScriptHandler(object):
             # If response was INCORRECT, randomly select a robot response to an
             # incorrect user action.
             elif "INCORRECT" in response:
-                # Record incorrect response in the db.
-                self._personalization_man.record_user_response(
-                    self._current_question_num,
-                    self._current_question_type,
-                    answer)
                 try:
                     self._ros_node.send_robot_command(
                         "DO",
@@ -538,11 +515,6 @@ class ScriptHandler(object):
             # correct user action, highlight the correct answer, and break out
             # of response loop.
             elif "CORRECT" in response:
-                # Record correct response in the db.
-                self._personalization_man.record_user_response(
-                    self._current_question_num,
-                    self._current_question_type,
-                    answer)
                 try:
                     self._ros_node.send_robot_command(
                         "DO",
