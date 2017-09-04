@@ -270,21 +270,21 @@ class InteractionHandler(object):
                         self._logger.info("Interaction paused!")
                         log_timer = datetime.datetime.now()
                         paused = True
-                        script_handler.pause_game_timer()
+                        script_handler.pause_interaction_timer()
 
                     # If we are paused and get a RESUME command, we can resume
                     # iterating over the script. If we're not paused, ignore.
                     elif "RESUME" in msg and paused:
                         self._logger.info("Resuming interaction!")
                         paused = False
-                        script_handler.resume_game_timer()
+                        script_handler.resume_interaction_timer()
 
                     # When we receive an EXIT command, we need to exit
                     # gracefully. Stop all repeating scripts and story scripts,
                     # go directly to the end.
                     elif "EXIT" in msg:
                         self._logger.info("Ending interaction!")
-                        script_handler.set_end_game()
+                        script_handler.set_end_interaction()
 
                 # If the interaction is not paused, parse and handle the next
                 # script line.
