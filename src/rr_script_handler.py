@@ -85,7 +85,7 @@ class rr_script_handler():
                 participant, database)
 
         # Set up script parser.
-        self._script_parser = rr_script_parser()
+        self._script_parser = ScriptParser()
         # These are other script parsers we may use later.
         self._story_parser = None
         self._repeat_parser = None
@@ -204,7 +204,7 @@ class rr_script_handler():
                 else:
                     # Create a script parser for the filename provided.
                     # Assume it is in the session_scripts directory.
-                    self._repeat_parser = rr_script_parser()
+                    self._repeat_parser = ScriptParser()
                     try:
                         self._repeat_parser.load_script(self._study_path
                                 + self._session_script_path
@@ -287,7 +287,7 @@ class rr_script_handler():
                     self._doing_story = True
                     # Create a script parser for the filename provided, assuming
                     # it is in the story scripts directory.
-                    self._story_parser = rr_script_parser()
+                    self._story_parser = ScriptParser()
                     try:
                         # TODO update how we get stories
                         self._story_parser.load_script(self._study_path
@@ -414,7 +414,7 @@ class rr_script_handler():
                 self._repetitions = 0
                 # Create a script parser for the filename provided, assume it is
                 # in the session_scripts directory.
-                self._repeat_parser = rr_script_parser()
+                self._repeat_parser = ScriptParser()
                 self._repeating_script_name = elements[2]
                 try:
                     self._repeat_parser.load_script(self._study_path
