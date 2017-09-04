@@ -60,12 +60,10 @@ class rr_ros(object):
         self._robot_speaking = False
         self._response_received = None
         self._touched_object = ""
-        self._correct_incorrect_response_received = False
         self.start_response_received = False
 
         # We don't start out waiting for anything.
         self._waiting_for_start = False
-        self._waiting_for_correct_incorrect = False
         self._waiting_for_robot_speaking = False
 
         # Set up rostopics we publish:
@@ -298,24 +296,6 @@ class rr_ros(object):
                 self.start_response_received = True
                 self._response_received = data.message
             # Check if CORRECT was in the message.
-            if "CORRECT" in data.message:
-                self._correct_incorrect_response_received = True
-                self._response_received = data.message
-                try:
-                    # Assumes answer graphic names follow the pattern
-                    # "someone_emotion" or "scene0", "scene1". TODO generalize.
-                    parts = data.objectName.split("_")
-                    if len(parts) > 1:
-                        self._touched_object = parts[1]
-                    else:
-                        self._touched_object = parts[0]
-                except Exception as exception:
-                    self._touched_object = ""
-                    self._logger.warning("Tried to get name of touched object "
-                                         + "that was correct or incorrect, but"
-                                         + " could not parse it: "
-                                         + str(data.objectName))
-                    self._logger.warning(str(exception))
         elif "release" in data.action:
             # No object
             pass
@@ -359,21 +339,14 @@ class rr_ros(object):
         # Check what response to wait for, set that response received
         # flag to false.
         # Valid responses to wait for are:
-        # START, CORRECT_INCORRECT, ROBOT_NOT_SPEAKING
+        # START, ROBOT_NOT_SPEAKING
         if "START" in response:
             self.start_response_received = False
             self._waiting_for_start = True
-            self._waiting_for_correct_incorrect = False
-            self._waiting_for_robot_speaking = False
-        elif "CORRECT" in response:
-            self._correct_incorrect_response_received = False
-            self._waiting_for_start = False
-            self._waiting_for_correct_incorrect = True
             self._waiting_for_robot_speaking = False
         elif "ROBOT_NOT_SPEAKING" in response:
             self._robot_speaking = True
             self._waiting_for_start = False
-            self._waiting_for_correct_incorrect = False
             self._waiting_for_robot_speaking = True
         else:
             self._logger.warning("Told to wait for " + str(response)
@@ -388,21 +361,17 @@ class rr_ros(object):
             # Check periodically whether we've received the response we
             # were waiting for, and if so, we're done waiting.
             if (self._waiting_for_start and self.start_response_received) \
-                    or (self._waiting_for_correct_incorrect and
-                        self._correct_incorrect_response_received) \
                     or (self._waiting_for_robot_speaking
                         and not self._robot_speaking
                         and not self._robot_doing_action):
                 self._logger.info("Got " + response + " response!")
                 # Reset waiting flags
                 self._waiting_for_start = False
-                self._waiting_for_correct_incorrect = False
                 self._waiting_for_robot_speaking = False
                 return self._response_received, self._touched_object
         # If we don't get the response we were waiting for, we're done
         # waiting and timed out.
         self._waiting_for_start = False
-        self._waiting_for_correct_incorrect = False
         self._waiting_for_robot_speaking = False
         self._logger.info("Timed out! Moving on...")
         return "TIMEOUT", ""
