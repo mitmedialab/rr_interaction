@@ -39,7 +39,7 @@ from std_msgs.msg import Header  # Standard ROS msg header.
 from std_msgs.msg import String  # Get string state from audio entrainer.
 
 
-class RosNode(object):
+class rr_ros(object):
     """ ROS node: Set up rostopics we publish, subscribe to rostopics
     we care about, functions to send and receive messages.
     """
