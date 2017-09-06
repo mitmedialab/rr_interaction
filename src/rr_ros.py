@@ -43,14 +43,15 @@ class RosNode(object):
     """ ROS node: Set up rostopics we publish, subscribe to rostopics
     we care about, functions to send and receive messages.
     """
+    # In this case, we need all the instance attributes to hold our ROS
+    # publishers, subscribers, and some flags for tracking state.
     # pylint: disable=too-many-instance-attributes
 
     def __init__(self, queue):
         """ Initialize ROS """
         # We get a reference to the main node's queue so we can give it
         # messages.
-        self._game_node_queue = queue
-
+        self._main_queue = queue
         # Set up logger
         self._logger = logging.getLogger(__name__)
 
@@ -58,6 +59,7 @@ class RosNode(object):
         # from the user.
         self._robot_doing_action = False
         self._robot_speaking = False
+        self._robot_fidgets = ""
         self._response_received = None
         self._touched_object = ""
         self.start_response_received = False
@@ -97,6 +99,10 @@ class RosNode(object):
     def send_opal_command(self, command, properties=None, response=None,
                           timeout=None):
         """ Publish opal command message. Optionally, wait for a response. """
+        # Opal command messages can contain a lot of different things, so we
+        # use the many branches and statements to build an appropriate message
+        # based on the args provided. So in this case pylint is wrong about
+        # there being too many.
         # pylint: disable=too-many-return-statements
         # pylint: disable=too-many-branches
         # pylint: disable=too-many-statements
@@ -217,20 +223,35 @@ class RosNode(object):
         if response and timeout:
             self.wait_for_response(response, timeout)
 
-    def send_tega_command(self, command, response=None,
-                          timeout=None):
-        """ Publish a tega command message and optionally wait for a response.
+    def send_tega_command(self, motion="", lookat=None, audio="", fidgets="",
+                          enqueue=False, cancel=False, volume=None,
+                          response=None, timeout=None):
+        """ Publish a Tega command message and optionally wait for a response.
         """
+        # We may need to send a TegaAction message with any or all of these
+        # parameters.
+        # pylint: disable=too-many-arguments
         if self._tega_pub is None:
             self._logger.warning("TegaAction ROS publisher is none!")
             return
-        self._logger.info("Sending Tega command: " + str(command))
+        self._logger.info("Sending Tega command...")
         # Build message.
         msg = TegaAction()
         # Add header.
         msg.header = Header()
         msg.header.stamp = rospy.Time.now()
-        # TODO fill in Tega action message. See tega teleop. May want to split.
+        # If parameters are set, add them to the message...
+        msg.motion = motion
+        if lookat is not None:
+            msg.do_look_at = True
+            msg.look_at = lookat
+        msg.wav_filename = audio
+        msg.fidgets = fidgets
+        msg.enqueue = enqueue
+        msg.cancel = cancel
+        if volume is not None:
+            msg.percent_volume = volume
+            msg.set_volume = True
         # Send message.
         self._tega_pub.publish(msg)
         self._logger.debug(msg)
@@ -314,16 +335,17 @@ class RosNode(object):
 
     def on_tega_state_msg(self, data):
         """ Called when we receive TegaState messages. """
-        # When we get robot state messages, set a flag indicating
-        # whether the robot is in motion or playing sound or not.
+        # When we get robot state messages, set flags indicating whether the
+        # robot is in motion or playing sound or not, and which fidgets are in
+        # use.
         self._robot_speaking = data.is_playing_sound
         self._robot_doing_action = data.doing_motion
+        self._robot_fidgets = data.fidget_set
         self._logger.info("Received TegaState message:"
                           + " doing_motion=" + str(data.doing_motion)
                           + ", motion is=" + str(data.in_motion)
                           + ", playing_sound=" + str(data.is_playing_sound)
                           + ", fidget_set=" + str(data.fidget_set))
-        # TODO do something with this? See tega teleop.
 
     def on_entrainer_msg(self, data):
         """ Called when we receive String log messages from the audio
