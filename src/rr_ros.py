@@ -46,6 +46,11 @@ class RosNode(object):
     # In this case, we need all the instance attributes to hold our ROS
     # publishers, subscribers, and some flags for tracking state.
     # pylint: disable=too-many-instance-attributes
+    self.START = "START"
+    self.ROBOT_NOT_SPEAKING = "ROBOT_NOT_SPEAKING"
+    self.ROBOT_NOT_MOVING = "ROBOT_NOT_MOVING"
+    self.TIMEOUT = "TIMEOUT"
+    self.ROBOT_SPEAKING = "ROBOT_SPEAKING"
 
     def __init__(self, queue):
         """ Initialize ROS """
@@ -63,10 +68,6 @@ class RosNode(object):
         self._response_received = None
         self._touched_object = ""
         self.start_response_received = False
-
-        # We don't start out waiting for anything.
-        self._waiting_for_start = False
-        self._waiting_for_robot_speaking = False
 
         # Set up rostopics we publish:
         self._logger.info("We will publish to topics: rr/opal_command, /tega, "
@@ -96,8 +97,7 @@ class RosNode(object):
         rospy.Subscriber('/rr/audio_entrainer', String, self.on_entrainer_msg)
 
     # TODO check whether there are any new opal commands not included here.
-    def send_opal_command(self, command, properties=None, response=None,
-                          timeout=None):
+    def send_opal_command(self, command, properties=None):
         """ Publish opal command message. Optionally, wait for a response. """
         # Opal command messages can contain a lot of different things, so we
         # use the many branches and statements to build an appropriate message
@@ -218,14 +218,8 @@ class RosNode(object):
         self._opal_pub.publish(msg)
         self._logger.debug(msg)
 
-        # If we got a response to wait for and a timeout value, wait
-        # for a response.
-        if response and timeout:
-            self.wait_for_response(response, timeout)
-
     def send_tega_command(self, motion="", lookat=None, audio="", fidgets="",
-                          enqueue=False, cancel=False, volume=None,
-                          response=None, timeout=None):
+                          enqueue=False, cancel=False, volume=None):
         """ Publish a Tega command message and optionally wait for a response.
         """
         # We may need to send a TegaAction message with any or all of these
@@ -256,13 +250,7 @@ class RosNode(object):
         self._tega_pub.publish(msg)
         self._logger.debug(msg)
 
-        # If we got a response to wait for and a timeout value, wait
-        # for a response.
-        # Timeout should be a datetime.timedelta object.
-        if response and timeout:
-            self.wait_for_response(response, timeout)
-
-    def send_entrain_audio_message(self, speech, visemes, age, entrain):
+    def send_entrain_audio_message(self, speech, visemes):
         """ Publish EntrainAudio message. """
         if self._entrainer_pub is None:
             self._logger.warning("EntrainAudio ROS publisher is none!")
@@ -273,8 +261,7 @@ class RosNode(object):
         msg.header.stamp = rospy.Time.now()
         msg.audio = speech
         msg.viseme_file = visemes
-        msg.age = age
-        msg.entrain = entrain
+        msg.entrain = True
         self._entrainer_pub.publish(msg)
         rospy.loginfo(msg)
 
@@ -355,21 +342,28 @@ class RosNode(object):
         # TODO do something with this?
 
     def wait_for_response(self, response, timeout):
-        """ Wait for particular user or robot responses for the
-        specified amount of time.
+        """ Wait for particular user or robot responses for the specified
+        amount of time. Timeout should be a datetime.timedelta object.
         """
-        # Check what response to wait for, set that response received
-        # flag to false.
-        # Valid responses to wait for are:
-        # START, ROBOT_NOT_SPEAKING
-        if "START" in response:
+        # Check what response to wait for, and set that response received flag
+        # to false. Valid responses to wait for are defined as constants in
+        # this class: START, ROBOT_NOT_SPEAKING, ROBOT_NOT_MOVING,
+        # ROBOT_SPEAKING.
+        waiting_for_start = False
+        waiting_for_robot_not_speaking = False
+        waiting_for_robot_not_moving = False
+        waiting_for_robot_speaking = False
+        if self.START in response:
             self.start_response_received = False
-            self._waiting_for_start = True
-            self._waiting_for_robot_speaking = False
-        elif "ROBOT_NOT_SPEAKING" in response:
+            waiting_for_start = True
+        elif self.ROBOT_NOT_SPEAKING in response:
             self._robot_speaking = True
-            self._waiting_for_start = False
-            self._waiting_for_robot_speaking = True
+            waiting_for_robot_not_speaking = True
+        elif self.ROBOT_NOT_MOVING in response:
+            self._robot_doing_action = True
+            waiting_for_robot_not_moving = True
+        elif self.ROBOT_SPEAKING in response:
+            waiting_for_robot_speaking = True
         else:
             self._logger.warning("Told to wait for " + str(response)
                                  + " but that isn't one of the allowed"
@@ -380,20 +374,20 @@ class RosNode(object):
         start_time = datetime.datetime.now()
         while datetime.datetime.now() - start_time < timeout:
             time.sleep(0.1)
-            # Check periodically whether we've received the response we
-            # were waiting for, and if so, we're done waiting.
-            if (self._waiting_for_start and self.start_response_received) \
-                    or (self._waiting_for_robot_speaking
+            # Check periodically to see if we've received the response we were
+            # waiting for, and if so, we're done waiting.
+            if (waiting_for_start and self.start_response_received) \
+                    or (waiting_for_robot_not_speaking
                         and not self._robot_speaking
-                        and not self._robot_doing_action):
+                        and not self._robot_doing_action)
+                    or (waiting_for_robot_not_moving
+                        and not self._robot_doing_action)
+                    or (waiting_for_robot_speaking
+                        and self._robot_speaking):
                 self._logger.info("Got " + response + " response!")
-                # Reset waiting flags
-                self._waiting_for_start = False
-                self._waiting_for_robot_speaking = False
                 return self._response_received, self._touched_object
+
         # If we don't get the response we were waiting for, we're done
         # waiting and timed out.
-        self._waiting_for_start = False
-        self._waiting_for_robot_speaking = False
         self._logger.info("Timed out! Moving on...")
-        return "TIMEOUT", ""
+        return self.TIMEOUT, ""
