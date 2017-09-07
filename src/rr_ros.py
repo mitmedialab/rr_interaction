@@ -52,6 +52,35 @@ class RosNode(object):
     self.TIMEOUT = "TIMEOUT"
     self.ROBOT_SPEAKING = "ROBOT_SPEAKING"
 
+    # We keep a dictionary of the strings used in the script and the actual
+    # OpalCommand constants to use for lookup.
+    self.OPAL_COMMANDS = {
+        "RESET": OpalCommand.RESET,
+        "DISABLE_TOUCH": OpalCommand.DISABLE_TOUCH,
+        "ENABLE_TOUCH": OpalCommand.ENABLE_TOUCH,
+        "SIDEKICK_DO": OpalCommand.SIDEKICK_DO,
+        "SIDEKICK_SAY": OpalCommand.SIDEKICK_SAY,
+        "LOAD_OBJECT": OpalCommand.LOAD_OBJECT,
+        "CLEAR": OpalCommand.CLEAR,
+        "MOVE_OBJECT": OpalCommand.MOVE_OBJECT,
+        "HIGHLIGHT_OBJECT": OpalCommand.HIGHLIGHT_OBJECT,
+        "REQUEST_KEYFRAME": OpalCommand.REQUEST_KEYFRAME,
+        "FADE_SCREEN": OpalCommand.FADE_SCREEN,
+        "UNFADE_SCREEN": OpalCommand.UNFADE_SCREEN,
+        "NEXT_PAGE": OpalCommand.NEXT_PAGE,
+        "PREV_PAGE": OpalCommand.PREV_PAGE,
+        "EXIT": OpalCommand.EXIT,
+        "SET_CORRECT": OpalCommand.SET_CORRECT,
+        "SHOW_CORRECT": OpalCommand.SHOW_CORRECT,
+        "HIDE_CORRECT": OpalCommand.HIDE_CORRECT,
+        "SETUP_STORY_SCENE": OpalCommand.SETUP_STORY_SCENE,
+        "STORY_SELECTION": OpalCommand.STORY_SELECTION,
+        "SAME_PAGE": OpalCommand.SAME_PAGE,
+        "STORY_SHOW_BUTTONS": OpalCommand.STORY_SHOW_BUTTONS,
+        "STORY_HIDE_BUTTONS": OpalCommand.STORY_HIDE_BUTTONS,
+        "STORY_GO_TO_PAGE": OpalCommand.STORY_GO_TO_PAGE
+    }
+
     def __init__(self, queue):
         """ Initialize ROS """
         # We get a reference to the main node's queue so we can give it
@@ -96,16 +125,8 @@ class RosNode(object):
         # State from the audio entrainer.
         rospy.Subscriber('/rr/audio_entrainer', String, self.on_entrainer_msg)
 
-    # TODO check whether there are any new opal commands not included here.
     def send_opal_command(self, command, properties=None):
         """ Publish opal command message. Optionally, wait for a response. """
-        # Opal command messages can contain a lot of different things, so we
-        # use the many branches and statements to build an appropriate message
-        # based on the args provided. So in this case pylint is wrong about
-        # there being too many.
-        # pylint: disable=too-many-return-statements
-        # pylint: disable=too-many-branches
-        # pylint: disable=too-many-statements
         if self._opal_pub is None:
             self._logger.warning("OpalCommand ROS publisher is none!")
             return
@@ -115,106 +136,49 @@ class RosNode(object):
         # Add header.
         msg.header = Header()
         msg.header.stamp = rospy.Time.now()
-        # Add appropriate command and properties if there are any.
-        # We check properties for each command individually, since some
-        # require properties, and if there are none, we shouldn't send
-        # the message. We assume any properties provided are in the
-        # correct format for the command.
-        if "RESET" in command:
-            msg.command = OpalCommand.RESET
-        elif "DISABLE_TOUCH" in command:
-            msg.command = OpalCommand.DISABLE_TOUCH
-        elif "ENABLE_TOUCH" in command:
-            msg.command = OpalCommand.ENABLE_TOUCH
-        elif "SIDEKICK_DO" in command:
-            msg.command = OpalCommand.SIDEKICK_DO
-            # Properties: a string with the name of action to do.
-        elif "SIDEKICK_SAY" in command:
-            msg.command = OpalCommand.SIDEKICK_SAY
-            # Properties: a string with the name of audio file to play.
-            if properties:
-                msg.properties = properties
-            else:
-                self._logger.warning("Did not get properties for a " +
-                                     "SIDEKICK_SAY command! Not sending " +
-                                     " empty command.")
-                return
-        elif "LOAD_OBJECT" in command:
-            msg.command = OpalCommand.LOAD_OBJECT
-            # Properties: JSON defining what object to load.
-            if properties:
-                msg.properties = properties
-            else:
-                self._logger.warning("Did not get properties for a " +
-                                     "LOAD_OBJECT command! Not sending empty" +
-                                     " command.")
-                return
-        elif "CLEAR" in command:
-            msg.command = OpalCommand.CLEAR
-            # Properties: optionally, string defining what objects to
-            # remove.
-            if properties:
-                msg.properties = properties
-        elif "MOVE_OBJECT" in command:
-            msg.command = OpalCommand.MOVE_OBJECT
-            # Properties: JSON defining what object to move where.
-            if properties:
-                msg.properties = properties
-            else:
-                self._logger.warning("Did not get properties for a " +
-                                     "MOVE_OBJECT command! Not sending empty" +
-                                     " command.")
-                return
-        elif "HIGHLIGHT" in command:
-            msg.command = OpalCommand.HIGHLIGHT_OBJECT
-            # Properties: a string with name of the object to highlight.
-            if properties:
-                msg.properties = properties
-            else:
-                self._logger.warning("Did not get properties for a " +
-                                     "HIGHLIGHT_OBJECT command! Adding null" +
-                                     "properties.")
-        elif "REQUEST_KEYFRAME" in command:
-            msg.command = OpalCommand.REQUEST_KEYFRAME
-        elif "FADE_SCREEN" in command:
-            msg.command = OpalCommand.FADE_SCREEN
-        elif "UNFADE_SCREEN" in command:
-            msg.command = OpalCommand.UNFADE_SCREEN
-        elif "NEXT_PAGE" in command:
-            msg.command = OpalCommand.NEXT_PAGE
-        elif "PREV_PAGE" in command:
-            msg.command = OpalCommand.PREV_PAGE
-        elif "EXIT" in command:
-            msg.command = OpalCommand.EXIT
-        elif "SET_CORRECT" in command:
-            msg.command = OpalCommand.SET_CORRECT
-            # Properties: JSON listing names of objects that are
-            # correct or incorrect.
-            if properties:
-                msg.properties = properties
-            else:
-                self._logger.warning("Did not get properties for a " +
-                                     "SET_CORRECT command! Not sending empty" +
-                                     " command.")
-                return
-        elif "SHOW_CORRECT" in command:
-            msg.command = OpalCommand.SHOW_CORRECT
-        elif "HIDE_CORRECT" in command:
-            msg.command = OpalCommand.HIDE_CORRECT
-        elif "SETUP_STORY_SCENE" in command:
-            msg.command = OpalCommand.SETUP_STORY_SCENE
-            # Properties: JSON listing scene attributes.
-            if properties:
-                msg.properties = properties
-            else:
-                self._logger.warning("Did not get properties for a " +
-                                     "SETUP_STORY_SCENE command! Not sending" +
-                                     " empty command.")
-                return
-        else:
+        # We keep a dictionary of the strings used in the script and the actual
+        # OpalCommand constants to use for lookup. If we don't find the command
+        # given to us in our dictionary, we won't send it. We do, however,
+        # print a warning to the user so they can check whether their list of
+        # possible commands to send is up-to-date or whether they spelled
+        # soemthing wrong.
+        try:
+            msg.command = self.OPAL_COMMANDS[command]
+        except KeyError:
             self._logger.warning("Not sending invalid OpalCommand: ", command)
             return
-        # Send message.
+        # Some commands require properties. If the command is one that requires
+        # properties, we shouldn't send the message if we didn't get any
+        # properties. If we got properties but the command doesn't need them,
+        # we won't add them to the message.
+        if (    # Properties: a string with the name of action to do.
+                "SIDEKICK_DO" in command
+                # Properties: a string with the name of audio file to play.
+                or "SIDEKICK_SAY" in command
+                # Properties: JSON defining what object to load.
+                or "LOAD_OBJECT" in command
+                # Properties: JSON defining what object to move where.
+                or "MOVE_OBJECT" in command
+                # Properties: JSON listing names of objects that are correct or
+                # incorrect.
+                or "SET_CORRECT" in command
+                # Properties: a string with name of the object to highlight.
+                or "HIGHLIGHT" in command
+                # Properties: JSON listing scene attributes.
+                or "SETUP_STORY_SCENE" in command
+                # Properties: string name of the story to load next.
+                or "STORY_SELECTION" in command):
+                # Add properties if we got them. We assume any properties
+                # provided are in the correct format for the command.
+            if properties:
+                msg.properties = properties
+            else:
+                self._logger.warning("""Did not get properties for
+                                     OpalCommand {}! Not sending empty
+                                     command.""".format(command))
+                return
+        # If we have properties for a command that needs them, or no properties
+        # for commands that don't, send the message.
         self._opal_pub.publish(msg)
         self._logger.debug(msg)
 
@@ -379,9 +343,9 @@ class RosNode(object):
             if (waiting_for_start and self.start_response_received) \
                     or (waiting_for_robot_not_speaking
                         and not self._robot_speaking
-                        and not self._robot_doing_action)
+                        and not self._robot_doing_action) \
                     or (waiting_for_robot_not_moving
-                        and not self._robot_doing_action)
+                        and not self._robot_doing_action) \
                     or (waiting_for_robot_speaking
                         and self._robot_speaking):
                 self._logger.info("Got " + response + " response!")
