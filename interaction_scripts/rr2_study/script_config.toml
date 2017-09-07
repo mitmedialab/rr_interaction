@@ -113,7 +113,8 @@ max_attempt = ["", ""]
 #[audio.audioname]
 ## Name of the audio file.
 #name = "filename"
-## Animations that should be played during the audio.
+## Animations that should be played during the audio. The time is in seconds
+## since the start of the audio file.
 #animations = [ { time = 0.1, anim = "EXCITED" },
 #               { time = 0.1, anim = "PERKUP" } ]
 #######################################################################
