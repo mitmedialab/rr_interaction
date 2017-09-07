@@ -346,18 +346,20 @@ class ScriptHandler(object):
         # For ROBOT lines, send command to the robot.
         elif "ROBOT" in elements[0]:
             self._logger.debug("ROBOT")
-            # Send a command to the robot, with properties.
+            # Send a DO speech or animation playback command to the robot.
             if len(elements) > 2:
-                self._ros_node.send_robot_command(
-                    elements[1],
-                    response="ROBOT_NOT_SPEAKING",
-                    timeout=datetime.timedelta(
-                        seconds=int(self.WAIT_TIME)),
-                    properties=elements[2])
+                if "DO" in elements[1]:
+                    self._send_robot_do(elements[2])
 
-            # Send a command to the robot, without properties.
-            else:
-                self._ros_node.send_robot_command(elements[1], "")
+            # Send a different command to the robot.
+            elif len(elements) == 2:
+                try:
+                    # TODO pick a random element from this array:
+                    robot_action = self._script_config[elements[1].lower()]
+                    self._send_robot_do(robot_action)
+                except KeyError:
+                    self._logger.warning("{} not in script config!".format(
+                        elements[1].lower()))
 
         #########################################################
         # For OPAL lines, send command to Opal game
@@ -423,7 +425,7 @@ class ScriptHandler(object):
         # or for a timeout.
         elif "WAIT" in elements[0] and len(elements) >= 3:
             self._logger.debug("WAIT")
-            self.wait_for_response(elements[1], int(elements[2]))
+            self.wait_for_user_response(elements[1], int(elements[2]))
 
         #########################################################
         # For QUESTION lines, load and play the specified question, using
@@ -483,7 +485,74 @@ class ScriptHandler(object):
             # script knows it didn't work.
             raise
 
-    def wait_for_response(self, response_to_get, timeout):
+    def _send_robot_do(self, command):
+        """ Given a command for the robot to do, get any details from the
+        script config file and tell the robot to do stuff.
+        """
+        # Check the script config for the audio command. If the command name is
+        # listed in the config, then there are some choreographed animations to
+        # play with the audio, and/or the audio filename is different from the
+        # command name.
+        audio_to_play = command + ".wav"
+        animations = []
+        if "audio" not in self._script_config:
+            self._logger.debug("No audio present in script config!")
+
+        if command in self._script_config["audio"]:
+            self._logger.info("Going to play ".format(command))
+            audio_to_play = self._script_config["audio"][command]["name"]
+            animations = self._script_config["audio"][command]["animations"]
+
+        # Now we have the audio to play and the animations to play.
+        # If there are no animations to play, just send the audio command.
+        # Otherwise, send the audio command, and tell the ROS node to send the
+        # list of animations.
+        if self._use_entrainer:
+            # Send the filename to the audio entrainer. Append the filepath to
+            # the filename before sending. Note that an empty filepath can be
+            # provided if the full filepaths are given in the script. We assume
+            # that corresponding viseme files have the same name but with a
+            # .txt extension, and are located at the viseme filepath. If full
+            # filepaths are provided in the script, then an empty filepath
+            # should be provided for the viseme filepath as well, and the
+            # viseme text files should be located in the same directory as the
+            # audio.
+            self._ros_node.send_entrain_audio_message(
+                self._audio_base_dir + audio_to_play,
+                self._viseme_base_dir + audio_to_play.replace(".wav", ".txt"))
+        else:
+            # Send directly to the robot.
+            self._ros_node.send_tega_command(audio=audio_to_play)
+
+        # If there are no animations to play during this speech, just wait for
+        # the robot to be done playing the audio.
+        if len(animations) == 0:
+            self._ros_node.wait_for_response(
+                self._ros_node.ROBOT_NOT_SPEAKING,
+                timeout=datetime.timedelta(seconds=int(self.WAIT_TIME)))
+        else:
+            # Otherwise, there are animations to play. We don't want to wait
+            # for the robot to be done speaking before we send them, so we
+            # don't wait for a response. Instead, we start sending animations.
+            # TODO wait for audio to start first since entraining is slow.
+            for i in range(0, len(animations) - 1):
+                # Wait for the animation's start time. Times are in seconds
+                # since the start of the audio file.
+                if i == 0:
+                    time.sleep(animations[i]["time"])
+                else:
+                    time.sleep(animations[i]["time"] - animations[i-1]["time"])
+
+                # Play the next animation!
+                self._ros_node.send_tega_command(motion=animations[i]["anim"])
+
+            # If we've played all the animatons, wait for the robot to be done
+            # speaking before moving on.
+            self._ros_node.wait_for_response(
+                self._ros_node.ROBOT_NOT_SPEAKING,
+                timeout=datetime.timedelta(seconds=int(self.WAIT_TIME)))
+
+    def wait_for_user_response(self, response_to_get, timeout):
         """ Wait for a user response or wait until the specified time has
         elapsed. If the response is incorrect, allow multiple attempts up to
         the maximum number of incorrect responses.
@@ -527,13 +596,13 @@ class ScriptHandler(object):
             # incorrect user action.
             elif "INCORRECT" in response:
                 try:
-                    self._ros_node.send_robot_command(
-                        "DO",
-                        response="ROBOT_NOT_SPEAKING",
+                    # TODO pick robot speech for incorrect response.
+                    audio_to_play = ""
+                    self._ros_node.send_tega_command(audio=audio_to_play)
+                    self._ros_node.wait_for_response(
+                        self._ros_node.ROBOT_NOT_SPEAKING,
                         timeout=datetime.timedelta(
-                            seconds=int(self.WAIT_TIME)),
-                        # TODO pick robot speech for incorrect response.
-                        properties="")
+                            seconds=int(self.WAIT_TIME)))
                 except AttributeError:
                     self._logger.exception("Could not play an incorrect "
                                            "response. Maybe none were loaded?")
@@ -543,13 +612,13 @@ class ScriptHandler(object):
             # selecting no.
             elif "NO" in response:
                 try:
-                    self._ros_node.send_robot_command(
-                        "DO",
-                        response="ROBOT_NOT_SPEAKING",
+                    # TODO pick robot speech for no responses.
+                    audio_to_play = ""
+                    self._ros_node.send_tega_command(audio=audio_to_play)
+                    self._ros_node.wait_for_response(
+                        self._ros_node.ROBOT_NOT_SPEAKING,
                         timeout=datetime.timedelta(
-                            seconds=int(self.WAIT_TIME)),
-                        # TODO pick robot speech for no responses.
-                        properties="")
+                            seconds=int(self.WAIT_TIME)))
                 except AttributeError:
                     self._logger.exception("Could not play a response to user"
                                            " NO. Maybe none were loaded?")
@@ -560,21 +629,19 @@ class ScriptHandler(object):
             # of response loop.
             elif "CORRECT" in response:
                 try:
-                    self._ros_node.send_robot_command(
-                        "DO",
-                        response="ROBOT_NOT_SPEAKING",
+                    # TODO pick robot speech for correct responses.
+                    audio_to_play = ""
+                    self._ros_node.send_tega_command(audio=audio_to_play)
+                    self._ros_node.wait_for_response(
+                        self._ros_node.ROBOT_SPEAKING,
                         timeout=datetime.timedelta(
-                            seconds=int(self.WAIT_TIME)),
-                        # TODO pick robot speech for correct responses.
-                        properties="")
+                            seconds=int(self.WAIT_TIME)))
                     self._ros_node.send_opal_command("SHOW_CORRECT")
-                    self._ros_node.send_robot_command(
-                        "DO",
-                        response="ROBOT_NOT_SPEAKING",
+                    self._ros_node.wait_for_response(
+                        self._ros_node.ROBOT_NOT_SPEAKING,
                         timeout=datetime.timedelta(
-                            seconds=int(self.WAIT_TIME)),
-                        # TODO pick robot speech here too.
-                        properties="")
+                            seconds=int(self.WAIT_TIME)))
+
                     # Pause after speaking before hiding correct again
                     time.sleep(self.ANSWER_FEEDBACK_PAUSE_TIME)
                     self._ros_node.send_opal_command("HIDE_CORRECT")
@@ -588,15 +655,15 @@ class ScriptHandler(object):
 
             # If response was START, randomly select a robot response to the
             # user selecting START, and break out of response loop.
-            elif "START" in response:
+            elif self._ros_node.START in response:
                 try:
-                    self._ros_node.send_robot_command(
-                        "DO",
-                        response="ROBOT_NOT_SPEAKING",
+                    # TODO pick robot response to START.
+                    audio_to_play = ""
+                    self._ros_node.send_tega_command(audio=audio_to_play)
+                    self._ros_node.wait_for_response(
+                        self._ros_node.ROBOT_SPEAKING,
                         timeout=datetime.timedelta(
-                            seconds=int(self.WAIT_TIME)),
-                        # TODO pick robot response to START.
-                        properties="")
+                            seconds=int(self.WAIT_TIME)))
                 except AttributeError:
                     self._logger.exception("Could not play response to"
                                            "user's START. Maybe none were "
@@ -613,13 +680,14 @@ class ScriptHandler(object):
             if "CORRECT" in response_to_get:
                 try:
                     self._ros_node.send_opal_command("SHOW_CORRECT")
-                    self._ros_node.send_robot_command(
-                        "DO",
-                        response="ROBOT_NOT_SPEAKING",
+                    # TODO robot response to correct answers.
+                    audio_to_play = ""
+                    self._ros_node.send_tega_command(audio=audio_to_play)
+                    self._ros_node.wait_for_response(
+                        self._ros_node.ROBOT_SPEAKING,
                         timeout=datetime.timedelta(
-                            seconds=int(self.WAIT_TIME)),
-                        # TODO robot response to correct answers.
-                        properties="")
+                            seconds=int(self.WAIT_TIME)))
+
                     # Pause after speaking before hiding correct again.
                     time.sleep(self.ANSWER_FEEDBACK_PAUSE_TIME)
                     self._ros_node.send_opal_command("HIDE_CORRECT")
@@ -637,7 +705,7 @@ class ScriptHandler(object):
         # We got a user response and responded to it!
         return True
 
-    def skip_wait_for_response(self):
+    def skip_wait_for_user_response(self):
         """ Skip waiting for a response; treat the skipped response as a NO or
         INCORRECT response.
         """
@@ -645,12 +713,13 @@ class ScriptHandler(object):
         # a robot response to an incorrect user action.
         if "CORRECT" in self._last_response_to_get:
             try:
-                self._ros_node.send_robot_command(
-                    "DO",
-                    response="ROBOT_NOT_SPEAKING",
-                    timeout=datetime.timedelta(seconds=int(self.WAIT_TIME)),
-                    # TODO robot response to incorrect action?
-                    properties="")
+                # TODO robot response to incorrect action?
+                audio_to_play = ""
+                self._ros_node.send_tega_command(audio=audio_to_play)
+                self._ros_node.wait_for_response(
+                    self._ros_node.ROBOT_SPEAKING,
+                    timeout=datetime.timedelta(
+                        seconds=int(self.WAIT_TIME)))
             except AttributeError:
                 self._logger.exception("Could not play an incorrect response. "
                                        "Maybe none were loaded?")
@@ -659,12 +728,13 @@ class ScriptHandler(object):
         # response for a NO user action.
         elif "NO" in self._last_response_to_get:
             try:
-                self._ros_node.send_robot_command(
-                    "DO",
-                    response="ROBOT_NOT_SPEAKING",
-                    timeout=datetime.timedelta(seconds=int(self.WAIT_TIME)),
-                    # TODO robot response to NO actions?
-                    properties="")
+                # TODO robot response to NO actions?
+                audio_to_play = ""
+                self._ros_node.send_tega_command(audio=audio_to_play)
+                self._ros_node.wait_for_response(
+                    self._ros_node.ROBOT_SPEAKING,
+                    timeout=datetime.timedelta(
+                        seconds=int(self.WAIT_TIME)))
             except AttributeError:
                 self._logger.exception("Could not play a response to user's "
                                        "NO. Maybe none were loaded?")
@@ -702,8 +772,8 @@ class ScriptHandler(object):
         """ Wait for the same response that we just waited for again, with the
         same parameters for the response and the timeout.
         """
-        return self.wait_for_response(self._last_response_to_get,
-                                      self._last_response_timeout)
+        return self.wait_for_user_response(self._last_response_to_get,
+                                           self._last_response_timeout)
 
     def _load_answers(self, answer_list):
         """ Load the answer graphics for this story """
@@ -746,12 +816,13 @@ class ScriptHandler(object):
                               " we ran out of time! Skipping and ending now.")
             self._doing_story = False
             try:
-                self._ros_node.send_robot_command(
-                    "DO",
-                    response="ROBOT_NOT_SPEAKING",
-                    timeout=datetime.timedelta(seconds=int(self.WAIT_TIME)),
-                    # TODO robot response to max stories?
-                    properties="")
+                # TODO robot response to max stories?
+                audio_to_play = ""
+                self._ros_node.send_tega_command(audio=audio_to_play)
+                self._ros_node.wait_for_response(
+                    self._ros_node.ROBOT_SPEAKING,
+                    timeout=datetime.timedelta(
+                        seconds=int(self.WAIT_TIME)))
             except AttributeError:
                 self._logger.exception("Could not play a max stories reached "
                                        "response. Maybe none were loaded?")
