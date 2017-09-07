@@ -28,6 +28,7 @@ SOFTWARE.
 import datetime  # For getting time deltas for timeouts
 import time  # For sleep
 import json  # For packing ros message properties
+import toml  # For reading the study config file.
 import random  # For picking robot responses and shuffling answer options
 import logging  # Log messages
 from rr_errors import NoStoryFound  # Custom exception when no stories found
@@ -55,7 +56,8 @@ class ScriptHandler(object):
     WAIT_TIME = 20
 
     def __init__(self, ros_node, session, participant, study_path,
-                 story_script_path, session_script_path):
+                 story_script_path, session_script_path, script_config,
+                 audio_base_dir, viseme_base_dir, entrain):
         """ Save references to ROS connection and logger, get scripts and
         set up to read script lines.
         """
@@ -65,10 +67,19 @@ class ScriptHandler(object):
         self._logger = logging.getLogger(__name__)
         self._logger.info("Setting up script handler...")
 
+        # Get the study config file.
+        self._script_config = self._load_script_config(script_config)
+
+        # Do we send audio to the audio entrainer on the way to the robot?
+        self._use_entrainer = entrain
+
         # Save reference to our ros node so we can publish messages.
         self._ros_node = ros_node
 
-        # Save study path and script paths so we can load scripts later.
+        # Save study, script, audio, and viseme paths so we can load scripts
+        # and audio later.
+        self._audio_base_dir = audio_base_dir
+        self._viseme_base_dir = viseme_base_dir
         self._study_path = study_path
 
         if story_script_path is None:
@@ -148,6 +159,22 @@ class ScriptHandler(object):
         # Initialize pause start time in case someone calls the resume game
         # timer function before the pause game function.
         self._pause_start_time = None
+
+    def _load_script_config(self, config):
+        """ Load in the study config file for later reference. """
+        try:
+            with open(config) as tof:
+                toml_data = toml.load(tof)
+            self._logger.debug("Reading script config...: {}".format(
+                toml_data))
+            return toml_data
+        except Exception as exc:  # pylint: disable=broad-except
+            self._logger.exception("""Could not read your toml study config
+                                   file \"{}\". Does the file exist? Is it
+                                   valid toml? Exiting because we need the
+                                   config file to continue. {}""".format(
+                                   config, exc))
+            exit(1)
 
     def iterate_once(self):
         """ Get the next command from the script and execute it. """
