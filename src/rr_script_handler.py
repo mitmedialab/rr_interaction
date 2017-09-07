@@ -192,11 +192,11 @@ class ScriptHandler(object):
             # script from a repeating script, or vice versa.
 
             # Get next line from story script.
-            if self._doing_story and self._story_parser is not None:
+            if self._doing_story and self._story_parser:
                 self._logger.debug("Getting next line from story script.")
                 line = self._story_parser.next_line()
             # If not in a story, get next line from repeating script.
-            elif self._repeating and self._repeat_parser is not None:
+            elif self._repeating and self._repeat_parser:
                 self._logger.debug("Getting next line from repeating script.")
                 line = self._repeat_parser.next_line()
             # If not repeating, get next line from main session script.
@@ -692,7 +692,7 @@ class ScriptHandler(object):
         # call to pause_game_timer, we have to check that there is a pause
         # start time, and then later, reset it so we can't add the same pause
         # length multiple times to our total pause time.
-        if self._pause_start_time is not None:
+        if self._pause_start_time:
             self._total_time_paused += \
                 datetime.datetime.now() - self._pause_start_time
         # Reset pause start time.
