@@ -290,15 +290,6 @@ the story. See `demo-story.txt` for an example.
 
 `QUESTION   how-are-you-1`
 
-### Robot speech-action config
-
-TODO
-
-### Question config
-
-TODO
-
-
 ## Personalization
 
 TODO
