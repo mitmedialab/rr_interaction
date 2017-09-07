@@ -34,7 +34,7 @@ import signal  # catching SIGINT signal
 import logging  # log messages
 import Queue  # for getting messages from ROS callback threads
 import datetime  # for getting time deltas for timeouts
-from rr_script_handler import rr_script_handler  # plays back script lines
+from rr_script_handler import ScriptHandler  # plays back script lines
 from rr_ros import RosNode  # we put all our ROS stuff here
 
 
@@ -105,6 +105,11 @@ class InteractionHandler(object):
                             default='DEMO', help="""Indicate which participant
                             this is so the appropriate scripts can be
                             loaded.""")
+        # The user can decide to send audio directly to the robot or to go
+        # through the audio entrainment module first.
+        parser.add_argument("-e", "--use-entrainer", action='store_true',
+                            default=False, dest="use_entrainer", help="""Send
+                            audio to the entrainer on the way to the robot.""")
 
         # Parse the args we got, and print them out.
         args = parser.parse_args()
@@ -122,11 +127,11 @@ class InteractionHandler(object):
 
         # If the args indicate that this is a demo, return demo args.
         if args.session <= 0 or args.participant.lower() == "demo":
-            return (-1, "DEMO")
+            return (-1, "DEMO", args.use_entrainer)
 
         # Otherwise, return the provided session and ID.
         else:
-            return (args.session, args.participant)
+            return (args.session, args.participant, args.use_entrainer)
 
     def _read_config(self, config):
         """ Read in the main toml config file. """
@@ -202,7 +207,7 @@ class InteractionHandler(object):
         return study_path, study_config, story_script_path, \
             session_script_path, audio_base_dir, viseme_base_dir
 
-    def launch_interaction(self, session, participant):
+    def launch_interaction(self, session, participant, entrain):
         """ Launch interaction based on the current session and participant.
         """
         # Log session and participant ID.
@@ -223,11 +228,11 @@ class InteractionHandler(object):
 
         # Load script.
         try:
-            script_handler = rr_script_handler(self._ros_ss, session,
-                                               participant, study_path,
-                                               story_script_path,
-                                               session_script_path,
-                                               self._queue)
+            script_handler = ScriptHandler(self._ros_ss, session, participant,
+                                           study_path, story_script_path,
+                                           session_script_path, study_config,
+                                           audio_base_dir, viseme_base_dir,
+                                           entrain)
         except IOError as ioe:
             self._logger.exception("Did not load the session script... exiting"
                                    " because we need the session script to "
@@ -314,8 +319,8 @@ if __name__ == '__main__':
     # Try launching the interaction!
     try:
         INTERACTION_HANDLER = InteractionHandler()
-        (SESSION, PARTICIPANT) = INTERACTION_HANDLER.parse_arguments()
-        INTERACTION_HANDLER.launch_interaction(SESSION, PARTICIPANT)
+        (SESSION, PARTICIPANT, ENTRAIN) = INTERACTION_HANDLER.parse_arguments()
+        INTERACTION_HANDLER.launch_interaction(SESSION, PARTICIPANT, ENTRAIN)
 
     # If roscore isn't running or shuts down unexpectedly...
     except rospy.ROSInterruptException:
