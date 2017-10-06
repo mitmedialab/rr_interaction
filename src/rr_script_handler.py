@@ -537,7 +537,9 @@ class ScriptHandler(object):
             # Otherwise, there are animations to play. We don't want to wait
             # for the robot to be done speaking before we send them, so we
             # don't wait for a response. Instead, we start sending animations.
-            # TODO wait for audio to start first since entraining is slow.
+            self._ros_node.wait_for_response(
+                self._ros_node.ROBOT_SPEAKING,
+                timeout=datetime.timedelta(seconds=int(self.WAIT_TIME)))
             for i in range(0, len(animations) - 1):
                 # Wait for the animation's start time. Times are in seconds
                 # since the start of the audio file.
