@@ -354,9 +354,12 @@ class ScriptHandler(object):
             # Send a different command to the robot.
             elif len(elements) == 2:
                 try:
-                    # TODO pick a random element from this array:
+                    # Select a random element from the specified array of robot
+                    # action, so that the robot does not always do the same
+                    # thing each time.
                     robot_action = self._script_config[elements[1].lower()]
-                    self._send_robot_do(robot_action)
+                    self._send_robot_do(
+                        robot_action[random.randint(0, len(robot_action - 1))])
                 except KeyError:
                     self._logger.warning("{} not in script config!".format(
                         elements[1].lower()))
