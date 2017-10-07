@@ -675,6 +675,11 @@ class ScriptHandler(object):
         # listed in the config, then there are some choreographed animations to
         # play with the audio, and/or the audio filename is different from the
         # command name.
+        if command == "":
+            self._logger.warning("Told to play audio, but the name provided is \
+                an empty string!")
+            return
+
         audio_to_play = command + ".wav"
         animations = []
         if "audio" not in self._script_config:
