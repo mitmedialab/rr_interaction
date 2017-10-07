@@ -34,6 +34,7 @@ import logging  # Log messages
 from rr_errors import NoStoryFound  # Custom exception when no stories found
 from rr_script_parser import ScriptParser  # Parses scripts
 from rr_personalization_manager import rr_personalization_manager
+from asr_google_cloud.msg import AsrCommand  # Tell ASR to start/stop.
 
 
 class ScriptHandler(object):
@@ -51,9 +52,14 @@ class ScriptHandler(object):
     # Time to pause after showing answer feedback and playing robot
     # feedback speech before moving on to the next question.
     ANSWER_FEEDBACK_PAUSE_TIME = 2
-    # Time to wait for robot to finish speaking or acting before
-    # moving on to the next script line (in seconds).
-    WAIT_TIME = 20
+    # Time to wait for robot to finish speaking or acting before moving on to
+    # the next script line (in seconds). This is a big number because the
+    # robot might have to say something long at some point.
+    WAIT_TIME = 30
+    # Time to wait for a user response before prompting.
+    PROMPT_TIME = 5
+    # Number of times we should prompt before moving on.
+    NUM_PROMPTS = 2
 
     def __init__(self, ros_node, session, participant, study_path,
                  story_script_path, session_script_path, script_config,
@@ -434,8 +440,8 @@ class ScriptHandler(object):
         # For QUESTION lines, load and play the specified question, using
         # the script config file question definition.
         elif "QUESTION" in elements[0] and len(elements) >= 2:
-            # TODO play question in elements[1]
             self._logger.info("Current question: " + elements[1])
+            self._do_question(elements[1])
 
         #########################################################
         # For REPEAT lines, repeat lines in the specified script file the
@@ -487,6 +493,179 @@ class ScriptHandler(object):
             # Pass exception up so anyone trying to add a response list from a
             # script knows it didn't work.
             raise
+
+    def _do_question(self, question):
+        """ Given a question for the robot to ask, tell the robot to say it,
+        and wait for any user responses required.
+        """
+        # pylint: disable=too-many-branches
+        # Get the question from the script config. It'll have the audio for the
+        # question, as well as user input to wait for and check for.
+        if "questions" not in self._script_config:
+            self._logger.warning("No questions present in script config!")
+
+        question_audio = ""
+        user_input = []
+        if question in self._script_config["questions"]:
+            # Get the audio for the question from the config file.
+            question_audio = self._script_config["questions"][question][
+                "question"]
+            # Get the user responses we should react to from the config file.
+            if "user_input" in self._script_config["questions"][question]:
+                user_input = self._script_config["questions"][question][
+                    "user_input"]
+            else:
+                self._logger.warning("No user input set for this question!")
+
+        # Tell the robot to play the audio.
+        self._send_robot_do(question_audio)
+
+        # Wait for a user response or a timeout. If we get a timeout, use a
+        # prompt and wait again. Repeat until we have used all the allowed
+        # number of prompts have been used, at which point, if we still haven't
+        # gotten a valid user response, break and move on.
+        # We don't use i in the loop, but you can't really loop without it.
+        # pylint: disable=unused-variable
+        for i in range(0, self.NUM_PROMPTS):
+            # Tell ASR node to listen for a response and send us results.
+            self._ros_node.send_asr_command(AsrCommand.START_FINAL)
+            results = self._ros_node.wait_for_response(
+                    self._ros_node.ASR_RESULT,
+                    timeout=datetime.timedelta(
+                        seconds=int(self.PROMPT_TIME)))[0]
+
+            # After waiting for a response, we need to play back an appropriate
+            # robot response. The robot's response depends on what kind of
+            # result we got. There are three options:
+            # (1) Nothing, i.e., the ASR gave us nothing back. This is usually
+            #     because the user said nothing for the ASR to recognize. If we
+            #     are waiting for final ASR results, this is the same as a
+            #     TIMEOUT response because we did not get an ASR result in the
+            #     specified amount of time. In this case, we play a prompt.
+            # (2) Something in the list of user responses that we want to hear.
+            #     These user responses are matched up with robot responses in
+            #     the script config file, so we play the appropriate robot
+            #     response.
+            # (3) Something not in the list of expected user responses, which
+            #     could be just about anything else, or possibly a wrong
+            #     transcription. Play a more generic prompt to see if we can
+            #     get an expected response.
+
+            # Case (1): Nothing / Timeout.
+            if "TIMEOUT" in results[0]:
+                self._logger.debug("TIMEOUT: Playing a prompt.")
+                # Pick a random prompt from the set of timeout prompts for this
+                # question, or, if there are none for this question, from the
+                # general list of timeout prompts.
+                prompt = ""
+                if "timeout_prompts" in self._script_config["questions"][
+                        question]:
+                    prompt = self._script_config["questions"][question][
+                            "timeout_prompts"][random.randint(0, len(
+                                self._script_config["questions"][question][
+                                    "timeout_prompts"]) - 1)]
+                elif "timeout_prompts" in self._script_config:
+                    prompt = self._script_config["timeout_prompts"][
+                            random.randint(0, len(
+                                self._script_config["timeout_prompts"]) - 1)]
+                else:
+                    self._logger.warning("No timeout prompts found in script \
+                            config so we cannot play one!")
+                    continue
+                # Play the selected prompt.
+                self._ros_node.send_tega_command(audio=prompt)
+                self._ros_node.wait_for_response(
+                    self._ros_node.ROBOT_NOT_SPEAKING,
+                    timeout=datetime.timedelta(
+                        seconds=int(self.WAIT_TIME)))
+                # Wait for the next user response.
+                continue
+
+            # If we got something, we need to parse it and check for Case (2)
+            # and Case (3).
+            # results = (transcription, confidence)
+            # TODO do something with confidence (if low, ask "say again?")
+            # We have a list of dictionaries of lists. Each dictionary is one
+            # of the expected user response options, which contains a list of
+            # things the user might say (e.g., variants on the word "yes" such
+            # as "yeah" and "yup") and the robot's response to that. We have to
+            # check each one to see if the ASR response matches anything.  Note
+            # that here, we may get false positives because we match words
+            # against the whole results string, and one of our words might
+            # match against part of one of the results word. However, we can't
+            # get away with splitting the ASR results into words on spaces
+            # because then we can't as easily match phrases. There is probably
+            # some cool algorithm involving ngrams and phrase matching that
+            # could make this work better, but we're going to use the naive
+            # approach for now.
+            for response_option in user_input:
+                for word in response_option["user_responses"]:
+                    if word in results:
+                        # Case (2): Found an expected user response.
+                        # Send ASR command to stop listening.
+                        self._ros_node.send_asr_command(AsrCommand.STOP_ALL)
+                        # Play the robot's responses in sequence.
+                        for resp in response_option["robot_responses"]:
+                            self._ros_node.send_tega_command(audio=resp)
+                            self._ros_node.wait_for_response(
+                                self._ros_node.ROBOT_NOT_SPEAKING,
+                                timeout=datetime.timedelta(
+                                    seconds=int(self.WAIT_TIME)))
+                        # Return so we don't give the user a chance to
+                        # respond again, since we already got their
+                        # response and dealt with it.
+                        return
+
+            # Case (3): Other user response. The ASR result did not contain
+            # any of the expected user responses. Pick a "backchannel" prompt
+            # to encourage the user to keep responding in hopes that we will
+            # get an expected response, either from the set of prompts specific
+            # to this question, or, if there are none, from the general list.
+            if "backchannel_prompts" in self._script_config["questions"][
+                    question]:
+                prompt = self._script_config["questions"][question][
+                        "backchannel_prompts"][random.randint(0, len(
+                            self._script_config["questions"][question][
+                                "backchannel_prompts"]) - 1)]
+            elif "backchannel_prompts" in self._script_config:
+                prompt = self._script_config["backchannel_prompts"][
+                        random.randint(0, len(
+                            self._script_config["backchannel_prompts"]) - 1)]
+            else:
+                self._logger.warning("No backchannel prompts found in script \
+                        config so we cannot play one!")
+                continue
+            # Play the selected prompt.
+            self._ros_node.send_tega_command(audio=prompt)
+            self._ros_node.wait_for_response(
+                self._ros_node.ROBOT_NOT_SPEAKING,
+                timeout=datetime.timedelta(
+                    seconds=int(self.WAIT_TIME)))
+
+        # We exhausted our allowed number of prompts, so have the robot do
+        # something and move on instead of waiting more.
+        # Play the "max attempts reached" robot response, since we used up
+        # all the prompts and didn't get an expected user response. Either
+        # play a generic one, or, if this question has a specific set of
+        # max attempts robot responses, use one of those.
+        audio_to_play = ""
+        if "max_attempt" in self._script_config["questions"][
+                question]:
+            audio_to_play = self._script_config["questions"][question][
+                    "max_attempt"][random.randint(0, len(
+                        self._script_config["questions"][question][
+                            "max_attempt"]) - 1)]
+        elif "max_attempt" in self._script_config:
+            audio_to_play = self._script_config["max_attempt"][
+                    random.randint(0, len(
+                        self._script_config["max_attempt"]) - 1)]
+        else:
+            self._logger.warning("No max attempt audio found in script \
+                    config so we cannot play one!")
+        self._ros_node.send_tega_command(audio=audio_to_play)
+        self._ros_node.wait_for_response(self._ros_node.ROBOT_NOT_SPEAKING,
+                                         timeout=datetime.timedelta(
+                                             seconds=int(self.WAIT_TIME)))
 
     def _send_robot_do(self, command):
         """ Given a command for the robot to do, get any details from the

@@ -1,0 +1,171 @@
+# Configuration of the robot's questions and audio.
+
+#######################################################################
+# Generic responses for when a user times out or reaches the max number of
+# attempts for a question. One of the responses listed in the array will be
+# chosen randomly. These can be overridden for individual questions below in
+# the question configuration.
+max_attempt = ["ThatsCool"]
+timeout_prompts = ["Well", "WhatDoYouThink", "HmPrompt"]
+backchannel_prompts = ["MmHm", "Uhhuh"]
+
+story_intro = ["OkayIHaveAGoodIdea", "HmLetsSee"]
+story_closing = ["ThisIsSuchFun", "ThisIsMyFavoriteGame", "OkayMyStorysOver"]
+
+#######################################################################
+## EXAMPLE QUESTION.
+#######################################################################
+# [questions.questionname]
+## The filename of the question audio (wav file).
+#question = "question_audio"
+#
+## If the user times out (we don't get any response), the robot does this.
+#timeout_prompts = ["timeout_speech", "thing_robot_says"]
+#
+## If the user reaches the max number of answer attempts, the robot does this.
+#max_attempt = ["too_many_tries", "robot_says_stuff"]
+#
+## If the user responds but not with a response that's in the set we care
+## about, prompt for more with one of these prompts.
+#backchannel_prompts = ["well", "what_else_can_you_say"]
+#
+## Array of possible user responses to the question. For each user response,
+## include the response the robot should make (play all options in the list in
+## sequence). The user responses should be a space-delimited set of lowercase
+## things that could to be present in the user response that we get from the
+## ASR for the robot to make the associated response. If any user response is
+## acceptable, list an empty string.
+#   [[questions.questionname.user_input]]
+#   user_responses = ["yes", "of course"]
+#   robot_responses = ["ads", "sdasd"]
+#
+#   [[questions.questionname.user_input]]
+#   user_responses = ["no", "have not"]
+#   robot_responses = ["ads", "sdasd"]
+#
+#   [[questions.questionname.user_input]]
+#   user_responses = [""]
+#   robot_responses = ["ads", "sdasd"]
+#######################################################################
+[questions.favorite_color]
+question = "rr1_intro_03"
+    prompts = ["fav_color_prompt1", "fav_color_prompt2"]
+    [[questions.favorite_color.user_input]]
+    user_responses = [""]
+    robot_responses = ["rr1_intro04"]
+
+[questions.what_like_do]
+question = "rr1_intro_06"
+    [[questions.what_like_do.user_input]]
+    user_responses = ["nothing"]
+    robot_responses = ["NothingThatsOkay]
+    [[questions.what_like_do.user_input]]
+    user_responses = [""]
+    robot_responses = ["rr1_intro_07"]
+
+[questions.like_dance]
+question = "rr1_intro_08"
+    [[questions.like_dance.user_input]]
+    user_responses = [""]
+    robot_responses = ["rr1_intro_09"]
+
+[questions.help_practice]
+question = "rr1_backstory_03"
+    [[questions.help_practice.user_input]]
+    user_responses = ["yes", "of course", "yeah", "okay"]
+    robot_responses = ["rr1_backstory_04"]
+    [[questions.help_practice.user_input]]
+    user_responses = ["no", "nah", "nope", "uh"]
+    robot_responses = ["rr1_backstory_05"]
+
+[questions.listen_to_story]
+question = "rr1_story_02"
+timeout = ["", ""]
+max_attempt = ["", ""]
+    [[questions.listen_to_story.user_input]]
+    user_responses = ["yes", "of course", "yeah", "okay", "story"]
+    robot_responses = ["rr1_story_03"]
+    [[questions.listen_to_story.user_input]]
+    user_responses = [""]
+    robot_responses = ["AwComeOnItllBeFun"]
+
+[questions.liked_story]
+question = "rr1_story_06"
+timeout = ["", ""]
+max_attempt = ["", ""]
+    [[questions.liked_story.user_input]]
+    user_responses = ["yes", "of course", "yeah", "story", "like"]
+    robot_responses = ["Yay", "Yeah, it was fun!"]
+    [[questions.liked_story.user_input]]
+    user_responses = ["no", "didn't"]
+    robot_responses = ["YouDidntSorry", "AwIllHaveToPracticeMore"]
+
+[questions.questionname2]
+question = "question_audio"
+timeout = ["", ""]
+max_attempt = ["", ""]
+    [[questions.questionname.user_input]]
+    user_responses = ["", ""]
+    robot_responses = ["", ""]
+
+#######################################################################
+## EXAMPLE AUDIO.
+#######################################################################
+## We assume that the audio filename is "audioname.wav". We also assume that
+## there are no special animations to play with the audio. If you want to
+## override either of these defaults, specify it here. For example, if the audio
+## name is "audioname" but the audio file name is not "audioname.wav" but
+## instead "somethingelse.wav", you would need to specify that here. If you want
+## to choreograph animations that get played during the speech, you need to
+## specify those here.
+#[audio.audioname]
+## Name of the audio file.
+#name = "filename"
+## Animations that should be played during the audio. The time is in seconds
+## since the start of the audio file.
+#animations = [ { time = 0.1, anim = "EXCITED" },
+#               { time = 0.1, anim = "PERKUP" } ]
+#######################################################################
+[audio.Yay]
+name = "Yay"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.AwIllHaveToPracticeMore]
+name = "AwIllHaveToPracticeMore"
+animations = [ { time = 0.1, anim = "SILENT_SAD" } ]
+
+[audio.rr1_intro_01]
+name = "rr1_intro_01"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+#### Iceberg: PenguinSlide story
+[audio.Penguins]
+name = "Penguins"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.GeorgeLikedMassiveIce0]
+name = "GeorgeLikedMassiveIce0"
+animations = [ { time = 1.5, anim = "PROUD" } ]
+
+[audio.UpUpUpIceberg0]
+name = "UpUpUpIceberg0"
+animations = [ { time = 0.1, anim = "PERKUP" },
+               { time = 2.0, anim = "PERKUP" } ]
+
+[audio.SlidingWasFunToo0]
+name = "SlidingWasFunToo0"
+animations = [ { time = 0.2, anim = "HAPPY_WIGGLE" } ]
+
+[audio.SoTheyTookTurnsSliding0]
+name = "SoTheyTookTurnsSliding0"
+animations = [ { time = 0.7, anim = "SILENT_SHIMMY" } ]
+
+####
+[audio.]
+name = ""
+animations = [ { time = , anim = "" } ]
+
+[audio.]
+name = ""
+animations = [ { time = , anim = "" } ]
+
