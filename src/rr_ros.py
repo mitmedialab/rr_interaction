@@ -46,15 +46,17 @@ class RosNode(object):
     # In this case, we need all the instance attributes to hold our ROS
     # publishers, subscribers, and some flags for tracking state.
     # pylint: disable=too-many-instance-attributes
-    self.START = "START"
-    self.ROBOT_NOT_SPEAKING = "ROBOT_NOT_SPEAKING"
-    self.ROBOT_NOT_MOVING = "ROBOT_NOT_MOVING"
-    self.TIMEOUT = "TIMEOUT"
-    self.ROBOT_SPEAKING = "ROBOT_SPEAKING"
+
+    START = "START"
+    ROBOT_NOT_SPEAKING = "ROBOT_NOT_SPEAKING"
+    ROBOT_NOT_MOVING = "ROBOT_NOT_MOVING"
+    TIMEOUT = "TIMEOUT"
+    ROBOT_SPEAKING = "ROBOT_SPEAKING"
+    ASR_RESULT = "ASR_RESULT"
 
     # We keep a dictionary of the strings used in the script and the actual
     # OpalCommand constants to use for lookup.
-    self.OPAL_COMMANDS = {
+    OPAL_COMMANDS = {
         "RESET": OpalCommand.RESET,
         "DISABLE_TOUCH": OpalCommand.DISABLE_TOUCH,
         "ENABLE_TOUCH": OpalCommand.ENABLE_TOUCH,
@@ -96,7 +98,7 @@ class RosNode(object):
         self._robot_fidgets = ""
         self._response_received = None
         self._touched_object = ""
-        self.start_response_received = False
+        self._start_response_received = False
 
         # Set up rostopics we publish:
         self._logger.info("We will publish to topics: rr/opal_command, /tega, "
@@ -265,7 +267,7 @@ class RosNode(object):
             # objectName, position
             # Check if START was in the message.
             if "START" in data.message:
-                self.start_response_received = True
+                self._start_response_received = True
                 self._response_received = data.message
             # Check if CORRECT was in the message.
         elif "release" in data.action:
@@ -318,7 +320,7 @@ class RosNode(object):
         waiting_for_robot_not_moving = False
         waiting_for_robot_speaking = False
         if self.START in response:
-            self.start_response_received = False
+            self._start_response_received = False
             waiting_for_start = True
         elif self.ROBOT_NOT_SPEAKING in response:
             self._robot_speaking = True
@@ -340,7 +342,7 @@ class RosNode(object):
             time.sleep(0.1)
             # Check periodically to see if we've received the response we were
             # waiting for, and if so, we're done waiting.
-            if (waiting_for_start and self.start_response_received) \
+            if (waiting_for_start and self._start_response_received) \
                     or (waiting_for_robot_not_speaking
                         and not self._robot_speaking
                         and not self._robot_doing_action) \
