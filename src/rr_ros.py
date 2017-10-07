@@ -35,6 +35,8 @@ from sar_opal_msgs.msg import OpalCommand  # Send commands an Opal device.
 from sar_opal_msgs.msg import OpalAction  # Get Opal device state and actions.
 from rr_msgs.msg import EntrainAudio  # Send audio to the audio entrainer.
 from rr_msgs.msg import InteractionState  # Send state to the audio entrainer.
+from asr_google_cloud.msg import AsrResult  # Get ASR results back.
+from asr_google_cloud.msg import AsrCommand  # Tell ASR to start/stop.
 from std_msgs.msg import Header  # Standard ROS msg header.
 from std_msgs.msg import String  # Get string state from audio entrainer.
 
@@ -99,6 +101,7 @@ class RosNode(object):
         self._response_received = None
         self._touched_object = ""
         self._start_response_received = False
+        self._asr_response_received = False
 
         # Set up rostopics we publish:
         self._logger.info("We will publish to topics: rr/opal_command, /tega, "
@@ -115,6 +118,10 @@ class RosNode(object):
         # Interaction state messages.
         self._state_pub = rospy.Publisher('/rr/state', InteractionState,
                                           queue_size=10)
+        # Publish commands to tell the ASR node to start or stop processing,
+        # as well as what results to publish.
+        self._asr_command_pub = rospy.Publisher('asr_command', AsrCommand,
+                                                queue_size=10)
 
         # Set up rostopics we subscribe to:
         self._logger.info("Subscribing to topics: /rr/opal_action, "
@@ -126,6 +133,8 @@ class RosNode(object):
         rospy.Subscriber('/tega_state', TegaState, self.on_tega_state_msg)
         # State from the audio entrainer.
         rospy.Subscriber('/rr/audio_entrainer', String, self.on_entrainer_msg)
+        # ASR results from the ASR Google Cloud node.
+        rospy.Subscriber('asr_result', AsrResult, self.on_asr_result_msg)
 
     def send_opal_command(self, command, properties=None):
         """ Publish opal command message. Optionally, wait for a response. """
@@ -248,6 +257,18 @@ class RosNode(object):
         self._state_pub.publish(msg)
         self._logger.debug(msg)
 
+    def send_asr_command(self, command):
+        """ Publish an ASR command message to start or stop ASR processing. """
+        # Build message with header and command.
+        msg = AsrCommand()
+        msg.header = Header()
+        msg.header.stamp = rospy.Time.now()
+        # TODO could use some validation to make sure we send a valid command.
+        msg.command = command
+        # Send message.
+        self._asr_command_pub.publish(msg)
+        self._logger.debug(msg)
+
     def on_opal_action_msg(self, data):
         """ Called when we receive OpalAction messages """
         self._logger.info("Received OpalAction message: ACTION=" + data.action
@@ -307,6 +328,14 @@ class RosNode(object):
         self._logger.info("Receive audio entrainer message: " + str(data))
         # TODO do something with this?
 
+    def on_asr_result_msg(self, data):
+        """ Called when we receive AsrResult messages from the ASR node. """
+        self._logger.info("Received ASR message: {}".format(data))
+        # Set the response received flag and save the contents of the message
+        # so we can return them later.
+        self.asr_response_received = True
+        self._response_received = (data.transcription.lower(), data.confidence)
+
     def wait_for_response(self, response, timeout):
         """ Wait for particular user or robot responses for the specified
         amount of time. Timeout should be a datetime.timedelta object.
@@ -314,11 +343,13 @@ class RosNode(object):
         # Check what response to wait for, and set that response received flag
         # to false. Valid responses to wait for are defined as constants in
         # this class: START, ROBOT_NOT_SPEAKING, ROBOT_NOT_MOVING,
-        # ROBOT_SPEAKING.
+        # ROBOT_SPEAKING, ASR_RESULT.
+        self._response_received = None
         waiting_for_start = False
         waiting_for_robot_not_speaking = False
         waiting_for_robot_not_moving = False
         waiting_for_robot_speaking = False
+        waiting_for_asr = False
         if self.START in response:
             self._start_response_received = False
             waiting_for_start = True
@@ -330,6 +361,9 @@ class RosNode(object):
             waiting_for_robot_not_moving = True
         elif self.ROBOT_SPEAKING in response:
             waiting_for_robot_speaking = True
+        elif self.ASR_RESULT in response:
+            self._asr_response_received = False
+            waiting_for_asr = True
         else:
             self._logger.warning("Told to wait for " + str(response)
                                  + " but that isn't one of the allowed"
@@ -339,17 +373,18 @@ class RosNode(object):
         self._logger.info("waiting for " + response + "...")
         start_time = datetime.datetime.now()
         while datetime.datetime.now() - start_time < timeout:
-            time.sleep(0.1)
+            time.sleep(0.05)
             # Check periodically to see if we've received the response we were
             # waiting for, and if so, we're done waiting.
             if (waiting_for_start and self._start_response_received) \
+                    or (waiting_for_asr and self._asr_response_received) \
                     or (waiting_for_robot_not_speaking
                         and not self._robot_speaking
                         and not self._robot_doing_action) \
                     or (waiting_for_robot_not_moving
                         and not self._robot_doing_action) \
                     or (waiting_for_robot_speaking
-                        and self._robot_speaking):
+                            and self._robot_speaking):
                 self._logger.info("Got " + response + " response!")
                 return self._response_received, self._touched_object
 
