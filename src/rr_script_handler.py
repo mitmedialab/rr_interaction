@@ -434,7 +434,7 @@ class ScriptHandler(object):
         # or for a timeout.
         elif "WAIT" in elements[0] and len(elements) >= 3:
             self._logger.debug("WAIT")
-            self.wait_for_user_response(elements[1], int(elements[2]))
+            self.wait_for_user_tablet_response(elements[1], int(elements[2]))
 
         #########################################################
         # For QUESTION lines, load and play the specified question, using
@@ -741,10 +741,10 @@ class ScriptHandler(object):
                 self._ros_node.ROBOT_NOT_SPEAKING,
                 timeout=datetime.timedelta(seconds=int(self.WAIT_TIME)))
 
-    def wait_for_user_response(self, response_to_get, timeout):
-        """ Wait for a user response or wait until the specified time has
-        elapsed. If the response is incorrect, allow multiple attempts up to
-        the maximum number of incorrect responses.
+    def wait_for_user_tablet_response(self, response_to_get, timeout):
+        """ Wait for a user response on the tablet, or wait until the specified
+        time has elapsed. If the response is incorrect, allow multiple attempts
+        up to the maximum number of incorrect responses.
         """
         # TODO What kinds of responses will we be waiting for now?
         # We don't use i in the loop, but you can't really loop without it.
@@ -772,14 +772,10 @@ class ScriptHandler(object):
                 self._logger.info("Done waiting. Did not get valid response!")
                 return False
 
-            # TODO If we received no user response before timing out...
             elif "TIMEOUT" in response:
-                # Previous behavior (we no longer have a game monitor):
-                # Indicate that we did not get a response.  We don't break and
-                # let the user try again because the external game monitor
-                # deals with TIMEOUT events, and will tell us whether to try
-                # waiting again or to just skip waiting for this response.
-                return False
+                # TODO Determine whether we should wait again, or skip waiting
+                # for this response.
+                self._logger.warning("TODO: TIMEOUT waiting for user response")
 
             # If response was INCORRECT, randomly select a robot response to an
             # incorrect user action.
@@ -898,6 +894,7 @@ class ScriptHandler(object):
         """ Skip waiting for a response; treat the skipped response as a NO or
         INCORRECT response.
         """
+        # TODO is this function necessary anymore?
         # If the response to wait for was CORRECT or INCORRECT, randomly select
         # a robot response to an incorrect user action.
         if "CORRECT" in self._last_response_to_get:
@@ -961,8 +958,9 @@ class ScriptHandler(object):
         """ Wait for the same response that we just waited for again, with the
         same parameters for the response and the timeout.
         """
-        return self.wait_for_user_response(self._last_response_to_get,
-                                           self._last_response_timeout)
+        return self.wait_for_user_tablet_response(
+            self._last_response_to_get,
+            self._last_response_timeout)
 
     def _load_answers(self, answer_list):
         """ Load the answer graphics for this story """

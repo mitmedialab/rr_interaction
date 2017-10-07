@@ -325,7 +325,7 @@ class RosNode(object):
         """ Called when we receive String log messages from the audio
         entrainer.
         """
-        self._logger.info("Receive audio entrainer message: " + str(data))
+        self._logger.info("Received audio entrainer message: " + str(data))
         # TODO do something with this?
 
     def on_asr_result_msg(self, data):
