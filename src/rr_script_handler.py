@@ -688,6 +688,12 @@ class ScriptHandler(object):
         """ Given a command for the robot to do, get any details from the
         script config file and tell the robot to do stuff.
         """
+        # If the command is all uppercase, it's just a single animation for the
+        # robot to play, so just play it and return.
+        if command.isupper():
+            self._ros_node.send_tega_command(motion=command, enqueue=True)
+            return
+
         # Check the script config for the audio command. If the command name is
         # listed in the config, then there are some choreographed animations to
         # play with the audio, and/or the audio filename is different from the
