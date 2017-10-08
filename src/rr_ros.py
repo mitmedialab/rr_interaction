@@ -217,7 +217,7 @@ class RosNode(object):
         msg.wav_filename = audio
         msg.fidgets = fidgets
         msg.enqueue = enqueue
-        msg.cancel = cancel
+        msg.cancel_actions = cancel
         if volume is not None:
             msg.percent_volume = volume
             msg.set_volume = True
