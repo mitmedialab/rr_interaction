@@ -1,3 +1,6 @@
+# pylint: disable=too-many-lines
+# The module has a fine number of lines, thanks pylint, since half of them are
+# comments anyway.
 """
 Jacqueline Kory Westlund
 August 2017
@@ -35,6 +38,7 @@ from rr_errors import NoStoryFound  # Custom exception when no stories found
 from rr_script_parser import ScriptParser  # Parses scripts
 from rr_personalization_manager import rr_personalization_manager
 from asr_google_cloud.msg import AsrCommand  # Tell ASR to start/stop.
+from r1d1_msgs.msg import TegaAction  # Tell Tega to do different fidgets.
 
 
 class ScriptHandler(object):
@@ -693,7 +697,9 @@ class ScriptHandler(object):
         # Now we have the audio to play and the animations to play.
         # If there are no animations to play, just send the audio command.
         # Otherwise, send the audio command, and tell the ROS node to send the
-        # list of animations.
+        # list of animations. Turn on speech fidgets in case it takes a while
+        # for the robot to start speaking!
+        self._ros_node.send_tega_command(fidgets=TegaAction.FIDGETS_SPEECH)
         if self._use_entrainer:
             # Send the filename to the audio entrainer. Append the filepath to
             # the filename before sending. Note that an empty filepath can be
@@ -740,6 +746,8 @@ class ScriptHandler(object):
             self._ros_node.wait_for_response(
                 self._ros_node.ROBOT_NOT_SPEAKING,
                 timeout=datetime.timedelta(seconds=int(self.WAIT_TIME)))
+        # After the robot is done speaking, switch back to physical fidgets.
+        self._ros_node.send_tega_command(fidgets=TegaAction.FIDGETS_PHYSICAL)
 
     def wait_for_user_tablet_response(self, response_to_get, timeout):
         """ Wait for a user response on the tablet, or wait until the specified
