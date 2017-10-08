@@ -1,0 +1,31 @@
+# Relative to this config file, where is the directory with scripts for the
+# current study?
+study_path = "interaction_scripts/demo/"
+
+# In the study directory, what is the directory with story scripts? If there is
+# no subdirectory, set to the empty string. If story and session scripts are in
+# the same directory, this may be the same as the story_script_path option.
+story_script_path = "story_scripts/"
+
+# In the study directory, what is the directory with session scripts? If there
+# is no subdirectory, set to the empty string. If story and session scripts are
+# in the same directory, this may be the same as the story_script_path option.
+session_script_path = "session_scripts/"
+
+# Relative to this config file, where is the study script config file?
+study_config = "interaction_scripts/demo/script_config.toml"
+
+# Where are the audio files located? We need to know the full file path so we
+# can stream audio to the robot. You can either specify full filepaths in your
+# script and/or script config file (which is tedious), or you can specify a
+# directory on your file system where you have put all the audio files that
+# will be used. But only do one or the other! If you do put full filepaths in
+# your script (not recommended), you should leave this field and the
+# viseme_base_dir field blank (i.e., empty string) and place all your viseme
+# text files in the same directory as your audio files (because currently, we
+# assume that viseme files have the same name as their audio files, and just
+# replace the file extension.
+audio_base_dir = "/home/jakory/rr1_audio/"
+
+# Where are the phoneme/viseme files that correspond to each audio file located?
+viseme_base_dir = "/home/jakory/rr1_audio/formatted_phonemes"
