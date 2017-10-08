@@ -60,10 +60,6 @@ class ScriptHandler(object):
     # the next script line (in seconds). This is a big number because the
     # robot might have to say something long at some point.
     WAIT_TIME = 30
-    # Time to wait for a user response before prompting.
-    PROMPT_TIME = 5
-    # Number of times we should prompt before moving on.
-    NUM_PROMPTS = 2
 
     def __init__(self, ros_node, session, participant, study_path,
                  story_script_path, session_script_path, script_config,
@@ -154,6 +150,16 @@ class ScriptHandler(object):
         # Set the maximum game time, in minutes. This can also be set in the
         # interaction script.
         self._max_game_time = datetime.timedelta(minutes=10)
+
+        # Set the time to wait for prompts, in seconds. We may want this to
+        # vary for different questions, so it can be set and changed in the
+        # script.
+        self._prompt_time = 5
+
+        # Number of times we should prompt before moving on. We may want to
+        # vary this for different questions, so it can be set and changed in
+        # the script.
+        self._num_prompts = 2
 
         # Sometimes we may need to know what the last user response we waited
         # for was, and how long we waited.
@@ -423,6 +429,12 @@ class ScriptHandler(object):
                 self._max_incorrect_responses = int(elements[2])
                 self._logger.info("Set MAX_INCORRECT_RESPONSES to {}".format(
                     elements[2]))
+            elif "PROMPT_TIME" in elements[1]:
+                self._prompt_time = int(elements[2])
+                self._logger.info("Set PROMPT_TIME to {}".format(elements[2]))
+            elif "NUM_PROMPTS" in elements[1]:
+                self._num_prompts = int(elements[2])
+                self._logger.info("Set NUM_PROMPTS to {}".format(elements[2]))
             elif "MAX_GAME_TIME" in elements[1]:
                 self._max_game_time = datetime.timedelta(
                     minutes=int(elements[2]))
@@ -430,8 +442,7 @@ class ScriptHandler(object):
                     elements[2]))
             elif "MAX_REPEATS" in elements[1]:
                 self._max_stories = int(elements[2])
-                self._logger.info("Set MAX_REPEATS to {}".format(
-                    elements[2]))
+                self._logger.info("Set MAX_REPEATS to {}".format(elements[2]))
 
         #########################################################
         # For WAIT lines, wait for the specified user response,
@@ -521,7 +532,7 @@ class ScriptHandler(object):
             else:
                 self._logger.warning("No user input set for this question!")
 
-        # Tell the robot to play the audio.
+        # Tell the robot to play the question.
         self._send_robot_do(question_audio)
 
         # Wait for a user response or a timeout. If we get a timeout, use a
@@ -530,13 +541,15 @@ class ScriptHandler(object):
         # gotten a valid user response, break and move on.
         # We don't use i in the loop, but you can't really loop without it.
         # pylint: disable=unused-variable
-        for i in range(0, self.NUM_PROMPTS):
+        for i in range(0, self._num_prompts):
+            # Announce that it's the user's turn to talk.
+            self._ros_node.send_interaction_state(True)
             # Tell ASR node to listen for a response and send us results.
             self._ros_node.send_asr_command(AsrCommand.START_FINAL)
             results = self._ros_node.wait_for_response(
                     self._ros_node.ASR_RESULT,
                     timeout=datetime.timedelta(
-                        seconds=int(self.PROMPT_TIME)))[0]
+                        seconds=int(self._prompt_time)))[0]
 
             # After waiting for a response, we need to play back an appropriate
             # robot response. The robot's response depends on what kind of
