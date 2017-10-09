@@ -25,7 +25,7 @@ study_config = "interaction_scripts/demo/script_config.toml"
 # text files in the same directory as your audio files (because currently, we
 # assume that viseme files have the same name as their audio files, and just
 # replace the file extension.
-audio_base_dir = "/home/jakory/rr1_audio/"
+audio_base_dir = "/home/jakory/rr1_audio/source/"
 
 # Where are the phoneme/viseme files that correspond to each audio file located?
 viseme_base_dir = "/home/jakory/rr1_audio/formatted_phonemes/"
