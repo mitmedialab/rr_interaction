@@ -741,7 +741,7 @@ class ScriptHandler(object):
         # Otherwise, send the audio command, and tell the ROS node to send the
         # list of animations. Turn on speech fidgets in case it takes a while
         # for the robot to start speaking!
-        #self._ros_node.send_tega_command(fidgets=TegaAction.FIDGETS_SPEECH)
+        self._ros_node.send_tega_command(fidgets=TegaAction.FIDGETS_EMPTY)
         if self._use_entrainer:
             # Send the filename to the audio entrainer. Append the filepath to
             # the filename before sending. Note that an empty filepath can be
@@ -788,7 +788,7 @@ class ScriptHandler(object):
             self._ros_node.wait_for_not_speaking()
 
         # After the robot is done speaking, switch back to physical fidgets.
-        #self._ros_node.send_tega_command(fidgets=TegaAction.FIDGETS_PHYSICAL)
+        self._ros_node.send_tega_command(fidgets=TegaAction.FIDGETS_PHYSICAL)
 
     def wait_for_user_tablet_response(self, response_to_get, timeout):
         """ Wait for a user response on the tablet, or wait until the specified
