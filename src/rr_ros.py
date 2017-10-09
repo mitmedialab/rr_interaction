@@ -355,10 +355,14 @@ class RosNode(object):
             self._start_response_received = False
             waiting_for_start = True
         elif self.ROBOT_NOT_SPEAKING in response:
-            self._robot_speaking = True
+            # Wait for the robot to start speaking before we go on to wait for
+            # the robot to be done speaking.
+            self.wait_for_speaking()
             waiting_for_robot_not_speaking = True
         elif self.ROBOT_NOT_MOVING in response:
-            self._robot_doing_action = True
+            # Wait for the robot to start moving before we go on to wait for it
+            # to be done moving.
+            self.wait_for_motion()
             waiting_for_robot_not_moving = True
         elif self.ROBOT_SPEAKING in response:
             waiting_for_robot_speaking = True
@@ -385,7 +389,7 @@ class RosNode(object):
                     or (waiting_for_robot_not_moving
                         and not self._robot_doing_action) \
                     or (waiting_for_robot_speaking
-                            and self._robot_speaking):
+                        and self._robot_speaking):
                 self._logger.info("Got " + response + " response!")
                 return self._response_received, self._touched_object
 
@@ -393,3 +397,50 @@ class RosNode(object):
         # waiting and timed out.
         self._logger.info("Timed out! Moving on...")
         return self.TIMEOUT, ""
+
+    def wait_for_not_speaking(self):
+        """ Wait until the robot is not making any sound. """
+        while (self._robot_speaking):
+            time.sleep(0.05)
+
+    def wait_for_speaking(self, timeout=12):
+        """ Wait until we hear the robot start playing sound before going on to
+        process the next command and wait for the robot to be done playing
+        sound. We have to wait because when streaming audio through the audio
+        entrainer, it sometimes takes a couple seconds for the audio to be
+        processed and sent to the robot. So we want to make sure we wait until
+        the robot has gotten the command to play audio before we move on to the
+        next item in the script. Otherwise, we might see that the robot isn't
+        playing any sound and send the next item in the script too soon,
+        clobbering the audio that's about to be played as it is sent from the
+        entrainer to the robot.
+        """
+        counter = 0
+        increment = 0.05
+        while (not self._robot_speaking and counter < timeout):
+            counter += increment
+            time.sleep(increment)
+
+        print "Waited {} seconds".format(counter)
+        if counter >= timeout:
+            print "Warning: timed out waiting for robot to start playing " \
+                     "sound! timeout: " + str(timeout) + ". Moving on..."
+
+
+    def wait_for_motion(self, timeout=5):
+        """ Wait until the robot has started playing an animation before going
+        on to wait for the robot to be done playing it (similar to waiting for
+        sound, above).
+        """
+        # TODO Could possibly combine this with wait_for_speaking and pass in
+        # what to wait for.
+        counter = 0
+        increment = 0.05
+        while (not self._robot_doing_action and counter < timeout):
+            counter += increment
+            time.sleep(increment)
+
+        if counter >= timeout:
+            print "Warning: timed out waiting for robot to start doing " \
+                     "motion! timeout: " + str(timeout) + ". Moving on..."
+
