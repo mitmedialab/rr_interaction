@@ -21,7 +21,7 @@
             "class": "logging.handlers.RotatingFileHandler",
             "level": "DEBUG",
             "formatter": "basic_format",
-            "filename": "../logs/rr_debug.log",
+            "filename": "logs/rr_debug.log",
             "maxBytes": 50000000,
             "backupCount": 20,
             "encoding": "utf8"
@@ -31,7 +31,7 @@
             "class": "logging.handlers.RotatingFileHandler",
             "level": "ERROR",
             "formatter": "basic_format",
-            "filename": "../logs/rr_error.log",
+            "filename": "logs/rr_error.log",
             "maxBytes": 50000000,
             "backupCount": 20,
             "encoding": "utf8"
