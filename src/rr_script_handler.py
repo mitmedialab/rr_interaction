@@ -554,7 +554,7 @@ class ScriptHandler(object):
         # gotten a valid user response, break and move on.
         # We don't use i in the loop, but you can't really loop without it.
         # pylint: disable=unused-variable
-        for i in range(0, self._num_prompts):
+        for i in range(0, self._num_prompts + 1):
             # Announce that it's the user's turn to talk.
             self._ros_node.send_interaction_state(True)
             # Tell ASR node to listen for a response and send us results.
@@ -563,6 +563,12 @@ class ScriptHandler(object):
                     self._ros_node.ASR_RESULT,
                     timeout=datetime.timedelta(
                         seconds=int(self._prompt_time)))[0]
+
+            # We either got a response or timed out, so send ASR command to
+            # stop listening.
+            self._logger.debug("Done waiting on ASR. Timed out or response"
+                               ": {}".format(results))
+            self._ros_node.send_asr_command(AsrCommand.STOP_ALL)
 
             # After waiting for a response, we need to play back an appropriate
             # robot response. The robot's response depends on what kind of
@@ -582,7 +588,11 @@ class ScriptHandler(object):
             #     get an expected response.
 
             # Case (1): Nothing / Timeout.
-            if "TIMEOUT" in results[0]:
+            if "TIMEOUT" in results:
+                # If we have exhausted our allowed number of prompts, leave the
+                # loop if we didn't get a user response.
+                if i > self._num_prompts:
+                    break
                 self._logger.debug("TIMEOUT: Playing a prompt.")
                 # Pick a random prompt from the set of timeout prompts for this
                 # question, or, if there are none for this question, from the
@@ -599,15 +609,11 @@ class ScriptHandler(object):
                             random.randint(0, len(
                                 self._script_config["timeout_prompts"]) - 1)]
                 else:
-                    self._logger.warning("No timeout prompts found in script \
-                            config so we cannot play one!")
+                    self._logger.warning("No timeout prompts found in script"
+                                         " config so we cannot play one!")
                     continue
                 # Play the selected prompt.
-                self._ros_node.send_tega_command(audio=prompt)
-                self._ros_node.wait_for_response(
-                    self._ros_node.ROBOT_NOT_SPEAKING,
-                    timeout=datetime.timedelta(
-                        seconds=int(self.WAIT_TIME)))
+                self._send_robot_do(prompt)
                 # Wait for the next user response.
                 continue
 
@@ -628,19 +634,15 @@ class ScriptHandler(object):
             # some cool algorithm involving ngrams and phrase matching that
             # could make this work better, but we're going to use the naive
             # approach for now.
+            self._logger.debug("Parsing ASR!")
             for response_option in user_input:
                 for word in response_option["user_responses"]:
                     if word in results:
                         # Case (2): Found an expected user response.
-                        # Send ASR command to stop listening.
-                        self._ros_node.send_asr_command(AsrCommand.STOP_ALL)
+                        self._logger.info("Got expected response!")
                         # Play the robot's responses in sequence.
                         for resp in response_option["robot_responses"]:
-                            self._ros_node.send_tega_command(audio=resp)
-                            self._ros_node.wait_for_response(
-                                self._ros_node.ROBOT_NOT_SPEAKING,
-                                timeout=datetime.timedelta(
-                                    seconds=int(self.WAIT_TIME)))
+                            self._send_robot_do(resp)
                         # Return so we don't give the user a chance to
                         # respond again, since we already got their
                         # response and dealt with it.
@@ -651,6 +653,12 @@ class ScriptHandler(object):
             # to encourage the user to keep responding in hopes that we will
             # get an expected response, either from the set of prompts specific
             # to this question, or, if there are none, from the general list.
+            self._logger.info("Got a response, but not what we wanted...")
+            # If we have exhausted our allowed number of prompts, leave the
+            # loop if we didn't get a user response instead of playing a
+            # backchannel prompt.
+            if i > self._num_prompts:
+                break
             if "backchannel_prompts" in self._script_config["questions"][
                     question]:
                 prompt = self._script_config["questions"][question][
@@ -662,15 +670,11 @@ class ScriptHandler(object):
                         random.randint(0, len(
                             self._script_config["backchannel_prompts"]) - 1)]
             else:
-                self._logger.warning("No backchannel prompts found in script \
-                        config so we cannot play one!")
+                self._logger.warning("No backchannel prompts found in script "
+                                     "config so we cannot play one!")
                 continue
             # Play the selected prompt.
-            self._ros_node.send_tega_command(audio=prompt)
-            self._ros_node.wait_for_response(
-                self._ros_node.ROBOT_NOT_SPEAKING,
-                timeout=datetime.timedelta(
-                    seconds=int(self.WAIT_TIME)))
+            self._send_robot_do(prompt)
 
         # We exhausted our allowed number of prompts, so have the robot do
         # something and move on instead of waiting more.
@@ -690,12 +694,9 @@ class ScriptHandler(object):
                     random.randint(0, len(
                         self._script_config["max_attempt"]) - 1)]
         else:
-            self._logger.warning("No max attempt audio found in script \
-                    config so we cannot play one!")
-        self._ros_node.send_tega_command(audio=audio_to_play)
-        self._ros_node.wait_for_response(self._ros_node.ROBOT_NOT_SPEAKING,
-                                         timeout=datetime.timedelta(
-                                             seconds=int(self.WAIT_TIME)))
+            self._logger.warning("No max attempt audio found in script config"
+                                 " so we cannot play one!")
+        self._send_robot_do(audio_to_play)
 
     def _send_robot_do(self, command):
         """ Given a command for the robot to do, get any details from the
@@ -704,7 +705,11 @@ class ScriptHandler(object):
         # If the command is all uppercase, it's just a single animation for the
         # robot to play, so just play it and return.
         if command.isupper():
+            self._logger.info("DO animation: {}".format(command))
             self._ros_node.send_tega_command(motion=command, enqueue=True)
+            self._ros_node.wait_for_response(self._ros_node.ROBOT_NOT_MOVING,
+                                             timeout=datetime.timedelta(
+                                                 seconds=int(self.WAIT_TIME)))
             return
 
         # Check the script config for the audio command. If the command name is
@@ -712,8 +717,8 @@ class ScriptHandler(object):
         # play with the audio, and/or the audio filename is different from the
         # command name.
         if command == "":
-            self._logger.warning("Told to play audio, but the name provided is \
-                an empty string!")
+            self._logger.warning("Told to play audio, but the name provided is"
+                                 + " an empty string!")
             return
 
         audio_to_play = command + ".wav"
@@ -723,7 +728,8 @@ class ScriptHandler(object):
 
         if command in self._script_config["audio"]:
             self._logger.info("Going to play ".format(command))
-            audio_to_play = self._script_config["audio"][command]["name"]
+            audio_to_play = self._script_config["audio"][command]["name"] \
+                + ".wav"
             animations = self._script_config["audio"][command]["animations"]
 
         # Now we have the audio to play and the animations to play.
@@ -731,7 +737,7 @@ class ScriptHandler(object):
         # Otherwise, send the audio command, and tell the ROS node to send the
         # list of animations. Turn on speech fidgets in case it takes a while
         # for the robot to start speaking!
-        self._ros_node.send_tega_command(fidgets=TegaAction.FIDGETS_SPEECH)
+        #self._ros_node.send_tega_command(fidgets=TegaAction.FIDGETS_SPEECH)
         if self._use_entrainer:
             # Send the filename to the audio entrainer. Append the filepath to
             # the filename before sending. Note that an empty filepath can be
@@ -747,7 +753,7 @@ class ScriptHandler(object):
                 self._viseme_base_dir + audio_to_play.replace(".wav", ".txt"))
         else:
             # Send directly to the robot.
-            self._ros_node.send_tega_command(audio=audio_to_play)
+            self._ros_node.send_tega_command(audio=audio_to_play, enqueue=True)
 
         # If there are no animations to play during this speech, just wait for
         # the robot to be done playing the audio.
@@ -775,11 +781,10 @@ class ScriptHandler(object):
 
             # If we've played all the animatons, wait for the robot to be done
             # speaking before moving on.
-            self._ros_node.wait_for_response(
-                self._ros_node.ROBOT_NOT_SPEAKING,
-                timeout=datetime.timedelta(seconds=int(self.WAIT_TIME)))
+            self._ros_node.wait_for_not_speaking()
+
         # After the robot is done speaking, switch back to physical fidgets.
-        self._ros_node.send_tega_command(fidgets=TegaAction.FIDGETS_PHYSICAL)
+        #self._ros_node.send_tega_command(fidgets=TegaAction.FIDGETS_PHYSICAL)
 
     def wait_for_user_tablet_response(self, response_to_get, timeout):
         """ Wait for a user response on the tablet, or wait until the specified
