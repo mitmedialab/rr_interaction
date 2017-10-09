@@ -369,6 +369,16 @@ class ScriptHandler(object):
             if len(elements) > 2:
                 if "DO" in elements[1]:
                     self._send_robot_do(elements[2])
+                elif "FIDGET" in elements[1]:
+                    if "EMPTY" in elements[2]:
+                        self._ros_node.send_tega_command(
+                                fidgets=TegaAction.FIDGETS_EMPTY)
+                    elif "SPEECH" in elements[2]:
+                        self._ros_node.send_tega_command(
+                                fidgets=TegaAction.FIDGETS_SPEECH)
+                    elif "PHYSICAL" in elements[2]:
+                        self._ros_node.send_tega_command(
+                                fidgets=TegaAction.FIDGETS_PHYSICAL)
 
             # Send a different command to the robot.
             elif len(elements) == 2:
