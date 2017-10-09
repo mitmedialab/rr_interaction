@@ -54,9 +54,9 @@ class InteractionHandler(object):
     # address of this node, so the user doesn't have to remember
     # to do this before starting the node.
     _ros_node = rospy.init_node('relational_robot', anonymous=True)
-            # We could set the ROS log level here if we want:
-            #log_level=rospy.DEBUG)
-            # The rest of our logging is set up in the log config file.
+    # We could set the ROS log level here if we want:
+    # log_level=rospy.DEBUG)
+    # The rest of our logging is set up in the log config file.
 
     def __init__(self):
         """ Initialize anything that needs initialization. """
@@ -223,8 +223,8 @@ class InteractionHandler(object):
         # config file; otherwise try reading in the regular config file.
         study_path, study_config, story_script_path, session_script_path, \
             audio_base_dir, viseme_base_dir = self._read_config(
-                "../config.demo.toml" if participant == "DEMO" else
-                "../config.toml")
+                "config.demo.toml" if participant == "DEMO" else
+                "config.toml")
 
         # Load script.
         try:
