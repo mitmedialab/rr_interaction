@@ -7,7 +7,7 @@
 # the question configuration.
 max_attempt = ["ThatsOkay", "FeelingShy", "ShareWhatYouThink"]
 timeout_prompts = ["Well", "WhatDoYouThink", "HmPrompt"]
-backchannel_prompts = ["mmhm", "uhuhh", "TellMeMore"]
+backchannel_prompts = ["mmhm", "uhuhh"]
 
 story_intro = ["OkayIHaveAGoodIdea", "HmLetsSee"]
 story_closing = ["ThisIsSuchFun", "ThisIsMyFavoriteGame", "OkayMyStorysOver"]
@@ -52,7 +52,7 @@ question = "rr1_intro_03"
 timeout_prompts = ["fav_color_prompt1", "fav_color_prompt2"]
     [[questions.favorite_color.user_input]]
     user_responses = [""]
-    robot_responses = ["rr1_intro04"]
+    robot_responses = ["rr1_intro_04"]
     [[questions.favorite_color.user_input]]
     user_responses = ["none", "nothing", "no"]
     robot_responses = ["No_colors"]
@@ -63,7 +63,7 @@ timeout_prompts = ["what_like_do_prompt1", "what_like_do_prompt2"]
 max_attempt = ["LikeTalkingToRobots"]
     [[questions.what_like_do.user_input]]
     user_responses = ["nothing", "don't know"]
-    robot_responses = ["NothingThatsOkay]
+    robot_responses = ["NothingThatsOkay"]
     [[questions.what_like_do.user_input]]
     user_responses = [""]
     robot_responses = ["rr1_intro_07"]
@@ -73,8 +73,10 @@ question = "rr1_intro_08"
     [[questions.like_dance.user_input]]
     user_responses = ["yes", "yeah", "sure", "okay"]
     robot_responses = ["awesome"]
+    [[questions.like_dance.user_input]]
     user_responses = ["no", "not really"]
     robot_responses = ["NoThatsOkay"]
+    [[questions.like_dance.user_input]]
     user_responses = [""]
     robot_responses = ["HmNeutral"]
 
@@ -102,13 +104,13 @@ timeout_prompts = ["PleaseIHaveAGoodIdea", "AwComeOnItllBeFun"]
 question = "rr1_story_06"
     [[questions.liked_story.user_input]]
     user_responses = ["yes", "of course", "yeah", "story", "like"]
-    robot_responses = ["Yay", "Yeah, it was fun!"]
+    robot_responses = ["Yay"]
     [[questions.liked_story.user_input]]
     user_responses = ["no", "didn't"]
     robot_responses = ["YouDidntSorry", "AwIllHaveToPracticeMore"]
 
 [questions.look_at_pictures]
-question = "rr1_picture_01"
+question = "rr1_picture1_01"
 timeout_prompts = ["AreYouSure", "AwComeOnItllBeFun"]
 max_attempt = ["IWantToAnyway"]
     [[questions.look_at_pictures.user_input]]
@@ -159,7 +161,7 @@ timeout_prompts = [""]
 backchannel_prompts = [""]
 max_attempt = [""]
     [[questions.wait_for_wakeup.user_input]]
-    user_responses = ["hey", "hi", "wake up", "pst", "ice cream", "ice", "cream"]
+    user_responses = ["ice cream", "ice", "cream"]
     robot_responses = [""]
 
 #[questions.questionname2]
@@ -226,7 +228,7 @@ animations = [ { time = 0.7, anim = "SILENT_SHIMMY" } ]
 [audio.rr1_backstory_03]
 name = "rr1_backstory_03"
 animations = [ { time = 5.0, anim = "SILENT_SAD" },
-               { time = 13.0, anim = "PERKUP" } ]
+               { time = 10.0, anim = "PERKUP" } ]
 
 [audio.AwComeOnItllBeFun]
 name = "AwComeOnItllBeFun"
