@@ -315,11 +315,12 @@ class RosNode(object):
         self._robot_speaking = data.is_playing_sound
         self._robot_doing_action = data.doing_motion
         self._robot_fidgets = data.fidget_set
-        self._logger.info("Received TegaState message:"
-                          + " doing_motion=" + str(data.doing_motion)
-                          + ", motion is=" + str(data.in_motion)
-                          + ", playing_sound=" + str(data.is_playing_sound)
-                          + ", fidget_set=" + str(data.fidget_set))
+        # TODO temporary
+        #self._logger.info("Received TegaState message:"
+                          #+ " doing_motion=" + str(data.doing_motion)
+                          #+ ", motion is=" + str(data.in_motion)
+                          #+ ", playing_sound=" + str(data.is_playing_sound)
+                          #+ ", fidget_set=" + str(data.fidget_set))
 
     def on_entrainer_msg(self, data):
         """ Called when we receive String log messages from the audio
@@ -333,7 +334,7 @@ class RosNode(object):
         self._logger.info("Received ASR message: {}".format(data))
         # Set the response received flag and save the contents of the message
         # so we can return them later.
-        self.asr_response_received = True
+        self._asr_response_received = True
         self._response_received = (data.transcription.lower(), data.confidence)
 
     def wait_for_response(self, response, timeout):
