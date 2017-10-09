@@ -591,7 +591,7 @@ class ScriptHandler(object):
             if "TIMEOUT" in results:
                 # If we have exhausted our allowed number of prompts, leave the
                 # loop if we didn't get a user response.
-                if i > self._num_prompts:
+                if i >= self._num_prompts:
                     break
                 self._logger.debug("TIMEOUT: Playing a prompt.")
                 # Pick a random prompt from the set of timeout prompts for this
@@ -636,8 +636,10 @@ class ScriptHandler(object):
             # approach for now.
             self._logger.debug("Parsing ASR!")
             for response_option in user_input:
+                self._logger.debug("\tcomparing {}".format(response_option))
                 for word in response_option["user_responses"]:
-                    if word in results:
+                    self._logger.debug("\t\tcomparing {}".format(word))
+                    if word in results[0]:
                         # Case (2): Found an expected user response.
                         self._logger.info("Got expected response!")
                         # Play the robot's responses in sequence.
@@ -657,7 +659,7 @@ class ScriptHandler(object):
             # If we have exhausted our allowed number of prompts, leave the
             # loop if we didn't get a user response instead of playing a
             # backchannel prompt.
-            if i > self._num_prompts:
+            if i >= self._num_prompts:
                 break
             if "backchannel_prompts" in self._script_config["questions"][
                     question]:
@@ -682,6 +684,8 @@ class ScriptHandler(object):
         # all the prompts and didn't get an expected user response. Either
         # play a generic one, or, if this question has a specific set of
         # max attempts robot responses, use one of those.
+        self._logger.info("Playing max attempts robot response, since we did "
+                          "not get a response to the prompts.")
         audio_to_play = ""
         if "max_attempt" in self._script_config["questions"][
                 question]:
@@ -768,7 +772,7 @@ class ScriptHandler(object):
             self._ros_node.wait_for_response(
                 self._ros_node.ROBOT_SPEAKING,
                 timeout=datetime.timedelta(seconds=int(self.WAIT_TIME)))
-            for i in range(0, len(animations) - 1):
+            for i in range(0, len(animations)):
                 # Wait for the animation's start time. Times are in seconds
                 # since the start of the audio file.
                 if i == 0:
