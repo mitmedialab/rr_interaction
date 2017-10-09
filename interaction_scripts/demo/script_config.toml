@@ -111,7 +111,7 @@ question = "rr1_story_06"
 
 [questions.look_at_pictures]
 question = "rr1_picture1_01"
-timeout_prompts = ["AreYouSure", "AwComeOnItllBeFun"]
+timeout_prompts = ["ItsJustPlaying", "AwComeOnItllBeFun"]
 max_attempt = ["IWantToAnyway"]
     [[questions.look_at_pictures.user_input]]
     user_responses = ["yes", "of course", "yeah", "story", "like"]
@@ -122,14 +122,14 @@ max_attempt = ["IWantToAnyway"]
 
 [questions.picture3_park]
 question = "rr1_picture3_03"
-timeout_prompts = ["DontLikeAboutPark", "HaveBeenToPark"]
+timeout_prompts = ["DontLikeAboutPark", "HavebeenToPark"]
     [[questions.picture3_park.user_input]]
     user_responses = [""]
     robot_responses = ["uhuhh"]
 
 [questions.tellmemore]
 question = "TellMeMore"
-timeout_prompts = ["WhatElse", "tellMe", "keepGoing"]
+timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
     [[questions.tellmemore.user_input]]
     user_responses = [""]
     robot_responses = ["HmInterested"]
@@ -200,7 +200,7 @@ animations = [ { time = 0.1, anim = "SILENT_SAD" } ]
 
 [audio.rr1_intro_01]
 name = "rr1_intro_01"
-animations = [ { time = 0.1, anim = "PERKUP" } ]
+animations = [ { time = 0.1, anim = "SILENT_HAPPY_DANCE" } ]
 
 #### Iceberg: PenguinSlide story
 [audio.Penguins]
@@ -214,25 +214,29 @@ animations = [ { time = 1.5, anim = "PROUD" } ]
 [audio.UpUpUpIceberg0]
 name = "UpUpUpIceberg0"
 animations = [ { time = 0.1, anim = "PERKUP" },
-               { time = 2.0, anim = "PERKUP" } ]
+               { time = 2.0, anim = "SIDEPERK" } ]
 
 [audio.SlidingWasFunToo0]
 name = "SlidingWasFunToo0"
-animations = [ { time = 0.2, anim = "HAPPY_WIGGLE" } ]
+animations = [ { time = 0.2, anim = "SILENT_HAPPY_WIGGLE" } ]
 
 [audio.SoTheyTookTurnsSliding0]
 name = "SoTheyTookTurnsSliding0"
 animations = [ { time = 0.7, anim = "SILENT_SHIMMY" } ]
 ### end story
 
-[audio.rr1_backstory_03]
-name = "rr1_backstory_03"
+[audio.rr1_backstory_02]
+name = "rr1_backstory_02"
 animations = [ { time = 5.0, anim = "SILENT_SAD" },
                { time = 10.0, anim = "PERKUP" } ]
 
+[audio.rr1_backstory_03]
+name = "rr1_backstory_03"
+animations = [ { time = 3.0, anim = "SILENT_NOD" } ]
+
 [audio.AwComeOnItllBeFun]
 name = "AwComeOnItllBeFun"
-animations = [ { time = 1.0, anim = "PERKUP" } ]
+animations = [ { time = 1.0, anim = "SIDEPERK" } ]
 
 [audio.rr1_intro_08]
 name = "rr1_intro_08"
@@ -240,7 +244,7 @@ animations = [ { time = 3.7, anim = "SHIMMY" } ]
 
 [audio.HmNeutral]
 name = "HmNeutral"
-animations = [ { time = 0.1, anim = "THINKING" } ]
+animations = [ { time = 0.1, anim = "SILENT_THINKING" } ]
 
 [audio.rr1_intro_05]
 name = "rr1_intro_05"
@@ -252,44 +256,45 @@ animations = [ { time = 1.0, anim = "PERKUP" } ]
 
 [audio.rr1_intro_04]
 name = "rr1_intro_04"
-animations = [ { time = 0.1, anim = "YES" } ]
+animations = [ { time = 0.1, anim = "SHIMMY" } ]
 
 [audio.rr1_picture1_01]
 name = "rr1_picture1_01"
-animations = [ { time = 0.1, anim = "HAPPY_WIGGLE" } ]
+animations = [ { time = 0.1, anim = "SILENT_AGREEMENT" } ]
 
 [audio.rr1_picture1_02]
 name = "rr1_picture1_02"
-animations = [ { time = 0.5, anim = "PERKUP" } ]
+animations = [ { time = 0.5, anim = "SIDEPERK" } ]
 
 [audio.TellMeMore]
 name = "TellMeMore"
-animations = [ { time = 0.1, anim = "PERKUP" } ]
+animations = [ { time = 0.1, anim = "SIDEPERK" } ]
 
 [audio.rr1_picture3_02]
 name = "rr1_picture3_02"
-animations = [ { time = 6.0, anim = "SWAY" } ]
+animations = [ { time = 4.0, anim = "SWAY" },
+               { time = 10.0, anim = "SILENT_HAPPY_WIGGLE" }]
 
 [audio.rr1_picture4_02]
 name = "rr1_picture4_02"
-animations = [ { time = 6.0, anim = "HAPPY_DANCE" } ]
+animations = [ { time = 6.0, anim = "SILENT_HAPPY_DANCE" } ]
 
 [audio.rr1_picture4_04]
 name = "rr1_picture4_04"
-animations = [ { time = 3.0, anim = "AGREEMENT" },
+animations = [ { time = 3.0, anim = "SILENT_AGREEMENT" },
                { time = 8.0, anim = "PROUD" },
                { time = 12.0, anim = "PERKUP" } ]
 
 [audio.rr1_picture3_04]
 name = "rr1_picture3_04"
 animations = [ { time = 2.0, anim = "PERKUP" },
-               { time = 7.0, anim = "SAD" },
-               ( time = 13.0, anim = "LAUGH" } ]
+               { time = 7.0, anim = "SILENT_SAD" },
+               ( time = 13.0, anim = "SILENT_LAUGH" } ]
 
 [audio.ThatsAllPictures]
 name = "ThatsAllPictures"
 animations = [ { time = 0.1, anim = "PROUD" },
-               { time = 3.0, anim = "NOD" } ]
+               { time = 3.0, anim = "SILENT_NOD" } ]
 
 [audio.rr1_story_19]
 name = "rr1_story_19"
@@ -301,7 +306,15 @@ animations = [ { time = 1.0, anim = "PERKUP" } ]
 
 [audio.MyNameIsRed]
 name = "MyNameIsRed"
-animations = [ { time = 0.1, anim = "THINKING" } ]
+animations = [ { time = 0.1, anim = "SILENT_AGREEMENT" } ]
+
+[audio.WillYouHelp]
+name = "WillYouHelp"
+animations = [ { time = 0.1, anim = "SILENT_NOD" } ]
+
+[audio.ShareWhatYouThink]
+name = "ShareWhatYouThink"
+animations = [ { time = 0.1, anim = "SILENT_AGREEMENT" } ]
 
 #[audio.]
 #name = ""
