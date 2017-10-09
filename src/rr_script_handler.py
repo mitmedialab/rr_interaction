@@ -100,8 +100,9 @@ class ScriptHandler(object):
 
         # Set up the personalization manager so we can pick personalized
         # content for this participant.
-        self._personalization_man = rr_personalization_manager(session,
-                                                               participant)
+        print "TODO personalization"
+        #self._personalization_man = rr_personalization_manager(session,
+                                                               #participant)
         # Set up script parser.
         self._script_parser = ScriptParser()
         # These are other script parsers we may use later.
@@ -329,9 +330,10 @@ class ScriptHandler(object):
             self._story_parser = ScriptParser()
             try:
                 # TODO update how we get stories
-                self._story_parser.load_script(
-                    self._study_path + self._story_script_path +
-                    self._personalization_man.get_next_story_script())
+                print "TODO"
+                #self._story_parser.load_script(
+                    #self._study_path + self._story_script_path +
+                    #self._personalization_man.get_next_story_script())
             except IOError:
                 self._logger.exception("Script parser could not open story "
                                        "script! Skipping STORY line.")
@@ -356,7 +358,8 @@ class ScriptHandler(object):
             self._logger.debug("STORY SETUP")
             # Pick the next story to play.
             # TODO update story picking and setup
-            self._personalization_man.pick_next_story()
+            print "TODO"
+            #self._personalization_man.pick_next_story()
 
         #########################################################
         # For ROBOT lines, send command to the robot.
@@ -776,6 +779,8 @@ class ScriptHandler(object):
         # TODO What kinds of responses will we be waiting for now?
         # We don't use i in the loop, but you can't really loop without it.
         # pylint: disable=unused-variable
+        print "TODO tablet responses"
+        """
         for i in range(0, self._max_incorrect_responses):
             self._logger.info("Waiting for user response...")
 
@@ -916,10 +921,13 @@ class ScriptHandler(object):
 
         # We got a user response and responded to it!
         return True
+        """
 
     def skip_wait_for_user_response(self):
         """ Skip waiting for a response; treat the skipped response as a NO or
         INCORRECT response.
+        """
+        print "TODO skip waiting?"
         """
         # TODO is this function necessary anymore?
         # If the response to wait for was CORRECT or INCORRECT, randomly select
@@ -928,7 +936,8 @@ class ScriptHandler(object):
             try:
                 # TODO robot response to incorrect action?
                 audio_to_play = ""
-                self._ros_node.send_tega_command(audio=audio_to_play)
+                self._ros_node.send_tega_command(audio=audio_to_play,
+                                                 enqueue=True)
                 self._ros_node.wait_for_response(
                     self._ros_node.ROBOT_SPEAKING,
                     timeout=datetime.timedelta(
@@ -943,7 +952,8 @@ class ScriptHandler(object):
             try:
                 # TODO robot response to NO actions?
                 audio_to_play = ""
-                self._ros_node.send_tega_command(audio=audio_to_play)
+                self._ros_node.send_tega_command(audio=audio_to_play,
+                                                 enqueue=True)
                 self._ros_node.wait_for_response(
                     self._ros_node.ROBOT_SPEAKING,
                     timeout=datetime.timedelta(
@@ -951,6 +961,7 @@ class ScriptHandler(object):
             except AttributeError:
                 self._logger.exception("Could not play a response to user's "
                                        "NO. Maybe none were loaded?")
+       """
 
     def set_end_interaction(self):
         """ End the game gracefully -- stop any stories or repeating scripts,
@@ -1031,12 +1042,8 @@ class ScriptHandler(object):
             self._doing_story = False
             try:
                 # TODO robot response to max stories?
-                audio_to_play = ""
-                self._ros_node.send_tega_command(audio=audio_to_play)
-                self._ros_node.wait_for_response(
-                    self._ros_node.ROBOT_SPEAKING,
-                    timeout=datetime.timedelta(
-                        seconds=int(self.WAIT_TIME)))
+                max_story_response = ""
+                self._send_robot_do(max_story_response)
             except AttributeError:
                 self._logger.exception("Could not play a max stories reached "
                                        "response. Maybe none were loaded?")
@@ -1051,8 +1058,9 @@ class ScriptHandler(object):
 
         # Get the details for the next story.
         try:
-            scenes, in_order, num_answers = \
-                self._personalization_man.get_next_story_details()
+            print "TODO"
+            #scenes, in_order, num_answers = \
+                #self._personalization_man.get_next_story_details()
         except NoStoryFound:
             # If no story was found, we can't load the story!
             self._logger.exception("Cannot load story because no story to load"
@@ -1082,4 +1090,5 @@ class ScriptHandler(object):
 
         # Tell the personalization manager that we loaded the story so it can
         # keep track of which stories have been played.
-        self._personalization_man.record_story_loaded()
+        print "TODO"
+        #self._personalization_man.record_story_loaded()
