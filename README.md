@@ -229,6 +229,9 @@ the following:
 - MAX\_GAME\_TIME: The maximum amount of time, in minutes, that the user can
   play the game before it exits.
 - MAX\_STORIES: The maximum number of stories to tell in one game session.
+- PROMPT\_TIME: The amount of time to wait after asking a question before
+  playing a prompt, in seconds.
+- NUM\_PROMPTS: How many prompts to give before moving on.
 
 For example, the following commands will set the maximum incorrect responses to
 2 and the maximum game time allowed to 10 minutes:
