@@ -154,12 +154,43 @@ more.
 
 ## ROS messages
 
+### Subscribers
+
 The node subscribes to "/[r1d1\_msgs](https://github.com/mitmedialab/r1d1_msgs
 "/r1d1_msgs")/TegaState" on the ROS topic "/tega_state".
+
+The node subscribes to std_msgs/String messages on the ROS topic
+"rr/audio_entrainer".
+
+The node subscribes to
+[asr_google_cloud](https://github.com/mitmedialab/asr_google_cloud/)/AsrResult
+messages on the ROS topic "/asr_result".
+
+The node subscribes to
+[sar_opal_msgs](https://github.com/mitmedialab/sar_opal_msgs)/OpalAction on
+the ROS topic "rr/opal_action".
+
+### Publishers
+
+The node publishes "/[r1d1\_msgs](https://github.com/mitmedialab/r1d1_msgs
+"/r1d1_msgs")/TegaAction" on the ROS topic "/tega".
 
 The node publishes
 "/[rr_msgs](https://github.com/mitmedialab/rr_msgs)/InteractionState"
 messages on the ROS topic "/rr/state".
+
+The node publishes
+[asr_google_cloud](https://github.com/mitmedialab/asr_google_cloud/)/AsrCommand
+messages on the ROS topic "/asr_command".
+
+The node publishes
+[sar_opal_msgs](https://github.com/mitmedialab/sar_opal_msgs)/OpalCommand on
+the ROS topic "rr/opal_command".
+
+The node publishes
+[rr_msgs](https://github.com/mitmedialab/rr_msgs)/EntrainAudio) messages on the
+ROS topic "rr/entrain_audio".
+
 
 ## Interaction scripts
 
@@ -212,6 +243,13 @@ For example, the following commands will set the maximum incorrect responses to
 actions, list the name of the speech-action set to play. For example:
 
 `ROBOT   DO intro-1`
+
+You can also enable or disable fidgets with the FIDGET action. Specify the
+name of the fidget set (EMPTY, SPEECH, PHYSICAL), which correspond to the
+names in "/[r1d1\_msgs](https://github.com/mitmedialab/r1d1_msgs
+"/r1d1_msgs")/TegaAction". For example:
+
+`ROBOT  FIDGET  SPEECH`
 
 The robot commands also include a few special commands that indicate that one
 of the robot commands from a special list such as `STORY_INTROS` or

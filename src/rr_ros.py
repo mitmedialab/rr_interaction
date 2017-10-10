@@ -120,12 +120,12 @@ class RosNode(object):
                                           queue_size=10)
         # Publish commands to tell the ASR node to start or stop processing,
         # as well as what results to publish.
-        self._asr_command_pub = rospy.Publisher('asr_command', AsrCommand,
+        self._asr_command_pub = rospy.Publisher('/asr_command', AsrCommand,
                                                 queue_size=10)
 
         # Set up rostopics we subscribe to:
         self._logger.info("Subscribing to topics: /rr/opal_action, "
-                          + "/tega_state, /rr/audio_entrainer")
+                          + "/tega_state, /rr/audio_entrainer, /asr_result")
         # State from the Opal game.
         rospy.Subscriber('/rr/opal_action', OpalAction,
                          self.on_opal_action_msg)
@@ -134,7 +134,7 @@ class RosNode(object):
         # State from the audio entrainer.
         rospy.Subscriber('/rr/audio_entrainer', String, self.on_entrainer_msg)
         # ASR results from the ASR Google Cloud node.
-        rospy.Subscriber('asr_result', AsrResult, self.on_asr_result_msg)
+        rospy.Subscriber('/asr_result', AsrResult, self.on_asr_result_msg)
 
     def send_opal_command(self, command, properties=None):
         """ Publish opal command message. Optionally, wait for a response. """
