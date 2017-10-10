@@ -306,12 +306,12 @@ class InteractionHandler(object):
 
             except StopIteration:
                 self._logger.info("Finished script!")
+                break
 
     def _signal_handler(self, sig):
         """ Handle signals caught. """
         if sig == signal.SIGINT:
             self._logger.info("Got keyboard interrupt! Exiting.")
-            self._stop = True
             exit("Interrupted by user.")
 
 
