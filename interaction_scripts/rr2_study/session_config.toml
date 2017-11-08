@@ -1,0 +1,76 @@
+# Configuration of the study sessions.
+
+#######################################################################
+# For each session, we need to know the following:
+#
+# - What type of story is told each session? Either the robot tells a story and
+#   the child is asked to retell it, or the child is asked to make up their own
+#   story.
+# - Does this session include a negotiation task? If so, we need to use it;
+#   otherwise, we need to reference the previous sessions's negotiation.
+# -
+# - TODO add any more!
+#######################################################################
+# EXAMPLE SESSION
+#######################################################################
+#[sessions.sessionnum]
+## The type of story to tell this session.
+#story_type = "retell"
+#
+## Whether this session has a negotiation task.
+#negotiation = False
+#######################################################################
+[sessions.1]
+story_type = "retell"
+story_name = "BoyAndFrog"
+negotiation = False
+
+[sessions.2]
+story_type = "create"
+negotiation = True
+scenes = ["Iceberg", "Treemeadow"]
+robot_tell = "SR2_robot"
+
+[sessions.3]
+story_type = "create"
+negotiation = False
+scenes = ["Playground"]
+robot_tell = "SR2_child"
+
+[sessions.4]
+story_type = "retell"
+story_name = "LittleBird"
+negotiation = False
+
+[sessions.5]
+story_type = "create"
+negotiation = True
+scenes = ["Castle"]
+robot_tell = "SR2_robot"
+
+[sessions.6]
+story_type = "create"
+negotiation = False
+scenes = ["Forest"]
+robot_tell = "SR2_child"
+
+[sessions.7]
+story_type = "retell"
+story_name = "ThirdRetell"
+negotiation = False
+
+#######################################################################
+# Lists of stories that the robot could tell. Each list should contain the
+# names of the stories in that story corpus and the story scene for the story.
+#######################################################################
+[story_set.SR2_robot]
+levels = [0, 1]
+[story_set.SR2_robot.Iceberg]
+stories = [ "PenguinSlide", "SnowmanHat" ]
+[story_set.SR2_robot.Treemeadow]
+stories = [ "DragonClumsy", "BirdButterfly" ]
+
+[story_set.SR2_child]
+levels = [0]
+[story_set.SR2_child.Iceberg]
+stories = [ "Iceberg1", "Iceberg2" ]

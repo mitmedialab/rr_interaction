@@ -41,19 +41,190 @@ def generate_next_session_config(pid, story_dir, study_config):
     """
     print "Finding stories for {}...".format(pid)
     # The participant dictionary contains a dictionary for each session.
-    # Each session dictionary contains which stories were heard and which story
-    # scenes were used for telling stories that session.
-    # TODO and maybe the text of the participant's stories?
+    # Each session dictionary contains which robot stories were heard, the
+    # level of the stories heard, which story scenes were used for telling
+    # stories that session, and the text of the participant's stories.
 
-    # Using the lists of stories heard and told so far, and the list of stories
-    # available, which story should this participant hear next?
-    # TODO
+    # We need particular session information from the study config file to
+    # generate the next session's configuration files for each participant.
+    if "sessions" not in study_config:
+        print "No session configuration found in the study_config file! We " \
+              "need this to continue. Exiting."
+        exit(1)
 
-    # Using the lists of stories heard and told so far, and the list of stories
-    # available, which story scenes should this participant pick from next?
-    # TODO
+    # The current session is the one after the most recent session number that
+    # has been recorded for this participant. The session numbers are probably
+    # strings so we convert them to ints before checking.
+    session = max([int(k) for k in study_config["sessions"].keys()]) + 1
+    # TODO below we may have int/str errors for session numbers as keys?
 
-    # TODO Also add places where we manually add robot catchphrase entrainment?
+    # We will generate a dictionary of configuration options for this
+    # participant that we will write to a toml file.
+    p_config = {}
+    p_config[session] = {}
+
+
+    ##########################################################################
+    # PERSONALIZATION: STORIES.
+    ##########################################################################
+    # TODO function for all this?
+    # Check the session number. For some sessions, we do the story retell task.
+    # If this is a story retell session, which robot story will be told?
+    print "Checking session... do we do a story retell this time?"
+    if "retell" in study_config["sessions"][session]:
+        # If so: Specify which story the robot should tell and its level.
+        p_config[session]["story"] = study_config["sessions"][
+                session + 1]["story_name"]
+        print "\tStory retell: {}".format(p_config[session]["story"])
+
+    # Sometimes the child creates their own story. In this case, we need to
+    # pick which story scenes to offer, and which robot story to tell in that
+    # scene.
+    elif "create" in study_config["sessions"][session]:
+        print "\tStory type: Create\n\tLooking for story scenes to use..."
+
+        # We need two story scenes for the participant to pick from next.
+        # 1. We take any scenes listed in the config. There may only be scenes
+        #    listed for one session, since after that we base our scene picks
+        #    on which stories are similar/dissimilar to the child's stories,
+        #    and that then determines the scenes used.
+        if "scenes" in study_config[session]:
+            p_config[session]["scenes"] = study_config[session]["scenes"]
+        else:
+            p_config[session]["scenes"] = []
+            print "WARNING: No scenes listed in the config for this session."
+        # 2. If there was a negotiation last session, we need to include the
+        #    scene that wasn't used last time.
+        if "negotiation" in study_config["sessions"][session - 1] and \
+                study_config["sessions"][session - 1]["negotation"]:
+            # Check the participant log to see what scenes were offered last
+            # session, and which of them were played. If one wasn't played, we
+            # can take it for use this session.
+            for scene in pid[session - 1]["scenes_shown"]:
+                if scene not in pid[session - 1]["scenes_used"]:
+                    p_config[session]["scenes"].append(scene)
+                    print "Found scene: {} from prior session {}".format(
+                            scene, session - 1)
+                    break
+        # 3. If we don't have two stories yet, we will look for stories for the
+        #    robot to tell based on story similarity to the child's stories,
+        #    and determine which scenes those stories are in later.
+
+        # We need to pick which robot story is told. The robot tells either
+        # stories from the SR2 robot corpus or child stories from the SR2 child
+        # corpus. Which corpus to use is specified in the study session config.
+        if "robot_tell" in study_config["sessions"][session]:
+            story_corpus = study_config["story_set"][
+                    study_config["sessions"][session]["robot_tell"]]
+
+        # Pick a story for each scene that might be used this session from the
+        # stories available for the selected scenes for that corpus.
+        # TODO similar or dissimilar stories? set similar=False...
+        p_config[session]["stories"] = {}
+        for scene in p_config[session]["scenes"]:
+            p_config[session]["stories"][scene] = pick_story_for_scene(
+                    story_corpus[scene], pid, story_dir, scene)
+        # If there are no scenes listed, we'll need to look at stories from all
+        # scenes, and then pick stories, and then update the scene list.
+        while len(p_config[session]["scenes"]) < 2:
+            (_, picked_scene, picked_story) = pick_story(
+                    pid, story_corpus, story_dir, p_config[session]["scenes"])
+            # Add the scene and story to our participant config file.
+            p_config[session]["stories"][picked_scene] = picked_story
+
+    ##########################################################################
+    # PERSONALIZATION: CATCHPHRASES.
+    ##########################################################################
+    # TODO Add places where we manually add robot catchphrase entrainment?
+
+    ##########################################################################
+    # PERSONALIZATION: SHARED NARRATIVE.
+    ##########################################################################
+    # TODO Add any participant-specific personalization of phrases?
+
+    ##########################################################################
+    # PERSONALIZATION: RELATIONSHIP.
+    ##########################################################################
+    # TODO Add any relationship-related personalization?
+
+
+def concat_participant_stories(pid):
+    """ Concatenate all of the participant's stories together and return as one
+    big blob of text.
+    """
+    pstory = ""
+    for session in pid:
+        pstory += pid[session]["story_text"] + " "
+    return pstory
+
+
+def get_story_from_file(story_file):
+    """ Read in text from a given file. """
+    try:
+        with open(story_file, mode='r') as fil:
+            text = fil.read()
+        return text
+    except IOError as exc:
+        print "ERROR: Problem reading robot story file {}\n{}".format(
+                story_file, exc)
+
+
+def pick_story_for_scene(story_set, pid, story_dir, scene, similar=True):
+    """ Given a set of stories in a scene, compute the similarity between the
+    stories and the participant's stories, and choose the next story to tell.
+    """
+    # This is just a special case of calling pick_story that uses a corpus of
+    # stories from only one scene. Since pick_story requires a particular
+    # dictionary structure for its story_corpus, we create that artificially
+    # here before calling pick_story.
+    story_corpus = {}
+    story_corpus[scene] = story_set
+    (_, story, _) = pick_story(story_corpus, pid, story_dir, similar)
+    return story
+
+
+def pick_story(story_corpus, pid, story_dir, scenes_used, similar=True):
+    """ Given a set of stories, compute the similarity between the
+    stories and the participant's stories, and choose the next story to tell.
+    """
+    # Get similarity scores between all stories available in the corpus and the
+    # participant's stories.  Instead of doing some complicated score
+    # averaging, we just get one similarity score per robot story for the
+    # participant:
+    #   1. Concatenate all of the participant's stories together.
+    #   2. Compare this to each robot story in the story corpus, get a score.
+    #   3. Pick top robot story for based on scores.
+    #   4. Make sure that top robot story isn't in any of the scenes listed so
+    #      that we don't duplicate the scene offerings.
+    pstory = concat_participant_stories(pid)
+    scores = []
+    for scene in story_corpus:
+        for story in story_corpus[scene]:
+            # Get the robot story text from a text file.
+            story_text = get_story_from_file(story_dir + story + ".txt")
+
+            # Compute the cosine similarity score between the participant's
+            # stories and this story.
+            score = text_similarity_tools.get_cosine_similarity(story_text,
+                                                                pstory)
+            scores.append((score, story, scene))
+
+    # Now we have all the scores for the robot stories in the corpus.
+    # Which is the top story? Either the max score (if we want a similar story)
+    # or the min score (if we want a different story).
+    top_match = max(scores) if similar else min(scores)
+
+    # Did we already pick a story in this scene? If so, get the next highest
+    # match.
+    while top_match[1] in scenes_used:
+        # If we already used this scene, remove the top match from the list,
+        # get a new top match, and check again.
+        scores.remove(top_match)
+        top_match = max(scores) if similar else min(scores)
+
+    # If we get here, we found a story in a scene that hasn't been used yet, so
+    # return it as the top matching robot story.
+    return top_match
 
 
 def update_performance(log, performance_data):
