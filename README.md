@@ -14,9 +14,12 @@ connection, as well as several other nodes.
 
 ### Python
 
-`pip install` the following libraries:
+You'll need the following libraries. You can `pip install` them; if you do so,
+it's recommended that you use the `--user` flag to only install for your user.
 
-- [toml](https://github.com/uiri/toml)
+- [toml](https://github.com/uiri/toml) (v0.9.3)
+- [text_similarity_tools](https://github.com/mitmedialab/text_phrase_matching)
+  (v2.0.0)
 
 
 ### Opal tablet communication
@@ -327,11 +330,17 @@ the story. See `demo-story.txt` for an example.
 
 #### QUESTION
 
-`QUESTION` is used to enter a particular interaction characterized by the robot asking a question, waiting for a user response, choosing an appropriate robot response, and looping until either the desired user response is received or a maximum number of attempts is reached. This command takes the name of a question (defined in the question config file) as an argument:
+`QUESTION` is used to enter a particular interaction characterized by the robot
+asking a question, waiting for a user response, choosing an appropriate robot
+response, and looping until either the desired user response is received or a
+maximum number of attempts is reached. This command takes the name of a
+question (defined in the question config file) as an argument:
 
 `QUESTION   how-are-you-1`
 
 ## Personalization
+
+### Performance and story selection
 
 TODO
 
