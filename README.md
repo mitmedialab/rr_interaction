@@ -43,7 +43,23 @@ and copy it to the tablet).
 
 ## Usage
 
-TODO
+Usage: `python src/rr_interaction_node.py [-h] [-e] [session] [participant]`
+
+This will start the main interaction handler, which orchestrates the
+interaction: loads scripts, uses ROS to tell the robot and tablet what to do.
+Requires roscore to be running and requires rosbridge\_server for communication
+with the Opal tablet (where some interaction content may be shown).
+
+positional arguments:
+- `session`: Indicate which session this is so the appropriate scripts can be
+  loaded. If none is specified, defaults to running a demo session.
+- `participant`: Indicate which participant this is so the appropriate scripts
+  can be loaded. If none is specified, defaults to running a demo.
+
+optional arguments:
+- `-h, --help`: show this help message and exit
+- `-e, --use-entrainer`: Send audio to the entrainer on the way to the robot.
+
 
 ### Configuration
 
