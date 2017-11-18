@@ -104,7 +104,7 @@ class InteractionHandler(object):
         parser.add_argument("participant", action="store", nargs="?", type=str,
                             default='DEMO', help="""Indicate which participant
                             this is so the appropriate scripts can be
-                            loaded.""")
+                            loaded. Default demo.""")
         # The user can decide to send audio directly to the robot or to go
         # through the audio entrainment module first.
         parser.add_argument("-e", "--use-entrainer", action='store_true',
@@ -152,11 +152,11 @@ class InteractionHandler(object):
                                    "need the scripts to run the interaction.")
                 exit(1)
             # Study script config file location.
-            if "study_config" in toml_data:
-                study_config = toml_data["study_config"]
+            if "script_config" in toml_data:
+                script_config = toml_data["script_config"]
             else:
-                self._logger.error("Could not read name of study_config! "
-                                   "Expected option \"study_config\" to be"
+                self._logger.error("Could not read name of script_config! "
+                                   "Expected option \"script_config\" to be"
                                    " in config file. Exiting because we "
                                    "need the study config to continue.")
                 exit(1)
@@ -204,7 +204,7 @@ class InteractionHandler(object):
                                    "it valid toml? Exiting because we need the"
                                    " config file to continue. {}".format(exc))
             exit(1)
-        return study_path, study_config, story_script_path, \
+        return study_path, script_config, story_script_path, \
             session_script_path, audio_base_dir, viseme_base_dir
 
     def launch_interaction(self, session, participant, entrain):
@@ -221,7 +221,7 @@ class InteractionHandler(object):
         # Read config file to get paths to interaction scripts, script
         # directories, and more. If this is a demo interaction, load the demo
         # config file; otherwise try reading in the regular config file.
-        study_path, study_config, story_script_path, session_script_path, \
+        study_path, script_config, story_script_path, session_script_path, \
             audio_base_dir, viseme_base_dir = self._read_config(
                 "config.demo.toml" if participant == "DEMO" else
                 "config.toml")
@@ -230,7 +230,7 @@ class InteractionHandler(object):
         try:
             script_handler = ScriptHandler(self._ros_ss, session, participant,
                                            study_path, story_script_path,
-                                           session_script_path, study_config,
+                                           session_script_path, script_config,
                                            audio_base_dir, viseme_base_dir,
                                            entrain)
         except IOError as ioe:

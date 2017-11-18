@@ -13,7 +13,7 @@ story_script_path = "story_scripts/"
 session_script_path = "session_scripts/"
 
 # Relative to this config file, where is the study script config file?
-study_config = "interaction_scripts/rr2_study/script_config.toml"
+script_config = "interaction_scripts/rr2_study/script_config.toml"
 
 # Where are the audio files located? We need to know the full file path so we
 # can stream audio to the robot. You can either specify full filepaths in your
