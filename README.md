@@ -175,6 +175,23 @@ the ROS rosout log file will likely be missing the initial messages. See the
 [rospy logging documentation](http://wiki.ros.org/rospy/Overview/Logging) for
 more.
 
+#### Participant config
+
+The participant config file is generated after you run the
+`gen_next_session_config.py` script to personalize the interaction for
+individual participants/users. It will be a
+[toml](https://github.com/toml-lang/toml) file. You can name it whatever you
+want (so long as it has the `.toml` file extension) by specifying a name when
+you run `gen_next_session_config.py`. By default, it will be called
+`participant_config00.toml`. Each time you generate the next session's
+configuration, the number in the filename will be incremented.
+
+This configuration file will contain all personalization information, such as
+which story scenes will be shown, which stories each participant should hear,
+what levels they should be at, and several other things.
+
+For more details, see the Personalization section below.
+
 ## ROS messages
 
 ### Subscribers
