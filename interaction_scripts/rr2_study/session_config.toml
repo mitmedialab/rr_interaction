@@ -1,5 +1,4 @@
 # Configuration of the study sessions.
-
 #######################################################################
 # For each session, we need to know the following:
 #
@@ -17,60 +16,122 @@
 ## The type of story to tell this session.
 #story_type = "retell"
 #
+## The name of the story to tell this session, if we're doing a story retell.
+#story_name = "BoyAndFrog"
+#
 ## Whether this session has a negotiation task.
-#negotiation = False
+#negotiation = false
+#
+## The SR2 story scenes to show this session. You need to specify this if the
+## story type is "create" since these are the scenes used for that.
+#scenes = ["Iceberg", "Dinoville"]
+#
+## The number of scenes total that we will need to select for this session.
+## This number can be bigger than the number of scenes specified above, since
+## if not enough are specified, more scenes will be selected automatically.
+## However, this number should not be bigger than the total number of scenes
+## that are available.
+#num_scenes = 2
+#
+## The SR2 story corpus to use this session.
+#corpus = "SR2_robot"
+#
 #######################################################################
 [sessions.1]
 story_type = "retell"
 story_name = "BoyAndFrog"
-negotiation = False
+negotiation = false
 
 [sessions.2]
 story_type = "create"
-negotiation = True
+negotiation = true
 scenes = ["Iceberg", "Treemeadow"]
-robot_tell = "SR2_robot"
+corpus = "SR2_robot"
+num_scenes = 2
+similar = true
 
 [sessions.3]
 story_type = "create"
-negotiation = False
+negotiation = false
 scenes = ["Playground"]
-robot_tell = "SR2_child"
+corpus = "SR2_child"
+num_scenes = 2
+similar = false
 
 [sessions.4]
 story_type = "retell"
 story_name = "LittleBird"
-negotiation = False
+negotiation = false
 
 [sessions.5]
 story_type = "create"
-negotiation = True
+negotiation = true
 scenes = ["Castle"]
-robot_tell = "SR2_robot"
+corpus = "SR2_robot"
+num_scenes = 2
+similar = false
 
 [sessions.6]
 story_type = "create"
-negotiation = False
-scenes = ["Forest"]
-robot_tell = "SR2_child"
+negotiation = false
+scenes = ["Pineforest"]
+corpus = "SR2_child"
+num_scenes = 2
+similar = true
 
 [sessions.7]
 story_type = "retell"
 story_name = "ThirdRetell"
-negotiation = False
+negotiation = false
 
 #######################################################################
 # Lists of stories that the robot could tell. Each list should contain the
 # names of the stories in that story corpus and the story scene for the story.
+#
+# If there are multiple levels of the stories available, specify how many, and
+# if the levels have names, add those and the delimiter used so we can build
+# the story file names later. For example, there might be stories such as
+# "Castle-EvilKing-E" for the easy level of a story in the Castle scene, and
+# "Castle-EvilKing-H" for the hard level.
 #######################################################################
-[story_set.SR2_robot]
+[story_corpus.SR2_robot]
 levels = [0, 1]
-[story_set.SR2_robot.Iceberg]
+level_names = ["E", "H"]
+delimiter = "-"
+[story_corpus.SR2_robot.scenes.Castle]
+stories = [ "EvilKing", "ReshmaParty" ]
+[story_corpus.SR2_robot.scenes.Dinoville]
+stories = [ "DinoEater", "ScaryDino" ]
+[story_corpus.SR2_robot.scenes.House]
+stories = [ "MagicShow", "SofaPirates" ]
+[story_corpus.SR2_robot.scenes.Iceberg]
 stories = [ "PenguinSlide", "SnowmanHat" ]
-[story_set.SR2_robot.Treemeadow]
+[story_corpus.SR2_robot.scenes.Mars]
+stories = [ "AlienFather", "ExploreNew" ]
+[story_corpus.SR2_robot.scenes.PineForest]
+stories = [ "FloppyHideSeek", "TinnaFortune" ]
+[story_corpus.SR2_robot.scenes.Playground]
+stories = [ "PlayBall", "PlayPretend" ]
+[story_corpus.SR2_robot.scenes.Treemeadow]
 stories = [ "DragonClumsy", "BirdButterfly" ]
 
-[story_set.SR2_child]
+[story_corpus.SR2_child]
 levels = [0]
-[story_set.SR2_child.Iceberg]
-stories = [ "Iceberg1", "Iceberg2" ]
+level_names = [""]
+delimiter = "-"
+[story_corpus.SR2_child.scenes.Castle]
+stories = [ "sr2-session1-p013-story2", "sr2-session2-p004-story2", "sr2-session2-p006-story2", "sr2-session2-p007-story3", "sr2-session-p009-story2", "sr2-session2-p010-story2", "sr2-session2-p015-story2", "sr2-session6-p004-story1", "sr2-session6-p006-story1", "sr2-session6-p007-story1", "sr2-session6-p013-story2"]
+[story_corpus.SR2_child.scenes.Dinoville]
+stories = [ "sr2-session4-p004-1-story1", "sr2-session4-p006-1-story1", "sr2-session4-p007-story1", "sr2-session4-p009-1-story1", "sr2-session6-p004-story2", "sr2-session6-p006-story2", "sr2-session6-p011-story2"]
+[story_corpus.SR2_child.scenes.House]
+stories = [ "sr2-session2-p013-story2", "sr2-session3-p006-story1", "sr2-session3-p007-story1", "sr2-session3-p009-story1", "sr2-session4-p013-story1", "sr2-session7-p006-story2", "sr2-session7-p007-story2", "sr2-session7-p009-story2", "sr2-session7-p013-story2", "sr2-session7-p015-story2", "sr2-session8-p013-story2"]
+[story_corpus.SR2_child.scenes.Iceberg]
+stories = [ "sr2-session1-p004-story1", "sr2-session1-p006-story1", "sr2-session1-p007-story1", "sr2-session1-p009-story1", "sr2-session1-p015-story1", "sr2-session8-p004-story1", "sr2-session8-p006-story1", "sr2-session8-p007-story1"]
+[story_corpus.SR2_child.scenes.Mars]
+stories = [ "sr2-session2-p013-story1", "sr2-session3-p004a-story1", "sr2-session3-p006-story2", "sr2-session3-p007-story2", "sr2-session3-p009-story2", "sr2-session3-p010-story2", "sr2-session3-p013-1-story2", "sr2-session3-p015-story2", "sr2-session5-p004-story1", "sr2-session5-p006-story1", "sr2-session5-p007-story1", "sr2-session5-p009-story1", "sr2-session5-p010-story1", "sr2-session5-p011-story1", "sr2-session5-p013-story1", "sr2-session5-p015-story1"]
+[story_corpus.SR2_child.scenes.PineForest]
+stories = [ "sr2-session2-p004-story1", "sr2-session2-p006-story1", "sr2-session2-p007-story1", "sr2-session2-p009-story1", "sr2-session2-p015-story1", "sr2-session5-p004-story2", "sr2-session5-p006-story2", "sr2-session5-p007-story2", "sr2-session5-p011-story2", "sr2-session5-p013-story2", "sr2-session1-p013-story1"]
+[story_corpus.SR2_child.scenes.Playground]
+stories = [ "sr2-session1-p004-story2", "sr2-session1-p006-story2", "sr2-session1-p007-story2", "sr2-session1-p015-story2", "sr2-session4-p013-story2", "sr2-session8-p004-story2", "sr2-session8-p006-story2", "sr2-session8-p007-story2", "sr2-session8-p010-story2", "sr2-session8-p015-story2"]
+[story_corpus.SR2_child.scenes.Treemeadow]
+stories = [ "sr2-session4-p004-1-story2", "sr2-session4-p006-1-story2", "sr2-session4-p007-story2", "sr2-session4-p009-1-story2", "sr2-session6-p013-story1", "sr2-session7-p006-story1", "sr2-session7-p007-story1", "sr2-session7-p013-story1", "sr2-session7-p015-story1", "sr2-session8-p013-story1"]

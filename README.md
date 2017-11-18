@@ -6,9 +6,13 @@ loads and launches the interaction for a given study session, using scripts to
 list what the robot should do and what to do in response to stuff that happens
 during the interaction.
 
+Included are scripts for personalizing the interaction for individual people
+based on logs of their performance from previous session.
+
 The program uses ROS to communicate with a Tega robot, an
-[Opal](https://github.com/personal-robots/SAR-opal-base) game (generally run on a tablet) via a rosbridge\_server websocket
-connection, as well as several other nodes.
+[Opal](https://github.com/personal-robots/SAR-opal-base) game (generally run on
+a tablet) via a rosbridge\_server websocket connection, as well as several
+other nodes.
 
 ## Setup and dependencies
 
@@ -340,10 +344,69 @@ question (defined in the question config file) as an argument:
 
 ## Personalization
 
-### Performance and story selection
+This repository includes scripts for personalizing the interaction run with the
+relational robot interaction node. Essentially, given participants' past
+performance, generate config files for each participant for the next session.
 
-TODO
+The personalization depends on several things:
 
+1. A TOML study session config file as (see
+   `interaction_scripts/rr2_study/session_config.toml` for an example).
+2. An initial TOML performance log file, which should contain the levels at
+   which the robot's stories should be for story retell tasks and
+   create-a-story tasks for each participant/user.
+3. Any performance log files (generated for each interaction run from
+   `src/rr_interaction_node.py`).
+4. A directory of stories that the robot can tell. Could have sub-directories
+   for particular story corpuses.
+
+Usage: `gen_next_session_config.py [-h] -d, --storydir STORY_DIR -o, --outdir
+OUTDIR -p, --performance PERFORMANCE -s, --sconfig STUDY_CONF [-c, --pconfig
+[PARTICIPANT_CONF]] log_files [log_files ...]`
+
+positional arguments:
+- `log_files`: One or more performance log files to process
+
+optional arguments:
+- `-h, --help`: show this help message and exit
+- `-d, --storydir STORY_DIR`: Directory of robot story texts
+- `-o, --outdir OUTDIR`: Directory to save new config files in
+- `-p, --performance PERFORMANCE`: Toml file containing the participant
+  performance record so far
+- `-s, --sconfig STUDY_CONF`: Toml study session config file.
+- `-c, --pconfig PARTICIPANT_CONF`: Toml participant session config file.
+
+Example: ` python src/gen_next_session_config.py -d
+"interaction_scripts/rr2_study/stories/" -o "performance/" -p
+"performance/rr2_performance_log00.toml" -s
+"interaction_scripts/rr2_study/session_config.toml" performance/p00*log-1.toml`
+
+### Story personalization
+
+Stories told by the robot for a story retell task are the same for each
+participant, but may be at different levels. Thus, the only personalization for
+the story retell task is the story level. This level is specified ahead of time
+in the first performance log file.
+
+Stories told by the robot for the create-a-story task may be different for each
+participant. These stories are selected based on the following criteria:
+
+1. Does the study session config file specify choosing a story from a
+   particular story corpus? For example, the `rr2_study` session config file
+   specifies either the SR2 child story corpus or the SR2 robot story corpus.
+2. Does the study session config file specify choosing stories from any
+   particular story scenes? This may be terminology specific to the `rr2_study`
+   corpuses, which have a number of different story scenes, each of which has a
+   number of stories that can be paired with it.
+3. The cosine similarity of the participant's stories to the robot's story. In
+   the study session config file, you can either specifiy selecting the _most_
+   similar story (i.e., choosing something the participant might like, or that
+   is similar in that it might build rapport) or the _least_ similar story
+   (i.e., picking a story that exposes the participant to new information or
+   new ideas).
+
+The participant config file generated will list what scenes to show for each
+participant for the next session, as well as what stories to use in each scene.
 
 ## Testing
 
