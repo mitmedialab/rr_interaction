@@ -1,0 +1,16 @@
+[p000]
+story_retell_level = 0
+story_create_level = 0
+
+[p001]
+story_retell_level = 1
+story_create_level = 0
+
+[p002]
+story_retell_level = 1
+story_create_level = 1
+
+[p003]
+story_retell_level = 2
+story_create_level = 1
+
