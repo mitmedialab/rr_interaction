@@ -43,7 +43,8 @@ and copy it to the tablet).
 
 ## Usage
 
-Usage: `python src/rr_interaction_node.py [-h] [-e] [session] [participant]`
+Usage: `python src/rr_interaction_node.py [-h] [-e] [-p, --pconfig
+[PARTICIPANT_CONFIG]] [session] [participant]`
 
 This will start the main interaction handler, which orchestrates the
 interaction: loads scripts, uses ROS to tell the robot and tablet what to do.
@@ -59,6 +60,9 @@ positional arguments:
 optional arguments:
 - `-h, --help`: show this help message and exit
 - `-e, --use-entrainer`: Send audio to the entrainer on the way to the robot.
+- `-p, --pconfig [PARTICIPANT_CONFIG]`: Optional TOML participant-specific
+  config file.  Specify if the interaction should be personalized to
+  individuals.
 
 
 ### Configuration

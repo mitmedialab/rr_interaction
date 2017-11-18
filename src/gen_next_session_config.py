@@ -434,7 +434,7 @@ if __name__ == '__main__':
     # A toml file containing the overall study session config.
     PARSER.add_argument("-s, --sconfig", type=str, nargs=1, dest="study_conf",
                         required=True, help="Toml study session config file.")
-    # A toml file containing the overall particpant config.
+    # A toml file containing the overall participant config.
     PARSER.add_argument("-c, --pconfig", type=str, nargs="?",
                         dest="participant_conf", required=False,
                         help="Toml participant session config file.")

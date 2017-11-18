@@ -99,17 +99,25 @@ class InteractionHandler(object):
             for communication with the Opal tablet (where some interaction
             content is shown).""")
         parser.add_argument("session", action="store", nargs="?", type=int,
-                            default=-1, help="""Indicate which session this is
-                            so the appropriate scripts can be loaded.""")
+                            default=-1, help="Indicate which session this is"
+                            "so the appropriate scripts can be loaded."
+                            "Defaults to the demo.")
         parser.add_argument("participant", action="store", nargs="?", type=str,
-                            default='DEMO', help="""Indicate which participant
-                            this is so the appropriate scripts can be
-                            loaded. Default demo.""")
+                            default='DEMO', help="Indicate which participant"
+                            "this is so the appropriate scripts can be loaded."
+                            "Defaults to the demo.")
         # The user can decide to send audio directly to the robot or to go
         # through the audio entrainment module first.
         parser.add_argument("-e", "--use-entrainer", action='store_true',
                             default=False, dest="use_entrainer", help="""Send
                             audio to the entrainer on the way to the robot.""")
+        # The user can specify a participant-specific toml configuration file
+        # if the interaction session should be personalized to individuals.
+        parser.add_argument("-p, --pconfig", type=str, nargs="?", default=None,
+                            action="store", dest="participant_config",
+                            help="Optional TOML participant-specific config "
+                            "file. Specify if the interaction should be "
+                            "personalized to individuals.")
 
         # Parse the args we got, and print them out.
         args = parser.parse_args()
@@ -127,11 +135,12 @@ class InteractionHandler(object):
 
         # If the args indicate that this is a demo, return demo args.
         if args.session <= 0 or args.participant.lower() == "demo":
-            return (-1, "DEMO", args.use_entrainer)
+            return (-1, "DEMO", args.use_entrainer, None)
 
         # Otherwise, return the provided session and ID.
         else:
-            return (args.session, args.participant, args.use_entrainer)
+            return (args.session, args.participant, args.use_entrainer,
+                    args.participant_config)
 
     def _read_config(self, config):
         """ Read in the main toml config file. """
@@ -207,7 +216,7 @@ class InteractionHandler(object):
         return study_path, script_config, story_script_path, \
             session_script_path, audio_base_dir, viseme_base_dir
 
-    def launch_interaction(self, session, participant, entrain):
+    def launch_interaction(self, session, participant, entrain, pconfig):
         """ Launch interaction based on the current session and participant.
         """
         # Log session and participant ID.
@@ -231,8 +240,8 @@ class InteractionHandler(object):
             script_handler = ScriptHandler(self._ros_ss, session, participant,
                                            study_path, story_script_path,
                                            session_script_path, script_config,
-                                           audio_base_dir, viseme_base_dir,
-                                           entrain)
+                                           pconfig, audio_base_dir,
+                                           viseme_base_dir, entrain)
         except IOError as ioe:
             self._logger.exception("Did not load the session script... exiting"
                                    " because we need the session script to "
@@ -319,8 +328,10 @@ if __name__ == '__main__':
     # Try launching the interaction!
     try:
         INTERACTION_HANDLER = InteractionHandler()
-        (SESSION, PARTICIPANT, ENTRAIN) = INTERACTION_HANDLER.parse_arguments()
-        INTERACTION_HANDLER.launch_interaction(SESSION, PARTICIPANT, ENTRAIN)
+        (SESSION, PARTICIPANT, ENTRAIN, PCONFIG) = \
+            INTERACTION_HANDLER.parse_arguments()
+        INTERACTION_HANDLER.launch_interaction(SESSION, PARTICIPANT, ENTRAIN,
+                                               PCONFIG)
 
     # If roscore isn't running or shuts down unexpectedly...
     except rospy.ROSInterruptException:

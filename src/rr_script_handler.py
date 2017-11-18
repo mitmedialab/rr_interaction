@@ -63,7 +63,7 @@ class ScriptHandler(object):
 
     def __init__(self, ros_node, session, participant, study_path,
                  story_script_path, session_script_path, script_config,
-                 audio_base_dir, viseme_base_dir, entrain):
+                 p_config, audio_base_dir, viseme_base_dir, entrain):
         """ Save references to ROS connection and logger, get scripts and
         set up to read script lines.
         """
@@ -74,7 +74,7 @@ class ScriptHandler(object):
         self._logger.info("Setting up script handler...")
 
         # Get the study config file.
-        self._script_config = self._load_script_config(script_config)
+        self._script_config = self._load_toml_config(script_config)
 
         # Do we send audio to the audio entrainer on the way to the robot?
         self._use_entrainer = entrain
@@ -98,11 +98,10 @@ class ScriptHandler(object):
         else:
             self._session_script_path = session_script_path
 
-        # Set up the personalization manager so we can pick personalized
-        # content for this participant.
-        print "TODO personalization"
-        #self._personalization_man = rr_personalization_manager(session,
-                                                               #participant)
+        # Load the participant configuration file so we can look up the
+        # personalization for this participant.
+        self._p_config = self._load_toml_config(p_config)
+
         # Set up script parser.
         self._script_parser = ScriptParser()
         # These are other script parsers we may use later.
@@ -177,20 +176,19 @@ class ScriptHandler(object):
         # timer function before the pause game function.
         self._pause_start_time = None
 
-    def _load_script_config(self, config):
-        """ Load in the study config file for later reference. """
+    def _load_toml_config(self, config):
+        """ Load in a toml config file for later reference. """
         try:
             with open(config) as tof:
                 toml_data = toml.load(tof)
-            self._logger.debug("Reading script config...: {}".format(
+            self._logger.debug("Reading toml config...: {}".format(
                 toml_data))
             return toml_data
         except Exception as exc:  # pylint: disable=broad-except
-            self._logger.exception("""Could not read your toml study config
-                                   file \"{}\". Does the file exist? Is it
-                                   valid toml? Exiting because we need the
-                                   config file to continue. {}""".format(
-                                   config, exc))
+            self._logger.exception("""Could not read your toml config file
+                                   \"{}\". Does the file exist? Is it valid
+                                   toml? Exiting because we need the config
+                                   file to continue. {}""".format(config, exc))
             exit(1)
 
     def iterate_once(self):
