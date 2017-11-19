@@ -230,7 +230,7 @@ def pick_story(story_corpus, corpus_name, pid, story_dir, scenes_used=None,
             continue
         for story in story_corpus["scenes"][scene]["stories"]:
             # Get the robot story text from a text file.
-            story_name = story_dir + corpus_name + "/" + scene + \
+            story_name = corpus_name + "/" + scene + \
                 story_corpus["delimiter"] + story
             # If there are levels of the stories in this corpus available, we
             # check what level to use for this participant. The level we should
@@ -241,12 +241,14 @@ def pick_story(story_corpus, corpus_name, pid, story_dir, scenes_used=None,
                         story_corpus["level_names"][story_corpus["levels"][
                             pid["story_create_level"]]]
             print "Checking {}...".format(story_name)
+            short_name = story_name
+            story_name = story_dir + story_name
             story_text = get_story_from_file(story_name + ".txt")
             # Compute the cosine similarity score between the participant's
             # stories and this story.
             score = text_similarity_tools.get_cosine_similarity(story_text,
                                                                 pstory)
-            scores.append((score, story_name, scene))
+            scores.append((score, short_name, scene))
             print "Similarity: {}".format(score)
 
     # Now we have all the scores for the robot stories in the corpus.
