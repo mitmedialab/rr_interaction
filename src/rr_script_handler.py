@@ -36,7 +36,7 @@ import random  # For picking robot responses and shuffling answer options
 import logging  # Log messages
 from rr_errors import NoStoryFound  # Custom exception when no stories found
 from rr_script_parser import ScriptParser  # Parses scripts
-from rr_personalization_manager import rr_personalization_manager
+from rr_performance_logger import PerformanceLogger  # Logs participant data
 from asr_google_cloud.msg import AsrCommand  # Tell ASR to start/stop.
 from r1d1_msgs.msg import TegaAction  # Tell Tega to do different fidgets.
 
@@ -63,7 +63,8 @@ class ScriptHandler(object):
 
     def __init__(self, ros_node, session, participant, study_path,
                  story_script_path, session_script_path, script_config,
-                 p_config, audio_base_dir, viseme_base_dir, entrain):
+                 p_config, audio_base_dir, viseme_base_dir, output_dir,
+                 entrain):
         """ Save references to ROS connection and logger, get scripts and
         set up to read script lines.
         """
@@ -100,8 +101,28 @@ class ScriptHandler(object):
 
         # Load the participant configuration file so we can look up the
         # personalization for this participant.
-        self._p_config = self._load_toml_config(p_config)
+        pconfig = self._load_toml_config(p_config)
+        if participant not in pconfig:
+            self._logger.warn("{} is not in the participant config file we "
+                              "loaded! We can't personalize!".format(
+                                   participant))
+        elif session not in pconfig[participant]:
+            self._logger.warn("Session {} is not in the participant config "
+                              "file we loaded for participant {}! We can't "
+                              "personalize!".format(session, participant))
+        else:
+            # Since we are only running one participant and one session, we
+            # only care about the configuration for this participant and this
+            # session. So we'll only save that information.
+            # TODO if we include any higher-level participant config later, we
+            # will need that too - then just save this participant and refer to
+            # the session as needed.
+            self._p_config = pconfig[participant][session]
 
+        # Set up performance logger for tracking participant performance this
+        # session.
+        self._performance_log = PerformanceLogger(participant, session,
+                                                  output_dir)
         # Set up script parser.
         self._script_parser = ScriptParser()
         # These are other script parsers we may use later.
@@ -127,6 +148,10 @@ class ScriptHandler(object):
         # Initialize flags and counters:
         # Set up counter for how many stories have been told this session.
         self._stories_told = 0
+
+        # We need to track which scene has been selected so we know which story
+        # to tell, since it depends on the scene.
+        self._selected_scene = None
 
         # When we start, we are not currently telling a story or repeating a
         # script, or at the end of the game.
@@ -327,11 +352,10 @@ class ScriptHandler(object):
             # assuming it is in the story scripts directory.
             self._story_parser = ScriptParser()
             try:
-                # TODO update how we get stories
-                print "TODO"
-                #self._story_parser.load_script(
-                    #self._study_path + self._story_script_path +
-                    #self._personalization_man.get_next_story_script())
+                # Try loading the story for the selected scene.
+                self._story_parser.load_script(
+                    self._study_path + self._story_script_path +
+                    self._p_config["stories"][self._selected_scene])
             except IOError:
                 self._logger.exception("Script parser could not open story "
                                        "script! Skipping STORY line.")
@@ -357,7 +381,6 @@ class ScriptHandler(object):
             # Pick the next story to play.
             # TODO update story picking and setup
             print "TODO"
-            #self._personalization_man.pick_next_story()
 
         #########################################################
         # For ROBOT lines, send command to the robot.

@@ -29,3 +29,7 @@ audio_base_dir = "/home/jakory/rr1_audio/"
 
 # Where are the phoneme/viseme files that correspond to each audio file located?
 viseme_base_dir = "/home/jakory/rr1_audio/"
+
+# Where should we save any output files or performance files generated during
+# the interaction?
+output_dir = "performance/"

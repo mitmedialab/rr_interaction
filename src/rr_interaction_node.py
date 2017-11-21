@@ -101,11 +101,11 @@ class InteractionHandler(object):
         parser.add_argument("session", action="store", nargs="?", type=int,
                             default=-1, help="Indicate which session this is"
                             "so the appropriate scripts can be loaded."
-                            "Defaults to the demo.")
+                            "If not specified, defaults to the demo.")
         parser.add_argument("participant", action="store", nargs="?", type=str,
                             default='DEMO', help="Indicate which participant"
                             "this is so the appropriate scripts can be loaded."
-                            "Defaults to the demo.")
+                            "If not specified, defaults to the demo.")
         # The user can decide to send audio directly to the robot or to go
         # through the audio entrainment module first.
         parser.add_argument("-e", "--use-entrainer", action='store_true',
@@ -115,9 +115,10 @@ class InteractionHandler(object):
         # if the interaction session should be personalized to individuals.
         parser.add_argument("-p, --pconfig", type=str, nargs="?", default=None,
                             action="store", dest="participant_config",
-                            help="Optional TOML participant-specific config "
-                            "file. Specify if the interaction should be "
-                            "personalized to individuals.")
+                            help="TOML participant-specific config file. "
+                            "Needed to personalize the interaction to "
+                            "individuals. If not specified, defaults to the "
+                            "demo.")
 
         # Parse the args we got, and print them out.
         args = parser.parse_args()
@@ -134,7 +135,8 @@ class InteractionHandler(object):
                              "particular session.")
 
         # If the args indicate that this is a demo, return demo args.
-        if args.session <= 0 or args.participant.lower() == "demo":
+        if args.session <= 0 or args.participant.lower() == "demo" or \
+                not participant_config:
             return (-1, "DEMO", args.use_entrainer, None)
 
         # Otherwise, return the provided session and ID.
@@ -207,6 +209,15 @@ class InteractionHandler(object):
                                    " in config file.Assuming audio files are "
                                    "in the main study directory.")
                 viseme_base_dir = None
+            # Directory where any output should be saved.
+            if "output_dir" in toml_data:
+                output_dir = toml_data["output_dir"]
+            else:
+                self._logger.error("Could not read path to the output  "
+                                   "directory! Expected option \"output_dir\""
+                                   "to be in the config file. Defaulting to "
+                                   "saving in the current working directory.")
+                output_dir = ""
         except Exception as exc:  # pylint: disable=broad-except
             self._logger.exception("Could not read your toml config file \"" +
                                    str(config) + "\". Does the file exist? Is "
@@ -214,7 +225,7 @@ class InteractionHandler(object):
                                    " config file to continue. {}".format(exc))
             exit(1)
         return study_path, script_config, story_script_path, \
-            session_script_path, audio_base_dir, viseme_base_dir
+            session_script_path, audio_base_dir, viseme_base_dir, output_dir
 
     def launch_interaction(self, session, participant, entrain, pconfig):
         """ Launch interaction based on the current session and participant.
@@ -231,7 +242,7 @@ class InteractionHandler(object):
         # directories, and more. If this is a demo interaction, load the demo
         # config file; otherwise try reading in the regular config file.
         study_path, script_config, story_script_path, session_script_path, \
-            audio_base_dir, viseme_base_dir = self._read_config(
+            audio_base_dir, viseme_base_dir, output_dir = self._read_config(
                 "config.demo.toml" if participant == "DEMO" else
                 "config.toml")
 
@@ -241,7 +252,8 @@ class InteractionHandler(object):
                                            study_path, story_script_path,
                                            session_script_path, script_config,
                                            pconfig, audio_base_dir,
-                                           viseme_base_dir, entrain)
+                                           viseme_base_dir, output_dir,
+                                           entrain)
         except IOError as ioe:
             self._logger.exception("Did not load the session script... exiting"
                                    " because we need the session script to "

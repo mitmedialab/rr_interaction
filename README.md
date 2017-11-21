@@ -89,13 +89,12 @@ The options you can set in this config file include:
   empty string. If story and session scripts are in the same directory, this
   may be the same as the `story_script_path` option.
 
-- **session\_script\_path**: The relative path from the `study_path` directory to
-  the directory containing session scripts. For example, the demo session
+- **session\_script\_path**: The relative path from the `study_path` directory
+  to the directory containing session scripts. For example, the demo session
   scripts are in a subdirectory of the `interaction_scripts/demo` directory
   named `session_scripts`. If the session scripts are not in a subdirectory,
   set to the empty string. If story and session scripts are in the same
-  directory, this may be the same as the `session:w
-  _script_path` option.
+  directory, this may be the same as the `session_script_path` option.
 
 - **study\_config**: The relative path from the `study_path` directory to the
   study's config file (containing, e.g., definitions for questions, audio, and
@@ -121,6 +120,10 @@ The options you can set in this config file include:
 - **phoneme\_base\_dir**: The full path to a directory containing audio files
   (only used if audio is streamed to the robot, e.g., if the audio entrainer is
   used, which by default it is).
+
+- **output\_dir**: The relative path from the config file (located at the top
+  of the project respository) to the directory where any output or performance
+  files generated during the interaction should be saved.
 
 #### Script config
 
@@ -178,6 +181,9 @@ Note that rosout only gets log messages after the node is fully initialized, so
 the ROS rosout log file will likely be missing the initial messages. See the
 [rospy logging documentation](http://wiki.ros.org/rospy/Overview/Logging) for
 more.
+
+**For information about performance logs for participants, see the
+Personalization section below.**
 
 #### Participant config
 
@@ -417,6 +423,34 @@ Example: ` python src/gen_next_session_config.py -d
 "interaction_scripts/rr2_study/stories/" -o "performance/" -p
 "performance/rr2_performance_log00.toml" -s
 "interaction_scripts/rr2_study/session_config.toml" performance/p00*log-1.toml`
+
+### Performance log files
+
+A performance log file will be generated from each interaction session. This
+toml file will contain the following information about the participant's
+performance and activity for that session:
+
+- pid: The participant's ID number (may also be in the filename).
+- session: The interaction session number associated with this log (may also be
+  in the filename).
+- stories_heard: A list of stories the robot told in the session. E.g.,
+  `["PenguinSlide"]`.
+- stories_heard_levels: A list corresponding to the stories_heard list with the
+  level each story was told at (e.g., `[0, 1]`).
+- scenes_shown: A list of story scenes shown to the participant in the session.
+  E.g., `["Iceberg", "Treemeadow"]`
+- scenes_used = A list of story scenes actually used in the session. Sometimes
+  more scenes are offered/shown than are actually selected for use. E.g.,
+  `["Iceberg"]`.
+- story_text: A list of strings, each containing the full text of a story the
+  participant told.
+
+These log files are used to personalize later sessions for individual
+participants.
+
+As mentioned above, when you run `gen_next_session_config.py`, an aggregate
+performance log containing the performance for all participants for all
+sessions is created or updated.
 
 ### Story personalization
 

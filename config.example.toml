@@ -29,3 +29,7 @@ audio_base_dir = "/path/to/audio/"
 
 # Where are the phoneme/viseme files that correspond to each audio file located?
 phoneme_base_dir = "/path/to/phoneme/files/"
+
+# Where should we save any output files or performance files generated during
+# the interaction?
+output_dir = "/path/where/we/can/save/stuff/"
