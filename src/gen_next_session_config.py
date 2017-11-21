@@ -103,15 +103,34 @@ def generate_next_session_config(pid, performance, story_dir, study_config):
         # 1. We take any scenes listed in the config. There may only be scenes
         #    listed for one session, since after that we base our scene picks
         #    on which stories are similar/dissimilar to the child's stories,
-        #    and that then determines the scenes used.
-        if "scenes" in study_config["sessions"][session]:
-            p_config[session]["scenes"] = study_config["sessions"][session][
-                    "scenes"]
-            print "Found scene: {} from study config".format(
-                p_config[session]["scenes"])
+        #    and that then determines the scenes used. THAT IS unless this
+        #    participant does not get personalized stories, in which case we
+        #    use the list of default scenes.
+        if performance["personalized"]:
+            if "scenes" in study_config["sessions"][session]:
+                p_config[session]["scenes"] = study_config["sessions"][
+                        session]["scenes"]
+                print "Found scene: {} from study config".format(
+                    p_config[session]["scenes"])
+            else:
+                p_config[session]["scenes"] = []
+                print "WARNING: No scenes in the config for this session."
+
+        # Not personalized - use the default scenes.
         else:
-            p_config[session]["scenes"] = []
-            print "WARNING: No scenes listed in the config for this session."
+            if "default_scenes" in study_config["sessions"][session]:
+                p_config[session]["scenes"] = study_config["sessions"][
+                        session]["default_scenes"]
+                print "Found scene: {} from study config".format(
+                    p_config[session]["scenes"])
+            else:
+                p_config[session]["scenes"] = []
+                print "ERROR: No default scenes in the config for this " \
+                        "session! We need the defaults for participants who " \
+                        "don't get personalization! Exiting because we can't" \
+                        " continue."
+                exit(1)
+
         # 2. If there was a negotiation last session, we need to include the
         #    scene that wasn't used last time.
         prev_session = str(session_int - 1)
@@ -127,9 +146,12 @@ def generate_next_session_config(pid, performance, story_dir, study_config):
                     print "Found scene: {} from prior session {}".format(
                             scene, prev_session)
                     break
+
         # 3. If we don't have two stories yet, we will look for stories for the
         #    robot to tell based on story similarity to the child's stories,
         #    and determine which scenes those stories are in later.
+        #    THAT IS unless this participant does *not* get personalization!
+        #    Then, we use the default scenes listed.
 
         # We need to pick which robot story is told. The robot tells either
         # stories from the SR2 robot corpus or child stories from the SR2 child
@@ -141,25 +163,37 @@ def generate_next_session_config(pid, performance, story_dir, study_config):
             print "Checking corpus {} for stories in these scenes...".format(
                     corpus_name)
 
-        # Pick a story for each scene that might be used this session from the
-        # stories available for the selected scenes for that corpus.
-        p_config[session]["stories"] = {}
-        for scene in p_config[session]["scenes"]:
-            (_, p_config[session]["stories"][scene], _) = pick_story(
-                    story_corpus, corpus_name, performance, story_dir,
-                    scene_to_pick_from=scene,
-                    similar=study_config["sessions"][session]["similar"])
-        # If there are no scenes listed, we'll need to look at stories from all
-        # scenes, and then pick stories, and then update the scene list.
-        while len(p_config[session]["scenes"]) < \
-                study_config["sessions"][session]["num_scenes"]:
-            (_, picked_story, picked_scene) = pick_story(
-                    story_corpus, corpus_name, performance, story_dir,
-                    scenes_used=p_config[session]["scenes"],
-                    similar=study_config["sessions"][session]["similar"])
-            # Add the scene and story to our participant config file.
-            p_config[session]["stories"][picked_scene] = picked_story
-            p_config[session]["scenes"].append(picked_scene)
+        if performance["personalized"]:
+            # Otherwise, the participant gets personalized stories:
+            # Pick a story for each scene that might be used this session from
+            # the stories available for the selected scenes for that corpus.
+            p_config[session]["stories"] = {}
+            for scene in p_config[session]["scenes"]:
+                (_, p_config[session]["stories"][scene], _) = pick_story(
+                        story_corpus, corpus_name, performance, story_dir,
+                        scene_to_pick_from=scene,
+                        similar=study_config["sessions"][session]["similar"])
+            # If there are no scenes listed, we'll need to look at stories from
+            # all scenes, then pick stories, and then update the scene list.
+            while len(p_config[session]["scenes"]) < \
+                    study_config["sessions"][session]["num_scenes"]:
+                (_, picked_story, picked_scene) = pick_story(
+                        story_corpus, corpus_name, performance, story_dir,
+                        scenes_used=p_config[session]["scenes"],
+                        similar=study_config["sessions"][session]["similar"])
+                # Add the scene and story to our participant config file.
+                p_config[session]["stories"][picked_scene] = picked_story
+                p_config[session]["scenes"].append(picked_scene)
+
+        # If the participant does not get personalization, use the default
+        # stories for each scene.
+        else:
+            p_config[session]["stories"] = {}
+            print study_config["sessions"][session]["default_stories"]
+            for scene in p_config[session]["scenes"]:
+                p_config[session]["stories"][scene] = study_config[
+                        "sessions"][session]["default_stories"][scene]
+
 
     ##########################################################################
     # PERSONALIZATION: CATCHPHRASES.
@@ -221,6 +255,8 @@ def pick_story(story_corpus, corpus_name, pid, story_dir, scenes_used=None,
     scores = []
     if scene_to_pick_from:
         print "Looking for stories from {}".format(scene_to_pick_from)
+    else:
+        print "Looking for a similar story from any unused scene..."
     for scene in story_corpus["scenes"]:
         print "Checking scene: {}".format(scene)
         # If we need to pick a story from a particular scene, skip checking
@@ -258,8 +294,9 @@ def pick_story(story_corpus, corpus_name, pid, story_dir, scenes_used=None,
 
     # Did we already pick a story in this scene? If so, get the next highest
     # match.
+    print scenes_used
     if scenes_used:
-        while top_match[1] in scenes_used:
+        while top_match[2] in scenes_used:
             # If we already used this scene, remove the top match from the
             # list, get a new top match, and check again.
             print "Top match: {}.\nNot using because we already have a " \

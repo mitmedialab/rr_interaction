@@ -8,7 +8,8 @@
 #   story.
 # - Does this session include a negotiation task? If so, we need to use it;
 #   otherwise, we need to reference the previous sessions's negotiation.
-# -
+# - Default scenes to use and stories to tell (for participants who don't get
+#   personalized stories).
 # - TODO add any more!
 #######################################################################
 # EXAMPLE SESSION
@@ -37,6 +38,14 @@
 ## The SR2 story corpus to use this session.
 #corpus = "SR2_robot"
 #
+## Whether to pick stories that are the most similar (true) or the least
+## similar (false) as compared to the participant's stories.
+#similar = true
+#
+## The stories to use as defaults for participants who don't get a set of
+## personalized stories.
+#default_stories = [ { scene = "Iceberg", story = "PenguinSlide" },
+#                    { scene = "Treemeadow", story = "DragonClumsy" } ]
 #######################################################################
 [sessions.1]
 story_type = "retell"
@@ -50,14 +59,25 @@ scenes = ["Iceberg", "Treemeadow"]
 corpus = "SR2_robot"
 num_scenes = 2
 similar = true
+default_scenes = ["Iceberg", "Treemeadow"]
+[sessions.2.default_stories.Iceberg]
+story = "PenguinSlide"
+[sessions.2.default_stories.Treemeadow]
+story = "DragonClumsy"
 
 [sessions.3]
 story_type = "create"
 negotiation = false
-scenes = ["Playground"]
 corpus = "SR2_child"
 num_scenes = 2
 similar = false
+default_scenes = ["Playground"]
+[sessions.3.default_stories.Iceberg]
+story = ""
+[sessions.3.default_stories.Treemeadow]
+story = ""
+[sessions.3.default_stories.Playground]
+story = ""
 
 [sessions.4]
 story_type = "retell"
@@ -67,22 +87,87 @@ negotiation = false
 [sessions.5]
 story_type = "create"
 negotiation = true
-scenes = ["Castle"]
 corpus = "SR2_robot"
 num_scenes = 2
-similar = false
+similar = true
+default_scenes = ["Castle"]
+[sessions.5.default_stories.Iceberg]
+story = "PenguinSlide"
+[sessions.5.default_stories.Treemeadow]
+story = "DragonClumsy"
+[sessions.5.default_stories.Playground]
+story = "PlayBall"
+[sessions.5.default_stories.Castle]
+story = "EvilKing"
 
 [sessions.6]
 story_type = "create"
 negotiation = false
-scenes = ["Pineforest"]
 corpus = "SR2_child"
 num_scenes = 2
 similar = true
+default_scenes = ["Pineforest"]
+[sessions.6.default_stories.Iceberg]
+story = ""
+[sessions.6.default_stories.Treemeadow]
+story = ""
+[sessions.6.default_stories.Playground]
+story = ""
+[sessions.6.default_stories.Castle]
+story = ""
+[sessions.6.default_stories.Pineforest]
+story = ""
 
 [sessions.7]
 story_type = "retell"
 story_name = "ThirdRetell"
+negotiation = false
+
+[sessions.8]
+story_type = "create"
+negotiation = true
+corpus = "SR2_robot"
+num_scenes = 2
+similar = true
+default_scenes = ["Dinoville"]
+[sessions.8.default_stories.Iceberg]
+story = "PenguinSlide"
+[sessions.8.default_stories.Treemeadow]
+story = "DragonClumsy"
+[sessions.8.default_stories.Playground]
+story = "PlayBall"
+[sessions.8.default_stories.Castle]
+story = "EvilKing"
+[sessions.8.default_stories.Pineforest]
+story = "FloppyHideSeek"
+[sessions.8.default_stories.Dinoville]
+story = "DinoEater"
+
+[sessions.9]
+story_type = "create"
+negotiation = false
+corpus = "SR2_child"
+num_scenes = 2
+similar = true
+default_scenes = ["Pineforest"]
+[sessions.9.default_stories.Iceberg]
+story = ""
+[sessions.9.default_stories.Treemeadow]
+story = ""
+[sessions.9.default_stories.Playground]
+story = ""
+[sessions.9.default_stories.Castle]
+story = ""
+[sessions.9.default_stories.Pineforest]
+story = ""
+[sessions.9.default_stories.Dinoville]
+story = ""
+[sessions.9.default_stories.Mars]
+story = ""
+
+[sessions.10]
+story_type = "retell"
+story_name = "FourthRetell"
 negotiation = false
 
 #######################################################################
@@ -94,6 +179,10 @@ negotiation = false
 # the story file names later. For example, there might be stories such as
 # "Castle-EvilKing-E" for the easy level of a story in the Castle scene, and
 # "Castle-EvilKing-H" for the hard level.
+#
+# The stories for a given scene are nested under the scene name in case we
+# want to also list more information about the scene under the scene name
+# later, such as the vocabulary words for the scene or other information.
 #######################################################################
 [story_corpus.SR2_robot]
 levels = [0, 1]
@@ -121,7 +210,7 @@ levels = [0]
 level_names = [""]
 delimiter = "-"
 [story_corpus.SR2_child.scenes.Castle]
-stories = [ "sr2-session1-p013-story2", "sr2-session2-p004-story2", "sr2-session2-p006-story2", "sr2-session2-p007-story3", "sr2-session-p009-story2", "sr2-session2-p010-story2", "sr2-session2-p015-story2", "sr2-session6-p004-story1", "sr2-session6-p006-story1", "sr2-session6-p007-story1", "sr2-session6-p013-story2"]
+stories = [ "sr2-session1-p013-story2", "sr2-session2-p004-story2", "sr2-session2-p006-story2", "sr2-session2-p007-story2", "sr2-session2-p009-story2", "sr2-session2-p010-story2", "sr2-session2-p015-story2", "sr2-session6-p004-story1", "sr2-session6-p006-story1", "sr2-session6-p007-story1", "sr2-session6-p013-story2"]
 [story_corpus.SR2_child.scenes.Dinoville]
 stories = [ "sr2-session4-p004-1-story1", "sr2-session4-p006-1-story1", "sr2-session4-p007-story1", "sr2-session4-p009-1-story1", "sr2-session6-p004-story2", "sr2-session6-p006-story2", "sr2-session6-p011-story2"]
 [story_corpus.SR2_child.scenes.House]
