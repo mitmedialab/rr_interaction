@@ -102,7 +102,9 @@ class PerformanceLogger(object):
         return base + str(num + 1) + ext
 
     def log_scenes_shown(self, scenes):
-        """ Log that a list of scenes were shown to the participant. """
+        """ Log that a list of scenes were shown to the participant during the
+        negotiation/choice portion.
+        """
         self._logger.info("Logging that scenes were shown: {}".format(scenes))
         if self._log["scenes_shown"]:
             for scene in scenes:
@@ -111,7 +113,7 @@ class PerformanceLogger(object):
             self._log["scenes_shown"] = scenes
         self._write_log_to_file()
 
-    def log_played_story(self, scene, story_name, story_level):
+    def log_played_story(self, story_name, scene, story_level):
         """ Log that a story was played in a scene. """
         self._logger.info("Logging that story {} was played at level {} in "
             "scene {}".format(story_name, story_level, scene))
@@ -126,7 +128,7 @@ class PerformanceLogger(object):
             self._log["stories_heard_levels"].append(story_level)
         else:
             self._log["stories_heard_levels"] = [story_level]
-        if self._log["scenes_used"]:
+        if self._log["scenes_used"] and scene:
             self._log["scenes_used"].append(scene)
         else:
             self._log["scenes_used"] = [scene]
@@ -142,6 +144,7 @@ class PerformanceLogger(object):
             self._log["story_text"].append(text)
         else:
             self._log["story_text"] = [text]
+        self._write_log_to_file()
 
     def _write_log_to_file(self):
         """ Write the perfromance log out to the log file. """
