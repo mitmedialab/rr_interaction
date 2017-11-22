@@ -82,6 +82,10 @@ def generate_next_session_config(pid, performance, story_dir, study_config):
     # TODO function for all this?
     print "Selecting stories for this participant..."
     # Check the session number. For some sessions, we do the story retell task.
+    # Save the type for this session for the participant config for ease of
+    # reference later.
+    p_config[session]["story_type"] = study_config["sessions"][session][
+            "story_type"]
     # If this is a story retell session, which robot story will be told?
     print "Checking session... do we do a story retell this time?"
     if "retell" in study_config["sessions"][session]["story_type"]:
@@ -98,6 +102,7 @@ def generate_next_session_config(pid, performance, story_dir, study_config):
     elif "create" in study_config["sessions"][session]["story_type"]:
         print "No - no retell this time."
         print "Story type: Create\nLooking for story scenes to use..."
+        p_config[session]["story_level"] = performance["story_create_level"]
 
         # We need two story scenes for the participant to pick from next.
         # 1. We take any scenes listed in the config. There may only be scenes

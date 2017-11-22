@@ -34,7 +34,6 @@ import json  # For packing ros message properties
 import toml  # For reading the study config file.
 import random  # For picking robot responses and shuffling answer options
 import logging  # Log messages
-from rr_errors import NoStoryFound  # Custom exception when no stories found
 from rr_script_parser import ScriptParser  # Parses scripts
 from rr_performance_logger import PerformanceLogger  # Logs participant data
 from asr_google_cloud.msg import AsrCommand  # Tell ASR to start/stop.
@@ -346,42 +345,11 @@ class ScriptHandler(object):
         # For STORY lines, play the next story for the participant.
         if len(elements) == 1 and "STORY" in elements[0]:
             self._logger.debug("STORY")
-            # If line indicates we need to start a story, do so.
+            # The line indicates we need to start a story!
             self._doing_story = True
-            # Create a script parser for the filename provided,
-            # assuming it is in the story scripts directory.
-            self._story_parser = ScriptParser()
-            try:
-                # Try loading the story for the selected scene.
-                self._story_parser.load_script(
-                    self._study_path + self._story_script_path +
-                    self._p_config["stories"][self._selected_scene])
-            except IOError:
-                self._logger.exception("Script parser could not open story "
-                                       "script! Skipping STORY line.")
-                self._doing_story = False
-            except AttributeError:
-                self._logger.exception("Script parser could not open story "
-                                       "script because no script was loaded!"
-                                       "Skipping STORY line.")
-                self._doing_story = False
-            except NoStoryFound:
-                self._logger.exception("Script parser could not get the next "
-                                       "story script because no script was "
-                                       "found by the personalization manager!"
-                                       " Skipping STORY line.")
-                self._doing_story = False
+            self._load_next_story()
 
         # Line has 2+ elements, so check the other commands.
-        #########################################################
-        # For STORY SETUP lines, pick the next story to play so we can load
-        # its graphics and play back the story.
-        elif "STORY" in elements[0] and "SETUP" in elements[1]:
-            self._logger.debug("STORY SETUP")
-            # Pick the next story to play.
-            # TODO update story picking and setup
-            print "TODO"
-
         #########################################################
         # For ROBOT lines, send command to the robot.
         elif "ROBOT" in elements[0]:
@@ -430,11 +398,8 @@ class ScriptHandler(object):
 
             # Get the next story and load graphics into the game.
             elif "LOAD_STORY" in elements[1]:
-                self._load_next_story()
-
-            # Load answers for game.
-            elif "LOAD_ANSWERS" in elements[1] and len(elements) >= 3:
-                self._load_answers(elements[2])
+                if not self._done_telling_stories():
+                    self._load_next_story()
 
             # Send an opal command, with properties.
             elif len(elements) > 2:
@@ -1040,35 +1005,8 @@ class ScriptHandler(object):
             self._last_response_to_get,
             self._last_response_timeout)
 
-    def _load_answers(self, answer_list):
-        """ Load the answer graphics for this story """
-        # We are given a list of words that indicate what the answer options
-        # are. By convention, the first word is probably the correct answer;
-        # the others are incorrect answers. However, we won't set this now
-        # because this convention may not hold.  We expect the SET_CORRECT
-        # OpalCommand to be used to set which answers are correct or incorrect.
-        # split the list of answers on commas.
-        answers = answer_list.strip().split(',')
-
-        # Shuffle answers to display them in a random order.
-        random.shuffle(answers)
-
-        # Load in the graphic for each answer.
-        for answer in answers:
-            toload = {}
-            # Remove whitespace from name before using it.
-            toload["name"] = answer.strip()
-            toload["tag"] = "PlayObject"
-            toload["slot"] = answers.index(answer) + 1
-            toload["draggable"] = False
-            toload["isAnswerSlot"] = True
-            self._ros_node.send_opal_command("LOAD_OBJECT", json.dumps(toload))
-
-    # TODO load stories for this game
-    def _load_next_story(self):
-        """ Get the next story, set up the game scene with scene and answer
-        slots, and load scene graphics.
-        """
+    def _done_telling_stories(self):
+        """ Check whether we're allowed to tell another story or not. """
         # If we've told the max number of stories, or if we've reached max game
         # time, don't load another story even though we were told to. Instead,
         # play error message from robot saying we have to be done now.
@@ -1094,41 +1032,91 @@ class ScriptHandler(object):
             # supposed to play more stories than we have time for. Either way,
             # stop the repeating script if there is one.
             self._repeating = False
-            return
+            return True
+        else:
+            return False
 
-        # Get the details for the next story.
+    def _load_next_story(self):
+        """ Set up the game scene and load scene graphics. """
+        # Create a script parser for the filename provided, assuming it is
+        # in the story scripts directory.
+        self._story_parser = ScriptParser()
         try:
-            print "TODO"
-            #scenes, in_order, num_answers = \
-                #self._personalization_man.get_next_story_details()
-        except NoStoryFound:
-            # If no story was found, we can't load the story!
-            self._logger.exception("Cannot load story because no story to load"
-                                   "was found!")
+            # Try loading the story script. This will either be for the
+            # selected scene for a CREATE story or the storybook for a RETELL.
+            # TODO somewhere need to *get* the selected scene
+            # CREATE story:
+            if "create" in self._p_config["story_type"] and \
+                    self._selected_scene and "stories" in self._p_config:
+                self._story_parser.load_script(
+                    self._study_path + self._story_script_path +
+                    self._p_config["stories"][self._selected_scene])
+                self._logger.info("Loading story \"{}\" in scene {}...".format(
+                        self._p_config["stories"][self._selected_scene],
+                        self._selected_scene))
+
+            # RETELL story:
+            elif "retell" in self._p_config["story_type"]:
+                self._story_parser.load_script(
+                    self._study_path + self._story_script_path +
+                    self._p_config["story"])
+                # TODO story level??
+                self._logger.info("Loading story \"{}\" at level {}...".format(
+                        self._p_config["story"],
+                        self._p_config["story_level"]))
+            else:
+                self._logger.warning("Neither \"create\" nor \"retell\" is "
+                                     "listed as the story type! Thus we don't"
+                                     "have a story to load... Skipping STORY "
+                                     "line. The selected scene was \"{}\" and "
+                                     "here's the config: {}".format(
+                                         self._selected_scene, self._p_config))
+        except IOError as ioerr:
+            self._logger.exception("Script parser could not open story script!"
+                                   "Skipping STORY line. {}".format(ioerr))
+            self._doing_story = False
+            return
+        except AttributeError as atterr:
+            self._logger.exception("Script parser could not open story "
+                                   "script because no script was loaded!"
+                                   "Skipping STORY line. {}".format(atterr))
+            self._doing_story = False
+            return
+        except KeyError as keyerr:
+            self._logger.exception("Could not find scene \"{}\" in the config!"
+                                   "Skipping STORY line. {} {}".format(
+                                       self._selected_scene,
+                                       keyerr,
+                                       self._p_config))
             self._doing_story = False
             return
 
-        # Set up the story scene in the game.
-        setup = {}
-        setup["numScenes"] = len(scenes)
-        setup["scenesInOrder"] = in_order
-        setup["numAnswers"] = num_answers
-        self._ros_node.send_opal_command("SETUP_STORY_SCENE",
-                                         json.dumps(setup))
-
-        # Load the scene graphics.
-        for scene in scenes:
+        # We have a story script, now load the scene graphics.
+        # CREATE story:
+        # TODO it would be straightforward to add moveable characters. Load as
+        # PlayObjects that are draggable. Could make a text file for each scene
+        # and do "OPAL LOAD_ALL".
+        if "create" in self._p_config["story_type"]:
+            self._logger.info("Loading CREATE story on Opal device...")
             toload = {}
-            toload["name"] = "scenes/" + scene
-            toload["tag"] = "PlayObject"
-            toload["slot"] = scenes.index(scene) + 1
-            if not in_order:
-                toload["correctSlot"] = scenes.index(scene) + 1
-            toload["draggable"] = False if in_order else True
-            toload["isAnswerSlot"] = False
+            toload["name"] = "/sr2-scenes" + self._selected_scene
+            toload["tag"] = "Background"
             self._ros_node.send_opal_command("LOAD_OBJECT", json.dumps(toload))
+            # Log that the story was played.
+            self._performance_log.log_played_story(
+                    self._p_config["stories"][self._selected_scene],
+                    self._selected_scene, self._p_config["story_level"])
 
-        # Tell the personalization manager that we loaded the story so it can
-        # keep track of which stories have been played.
-        print "TODO"
-        #self._personalization_man.record_story_loaded()
+        # RETELL story:
+        elif "retell" in self._p_config["story_type"]:
+            self._logger.info("Loading RETELL story on Opal device...")
+            self._ros_node.send_opal_command("STORY_SELECTION",
+                                             self._p_config["story"])
+            # Start out with the arrow buttons hidden since it's the robot's
+            # turn first. When loaded, stories start on the first page by
+            # default.
+            self._ros_node.send_opal_command("STORY_HIDE_BUTTONS")
+            # Log that the story was played.
+            self._performance_log.log_played_story(
+                    self._p_config["story"], None,
+                    self._p_config["story_level"])
