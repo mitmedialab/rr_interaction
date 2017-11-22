@@ -1,1 +1,0 @@
-{ "name": "buttons/start_button_square.png", "tag": "PlayObject", "draggable": "false",  "slot": "1", "isAnswerSlot": "false"}
