@@ -334,10 +334,19 @@ load the pictures for the next story:
 `WAIT` is used to wait for a response from the user via a particular trigger
 before proceeding in the game. A timeout is specified so that if no response is
 received, script playback will continue after that amount of time. The timeout
-should be specified in seconds. For example, the following would wait for a
-response to a `START` button press and would timeout after 10 seconds:
+should be specified in seconds.
 
-`WAIT    START  10`
+For example, the following would wait for a user input response from the GUI
+form regarding the outcome of a negotiation, and would timeout after 20
+seconds:
+
+`WAIT   USER_INPUT  NEGOTIATION    20`
+
+For example, the following would wait for a response to a `START` button press
+on an Opal device and would timeout after 10 seconds:
+
+`WAIT    OPAL   START  10`
+
 
 #### REPEAT
 
