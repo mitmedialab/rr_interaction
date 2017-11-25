@@ -27,6 +27,8 @@ SOFTWARE.
 
 import logging  # Log messages.
 import os.path  # To check whether files exist.
+import re  # For regex.
+import toml  # For dumping to file.
 
 
 class PerformanceLogger(object):
@@ -60,7 +62,7 @@ class PerformanceLogger(object):
             # If it exists, get the next name to use (i.e. increment the number
             # in the filename) so that we never overwrite an existing log file.
             self._logger.info("Log file \"{}\" already exists. Incrementing "
-                "filename...".format(self._filename)
+                              "filename...".format(self._filename))
             self._filename = directory + self._get_next_filename(participant)
         else:
             self._filename = directory + self._filename
@@ -71,8 +73,8 @@ class PerformanceLogger(object):
         self._logger.info("Created performance log: {}".format(self._filename))
 
     def _rreplace(self, string, substring, new, num_occurrence):
-        """ Replace a substring in a string with a new substring, starting at the
-        right, for num_occurrences number of occurrences.
+        """ Replace a substring in a string with a new substring, starting at
+        the right, for num_occurrences number of occurrences.
         """
         lis = string.rsplit(substring, num_occurrence)
         return new.join(lis)
@@ -116,7 +118,7 @@ class PerformanceLogger(object):
     def log_played_story(self, story_name, scene, story_level):
         """ Log that a story was played in a scene. """
         self._logger.info("Logging that story {} was played at level {} in "
-            "scene {}".format(story_name, story_level, scene))
+                          "scene {}".format(story_name, story_level, scene))
         # If we already have some stories and scenes listed as played, just
         # append the new one to the lists. Otherwise, create a new list with
         # the newly played story or scene in it.
@@ -139,7 +141,7 @@ class PerformanceLogger(object):
         the log file manually later if the transcript is not immediately
         available.
         """
-        self._logger.info("Logging that scenes were shown: {}".format(scenes))
+        self._logger.info("Logging participant's story: {}".format(text))
         if self._log["story_text"]:
             self._log["story_text"].append(text)
         else:
