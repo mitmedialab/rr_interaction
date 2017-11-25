@@ -38,6 +38,7 @@ from rr_script_parser import ScriptParser  # Parses scripts
 from rr_performance_logger import PerformanceLogger  # Logs participant data
 from asr_google_cloud.msg import AsrCommand  # Tell ASR to start/stop.
 from r1d1_msgs.msg import TegaAction  # Tell Tega to do different fidgets.
+from rr_msgs.msg import UserInput  # Get different user input responses.
 
 
 class ScriptHandler(object):
@@ -384,7 +385,6 @@ class ScriptHandler(object):
 
         #########################################################
         # For OPAL lines, send command to Opal game
-        # TODO update what Opal commands we need.
         elif "OPAL" in elements[0]:
             self._logger.debug("OPAL")
             if "LOAD_ALL" in elements[1] and len(elements) >= 3:
@@ -395,6 +395,9 @@ class ScriptHandler(object):
                     elements[2])
                 for obj in to_load:
                     self._ros_node.send_opal_command("LOAD_OBJECT", obj)
+
+            elif "PICK_STORY" in elements[1]:
+                self._load_stories_to_pick()
 
             # Get the next story and load graphics into the game.
             elif "LOAD_STORY" in elements[1]:
@@ -444,11 +447,22 @@ class ScriptHandler(object):
                 self._logger.info("Set MAX_REPEATS to {}".format(elements[2]))
 
         #########################################################
-        # For WAIT lines, wait for the specified user response,
-        # or for a timeout.
-        elif "WAIT" in elements[0] and len(elements) >= 3:
+        # For WAIT lines, wait for the specified user response, which may be
+        # from a GUI form (i.e. a ros message) or from an Opal device (i.e. a
+        # different ros message), or for a timeout (i.e. no user response).
+        elif "WAIT" in elements[0] and len(elements) >= 4:
             self._logger.debug("WAIT")
-            self.wait_for_user_tablet_response(elements[1], int(elements[2]))
+            # The second and third elements specify what kind of user response
+            # to wait for. The fourth element specifies how long to wait before
+            # moving on.
+            if "USER_INPUT" in elements[1]:
+                # Wait for user input from a GUI.
+                self._wait_for_user_input(elements[2], int(elements[3]))
+            elif "OPAL" in elements[1]:
+                # Wait for a user response on the Opal device, e.g., a button
+                # press or answer response.
+                self._wait_for_tablet_response(elements[2],
+                                               int(elements[3]))
 
         #########################################################
         # For QUESTION lines, load and play the specified question, using
@@ -776,7 +790,135 @@ class ScriptHandler(object):
         # After the robot is done speaking, switch back to physical fidgets.
         self._ros_node.send_tega_command(fidgets=TegaAction.FIDGETS_PHYSICAL)
 
-    def wait_for_user_tablet_response(self, response_to_get, timeout):
+    def _wait_for_user_input(self, response_type, timeout):
+        """ Wait for user input from a GUI form, or wait until the specified
+        time as elapsed.
+        """
+        if "NEGOTIATE" not in response_type:
+            self._logger.error("Told to wait for user input, but the type to "
+                               "wait for was \"{}\" and we don't handle that"
+                               " yet!".format(response_type))
+
+        # Robot response to send.
+        resp = ""
+        # Wait for a button press from the form, or until we exhaust our
+        # available number of prompts.
+        for i in range(0, self._num_prompts + 1):
+            # Wait for a button press from the form.
+            # TODO Send message to form to tell it to tell user to give input?
+            # Response is a tuple with the response type followed by a string
+            # containing other useful details about the response, if any.
+            response = self._ros_node.wait_for_response(
+                    self._ros_node.USER_INPUT_NEGOTIATION,
+                    timeout=datetime.timedelta(seconds=timeout))
+
+            # We either got a response or timed out.
+            self._logger.debug("Done waiting for user input. Timed out or "
+                               "response: {}".format(response))
+            # Response could be:
+            # 1) no response (timeout)
+            #      -> prompt again
+            # 2) refusal (no I want to do the one I picked)
+            #      -> go along with it, record to reference next session
+            # 3) acquiescence (okay we'll do your choice)
+            #      -> go along with it, record to reference next session
+            # 4) compromise (do both / do mine first / do yours first)
+            #      -> do appropriate suggested action, record to reference
+            #         next session
+            #
+
+            # Case (1): Nothing / Timeout.
+            if UserInput.TIMEOUT in response[0]:
+                # If we have exhausted our allowed number of prompts, leave the
+                # loop if we didn't get a user response.
+                # Log the outcome so it can be referenced next time.
+                if i >= self._num_prompts:
+                    self._performance_log.log_negotiation_outcome(response[0])
+                    break
+                # Pick one of a set of possible negotiation timeout prompts.
+                resp = self._get_response_from_config(
+                        "negotiation_timeout_prompts")
+                if resp:
+                    # Play the selected prompt.
+                    self._send_robot_do(resp)
+                # Wait for the next user response.
+                continue
+
+            # TODO which scene was selected?
+
+            # Log the outcome of the negotiation.
+            self._performance_log.log_negotiation_outcome(response[0])
+
+            # Case (2): Refusal.
+            if UserInput.REFUSAL in response[0]:
+                # Play one of the posssible negotiation refusal responses.
+                # Log the outcome so it can be referenced next time.
+                self._logger.debug("Negotiation outcome: REFUSAL - do child's "
+                                   "choice!")
+                resp = self._get_response_from_config("negotiation_refusal")
+                # Break so we don't give the user a chance to respond again,
+                # since we already got a response and dealt with it.
+                break
+
+            # Case (3): Acquiescence.
+            if UserInput.ACQUIESCENCE in response[0]:
+                # Play one of the posssible negotiation acquiescence responses.
+                # Log the outcome so it can be referenced next time.
+                self._logger.debug("Negotiation outcome: ACQUIESENCE - do"
+                                   "robot's choice!")
+                resp = self._get_response_from_config("negotiation_acquiese")
+                # Break so we don't give the user a chance to respond again,
+                # since we already got a response and dealt with it.
+                break
+
+            # Case (4): Compromise. There are three compromise outcomes:
+            if UserInput.COMPROMISE_GENERAL in response[0]:
+                # Log the outcome so it can be referenced next time.
+                self._logger.info("Negotiation outcome: GENERAL COMPROMISE - "
+                                  "do child's choice!")
+                resp = self._get_response_from_config("negotiation_general")
+                # Break so we don't give the user a chance to respond again,
+                # since we already got a response and dealt with it.
+                break
+
+            if UserInput.COMPROMISE_ROBOT in response[0]:
+                # Log the outcome so it can be referenced next time.
+                self._logger.info("Negotiation outcome: ROBOT COMPROMISE - "
+                                  "do robot's choice!")
+                resp = self._get_response_from_config("negotiation_general")
+                # Break so we don't give the user a chance to respond again,
+                # since we already got a response and dealt with it.
+                break
+
+            if UserInput.COMPROMISE_CHILD in response[0]:
+                # Log the outcome so it can be referenced next time.
+                self._logger.info("Negotiation outcome: CHILD COMPROMISE - "
+                                  "do child's choice!")
+                resp = self._get_response_from_config("negotiation_general")
+                # Break so we don't give the user a chance to respond again,
+                # since we already got a response and dealt with it.
+                break
+
+        # If we get here, we got a response, found the thing the robot should
+        # say in reply, logged relevant information about the outcome of the
+        # negotiation, and just need the robot to actually do something!
+        if resp:
+            # Play the selected prompt.
+            self._send_robot_do(resp)
+
+    def _get_response_from_config(self, response_to_get):
+        """ Given a response to get out of the config file, try to get it and
+        send it to the robot to play.  If it's not there, print an error.
+        """
+        if response_to_get in self._script_config:
+            resp = self._script_config[response_to_get][random.randint(
+                0, len(self._script_config[response_to_get]) - 1)]
+            return resp
+        else:
+            self._logger.warning("No {} found in the script config, so we "
+                                 "cannot pick one to play!")
+
+    def _wait_for_tablet_response(self, response_to_get, timeout):
         """ Wait for a user response on the tablet, or wait until the specified
         time has elapsed. If the response is incorrect, allow multiple attempts
         up to the maximum number of incorrect responses.
@@ -1001,7 +1143,7 @@ class ScriptHandler(object):
         """ Wait for the same response that we just waited for again, with the
         same parameters for the response and the timeout.
         """
-        return self.wait_for_user_tablet_response(
+        return self._wait_for_tablet_response(
             self._last_response_to_get,
             self._last_response_timeout)
 
@@ -1035,6 +1177,22 @@ class ScriptHandler(object):
             return True
         else:
             return False
+
+    def _load_stories_to_pick(self):
+        """ Load scene graphics on the tablet for the user to pick from, which
+        we use to select which story to play next.
+        """
+        # For CREATE stories, get the scenes to show for the user to pick from
+        # from the participant config.
+        if "create" in self._p_config["story_type"] and \
+                self._selected_scene and "stories" in self._p_config:
+            self._story_parser.load_script(
+                self._study_path + self._story_script_path +
+                self._p_config["stories"][self._selected_scene])
+            self._logger.info("Loading story \"{}\" in scene {}...".format(
+                    self._p_config["stories"][self._selected_scene],
+                    self._selected_scene))
+        # TODO Display both on the tablet with LOAD OBJECT.
 
     def _load_next_story(self):
         """ Set up the game scene and load scene graphics. """

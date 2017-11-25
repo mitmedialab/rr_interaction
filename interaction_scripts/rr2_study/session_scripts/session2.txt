@@ -39,14 +39,9 @@ ROBOT	DO	rr1_picture4_04
 QUESTION	picture4_superpower
 QUESTION	tellmemore
 ROBOT	DO	ThatsAllPictures
-
 SET	MAX_REPEATS	1
 ROBOT	DO	rr1_story_01
-QUESTION	choose_a_scene1
-WAIT	USER_INPUT	NEGOTIATE	10
-
 REPEAT	MAX_REPEATS	story.txt
-
 ROBOT	DO	rr1_story_19
 ROBOT	DO	rr1_story_20
 ROBOT	FIDGET	EMPTY

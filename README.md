@@ -320,14 +320,18 @@ the number!) on the line -- so you'd write `CLEAR` instead of `6`. You can also
 use the command `LOAD_ALL` followed by the name of a text file that contains a
 list of objects to load with their associated properties to load a particular
 set of objects all at once. Similarly, the command `LOAD_STORY` will load the
-graphics for the next story.
+graphics for the next story. The command `PICK_STORY` will load graphics that
+the user can pick from to choose the next story.
 
-For example, the following would send opal commands to clear the game scene and
-load the pictures for the next story:
+For example, the following would send opal commands to clear the game scene,
+load pictures for choosing the next story, and then load the pictures for the
+next story, respectively:
 
 `OPAL    CLEAR`
 
 `OPAL    LOAD_STORY`
+
+`OPAL    PICK_STORY`
 
 #### WAIT
 
@@ -374,15 +378,7 @@ will look like this:
 
 `STORY`
 
-That said: Depending on your script, you may want to specify that a new story
-should be selected before attempting to load the story or play back the story.
-A `STORY` line may optionally take a string argument "SETUP", which indicates
-that the next story should be selected:
-
-`STORY  SETUP`
-
-You will then need to use the usual script lines for loading and playing back
-the story. See `demo-story.txt` for an example.
+See `interaction_scripts/demo/session_scripts/demo-story.txt` for an example.
 
 #### QUESTION
 
