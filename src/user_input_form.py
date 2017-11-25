@@ -31,6 +31,7 @@ import rospy  # ROS
 from PySide import QtGui  # Basic GUI stuff.
 from user_input_ros import UserFormROS
 from user_input_negotiation_ui import NegotiationUI
+from user_input_interaction_ui import InteractionUI
 
 
 class UserInputForm(QtGui.QMainWindow):
@@ -59,9 +60,13 @@ class UserInputForm(QtGui.QMainWindow):
         # Setup ROS node publishers and subscribers.
         self.ros = UserFormROS(self.ros_node)
 
+        # Add interaction state buttons.
+        interaction_ui = InteractionUI(self.ros)
+        self.central_layout.addWidget(interaction_ui, 0, 0, 6, 2)
+
         # Add negotiation buttons.
         negotiation_ui = NegotiationUI(self.ros)
-        self.central_layout.addWidget(negotiation_ui, 0, 0, 10, 2)
+        self.central_layout.addWidget(negotiation_ui, 0, 2, 10, 2)
 
 
 if __name__ == '__main__':

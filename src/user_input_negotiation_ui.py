@@ -27,6 +27,7 @@ SOFTWARE.
 
 from PySide import QtGui  # Basic GUI stuff.
 import logging  # Log messages.
+from rr_msgs.msg import UserInput  # For user input form response constants.
 
 
 class NegotiationUI(QtGui.QWidget):
@@ -63,41 +64,43 @@ class NegotiationUI(QtGui.QWidget):
         # No response / timeout.
         tbutton = QtGui.QPushButton("Timeout / no response",
                                     self.negotiation_box)
-        tbutton.clicked.connect(lambda: self.on_outcome_selected("TIMEOUT"))
+        tbutton.clicked.connect(lambda: self.on_outcome_selected(
+            UserInput.TIMEOUT))
         self.negotiation_layout.addWidget(tbutton, 1, 0)
 
         # Refusal.
         rbutton = QtGui.QPushButton("Refusal: child wants their choice",
                                     self.negotiation_box)
-        rbutton.clicked.connect(lambda: self.on_outcome_selected("REFUSAL"))
+        rbutton.clicked.connect(lambda: self.on_outcome_selected(
+            UserInput.REFUSAL))
         self.negotiation_layout.addWidget(rbutton, 2, 0)
 
         # Acquiesence.
         abutton = QtGui.QPushButton("Acquiescence: child allows robot's "
                                     "choice", self.negotiation_box)
         abutton.clicked.connect(lambda: self.on_outcome_selected(
-                                "ACQUIESCENCE"))
+            UserInput.ACQUIESCENCE))
         self.negotiation_layout.addWidget(abutton, 3, 0)
 
         # Compromise - general / not specific.
         cgbutton = QtGui.QPushButton("Compromise: Do both (not specific)",
                                      self.negotiation_box)
         cgbutton.clicked.connect(lambda: self.on_outcome_selected(
-                                 "COMPROMISE GENERAL"))
+             UserInput.COMPROMISE_GENERAL))
         self.negotiation_layout.addWidget(cgbutton, 4, 0)
 
         # Compromise - do child's choice first.
         ccbutton = QtGui.QPushButton("Compromise: Do child's first",
-                                     self.negotiation_box)
+             self.negotiation_box)
         ccbutton.clicked.connect(lambda: self.on_outcome_selected(
-                                 "COMPROMISE CHILD"))
+             UserInput.COMPROMISE_CHILD))
         self.negotiation_layout.addWidget(ccbutton, 5, 0)
 
         # Compromise - do robot's choice first.
         crbutton = QtGui.QPushButton("Compromise: Do robot's first",
                                      self.negotiation_box)
         crbutton.clicked.connect(lambda: self.on_outcome_selected(
-                                 "COMPROMISE ROBOT"))
+             UserInput.COMPROMISE_ROBOT))
         self.negotiation_layout.addWidget(crbutton, 6, 0)
 
         # Label for confirming choice.
@@ -126,7 +129,8 @@ class NegotiationUI(QtGui.QWidget):
     def on_confirm_button(self):
         """ After the user confirms their selection, send the message. """
         # Send message.
-        self.ros_node.send_message("NEGOTIATION", self.negotiation_outcome)
+        self.ros_node.send_message(UserInput.NEGOTIATION,
+                self.negotiation_outcome)
         # Reset label and button.
         self.confirm_label.setText("Selection sent.")
         self.confirm_button.setStyleSheet('QPushButton {color: gray;}')
