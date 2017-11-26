@@ -56,6 +56,8 @@ class RosNode(object):
     TIMEOUT = "TIMEOUT"
     ROBOT_SPEAKING = "ROBOT_SPEAKING"
     ASR_RESULT = "ASR_RESULT"
+    ASR_OR_TABLET = "ASR_OR_TABLET"
+    TABLET_RESPONSE = "TABLET_RESPONSE"
     USER_INPUT_NEGOTIATION = UserInput.NEGOTIATION
     USER_INPUT_INTERACTION_CONTROL = UserInput.INTERACTION_CONTROL
 
@@ -102,9 +104,10 @@ class RosNode(object):
         self._robot_speaking = False
         self._robot_fidgets = ""
         self._response_received = None
-        self._touched_object = ""
         self._start_response_received = False
         self._asr_response_received = False
+        self._control_response_received = False
+        self._tablet_response_received = None
         self._negotiation_response_received = False
 
         # Set up rostopics we publish:
@@ -287,6 +290,7 @@ class RosNode(object):
         # a START button or is a CORRECT or INCORRECT response
         # object. When we do get one of these messages, set the
         # relevant flag.
+
         if "tap" in data.action:
             # objectName, position
             pass
@@ -296,7 +300,10 @@ class RosNode(object):
             if "START" in data.message:
                 self._start_response_received = True
                 self._response_received = data.message
-            # Check if CORRECT was in the message.
+            # Check if we got a press on some other named object.
+        elif data.objectName:
+                self._tablet_response_received = (data.objectName,
+                        data.position)
         elif "release" in data.action:
             # No object
             pass
@@ -357,9 +364,7 @@ class RosNode(object):
         """
         # Check what response to wait for, and set that response received flag
         # to false. Valid responses to wait for are defined as constants in
-        # this class: START, ROBOT_NOT_SPEAKING, ROBOT_NOT_MOVING,
-        # ROBOT_SPEAKING, ASR_RESULT, USER_INPUT_NEGOTIATION,
-        # USER_INPUT_INTERACTION_CONTROL.
+        # this class.
         self._response_received = None
         waiting_for_start = False
         waiting_for_robot_not_speaking = False
@@ -368,6 +373,7 @@ class RosNode(object):
         waiting_for_asr = False
         waiting_for_negotiation = False
         waiting_for_control = False
+        waiting_for_tablet = False
         if self.START in response:
             self._start_response_received = False
             waiting_for_start = True
@@ -392,6 +398,14 @@ class RosNode(object):
         elif self.USER_INPUT_INTERACTION_CONTROL in response:
             self._control_response_received = False
             waiting_for_control = True
+        elif self.TABLET_RESPONSE in response:
+            self._tablet_response_received = None
+            waiting_for_tablet = True
+        elif self.ASR_OR_TABLET in response:
+            self._tablet_response_received = None
+            waiting_for_tablet = True
+            self._asr_response_received = False
+            waiting_for_asr = True
         else:
             self._logger.warning("Told to wait for " + str(response)
                                  + " but that isn't one of the allowed"
@@ -404,7 +418,16 @@ class RosNode(object):
             time.sleep(0.05)
             # Check periodically to see if we've received the response we were
             # waiting for, and if so, we're done waiting.
-            if (waiting_for_start and self._start_response_received) \
+            #
+            # We return the response type only when it is otherwise ambiguous,
+            # such as if we are waiting for ASR_OR_TABLET. Also note that
+            # placing the tablet stuff here effectively means that tablet
+            # responses take priority over ASR responses if we get both
+            # responses.
+            if waiting_for_tablet and self._tablet_response_received:
+                self._logger.info("Got {} response!".format(response))
+                return self._tablet_response_received, self.TABLET_RESPONSE
+            elif (waiting_for_start and self._start_response_received) \
                     or (waiting_for_asr and self._asr_response_received) \
                     or (waiting_for_negotiation and
                         self._negotiation_response_received) \
@@ -417,8 +440,8 @@ class RosNode(object):
                         and not self._robot_doing_action) \
                     or (waiting_for_robot_speaking
                         and self._robot_speaking):
-                self._logger.info("Got " + response + " response!")
-                return self._response_received, self._touched_object
+                self._logger.info("Got {} response!".format(response))
+                return self._response_received, ""
 
         # If we don't get the response we were waiting for, we're done
         # waiting and timed out.

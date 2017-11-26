@@ -159,6 +159,9 @@ class ScriptHandler(object):
         self._repeating = False
         self._end_game = False
 
+        # We are also not actively trying to pick a scene to play for a story.
+        self._picking_scene = False
+
         # For counting repetitions of a repeating script.
         self._repetitions = 0
 
@@ -397,6 +400,7 @@ class ScriptHandler(object):
                     self._ros_node.send_opal_command("LOAD_OBJECT", obj)
 
             elif "PICK_STORY" in elements[1]:
+                self._picking_scene = True
                 self._load_scenes_to_pick()
 
             # Get the next story and load graphics into the game.
@@ -534,16 +538,39 @@ class ScriptHandler(object):
 
         question_audio = ""
         user_input = []
+        tablet_input = []
+        response_to_wait_for = None
+        using_asr = False
         if question in self._script_config["questions"]:
             # Get the audio for the question from the config file.
             question_audio = self._script_config["questions"][question][
                 "question"]
             # Get the user responses we should react to from the config file.
+            # This is only set if we need ASR responses.
             if "user_input" in self._script_config["questions"][question]:
                 user_input = self._script_config["questions"][question][
                     "user_input"]
+                # We will be waiting for ASR results for the user input.
+                using_asr = True
+                response_to_wait_for = self._ros_node.ASR_RESULT
             else:
-                self._logger.warning("No user input set for this question!")
+                self._logger.warning("No ASR user input set for the question!")
+
+            # Get the tablet responses we should react to from the config file.
+            # This is only set if we need tablet responses.
+            if "tablet_input" in self._script_config["questions"][question]:
+                tablet_input = self._script_config["questions"][question][
+                    "tablet_input"]
+                # If there is no response to wait for set yet, then we only
+                # need to wait for tablet responses. Otherwise, we need to
+                # wait for EITHER a tablet response or an ASR response.
+                if response_to_wait_for:
+                    response_to_wait_for = self._ros_node.ASR_OR_TABLET
+                else:
+                    response_to_wait_for = self._ros_node.TABLET_RESPONSE
+            else:
+                self._logger.warning("No tablet user input set for this "
+                                     "question!")
 
         # Tell the robot to play the question.
         self._send_robot_do(question_audio)
@@ -555,20 +582,25 @@ class ScriptHandler(object):
         # We don't use i in the loop, but you can't really loop without it.
         # pylint: disable=unused-variable
         for i in range(0, self._num_prompts + 1):
-            # Announce that it's the user's turn to talk.
+            # Announce that it's the user's turn to talk or act.
             self._ros_node.send_interaction_state(True)
-            # Tell ASR node to listen for a response and send us results.
-            self._ros_node.send_asr_command(AsrCommand.START_FINAL)
-            results = self._ros_node.wait_for_response(
-                    self._ros_node.ASR_RESULT,
+            if using_asr:
+                # Tell ASR node to listen for a response and send us results.
+                self._ros_node.send_asr_command(AsrCommand.START_FINAL)
+            # Wait for a response and get results! The first part of the tuple
+            # is the response, and the second part is optionally information
+            # about the response type (e.g. ASR or tablet response).
+            results, response_type = self._ros_node.wait_for_response(
+                    response_to_wait_for,
                     timeout=datetime.timedelta(
-                        seconds=int(self._prompt_time)))[0]
+                        seconds=int(self._prompt_time)))
 
             # We either got a response or timed out, so send ASR command to
-            # stop listening.
-            self._logger.debug("Done waiting on ASR. Timed out or response"
+            # stop listening if we were using ASR.
+            self._logger.debug("Done waiting. Timed out or got response"
                                ": {}".format(results))
-            self._ros_node.send_asr_command(AsrCommand.STOP_ALL)
+            if using_asr:
+                self._ros_node.send_asr_command(AsrCommand.STOP_ALL)
 
             # After waiting for a response, we need to play back an appropriate
             # robot response. The robot's response depends on what kind of
@@ -578,6 +610,8 @@ class ScriptHandler(object):
             #     are waiting for final ASR results, this is the same as a
             #     TIMEOUT response because we did not get an ASR result in the
             #     specified amount of time. In this case, we play a prompt.
+            #     For the tablet, this option means the user took no action on
+            #     the tablet, so we got no response.
             # (2) Something in the list of user responses that we want to hear.
             #     These user responses are matched up with robot responses in
             #     the script config file, so we play the appropriate robot
@@ -619,7 +653,8 @@ class ScriptHandler(object):
 
             # If we got something, we need to parse it and check for Case (2)
             # and Case (3).
-            # results = (transcription, confidence)
+            # ASR results = (transcription, confidence)
+            # Tablet results = (touched object, position)
             # TODO do something with confidence (if low, ask "say again?")
             # We have a list of dictionaries of lists. Each dictionary is one
             # of the expected user response options, which contains a list of
@@ -634,21 +669,46 @@ class ScriptHandler(object):
             # some cool algorithm involving ngrams and phrase matching that
             # could make this work better, but we're going to use the naive
             # approach for now.
-            self._logger.debug("Parsing ASR!")
-            for response_option in user_input:
-                self._logger.debug("\tcomparing {}".format(response_option))
-                for word in response_option["user_responses"]:
-                    self._logger.debug("\t\tcomparing {}".format(word))
-                    if word in results[0]:
-                        # Case (2): Found an expected user response.
-                        self._logger.info("Got expected response!")
-                        # Play the robot's responses in sequence.
-                        for resp in response_option["robot_responses"]:
-                            self._send_robot_do(resp)
-                        # Return so we don't give the user a chance to
-                        # respond again, since we already got their
-                        # response and dealt with it.
-                        return
+            # If we got a tablet response:
+            if self._ros_node.TABLET_RESPONSE in response_type:
+                self._logger.debug("Parsing tablet response!")
+                for resp_option in tablet_input:
+                    self._logger.debug("\tcomparing {}".format(resp_option))
+                    for word in resp_option["user_responses"]:
+                        self._logger.debug("\t\tcomparing {}".format(word))
+                        if word in results[0]:
+                            # Case (2): Found an expected user response.
+                            self._logger.info("Got expected response!")
+                            # If we are trying to pick a scene, save the name
+                            # of the touched object from the tablet as the
+                            # selected scene.
+                            if self._picking_scene:
+                                self._selected_scene = results[0]
+                                self._picking_scene = False
+                            # Play the robot's responses in sequence.
+                            for resp in resp_option["robot_responses"]:
+                                self._send_robot_do(resp)
+                            # Return so we don't give the user a chance to
+                            # respond again, since we already got their
+                            # response and dealt with it.
+                            return
+            else:
+                # If we got an ASR response:
+                self._logger.debug("Parsing ASR response!")
+                for resp_option in user_input:
+                    self._logger.debug("\tcomparing {}".format(resp_option))
+                    for word in resp_option["user_responses"]:
+                        self._logger.debug("\t\tcomparing {}".format(word))
+                        if word in results[0]:
+                            # Case (2): Found an expected user response.
+                            self._logger.info("Got expected response!")
+                            # Play the robot's responses in sequence.
+                            for resp in resp_option["robot_responses"]:
+                                self._send_robot_do(resp)
+                            # Return so we don't give the user a chance to
+                            # respond again, since we already got their
+                            # response and dealt with it.
+                            return
 
             # Case (3): Other user response. The ASR result did not contain
             # any of the expected user responses. Pick a "backchannel" prompt
@@ -680,6 +740,22 @@ class ScriptHandler(object):
 
         # We exhausted our allowed number of prompts, so have the robot do
         # something and move on instead of waiting more.
+
+        # If we were trying to get the user to pick a scene, if we get here, we
+        # did not get the user to pick one. So we need to selecte a scene
+        # ourselves... pick one randomly:
+        if self._picking_scene:
+            if "scenes" in self._p_config:
+                self._selected_scene = self._p_config["scenes"][random.randint(
+                    0, len(self._p_config["scenes"]) - 1)]
+                self._logger.info("No user scene selection made! Selecting a "
+                                  "scene... {}".format(self._selected_scene))
+            else:
+                self._logger.error("We were supposed to pick a scene to play, "
+                                   "but there are none in the participant "
+                                   "config file! What's up with that?")
+            self._picking_scene = False
+
         # Play the "max attempts reached" robot response, since we used up
         # all the prompts and didn't get an expected user response. Either
         # play a generic one, or, if this question has a specific set of
@@ -806,11 +882,11 @@ class ScriptHandler(object):
         for i in range(0, self._num_prompts + 1):
             # Wait for a button press from the form.
             # TODO Send message to form to tell it to tell user to give input?
-            # Response is a tuple with the response type followed by a string
-            # containing other useful details about the response, if any.
+            # The response is a tuple with the response, possibly followed
+            # by a string indicating what type of response this was.
             response = self._ros_node.wait_for_response(
                     self._ros_node.USER_INPUT_NEGOTIATION,
-                    timeout=datetime.timedelta(seconds=timeout))
+                    timeout=datetime.timedelta(seconds=timeout))[0]
 
             # We either got a response or timed out.
             self._logger.debug("Done waiting for user input. Timed out or "
@@ -828,12 +904,12 @@ class ScriptHandler(object):
             #
 
             # Case (1): Nothing / Timeout.
-            if UserInput.TIMEOUT in response[0]:
+            if UserInput.TIMEOUT in response:
                 # If we have exhausted our allowed number of prompts, leave the
                 # loop if we didn't get a user response.
                 # Log the outcome so it can be referenced next time.
                 if i >= self._num_prompts:
-                    self._performance_log.log_negotiation_outcome(response[0])
+                    self._performance_log.log_negotiation_outcome(response)
                     break
                 # Pick one of a set of possible negotiation timeout prompts.
                 resp = self._get_response_from_config(
@@ -844,15 +920,17 @@ class ScriptHandler(object):
                 # Wait for the next user response.
                 continue
 
-            # TODO which scene was selected?
+            # Log the outcome of the negotiation so it can be referenced later.
+            self._performance_log.log_negotiation_outcome(response)
 
-            # Log the outcome of the negotiation.
-            self._performance_log.log_negotiation_outcome(response[0])
+            # TODO these assume that the child picked a choice to begin with.
+            # How would this need to change if the child didn't care, then the
+            # robot picked one, and during the negotiation the child wanted to
+            # pick something else?
 
             # Case (2): Refusal.
-            if UserInput.REFUSAL in response[0]:
+            if UserInput.REFUSAL in response:
                 # Play one of the posssible negotiation refusal responses.
-                # Log the outcome so it can be referenced next time.
                 self._logger.debug("Negotiation outcome: REFUSAL - do child's "
                                    "choice!")
                 resp = self._get_response_from_config("negotiation_refusal")
@@ -861,19 +939,19 @@ class ScriptHandler(object):
                 break
 
             # Case (3): Acquiescence.
-            if UserInput.ACQUIESCENCE in response[0]:
+            if UserInput.ACQUIESCENCE in response:
                 # Play one of the posssible negotiation acquiescence responses.
-                # Log the outcome so it can be referenced next time.
                 self._logger.debug("Negotiation outcome: ACQUIESENCE - do"
                                    "robot's choice!")
+                # Change selected scene to be the other one available.
+                self._switch_selected_scene()
                 resp = self._get_response_from_config("negotiation_acquiese")
                 # Break so we don't give the user a chance to respond again,
                 # since we already got a response and dealt with it.
                 break
 
             # Case (4): Compromise. There are three compromise outcomes:
-            if UserInput.COMPROMISE_GENERAL in response[0]:
-                # Log the outcome so it can be referenced next time.
+            if UserInput.COMPROMISE_GENERAL in response:
                 self._logger.info("Negotiation outcome: GENERAL COMPROMISE - "
                                   "do child's choice!")
                 resp = self._get_response_from_config("negotiation_general")
@@ -881,17 +959,17 @@ class ScriptHandler(object):
                 # since we already got a response and dealt with it.
                 break
 
-            if UserInput.COMPROMISE_ROBOT in response[0]:
-                # Log the outcome so it can be referenced next time.
+            if UserInput.COMPROMISE_ROBOT in response:
                 self._logger.info("Negotiation outcome: ROBOT COMPROMISE - "
                                   "do robot's choice!")
+                # Change selected scene to be the other one available.
+                self._switch_selected_scene()
                 resp = self._get_response_from_config("negotiation_general")
                 # Break so we don't give the user a chance to respond again,
                 # since we already got a response and dealt with it.
                 break
 
-            if UserInput.COMPROMISE_CHILD in response[0]:
-                # Log the outcome so it can be referenced next time.
+            if UserInput.COMPROMISE_CHILD in response:
                 self._logger.info("Negotiation outcome: CHILD COMPROMISE - "
                                   "do child's choice!")
                 resp = self._get_response_from_config("negotiation_general")
@@ -905,6 +983,22 @@ class ScriptHandler(object):
         if resp:
             # Play the selected prompt.
             self._send_robot_do(resp)
+
+    def _switch_selected_scene(self):
+        """ Switch the selected scene for a scene from the participant config's
+        list of scenes that wasn't selected.
+        """
+        if "scenes" in self._p_config:
+            for scene in self._p_config["scenes"]:
+                if scene != self._selected_scene:
+                    self._logger.info("Changing selected scene to {}".format(
+                        scene))
+                    self._selected_scene = scene
+                    break
+        else:
+            self._logger.error("No scenes in participant config? Not sure how"
+                               " we picked a scene before if there weren't any"
+                               " available to pick from? Not switching scene!")
 
     def _get_response_from_config(self, response_to_get):
         """ Given a response to get out of the config file, try to get it and
