@@ -148,15 +148,20 @@ class PerformanceLogger(object):
             self._log["story_text"] = [text]
         self._write_log_to_file()
 
-    def log_negotiation_outcome(self, outcome):
+    def log_negotiation_outcome(self, outcome, child_choice):
         """ Log the outcome of a negotiation about which story scenes to do
         this session.
         """
-        self._logger.info("Logging negotiation outcome: {}".format(outcome))
+        self._logger.info("Logging child's scene choice ({}) and negotiation "
+                          "outcome: {}".format(outcome, child_choice))
         if self._log["negotiation_outcome"]:
             self._log["negotiation_outcome"].append(outcome)
         else:
             self._log["negotiation_outcome"] = [outcome]
+        if self._log["child_scene_choice"]:
+            self._log["child_scene_choice"].append(child_choice)
+        else:
+            self._log["child_scene_choice"] = [child_choice]
         self._write_log_to_file()
 
     def _write_log_to_file(self):

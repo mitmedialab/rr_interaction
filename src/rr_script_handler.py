@@ -909,7 +909,8 @@ class ScriptHandler(object):
                 # loop if we didn't get a user response.
                 # Log the outcome so it can be referenced next time.
                 if i >= self._num_prompts:
-                    self._performance_log.log_negotiation_outcome(response)
+                    self._performance_log.log_negotiation_outcome(response,
+                                                                  "none")
                     break
                 # Pick one of a set of possible negotiation timeout prompts.
                 resp = self._get_response_from_config(
@@ -921,7 +922,8 @@ class ScriptHandler(object):
                 continue
 
             # Log the outcome of the negotiation so it can be referenced later.
-            self._performance_log.log_negotiation_outcome(response)
+            self._performance_log.log_negotiation_outcome(response,
+                                                          self._selected_scene)
 
             # TODO these assume that the child picked a choice to begin with.
             # How would this need to change if the child didn't care, then the
