@@ -348,7 +348,7 @@ class ScriptHandler(object):
             self._logger.debug("STORY")
             # The line indicates we need to start a story!
             self._doing_story = True
-            self._load_next_story()
+            self._load_next_story_script()
 
         # Line has 2+ elements, so check the other commands.
         #########################################################
@@ -397,12 +397,12 @@ class ScriptHandler(object):
                     self._ros_node.send_opal_command("LOAD_OBJECT", obj)
 
             elif "PICK_STORY" in elements[1]:
-                self._load_stories_to_pick()
+                self._load_scenes_to_pick()
 
             # Get the next story and load graphics into the game.
             elif "LOAD_STORY" in elements[1]:
                 if not self._done_telling_stories():
-                    self._load_next_story()
+                    self._load_next_story_graphics()
 
             # Send an opal command, with properties.
             elif len(elements) > 2:
@@ -1178,31 +1178,36 @@ class ScriptHandler(object):
         else:
             return False
 
-    def _load_stories_to_pick(self):
+    def _load_scenes_to_pick(self):
         """ Load scene graphics on the tablet for the user to pick from, which
         we use to select which story to play next.
         """
         # For CREATE stories, get the scenes to show for the user to pick from
         # from the participant config.
         if "create" in self._p_config["story_type"] and \
-                self._selected_scene and "stories" in self._p_config:
-            self._story_parser.load_script(
-                self._study_path + self._story_script_path +
-                self._p_config["stories"][self._selected_scene])
-            self._logger.info("Loading story \"{}\" in scene {}...".format(
-                    self._p_config["stories"][self._selected_scene],
-                    self._selected_scene))
-        # TODO Display both on the tablet with LOAD OBJECT.
+                "scenes" in self._p_config:
+            self._logger.info("Scenes to pick from are: {}".format(
+                self._p_config["scenes"]))
+            for scene in self._p_config["scenes"]:
+                self._logger.info("Loading scene {}...".format(scene))
+                # TODO Display on the tablet with LOAD OBJECT - what position??
+                toload = {}
+                toload["name"] = "sr2-scenes/" + scene
+                toload["tag"] = "PlayObject"
+                toload["draggable"] = False
+                self._ros_node.send_opal_command("LOAD_OBJECT", json.dumps(
+                    toload))
+            # Log that the scenes were shown.
+            self._performance_log.log_scenes_shown(self._p_config["scenes"])
 
-    def _load_next_story(self):
-        """ Set up the game scene and load scene graphics. """
+    def _load_next_story_script(self):
+        """ Load the script for the next story. """
         # Create a script parser for the filename provided, assuming it is
         # in the story scripts directory.
         self._story_parser = ScriptParser()
         try:
             # Try loading the story script. This will either be for the
             # selected scene for a CREATE story or the storybook for a RETELL.
-            # TODO somewhere need to *get* the selected scene
             # CREATE story:
             if "create" in self._p_config["story_type"] and \
                     self._selected_scene and "stories" in self._p_config:
@@ -1249,7 +1254,8 @@ class ScriptHandler(object):
             self._doing_story = False
             return
 
-        # We have a story script, now load the scene graphics.
+    def _load_next_story_graphics(self):
+        """ Set up the game scene and load scene graphics. """
         # CREATE story:
         # TODO it would be straightforward to add moveable characters. Load as
         # PlayObjects that are draggable. Could make a text file for each scene
@@ -1257,7 +1263,7 @@ class ScriptHandler(object):
         if "create" in self._p_config["story_type"]:
             self._logger.info("Loading CREATE story on Opal device...")
             toload = {}
-            toload["name"] = "/sr2-scenes" + self._selected_scene
+            toload["name"] = "sr2-scenes/" + self._selected_scene
             toload["tag"] = "Background"
             self._ros_node.send_opal_command("LOAD_OBJECT", json.dumps(toload))
             # Log that the story was played.
