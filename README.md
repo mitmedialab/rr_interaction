@@ -246,7 +246,7 @@ ROS topic "rr/entrain_audio".
 
 The program will attempt to read interaction scripts from the directory listed
 in the config file. For the demo interaction, the interaction scripts are
-located in the `interaction_scripts/` directory.
+located in the `interaction_scripts/demo/` directory.
 
 ### Script format
 
@@ -256,6 +256,8 @@ will be used. For example, if you are loading session 2, the session script
 `session-2.txt` will be used.
 
 Script lines should be tab-delimited. Look at the demo script for an example.
+
+You can put commemts in scripts. Comments must start with a `#`.
 
 The interaction script lists what happens during an interaction session. It
 should list, in order, the actions the program should take. These actions

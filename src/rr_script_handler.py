@@ -334,6 +334,11 @@ class ScriptHandler(object):
         # Got a line - print for debugging.
         self._logger.debug("LINE: " + repr(line))
 
+        # Skip comments.
+        if line.startswith("#"):
+            self._logger.info("Line was comment. Going to next line...")
+            return
+
         # Parse line! Split on tabs.
         elements = line.rstrip().split('\t')
         self._logger.debug("... {} elements: {}".format(
