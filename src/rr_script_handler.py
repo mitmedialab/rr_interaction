@@ -344,6 +344,19 @@ class ScriptHandler(object):
         self._logger.debug("... {} elements: {}".format(
             len(elements), elements))
 
+        # If this line is tagged with a phrase (e.g., "RR" or "NR") do the line
+        # only if the participant has the same tag (i.e., is in the "RR" or
+        # "NR" condition).
+        if line.startswith("**"):
+            self._logger.info("Line is tagged. Checking condition...")
+            if p_config["condition"] in elements[0]:
+                self._logger.info("Right condition. Parsing line...")
+                # Remove the tag and parse the line as usual.
+                del elements[0]
+            else
+                self._logger.info("Not the right condition. Skipping line.")
+                return
+
         # Skip blank lines.
         if len(elements) < 1:
             self._logger.info("Line was empty! Going to next line...")
@@ -363,10 +376,11 @@ class ScriptHandler(object):
         # For ROBOT lines, send command to the robot.
         elif "ROBOT" in elements[0]:
             self._logger.debug("ROBOT")
-            # Send a DO speech or animation playback command to the robot.
             if len(elements) > 2:
+                # Send a DO speech or animation playback command to the robot.
                 if "DO" in elements[1]:
                     self._send_robot_do(elements[2])
+                # Send a fidget command to the robot.
                 elif "FIDGET" in elements[1]:
                     if "EMPTY" in elements[2]:
                         self._ros_node.send_tega_command(

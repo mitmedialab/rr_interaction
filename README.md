@@ -259,6 +259,15 @@ Script lines should be tab-delimited. Look at the demo script for an example.
 
 You can put commemts in scripts. Comments must start with a `#`.
 
+You can tag lines in the scripts. Tags must start with `**` followed by the
+tag. Then write the rest of the line as usual. This can be used in order to add
+optional lines to the script that can be executed, or not, based on which
+condition a participant is in. For example, the following two lines would play
+different intro statements for the robot based on which tag a participant has:
+
+`**RR   ROBOT   DO  intro-relational`
+`**NR   ROBOT   DO  intro-basic`
+
 The interaction script lists what happens during an interaction session. It
 should list, in order, the actions the program should take. These actions
 include the following, which are described in more detail below:
@@ -404,7 +413,9 @@ The personalization depends on several things:
    `interaction_scripts/rr2_study/session_config.toml` for an example).
 2. An initial TOML performance log file, which should contain the levels at
    which the robot's stories should be for story retell tasks and
-   create-a-story tasks for each participant/user.
+   create-a-story tasks for each participant/user, as well as the condition
+   each participant is in (i.e., "RR" for relational condition, "NR" for not
+   relational).
 3. Any performance log files (generated for each interaction run from
    `src/rr_interaction_node.py`).
 4. A directory of stories that the robot can tell. Could have sub-directories

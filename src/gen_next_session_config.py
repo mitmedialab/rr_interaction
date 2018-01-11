@@ -131,9 +131,9 @@ def generate_next_session_config(pid, performance, story_dir, study_config):
             else:
                 p_config[session]["scenes"] = []
                 print "ERROR: No default scenes in the config for this " \
-                        "session! We need the defaults for participants who " \
-                        "don't get personalization! Exiting because we can't" \
-                        " continue."
+                      "session! We need the defaults for participants who " \
+                      "don't get personalization! Exiting because we can't" \
+                      " continue."
                 exit(1)
 
         # 2. If there was a negotiation last session, we need to include the
@@ -199,7 +199,6 @@ def generate_next_session_config(pid, performance, story_dir, study_config):
                 p_config[session]["stories"][scene] = study_config[
                         "sessions"][session]["default_stories"][scene]
 
-
     ##########################################################################
     # PERSONALIZATION: CATCHPHRASES.
     ##########################################################################
@@ -209,11 +208,15 @@ def generate_next_session_config(pid, performance, story_dir, study_config):
     # PERSONALIZATION: SHARED NARRATIVE.
     ##########################################################################
     # TODO Add any participant-specific personalization of phrases?
+    if p_config["condition"] == "RR":
+        print "TODO: relational personalization"
 
     ##########################################################################
     # PERSONALIZATION: RELATIONSHIP.
     ##########################################################################
     # TODO Add any relationship-related personalization?
+    if p_config["condition"] == "RR":
+        print "TODO: relational personalization"
 
     # TODO do something with p_config
     return p_config
