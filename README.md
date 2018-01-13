@@ -257,17 +257,6 @@ will be used. For example, if you are loading session 2, the session script
 
 Script lines should be tab-delimited. Look at the demo script for an example.
 
-You can put commemts in scripts. Comments must start with a `#`.
-
-You can tag lines in the scripts. Tags must start with `**` followed by the
-tag. Then write the rest of the line as usual. This can be used in order to add
-optional lines to the script that can be executed, or not, based on which
-condition a participant is in. For example, the following two lines would play
-different intro statements for the robot based on which tag a participant has:
-
-`**RR   ROBOT   DO  intro-relational`
-`**NR   ROBOT   DO  intro-basic`
-
 The interaction script lists what happens during an interaction session. It
 should list, in order, the actions the program should take. These actions
 include the following, which are described in more detail below:
@@ -279,6 +268,19 @@ include the following, which are described in more detail below:
 - REPEAT
 - STORY
 - QUESTION
+- IF\_RESPONSE
+
+You can put commemts in scripts. Comments must start with a `#`.
+
+You can tag lines in the scripts. Tags must start with `**` followed by the
+tag. Then write the rest of the line as usual. This can be used in order to add
+optional lines to the script that can be executed, or not, based on which
+condition a participant is in. For example, the following two lines would play
+different intro statements for the robot based on which tag a participant has:
+
+`**RR   ROBOT   DO  intro-relational`
+`**NR   ROBOT   DO  intro-basic`
+
 
 #### SET
 
@@ -400,6 +402,18 @@ maximum number of attempts is reached. This command takes the name of a
 question (defined in the question config file) as an argument:
 
 `QUESTION   how-are-you-1`
+
+#### IF\_RESPONSE
+
+`IF_RESPONSE` is used to say that a particular line should only be executed if
+the last `QUESTION` received a user response (i.e., did not time out). This is
+very similar to tagging a line. This can be useful for asking follow-up
+questions or performing particular actions when a user provides information.
+These lines should begin with `IF_RESPONSE` followed by a line as usual, e.g.,
+another `QUESTION` or a `ROBOT DO` line:
+
+`IF_RESPONSE    QUESTION    what-else-do-you-like`
+`IF_RESPONSE    ROBOT   DO  EXCITED`
 
 ## Personalization
 

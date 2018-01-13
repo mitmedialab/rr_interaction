@@ -179,6 +179,10 @@ class ScriptHandler(object):
         # interaction script.
         self._max_game_time = datetime.timedelta(minutes=10)
 
+        # Set the maximum time for each iteration of a repeating script, in
+        # minutes. This can also be set in the interaction script.
+        self._max_repeat_time = datetime.timedelta(minutes=10)
+
         # Set the time to wait for prompts, in seconds. We may want this to
         # vary for different questions, so it can be set and changed in the
         # script.
@@ -190,15 +194,20 @@ class ScriptHandler(object):
         self._num_prompts = 2
 
         # Sometimes we may need to know what the last user response we waited
-        # for was, and how long we waited.
+        # for was, how long we waited, and whether we got a response (or timed
+        # out).
         self._last_response_to_get = None
         self._last_response_timeout = None
+        self._got_a_response = False
 
         # Save start time so we can check whether we've run out of time.
         self._start_time = datetime.datetime.now()
+        # We don't start in a repeating script so there's no start time yet.
+        self._repeat_start_time = None
 
-        # Initialize total time paused.
+        # Initialize time paused counters.
         self._total_time_paused = datetime.timedelta(seconds=0)
+        self._repeat_time_paused = datetime.timedelta(seconds=0)
 
         # Initialize pause start time in case someone calls the resume game
         # timer function before the pause game function.
@@ -273,11 +282,13 @@ class ScriptHandler(object):
                 self._repetitions += 1
                 self._logger.info("Finished repetition {} of {}!".format(
                     self._repetitions, self._max_repetitions))
-                # If we've done enough repetitions, or if we've run out of game
-                # time, go back to the main session script (set the repeating
-                # flag to false).
+                # If we've done enough repetitions, or if we've run out of
+                # repeat time, or if we've run out of game time, go back to the
+                # main session script (set the repeating flag to false).
                 if self._repetitions >= self._max_repetitions \
                     or self._end_game \
+                    or ((datetime.datetime.now() - self._repeat_start_time)
+                        - self._repeat_time_paused >= self._max_repeat_time):
                     or ((datetime.datetime.now() - self._start_time)
                         - self._total_time_paused >= self._max_game_time):
                     self._logger.info("Done repeating!")
@@ -347,7 +358,7 @@ class ScriptHandler(object):
         # If this line is tagged with a phrase (e.g., "RR" or "NR") do the line
         # only if the participant has the same tag (i.e., is in the "RR" or
         # "NR" condition).
-        if line.startswith("**"):
+        if line.startswith("**") and len(elements) > 1:
             self._logger.info("Line is tagged. Checking condition...")
             if p_config["condition"] in elements[0]:
                 self._logger.info("Right condition. Parsing line...")
@@ -355,6 +366,19 @@ class ScriptHandler(object):
                 del elements[0]
             else
                 self._logger.info("Not the right condition. Skipping line.")
+                return
+
+        # If this is an IF RESPONSE line, only do the line if the last question
+        # got a response (i.e. did not time out).
+        if len(elements) > 1 and "IF_REPONSE" in elements[0]:
+            self._logger.debug("IF_REPONSE")
+            if self._got_a_response:
+                # Remove the tag and parse the line as usual.
+                del elements[0]
+                self._logger.info("Got a response last time, doing line!")
+            else:
+                self._logger.info("Did not get a response last time, "
+                                   "skipping line...")
                 return
 
         # Skip blank lines.
@@ -468,6 +492,11 @@ class ScriptHandler(object):
             elif "MAX_REPEATS" in elements[1]:
                 self._max_stories = int(elements[2])
                 self._logger.info("Set MAX_REPEATS to {}".format(elements[2]))
+            elif "MAX_REPEAT_TIME" in elements[1]:
+                self._max_repeat_time = datetime.timedelta(
+                    minutes=int(elements[2]))
+                self._logger.info("Set MAX_REPEAT_TIME to {}".format(
+                    elements[2]))
 
         #########################################################
         # For WAIT lines, wait for the specified user response, which may be
@@ -501,6 +530,7 @@ class ScriptHandler(object):
             self._logger.debug("REPEAT")
             self._repeating = True
             self._repetitions = 0
+            self._repeat_start_time = datetime.datetime.now()
             # Create a script parser for the filename provided, assume it
             # is in the session_scripts directory.
             self._repeat_parser = ScriptParser()
@@ -555,6 +585,7 @@ class ScriptHandler(object):
         if "questions" not in self._script_config:
             self._logger.warning("No questions present in script config!")
 
+        self._got_a_response = False
         question_audio = ""
         user_input = []
         tablet_input = []
@@ -691,6 +722,7 @@ class ScriptHandler(object):
             # If we got a tablet response:
             if self._ros_node.TABLET_RESPONSE in response_type:
                 self._logger.debug("Parsing tablet response!")
+                self._got_a_response = True
                 for resp_option in tablet_input:
                     self._logger.debug("\tcomparing {}".format(resp_option))
                     for word in resp_option["user_responses"]:
@@ -714,6 +746,7 @@ class ScriptHandler(object):
             else:
                 # If we got an ASR response:
                 self._logger.debug("Parsing ASR response!")
+                self._got_a_response = True
                 for resp_option in user_input:
                     self._logger.debug("\tcomparing {}".format(resp_option))
                     for word in resp_option["user_responses"]:
@@ -884,6 +917,7 @@ class ScriptHandler(object):
 
         # After the robot is done speaking, switch back to physical fidgets.
         self._ros_node.send_tega_command(fidgets=TegaAction.FIDGETS_PHYSICAL)
+
 
     def _wait_for_user_input(self, response_type, timeout):
         """ Wait for user input from a GUI form, or wait until the specified
@@ -1250,6 +1284,9 @@ class ScriptHandler(object):
         # length multiple times to our total pause time.
         if self._pause_start_time:
             self._total_time_paused += \
+                datetime.datetime.now() - self._pause_start_time
+            if self._repeating:
+                self._repeat_time_paused += \
                 datetime.datetime.now() - self._pause_start_time
         # Reset pause start time.
         self._pause_start_time = None
