@@ -2,6 +2,8 @@ SET	MAX_GAME_TIME	20
 SET	PROMPT_TIME	1200
 PAUSE	3
 ROBOT	FIDGET	EMPTY
+
+# Sleep and wait for wakeup.
 ROBOT	DO	POSE_SLEEPING
 QUESTION	wait_for_wakeup
 ROBOT	DO	YAWN
@@ -9,19 +11,21 @@ ROBOT	DO	IceCream
 ROBOT	DO	LAUGH
 PAUSE	1
 SET	PROMPT_TIME	8
+
+# TODO Robot introduction.
 ROBOT	DO	INTERESTED
 ROBOT	DO	MyNameIsRed
 ROBOT	DO	rr1_intro_02
 ROBOT	DO	PERKUP
 QUESTION	favorite_color
 ROBOT	DO	rr1_intro_05
-ROBOT	DO	THINKING
-ROBOT	DO	rr1_backstory_01
-ROBOT	DO	rr1_backstory_02
-QUESTION	help_practice
 QUESTION	what_like_do
 ROBOT	DO	PERKUP
 QUESTION	like_dance
+
+# First activity: Picture conversation with Fourth Picture Empathy/Helping task.
+# TODO Maybe only 3 pictures total? It's long.
+# TODO User input for 4th picture or not? Like negotiation sort of.
 QUESTION	look_at_pictures
 ROBOT	DO	rr1_picture3_01
 ROBOT	DO	rr1_picture3_02
@@ -39,9 +43,13 @@ ROBOT	DO	rr1_picture4_04
 QUESTION	picture4_superpower
 QUESTION	tellmemore
 ROBOT	DO	ThatsAllPictures
+
+# Third activity: Create a story. Includes the Negotiation task.
 SET	MAX_REPEATS	1
 ROBOT	DO	rr1_story_01
 REPEAT	MAX_REPEATS	story.txt
+
+# Closing and robot goes back to sleep.
 ROBOT	DO	rr1_story_19
 ROBOT	DO	rr1_story_20
 ROBOT	FIDGET	EMPTY

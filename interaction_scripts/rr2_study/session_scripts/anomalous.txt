@@ -1,0 +1,14 @@
+SET	PROMPT_TIME	10
+SET	NUM_PROMPTS	0
+# Timeout after 10s of silence, or play a response.
+QUESTION	AnomalousGeneric1
+# Get more responses if the user responds; if we don't get a response, then
+# we're done after the 10s timeout.
+IF_RESPONSE	QUESTION	AnomalousGeneric2
+IF_RESPONSE	QUESTION	AnomalousGeneric3
+IF_RESPONSE	QUESTION	AnomalousGeneric1
+IF_RESPONSE	QUESTION	AnomalousGeneric2
+IF_RESPONSE	QUESTION	AnomalousGeneric3
+IF_RESPONSE	QUESTION	AnomalousGeneric1
+IF_RESPONSE	QUESTION	AnomalousGeneric2
+IF_RESPONSE	QUESTION	AnomalousGeneric3

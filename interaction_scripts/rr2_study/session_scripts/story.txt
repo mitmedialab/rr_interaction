@@ -1,8 +1,10 @@
 OPAL	PICK_STORY
+# Activity: Negotiation Task.
 QUESTION	choose_a_scene1
 WAIT	USER_INPUT	NEGOTIATE	10
 OPAL	CLEAR
 OPAL	LOAD_STORY
+# Then do story.
 QUESTION	listen_to_story
 ROBOT	STORY_INTRO
 ROBOT	DO	IllTellAStoryAbout

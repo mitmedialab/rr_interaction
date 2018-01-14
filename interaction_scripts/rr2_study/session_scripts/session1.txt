@@ -1,7 +1,10 @@
 SET	MAX_GAME_TIME	20
+SET	MAX_REPEAT_TIME	20
 SET	PROMPT_TIME	1200
 PAUSE	3
 ROBOT	FIDGET	EMPTY
+
+# Sleep and wait for wakeup.
 ROBOT	DO	POSE_SLEEPING
 QUESTION	wait_for_wakeup
 ROBOT	DO	YAWN
@@ -9,39 +12,69 @@ ROBOT	DO	IceCream
 ROBOT	DO	LAUGH
 PAUSE	1
 SET	PROMPT_TIME	8
-ROBOT	DO	INTERESTED
-ROBOT	DO	MyNameIsRed
-ROBOT	DO	rr1_intro_02
+# Robot introduction.
+QUESTION	ImRed
+PAUSE	2
+# Robot backstory.
+QUESTION	ImNewHereAreYou
+ROBOT	DO	SILENT_THINKING
+ROBOT	DO	ImNotGoodAtHearing
+**NR	QUESTION	help_practiceNR
+**RR	QUESTION	help_practiceRR
+
+# First activity: Anomalous Pictures.
 ROBOT	DO	PERKUP
-QUESTION	favorite_color
-ROBOT	DO	rr1_intro_05
-ROBOT	DO	THINKING
-ROBOT	DO	rr1_backstory_01
-ROBOT	DO	rr1_backstory_02
-QUESTION	help_practice
-QUESTION	what_like_do
-ROBOT	DO	PERKUP
-QUESTION	like_dance
-QUESTION	look_at_pictures
-ROBOT	DO	rr1_picture3_01
-ROBOT	DO	rr1_picture3_02
-QUESTION	picture3_park
-QUESTION	tellmemore
-ROBOT	DO	rr1_picture3_04
-QUESTION	picture3_friends
-QUESTION	tellmemore
-ROBOT	DO	rr1_picturegen_01
-ROBOT	DO	rr1_picture4_01
-ROBOT	DO	rr1_picture4_02
-QUESTION	picture4_movie
-QUESTION	tellmemore
-ROBOT	DO	rr1_picture4_04
-QUESTION	picture4_superpower
-QUESTION	tellmemore
-ROBOT	DO	ThatsAllPictures
+QUESTION	lets_look_at_silly_pictures
+OPAL	CLEAR
+OPAL	LOAD	{ "name": "anomalous/anomalousgiraffe.png", "tag": "PlayObject", "draggable": "false"}
+SET	PROMPT_TIME	15
+SET	NUM_PROMPTS	0
+# If the child says nothing, the robot will say the max attempt speech after
+# 15s and move on. If the child does speak, the robot will use an appropriately
+# generic response.
+QUESTION	AnomalousPicture1
+# If we get a reply, repeat the generic questions until timeout.
+SET	MAX_REPEAT_TIME	1
+SET	MAX_REPEATS	1
+IF_RESPONSE	REPEAT	MAX_REPEATS	anomalous.txt
+# Do the next picture - same format.
+ROBOT	DO	LetsLookAtNextPicture
+OPAL	CLEAR
+OPAL	LOAD	{ "name": "anomalous/anomalousgiraffe.png", "tag": "PlayObject", "draggable": "false"}
+SET	PROMPT_TIME	15
+SET	NUM_PROMPTS	0
+QUESTION	AnomalousPicture2
+SET	MAX_REPEAT_TIME	1
+SET	MAX_REPEATS	1
+IF_RESPONSE	REPEAT	MAX_REPEATS	anomalous.txt
+ROBOT	DO	ThereThatsAll
+
+# Second activity: Self-disclosure task.
+# Disclosure, wait for reply. If child says something, the robot will respond,
+# and then we have two opportunities for the child to say something else before
+# the robot moves on to the next thing.
+SET	PROMPT_TIME	8
+SET	NUM_PROMPTS	1
+QUESTION	SelfDisclosure1
+SET	NUM_PROMPTS	0
+IF_RESPONSE	QUESTION	SelfDisclosureGeneric
+IF_RESPONSE	QUESTION	SelfDisclosureGeneric2
+SET	NUM_PROMPTS	1
+QUESTION	SelfDisclosure2
+SET	NUM_PROMPTS	0
+IF_RESPONSE	QUESTION	SelfDisclosureGeneric2
+IF_RESPONSE	QUESTION	SelfDisclosureGeneric
+
+# Reset prompt time and number of prompts to the usual for this interaction.
+SET	PROMPT_TIME	8
+SET	NUM_PROMPTS	2
+
+# Third activity: Story retell.
 SET	MAX_REPEATS	1
 ROBOT	DO	rr1_story_01
-REPEAT	MAX_REPEATS	story.txt
+REPEAT	MAX_REPEATS	story-retell.txt
+
+# Closing and robot goes back to sleep.
 ROBOT	DO	rr1_story_19
 ROBOT	DO	rr1_story_20
 ROBOT	FIDGET	EMPTY

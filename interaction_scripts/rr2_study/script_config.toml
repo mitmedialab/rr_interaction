@@ -80,15 +80,25 @@ question = "rr1_intro_08"
     user_responses = [""]
     robot_responses = ["HmNeutral"]
 
-[questions.help_practice]
-question = "rr1_backstory_03"
+[questions.help_practiceRR]
+question = "MaybeYouHelpMeRR"
 timeout_prompts = ["WillYouHelp", "ItsJustPlaying"]
     [[questions.help_practice.user_input]]
     user_responses = ["yes", "of course", "sure", "yeah", "okay"]
-    robot_responses = ["rr1_backstory_04"]
+    robot_responses = ["ThanksFriend"]
     [[questions.help_practice.user_input]]
     user_responses = ["no", "nah", "nope", "uh"]
-    robot_responses = ["rr1_backstory_05"]
+    robot_responses = ["ThatsOkay"]
+
+[questions.help_practiceNR]
+question = "MaybeYouHelpMeNR"
+timeout_prompts = ["WillYouHelp", "ItsJustPlaying"]
+    [[questions.help_practice.user_input]]
+    user_responses = ["yes", "of course", "sure", "yeah", "okay"]
+    robot_responses = ["ThanksShy"]
+    [[questions.help_practice.user_input]]
+    user_responses = ["no", "nah", "nope", "uh"]
+    robot_responses = ["ThatsOkay"]
 
 [questions.listen_to_story]
 question = "rr1_story_02"
@@ -97,6 +107,16 @@ timeout_prompts = ["PleaseIHaveAGoodIdea", "AwComeOnItllBeFun"]
     user_responses = ["yes", "of course", "yeah", "okay", "sure", "story"]
     robot_responses = ["rr1_story_03"]
     [[questions.listen_to_story.user_input]]
+    user_responses = [""]
+    robot_responses = ["AwComeOnItllBeFun"]
+
+[questions.listen_to_story_retell]
+question = "listen_to_retell"
+timeout_prompts = ["PleaseYoullLikeIt", "AwComeOnItllBeFun"]
+    [[questions.listen_to_story_retell.user_input]]
+    user_responses = ["yes", "of course", "yeah", "okay", "sure", "story"]
+    robot_responses = ["OkayExcited"]
+    [[questions.listen_to_story_retell.user_input]]
     user_responses = [""]
     robot_responses = ["AwComeOnItllBeFun"]
 
@@ -109,17 +129,19 @@ question = "rr1_story_06"
     user_responses = ["no", "didn't", "not"]
     robot_responses = ["YouDidntSorry", "AwIllHaveToPracticeMore"]
 
+# Questions to start the picture conversation task.
 [questions.look_at_pictures]
 question = "rr1_picture1_01"
 timeout_prompts = ["ItsJustPlaying", "AwComeOnItllBeFun"]
 max_attempt = ["IWantToAnyway"]
     [[questions.look_at_pictures.user_input]]
-    user_responses = ["yes", "of course", "yeah", "story", "like"]
+    user_responses = ["yes", "of course", "yeah", "picture", "like"]
     robot_responses = ["rr1_picture1_02"]
     [[questions.look_at_pictures.user_input]]
     user_responses = ["no", "nah", "nope", "uh"]
     robot_responses = ["AwComeOnItllBeFun"]
 
+# Park picture.
 [questions.picture3_park]
 question = "rr1_picture3_03"
 timeout_prompts = ["DontLikeAboutPark", "HavebeenToPark"]
@@ -141,6 +163,7 @@ timeout_prompts = ["FriendIsGirl", "DoYouPlay"]
     user_responses = [""]
     robot_responses = ["mmhm"]
 
+# Movies picture.
 [questions.picture4_movie]
 question = "rr1_picture4_03"
 timeout_prompts = ["YouKnowMovies", "MoviesSuchAs"]
@@ -155,6 +178,7 @@ timeout_prompts = ["FlyToo", "WhatWouldBeCool"]
     user_responses = [""]
     robot_responses = ["mmhm"]
 
+# Robot is asleep, wait for the user to say "ice cream!"
 [questions.wait_for_wakeup]
 question = ""
 timeout_prompts = [""]
@@ -178,6 +202,116 @@ max_attempt = ["OkayIllPick"]
     [[questions.choose_a_scene1.tablet_input]]
     user_responses = ["scene", "Background"]
     robot_responses = ["IWantOtherOne"]
+
+[questions.ImRed]
+question = "ImRed"
+timeout_prompts = ["ImRedWhatsYourName", "CanYouTellName"]
+    [[questions.ImRed.user_input]]
+    user_responses = [""]
+    robot_responses = ["ItsNiceToMeetYou"]
+
+# Anomalous picture task questions.
+[questions.lets_look_at_silly_pictures]
+question = "LookSillyPictures"
+timeout_prompts = ["ItsJustPictures", "AwComeOnItllBeFun"]
+max_attempt = ["WellLetsLookAnyway"]
+    [[questions.lets_look_at_silly_pictures.user_input]]
+    user_responses = ["yes", "of course", "yeah", "picture", "like"]
+    robot_responses = ["HereWeGo"]
+    [[questions.lets_look_at_silly_pictures.user_input]]
+    user_responses = ["no", "nah", "nope", "uh"]
+    robot_responses = ["NoQuestion"]
+
+[questions.AnomalousGeneric1]
+question = ""
+timeout_prompts = [""]
+max_attempt = [""]
+    [[questions.AnomalousGeneric1.user_input]]
+    user_responses = [""]
+    robot_responses = ["Yeah"]
+
+[questions.AnomalousGeneric2]
+question = ""
+timeout_prompts = [""]
+max_attempt = [""]
+    [[questions.AnomalousGeneric2.user_input]]
+    user_responses = [""]
+    robot_responses = ["Huh"]
+
+[questions.AnomalousGeneric3]
+question = ""
+timeout_prompts = [""]
+max_attempt = [""]
+    [[questions.AnomalousGeneric3.user_input]]
+    user_responses = [""]
+    robot_responses = ["YeahIDontKnow"]
+
+[questions.AnomalousPicture1]
+question = ""
+timeout_prompts = [""]
+max_attempt = ["LetsLookAtNextPicture"]
+    [[questions.AnomalousPicture1.user_input]]
+    user_responses = [""]
+    robot_responses = ["WowNeverSawBefore"]
+
+[questions.AnomalousPicture2]
+question = ""
+timeout_prompts = [""]
+max_attempt = ["ThereThatsAll"]
+    [[questions.AnomalousPicture2.user_input]]
+    user_responses = [""]
+    robot_responses = ["ThatIsStrange"]
+
+[questions.AnomalousPicture3]
+question = ""
+timeout_prompts = [""]
+max_attempt = ["LetsLookAtNextPicture"]
+    [[questions.AnomalousPicture3.user_input]]
+    user_responses = [""]
+    robot_responses = ["ThatsSoSilly"]
+
+[questions.AnomalousPicture4]
+question = ""
+timeout_prompts = [""]
+max_attempt = ["ThereThatsAll"]
+    [[questions.AnomalousPicture4.user_input]]
+    user_responses = [""]
+    robot_responses = ["ThatsPrettyFunny"]
+
+# Self-disclosure task.
+[questions.SelfDisclosure1]
+question = "self_disclosure_1"
+timeout_prompts = ["Well", "HmPrompt"]
+max_attempt = ["srPre_4_1"]
+    [[questions.SelfDisclosure1.user_input]]
+    user_responses = [""]
+    robot_responses = ["srPre_4_2"]
+
+[questions.SelfDisclosure2]
+question = "self_disclosure_2"
+timeout_prompts = ["Well", "HmPrompt"]
+max_attempt = ["srPre_4_1"]
+    [[questions.SelfDisclosure2.user_input]]
+    user_responses = [""]
+    robot_responses = ["srPre_7_2"]
+
+[questions.SelfDisclosureGeneric]
+question = ""
+timeout_prompts = [""]
+max_attempt = [""]
+    [[questions.SelfDisclosureGeneric.user_input]]
+    user_responses = [""]
+    robot_responses = ["Huh"]
+
+[questions.SelfDisclosureGeneric2]
+question = ""
+timeout_prompts = [""]
+max_attempt = [""]
+    [[questions.SelfDisclosureGeneric2.user_input]]
+    user_responses = [""]
+    robot_responses = ["Woah"]
+
+
 
 #[questions.questionname2]
 #question = "question_audio"
@@ -331,6 +465,20 @@ animations = [ { time = 0.1, anim = "SILENT_NOD" } ]
 name = "ShareWhatYouThink"
 animations = [ { time = 0.1, anim = "SILENT_AGREEMENT" } ]
 
+[audio.OkayExcited]
+name = "OkayExcited"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.ImRed]
+name = "ImRed"
+animations = [ { time = 1, anim = "SILENT_INTERESTED" },
+               { time = 4, anim = "PERKUP" } ]
+
+[audio.ImNotGoodAtHearing]
+name = "ImNotGoodAtHearing"
+animations = [ { time = 5.0, anim = "SILENT_SAD" },
+               { time = 10.0, anim = "SILENT_THINKING" },
+               { time = 15.0, anim = "PERKUP" } ]
 #[audio.]
 #name = ""
 #animations = [ { time = , anim = "" } ]
