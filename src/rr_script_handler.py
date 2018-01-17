@@ -1374,8 +1374,7 @@ class ScriptHandler(object):
             elif "retell" in self._p_config["story_type"]:
                 self._story_parser.load_script(
                     self._study_path + self._story_script_path +
-                    self._p_config["story"])
-                # TODO story level??
+                    self._p_config["story"] + self._p_config["story_level"])
                 self._logger.info("Loading story \"{}\" at level {}...".format(
                         self._p_config["story"],
                         self._p_config["story_level"]))

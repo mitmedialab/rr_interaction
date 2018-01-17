@@ -49,7 +49,7 @@
 #######################################################################
 [sessions.1]
 story_type = "retell"
-story_name = "BoyAndFrog"
+story_name = "baby_birds_first_nest"
 negotiation = false
 
 [sessions.2]
@@ -81,7 +81,7 @@ story = ""
 
 [sessions.4]
 story_type = "retell"
-story_name = "LittleBird"
+story_name = "possum_and_the_peeper"
 negotiation = false
 
 [sessions.5]
@@ -120,7 +120,7 @@ story = ""
 
 [sessions.7]
 story_type = "retell"
-story_name = "ThirdRetell"
+story_name = "henrys_happy_birthday"
 negotiation = false
 
 [sessions.8]
@@ -167,7 +167,7 @@ story = ""
 
 [sessions.10]
 story_type = "retell"
-story_name = "FourthRetell"
+story_name = "baby_ducks_new_friend"
 negotiation = false
 
 #######################################################################

@@ -64,7 +64,6 @@ QUESTION	SelfDisclosure2
 SET	NUM_PROMPTS	0
 IF_RESPONSE	QUESTION	SelfDisclosureGeneric2
 IF_RESPONSE	QUESTION	SelfDisclosureGeneric
-
 # Reset prompt time and number of prompts to the usual for this interaction.
 SET	PROMPT_TIME	8
 SET	NUM_PROMPTS	2

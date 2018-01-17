@@ -1,0 +1,79 @@
+ROBOT	DO	baby_birds_first_nest
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-01
+SET	PROMPT_TIME	5
+SET	NUM_PROMPTS	1
+QUESTION	baby_birds_first_nest_q_l_1
+ROBOT	DO	CanYouSay
+QUESTION	prostrate
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-02
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-03
+QUESTION	baby_birds_first_nest_q_l_2
+ROBOT	DO	YourTurnCanYouSay
+QUESTION	slumber
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-04
+QUESTION	baby_birds_first_nest_q_f_3
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-05
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-06
+QUESTION	baby_birds_first_nest_q_l_4
+ROBOT	DO	CanYouSay
+QUESTION	montage
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-07
+QUESTION	baby_birds_first_nest_q_l_5
+ROBOT	DO	CanYouSay
+QUESTION	tuft
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-08
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-09
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-10
+QUESTION	baby_birds_first_nest_q_l_7
+ROBOT	DO	CanYouSay
+QUESTION	dove
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-11
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-12
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-13
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-14
+QUESTION	baby_birds_first_nest_q_l_8
+ROBOT	DO	YourTurnCanYouSay
+QUESTION	hind
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-15
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-16
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-17
+QUESTION	baby_birds_first_nest_q_l_9
+ROBOT	DO	YourTurnCanYouSay
+QUESTION	perched
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-18
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-19
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-20
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-21
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-22
+QUESTION	baby_birds_first_nest_q_l_11
+ROBOT	DO	CanYouSay
+QUESTION	mauve
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-23
+QUESTION	baby_birds_first_nest_q_i_12
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-24
+OPAL	NEXT_PAGE
+ROBOT	DO	baby_birds_first_nest_lv3-25
