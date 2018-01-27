@@ -14,6 +14,7 @@ PAUSE	1
 SET	PROMPT_TIME	8
 # Robot introduction.
 QUESTION	ImRed
+**RR	ROBOT	DO	<participant_name>
 PAUSE	2
 # Robot backstory.
 QUESTION	ImNewHereAreYou
@@ -73,9 +74,21 @@ SET	MAX_REPEATS	1
 ROBOT	DO	rr1_story_01
 REPEAT	MAX_REPEATS	story-retell.txt
 
+# Photo with robot.
+QUESTION	WantAPhoto
+SET	PROMPT_TIME	1200
+ROBOT	DO	Booyah
+ROBOT	DO	POSE_SMILE
+QUESTION	TakePhoto
+ROBOT	DO	ThanksShy
+**RR	ROBOT	DO	PictureIllRemember
+
 # Closing and robot goes back to sleep.
-ROBOT	DO	rr1_story_19
-ROBOT	DO	rr1_story_20
+**NR	ROBOT	DO	rr1_story_19
+**RR	ROBOT	DO	LikedPlaying
+**RR	ROBOT	DO	<participant_name>
+ROBOT	DO	PERKUP
+ROBOT	DO	SeeYouLaterHuman
 ROBOT	FIDGET	EMPTY
 ROBOT	DO	YAWN
 ROBOT	DO	POSE_SLEEPING
