@@ -64,7 +64,7 @@ class ScriptHandler(object):
     def __init__(self, ros_node, session, participant, study_path,
                  story_script_path, session_script_path, script_config,
                  p_config, audio_base_dir, viseme_base_dir, output_dir,
-                 entrain):
+                 entrain, experimenter):
         """ Save references to ROS connection and logger, get scripts and
         set up to read script lines.
         """
@@ -76,6 +76,9 @@ class ScriptHandler(object):
 
         # Get the study config file.
         self._script_config = self._load_toml_config(script_config)
+
+        # Get the current experimenter's name.
+        self._experimenter_name = experimenter
 
         # Do we send audio to the audio entrainer on the way to the robot?
         self._use_entrainer = entrain
@@ -288,7 +291,7 @@ class ScriptHandler(object):
                 if self._repetitions >= self._max_repetitions \
                     or self._end_game \
                     or ((datetime.datetime.now() - self._repeat_start_time)
-                        - self._repeat_time_paused >= self._max_repeat_time):
+                        - self._repeat_time_paused >= self._max_repeat_time) \
                     or ((datetime.datetime.now() - self._start_time)
                         - self._total_time_paused >= self._max_game_time):
                     self._logger.info("Done repeating!")
@@ -360,11 +363,11 @@ class ScriptHandler(object):
         # "NR" condition).
         if line.startswith("**") and len(elements) > 1:
             self._logger.info("Line is tagged. Checking condition...")
-            if p_config["condition"] in elements[0]:
+            if self._p_config["condition"] in elements[0]:
                 self._logger.info("Right condition. Parsing line...")
                 # Remove the tag and parse the line as usual.
                 del elements[0]
-            else
+            else:
                 self._logger.info("Not the right condition. Skipping line.")
                 return
 
@@ -378,7 +381,7 @@ class ScriptHandler(object):
                 self._logger.info("Got a response last time, doing line!")
             else:
                 self._logger.info("Did not get a response last time, "
-                                   "skipping line...")
+                                  "skipping line...")
                 return
 
         # Skip blank lines.
@@ -844,15 +847,34 @@ class ScriptHandler(object):
                                                  seconds=int(self.WAIT_TIME)))
             return
 
-        # Check the script config for the audio command. If the command name is
-        # listed in the config, then there are some choreographed animations to
-        # play with the audio, and/or the audio filename is different from the
-        # command name.
+        # If the command contains the keyword "experimenter_name", replace the
+        # command with the name of the current experimenter (which we may get
+        # from the comamnd line during program startup; if we don't, the
+        # variable will be an empty string).
+        if "<experimenter_name>" in command:
+            command = self._experimenter_name
+            self._logger.info("Told to play experimenter name: {}".format(
+                self._experimenter_name))
+
+        # If the command contains the keyword "participant_name", replace the
+        # command with the name of the current participant, which may be in the
+        # participant config file.
+        if "<participant_name>" in command:
+            if "name" in self._p_config:
+                command = self._p_config["name"]
+            self._logger.info("Told to play participant name: {}".format(
+                command))
+
+        # Don't play if there was nothing given to play.
         if command == "":
             self._logger.warning("Told to play audio, but the name provided is"
                                  + " an empty string!")
             return
 
+        # Check the script config for the audio command. If the command name is
+        # listed in the config, then there are some choreographed animations to
+        # play with the audio, and/or the audio filename is different from the
+        # command name.
         audio_to_play = command + ".wav"
         animations = []
         if "audio" not in self._script_config:
@@ -917,7 +939,6 @@ class ScriptHandler(object):
 
         # After the robot is done speaking, switch back to physical fidgets.
         self._ros_node.send_tega_command(fidgets=TegaAction.FIDGETS_PHYSICAL)
-
 
     def _wait_for_user_input(self, response_type, timeout):
         """ Wait for user input from a GUI form, or wait until the specified
@@ -1287,7 +1308,7 @@ class ScriptHandler(object):
                 datetime.datetime.now() - self._pause_start_time
             if self._repeating:
                 self._repeat_time_paused += \
-                datetime.datetime.now() - self._pause_start_time
+                    datetime.datetime.now() - self._pause_start_time
         # Reset pause start time.
         self._pause_start_time = None
 

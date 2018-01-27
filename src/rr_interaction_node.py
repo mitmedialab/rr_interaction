@@ -103,7 +103,7 @@ class InteractionHandler(object):
                             "so the appropriate scripts can be loaded."
                             "If not specified, defaults to the demo.")
         parser.add_argument("participant", action="store", nargs="?", type=str,
-                            default='DEMO', help="Indicate which participant"
+                            default="DEMO", help="Indicate which participant"
                             "this is so the appropriate scripts can be loaded."
                             "If not specified, defaults to the demo.")
         # The user can decide to send audio directly to the robot or to go
@@ -119,6 +119,13 @@ class InteractionHandler(object):
                             "Needed to personalize the interaction to "
                             "individuals. If not specified, defaults to the "
                             "demo.")
+        # The user can specify the current experimenter so that if a script
+        # contains the keyword "<experimenter_name>", it can be replaced with
+        # the name of the current experimenter.
+        parser.add_argument("-x", "--experimenter", action="store", nargs="?",
+                            type=str, default="", help="Provide the name of "
+                            "the person running this interaction session (the "
+                            "experimenter) so they can be referred to by name")
 
         # Parse the args we got, and print them out.
         args = parser.parse_args()
@@ -136,13 +143,13 @@ class InteractionHandler(object):
 
         # If the args indicate that this is a demo, return demo args.
         if args.session <= 0 or args.participant.lower() == "demo" or \
-                not participant_config:
+                not args.participant_config:
             return (-1, "DEMO", args.use_entrainer, None)
 
         # Otherwise, return the provided session and ID.
         else:
             return (args.session, args.participant, args.use_entrainer,
-                    args.participant_config)
+                    args.participant_config, args.experimenter.lower())
 
     def _read_config(self, config):
         """ Read in the main toml config file. """
@@ -227,7 +234,8 @@ class InteractionHandler(object):
         return study_path, script_config, story_script_path, \
             session_script_path, audio_base_dir, viseme_base_dir, output_dir
 
-    def launch_interaction(self, session, participant, entrain, pconfig):
+    def launch_interaction(self, session, participant, entrain, pconfig,
+                           experimenter):
         """ Launch interaction based on the current session and participant.
         """
         # Log session and participant ID.
@@ -253,7 +261,7 @@ class InteractionHandler(object):
                                            session_script_path, script_config,
                                            pconfig, audio_base_dir,
                                            viseme_base_dir, output_dir,
-                                           entrain)
+                                           entrain, experimenter)
         except IOError as ioe:
             self._logger.exception("Did not load the session script... exiting"
                                    " because we need the session script to "
@@ -340,10 +348,10 @@ if __name__ == '__main__':
     # Try launching the interaction!
     try:
         INTERACTION_HANDLER = InteractionHandler()
-        (SESSION, PARTICIPANT, ENTRAIN, PCONFIG) = \
+        (SESSION, PARTICIPANT, ENTRAIN, PCONFIG, EXPERIMENTER) = \
             INTERACTION_HANDLER.parse_arguments()
         INTERACTION_HANDLER.launch_interaction(SESSION, PARTICIPANT, ENTRAIN,
-                                               PCONFIG)
+                                               PCONFIG, EXPERIMENTER)
 
     # If roscore isn't running or shuts down unexpectedly...
     except rospy.ROSInterruptException:
