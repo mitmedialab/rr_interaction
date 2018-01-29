@@ -53,7 +53,7 @@ class PerformanceLogger(object):
         for the specified participant and session.
         """
         # Create the initial log.
-        self._log["pid"] = participant
+        self._log["pid"] = participant.lower()
         self._log["session"] = session
 
         # Try opening a log file.
@@ -63,7 +63,8 @@ class PerformanceLogger(object):
             # in the filename) so that we never overwrite an existing log file.
             self._logger.info("Log file \"{}\" already exists. Incrementing "
                               "filename...".format(self._filename))
-            self._filename = directory + self._get_next_filename(participant)
+            self._filename = directory + self._get_next_filename(
+                    self._filename)
         else:
             self._filename = directory + self._filename
 
