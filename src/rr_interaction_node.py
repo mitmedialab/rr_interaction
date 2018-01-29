@@ -47,16 +47,31 @@ class InteractionHandler(object):
     websocket connection, and uses ROS to exchange messages with other relevant
     nodes (such as the audio entrainer and the Tega robot).
     """
-    # Initialize the ROS node.
-    # TODO If running on network where DNS does not resolve local
-    # hostnames, get the public IP address of this machine and
-    # export to the environment variable $ROS_IP to set the public
-    # address of this node, so the user doesn't have to remember
-    # to do this before starting the node.
-    _ros_node = rospy.init_node('relational_robot', anonymous=True)
-    # We could set the ROS log level here if we want:
-    # log_level=rospy.DEBUG)
-    # The rest of our logging is set up in the log config file.
+    # If you *import* this module somewhere else, the code where you import it
+    # will hang unless rospy.init_node() is called from within a function. If
+    # rospy.init_node() is called outside a function, as a module-level thing,
+    # the code where you import this module will hang. It's weird, yes; there
+    # is one ros answer that talks about it a little: https://answers.ros.org/
+    # question/266612/rospy-init_node-inside-imported-file/
+    # Also!
+    # If you do this - putting the init_node() call in a function - then a lot
+    # of the log output is no longer printed to the terminal screen or put in
+    # the rr_debug log file. Not sure why. Instead, you'll find that output in
+    # the ROS log output, which you can find in "~/.ros/log/" or
+    # "$ROS_ROOT/log". You can then tail the appropriate file and see the log
+    # output as it happens, e.g.,: "tail -f ~/.ros/log/relational_robot.log".
+    #_ros_node = rospy.init_node('relational_robot', anonymous=False)
+    def init_ros(self):
+        """ Initialize the ROS node. """
+        # TODO If running on network where DNS does not resolve local
+        # hostnames, get the public IP address of this machine and
+        # export to the environment variable $ROS_IP to set the public
+        # address of this node, so the user doesn't have to remember
+        # to do this before starting the node.
+        self._ros_node = rospy.init_node('relational_robot', anonymous=False)
+        # We could set the ROS log level here if we want:
+        # log_level=rospy.DEBUG)
+        # The rest of our logging is set up in the log config file.
 
     def __init__(self):
         """ Initialize anything that needs initialization. """
@@ -244,6 +259,7 @@ class InteractionHandler(object):
                               session, participant))
 
         # Set up ROS node publishers and subscribers.
+        self.init_ros()
         self._ros_ss = RosNode(self._queue)
 
         # Read config file to get paths to interaction scripts, script

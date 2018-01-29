@@ -1,0 +1,22 @@
+<launch>
+    <!-- Google ASR (for speech recognition). Needs to be run with the prefix
+         "pipenv" but that doesn't work with the launch-prefix tag. -->
+    <node name="google_asr_node"
+          pkg="asr_google_cloud"
+          type="run_ros_asr.sh" />
+
+    <!-- Audio entrainer. Has special setup so we run a script that does
+         the setup and then starts the node. -->
+    <node name="rr_audio_entrainer"
+          pkg="rr_audio_entrainer"
+          type="run_entrainer.sh" />
+
+    <!-- Audio server -->
+    <node name="audio_server"
+          pkg="rr_interaction"
+          type="run_audio_server.sh" />
+
+    <!-- Rosbridge (for talking to the tablet) -->
+    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" />
+
+</launch>

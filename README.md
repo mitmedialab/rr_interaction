@@ -64,6 +64,34 @@ optional arguments:
   config file.  Specify if the interaction should be personalized to
   individuals.
 
+### Launch RR2 study
+
+You will need to run two scripts to launch the RR2 experiment study sessions.
+The first is a roslaunch file that launches roscore and various other ROS nodes
+that are needed for the study interaction to run. Then, you can launch the
+interaction itself using `launch_interaction.py`. This script asks the user for
+three arguments (experimenter name, participant ID, and session number), which
+it validates before starting the interaction. This is useful for ensuring that
+the user enters appropriate parameters for the study (e.g., a valid
+experimenter name, since some study scripts use the name to play back a
+corresponding audio file).
+
+The scripts have been separated into two so that you can re-launch the
+interaction itself without having to restart everything else, e.g., if you
+switch participants.
+
+Run:
+
+``` sh
+$ roslaunch rr_interaction rr_dependencies.launch
+```
+
+Then run:
+
+``` sh
+$ python launch_interaction.py
+```
+Then follow the prompts on screen.
 
 ### Configuration
 
@@ -151,7 +179,7 @@ The game uses the Python logging module to direct log output to four places:
 3. error log file
 4. rosout
 
-The game reads in the logging configuration file `rr\_log\_config.json`, which
+The game reads in the logging configuration file `rr_log_config.json`, which
 is located in the `src/` directory.
 
 The options you can set in this log config file include where log files should
@@ -173,8 +201,8 @@ documentation](http://wiki.ros.org/rospy/Overview/Logging#Advanced:_Override_Log
 you can override the location by setting the `ROS_PYTHON_LOG_CONFIG_FILE`
 environment variable. You can also change the ROS log level without messing
 with this config file by passing the `log_level` parameter to the
-`rospy.init_node()` call made in "ss\_game\_node.py". Currently, the log level
-DEBUG is passed in to the init\_node call.
+`rospy.init_node()` call made in "rr_interaction_node.py". Currently, the log
+level DEBUG is passed in to the init\_node call.
 
 By default, ROS saves a node's log files to `~/.ros/log/` or `$ROS_ROOT/log`.
 Note that rosout only gets log messages after the node is fully initialized, so
@@ -184,6 +212,24 @@ more.
 
 **For information about performance logs for participants, see the
 Personalization section below.**
+
+**Note about seeing log output:** Depending on how you run the interaction, you
+may realize that some log output is not being printed to the terminal screen.
+To see the full output, you'll need to look at the ROS node log files
+(locations mentioned above). You can tail the appropriate file to see the log
+output as it happens, for example: `tail -f ~/.ros/log/relational_robot.log`
+
+The reason for this is that, as it happens, if you _import_ the
+`src/rr_interaction_node.py` module somewhere else - such as in our nice
+`launch_interaction.py` script - then the script will hang unless
+`rospy.init_node()` is called from within a function. If `rospy.init_node()` is
+called outside a function, as a module-level thing, the code where you import
+this module will hang. It's weird, yes; there is one [ros answer that talks
+about it a little](https://answers.ros.org/
+question/266612/rospy-init_node-inside-imported-file/). Also! If you do this -
+putting the `init_node()` call in a function - then a lot of the log output is
+no longer printed to the terminal screen. Not sure why, but the solution for
+now is to tail the log file where the output is saved instead.
 
 #### Participant config
 
