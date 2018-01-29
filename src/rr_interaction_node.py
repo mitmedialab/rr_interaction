@@ -144,7 +144,7 @@ class InteractionHandler(object):
         # If the args indicate that this is a demo, return demo args.
         if args.session <= 0 or args.participant.lower() == "demo" or \
                 not args.participant_config:
-            return (-1, "DEMO", args.use_entrainer, None)
+            return (-1, "DEMO", args.use_entrainer, None, None)
 
         # Otherwise, return the provided session and ID.
         else:
@@ -265,7 +265,7 @@ class InteractionHandler(object):
         except IOError as ioe:
             self._logger.exception("Did not load the session script... exiting"
                                    " because we need the session script to "
-                                   "continue. Error: {}").format(ioe)
+                                   "continue. Error: {}".format(ioe))
             exit(1)
 
         # We've loaded a script and are all configured. Start!
@@ -337,7 +337,7 @@ class InteractionHandler(object):
                 self._logger.info("Finished script!")
                 break
 
-    def _signal_handler(self, sig):
+    def _signal_handler(self, sig, nal):
         """ Handle signals caught. """
         if sig == signal.SIGINT:
             self._logger.info("Got keyboard interrupt! Exiting.")
