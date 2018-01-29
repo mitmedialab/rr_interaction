@@ -63,8 +63,8 @@ class ScriptParser(object):
                               "pattern \"session-[session_number].txt\", where"
                               " the session number is an integer starting at 1"
                               " for session 1. For this session, we will try "
-                              "to load \"session-{}.txt\".".format(session))
-            return "session-{}.txt".format(session)
+                              "to load \"session{}.txt\".".format(session))
+            return "session{}.txt".format(session)
 
     def load_script(self, script):
         """ Set up to load script """
