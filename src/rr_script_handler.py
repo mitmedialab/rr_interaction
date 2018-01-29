@@ -74,8 +74,10 @@ class ScriptHandler(object):
         self._logger = logging.getLogger(__name__)
         self._logger.info("Setting up script handler...")
 
-        # Get the study config file.
-        self._script_config = self._load_toml_config(script_config)
+        # Get the study config file, if this is not the demo.
+        self._script_config = None
+        if "DEMO" not in participant:
+            self._script_config = self._load_toml_config(script_config)
 
         # Get the current experimenter's name.
         self._experimenter_name = experimenter
@@ -104,23 +106,28 @@ class ScriptHandler(object):
 
         # Load the participant configuration file so we can look up the
         # personalization for this participant.
-        pconfig = self._load_toml_config(p_config)
-        if participant not in pconfig:
-            self._logger.warn("{} is not in the participant config file we "
-                              "loaded! We can't personalize!".format(
-                                   participant))
-        elif session not in pconfig[participant]:
-            self._logger.warn("Session {} is not in the participant config "
-                              "file we loaded for participant {}! We can't "
-                              "personalize!".format(session, participant))
+        pconfig = None
+        if "DEMO" in participant:
+            self._p_config = None
         else:
-            # Since we are only running one participant and one session, we
-            # only care about the configuration for this participant and this
-            # session. So we'll only save that information.
-            # TODO if we include any higher-level participant config later, we
-            # will need that too - then just save this participant and refer to
-            # the session as needed.
-            self._p_config = pconfig[participant][session]
+            pconfig = self._load_toml_config(p_config)
+            if participant not in pconfig:
+                self._logger.warn("{} is not in the participant config file "
+                                  "we loaded! We can't personalize!".format(
+                                       participant))
+            elif session not in pconfig[participant]:
+                self._logger.warn("Session {} is not in the participant config"
+                                  " file we loaded for {}! We can't"
+                                  "personalize!".format(session, participant))
+            else:
+
+                # Since we are only running one participant and one session, we
+                # only care about the configuration for this participant and
+                # this session. So we'll only save that information.  TODO if
+                # we include any higher-level participant config later, we will
+                # need that too - then just save this participant and refer to
+                # the session as needed.
+                self._p_config = pconfig[participant][session]
 
         # Set up performance logger for tracking participant performance this
         # session.
