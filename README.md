@@ -461,6 +461,21 @@ another `QUESTION` or a `ROBOT DO` line:
 `IF_RESPONSE    QUESTION    what-else-do-you-like`
 `IF_RESPONSE    ROBOT   DO  EXCITED`
 
+### Checking the scripts
+
+To check whether all the audio and corresponding phoneme files mentioned in the
+script files exist in the audio directory, run:
+
+``` sh
+$ scripts/check_for_audio.py
+```
+
+This script uses the information in the main `config.toml` file to decide which
+directories to check for scripts and which directories to check for audio and
+phoneme files. It will print a list of all missing files to the screen (i.e.,
+files referenced in the scripts that don't exist as audio .wav or phoneme .txt
+files).
+
 ## Personalization
 
 This repository includes scripts for personalizing the interaction run with the
