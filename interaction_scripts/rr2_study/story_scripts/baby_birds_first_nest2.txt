@@ -75,6 +75,4 @@ ROBOT	DO	baby_birds_first_nest_lv2-23
 QUESTION	baby_birds_first_nest_q_i_12
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv2-24
-OPAL	NEXT_PAGE
-ROBOT	DO	baby_birds_first_nest_lv2-25
 

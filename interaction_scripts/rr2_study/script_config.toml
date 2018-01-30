@@ -83,20 +83,20 @@ question = "rr1_intro_08"
 [questions.help_practiceRR]
 question = "MaybeYouHelpMeRR"
 timeout_prompts = ["WillYouHelp", "ItsJustPlaying"]
-    [[questions.help_practice.user_input]]
+    [[questions.help_practiceRR.user_input]]
     user_responses = ["yes", "of course", "sure", "yeah", "okay"]
     robot_responses = ["ThanksFriend"]
-    [[questions.help_practice.user_input]]
+    [[questions.help_practiceRR.user_input]]
     user_responses = ["no", "nah", "nope", "uh"]
     robot_responses = ["ThatsOkay"]
 
 [questions.help_practiceNR]
 question = "MaybeYouHelpMeNR"
 timeout_prompts = ["WillYouHelp", "ItsJustPlaying"]
-    [[questions.help_practice.user_input]]
+    [[questions.help_practiceNR.user_input]]
     user_responses = ["yes", "of course", "sure", "yeah", "okay"]
     robot_responses = ["ThanksShy"]
-    [[questions.help_practice.user_input]]
+    [[questions.help_practiceNR.user_input]]
     user_responses = ["no", "nah", "nope", "uh"]
     robot_responses = ["ThatsOkay"]
 
@@ -111,7 +111,7 @@ timeout_prompts = ["PleaseIHaveAGoodIdea", "AwComeOnItllBeFun"]
     robot_responses = ["AwComeOnItllBeFun"]
 
 [questions.listen_to_story_retell]
-question = "listen_to_retell"
+question = "ListenToRetell"
 timeout_prompts = ["PleaseYoullLikeIt", "AwComeOnItllBeFun"]
     [[questions.listen_to_story_retell.user_input]]
     user_responses = ["yes", "of course", "yeah", "okay", "sure", "story"]
@@ -424,7 +424,7 @@ max_attempt = ["baby_birds_first_nest_a_11"]
 question = "baby_birds_first_nest_q_i_12"
 timeout_prompts = ["baby_birds_first_nest_h_12"]
 max_attempt = ["HmNeutral"]
-    [[questions.baby_birds_first_nest_i_12.user_input]]
+    [[questions.baby_birds_first_nest_q_i_12.user_input]]
     user_responses = [""]
     robot_responses = ["HmNeutral"]
 
@@ -724,7 +724,7 @@ timeout_prompts = ["aloft"]
 max_attempt = ["aloft"]
     [[questions.can_you_say_aloft.user_input]]
     user_responses = ["aloft", "loft"]
-    robot_responses = ["Booyeah"]
+    robot_responses = ["Booyah"]
     [[questions.can_you_say_aloft.user_input]]
     user_responses = [""]
     robot_responses = ["aloft"]
@@ -929,152 +929,152 @@ animations = [ { time = 1, anim = "SILENT_HAPPY_DANCE" } ]
 
 ## Audio with animations for the Baby Bird's First Nest story - level 1.
 # TODO May need to adjust the timing with my recorded speech.
-[audio.baby_birds_first_nest_lv1_1]
-name = "baby_birds_first_nest_lv1_1"
+[audio.baby_birds_first_nest_lv1-01]
+name = "baby_birds_first_nest_lv1-01"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 6.0, anim = "CIRCLING" },
                { time = 16.0, anim = "PERKUP" } ]
 
-[audio.baby_birds_first_nest_lv1_2]
-name = "baby_birds_first_nest_lv1_2"
+[audio.baby_birds_first_nest_lv1-02]
+name = "baby_birds_first_nest_lv1-02"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 1.0, anim = "SILENT_NO" },
                { time = 10.0, anim = "SILENT_SCARED" } ]
 
-[audio.baby_birds_first_nest_lv1_3]
-name = "baby_birds_first_nest_lv1_3"
+[audio.baby_birds_first_nest_lv1-03]
+name = "baby_birds_first_nest_lv1-03"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 1.5, anim = "SHIMMY" },
                { time = 3.5, anim = "SILENT_YAWN" } ]
 
-[audio.baby_birds_first_nest_lv1_4]
-name = "baby_birds_first_nest_lv1_4"
+[audio.baby_birds_first_nest_lv1-04]
+name = "baby_birds_first_nest_lv1-04"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 3.5, anim = "SILENT_NO" },
                { time = 8.5, anim = "HEADPOINTBACK" } ]
 
-[audio.baby_birds_first_nest_lv1_5]
-name = "baby_birds_first_nest_lv1_5"
+[audio.baby_birds_first_nest_lv1-05]
+name = "baby_birds_first_nest_lv1-05"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 4.0, anim = "HEADPOINTBACK" },
                { time = 8.0, anim = "SILENT_NO" },
                { time = 21.0, anim = "SILENT_THINKING" } ]
 
-[audio.baby_birds_first_nest_lv1_6]
-name = "baby_birds_first_nest_lv1_6"
+[audio.baby_birds_first_nest_lv1-06]
+name = "baby_birds_first_nest_lv1-06"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 3.5, anim = "SILENT_YES" },
                { time = 6.0, anim = "SILENT_LEFTRIGHTLOOKING" },
                { time = 12.0, anim = "CIRCLING" } ]
 
-[audio.baby_birds_first_nest_lv1_7]
-name = "baby_birds_first_nest_lv1_7"
+[audio.baby_birds_first_nest_lv1-07]
+name = "baby_birds_first_nest_lv1-07"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 6.0, anim = "PERKUP" },
                { time = 12.0, anim = "SILENT_HAPPY_WIGGLE" } ]
 
-[audio.baby_birds_first_nest_lv1_8]
-name = "baby_birds_first_nest_lv1_8"
+[audio.baby_birds_first_nest_lv1-08]
+name = "baby_birds_first_nest_lv1-08"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 1.0, anim = "SILENT_FRUSTRATED" },
                { time = 10.0, anim = "SILENT_EXCITED" } ]
 
-[audio.baby_birds_first_nest_lv1_9]
-name = "baby_birds_first_nest_lv1_9"
+[audio.baby_birds_first_nest_lv1-09]
+name = "baby_birds_first_nest_lv1-09"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 1.0, anim = "SILENT_YAWN" },
                { time = 10.0, anim = "SILENT_BOUNCINGTILT" } ]
 
-[audio.baby_birds_first_nest_lv1_10]
-name = "baby_birds_first_nest_lv1_10"
+[audio.baby_birds_first_nest_lv1-10]
+name = "baby_birds_first_nest_lv1-10"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "HEADPOINTBACK" },
                { time = 8.0, anim = "PERKUP" } ]
 
-[audio.baby_birds_first_nest_lv1_11]
-name = "baby_birds_first_nest_lv1_11"
+[audio.baby_birds_first_nest_lv1-11]
+name = "baby_birds_first_nest_lv1-11"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "SILENT_SCARED" } ]
 
-[audio.baby_birds_first_nest_lv1_12]
-name = "baby_birds_first_nest_lv1_12"
+[audio.baby_birds_first_nest_lv1-12]
+name = "baby_birds_first_nest_lv1-12"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 7.0, anim = "SILENT_SWIPE_STAGERIGHT" } ]
 
-[audio.baby_birds_first_nest_lv1_13]
-name = "baby_birds_first_nest_lv1_13"
+[audio.baby_birds_first_nest_lv1-13]
+name = "baby_birds_first_nest_lv1-13"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "SILENT_INTERESTED" },
                { time = 7.0, anim = "HAPPY_UP" } ]
 
-[audio.baby_birds_first_nest_lv1_14]
-name = "baby_birds_first_nest_lv1_14"
+[audio.baby_birds_first_nest_lv1-14]
+name = "baby_birds_first_nest_lv1-14"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 6.0, anim = "SILENT_SCARED" } ]
 
-[audio.baby_birds_first_nest_lv1_15]
-name = "baby_birds_first_nest_lv1_15"
+[audio.baby_birds_first_nest_lv1-15]
+name = "baby_birds_first_nest_lv1-15"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 3.3, anim = "SILENT_CONFIRM" },
                { time = 6.6, anim = "SILENT_CONFIRM" } ]
 
-[audio.baby_birds_first_nest_lv1_16]
-name = "baby_birds_first_nest_lv1_16"
+[audio.baby_birds_first_nest_lv1-16]
+name = "baby_birds_first_nest_lv1-16"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 6.5, anim = "SILENT_INTERESTED" } ]
 
-[audio.baby_birds_first_nest_lv1_17]
-name = "baby_birds_first_nest_lv1_17"
+[audio.baby_birds_first_nest_lv1-17]
+name = "baby_birds_first_nest_lv1-17"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "SILENT_NO" },
                { time = 9.0, anim = "PERKUP" } ]
 
-[audio.baby_birds_first_nest_lv1_18]
-name = "baby_birds_first_nest_lv1_18"
+[audio.baby_birds_first_nest_lv1-18]
+name = "baby_birds_first_nest_lv1-18"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "SILENT_LEFTRIGHTLOOKING" },
                { time = 8.0, anim = "SILENT_NO" } ]
 
-[audio.baby_birds_first_nest_lv1_19]
-name = "baby_birds_first_nest_lv1_19"
+[audio.baby_birds_first_nest_lv1-19]
+name = "baby_birds_first_nest_lv1-19"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "SILENT_YES" },
                { time = 6.0, anim = "HEADPOINTBACK" } ]
 
-[audio.baby_birds_first_nest_lv1_20]
-name = "baby_birds_first_nest_lv1_20"
+[audio.baby_birds_first_nest_lv1-20]
+name = "baby_birds_first_nest_lv1-20"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 3.0, anim = "HEADPOINTBACK" },
                { time = 10.0, anim = "SILENT_YES" } ]
 
-[audio.baby_birds_first_nest_lv1_21]
-name = "baby_birds_first_nest_lv1_21"
+[audio.baby_birds_first_nest_lv1-21]
+name = "baby_birds_first_nest_lv1-21"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 5.0, anim = "HAPPY_UP" },
                { time = 10.0, anim = "SILENT_EXCITED" },
                { time = 18.0, anim = "SILENT_YAWN" } ]
 
-[audio.baby_birds_first_nest_lv1_22]
-name = "baby_birds_first_nest_lv1_22"
+[audio.baby_birds_first_nest_lv1-22]
+name = "baby_birds_first_nest_lv1-22"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "PERKUP" },
                { time = 13.0, anim = "PROUD" },
                { time = 16.0, anim = "CIRCLING" },
                { time = 22.0, anim = "SILENT_YES" } ]
 
-[audio.baby_birds_first_nest_lv1_23]
-name = "baby_birds_first_nest_lv1_23"
+[audio.baby_birds_first_nest_lv1-23]
+name = "baby_birds_first_nest_lv1-23"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 3.0, anim = "SILENT_PUZZLED" } ]
 
-[audio.baby_birds_first_nest_lv1_24]
-name = "baby_birds_first_nest_lv1_24"
+[audio.baby_birds_first_nest_lv1-24]
+name = "baby_birds_first_nest_lv1-24"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 4.0, anim = "SILENT_NO" },
                { time = 14.0, anim = "HAPPY_UP" } ]
 
-[audio.baby_birds_first_nest_lv1_25]
-name = "baby_birds_first_nest_lv1_25"
+[audio.baby_birds_first_nest_lv1-25]
+name = "baby_birds_first_nest_lv1-25"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "SILENT_EXCITED" },
                { time = 6.0, anim = "SILENT_YES" },
@@ -1082,305 +1082,298 @@ animations = [ { time = 0.1, anim = "IDLESTILL" },
 
 ## Audio with animations for the Baby Bird's First Nest story - level 2.
 # TODO May need to adjust the timing with my recorded speech.
-[audio.baby_birds_first_nest_lv2_1]
-name = "baby_birds_first_nest_lv2_1"
+[audio.baby_birds_first_nest_lv2-01]
+name = "baby_birds_first_nest_lv2-01"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 6.0, anim = "CIRCLING" },
                { time = 16.0, anim = "PERKUP" } ]
 
-[audio.baby_birds_first_nest_lv2_2]
-name = "baby_birds_first_nest_lv2_2"
+[audio.baby_birds_first_nest_lv2-02]
+name = "baby_birds_first_nest_lv2-02"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 1.0, anim = "SILENT_NO" },
                { time = 10.0, anim = "SILENT_SCARED" } ]
 
-[audio.baby_birds_first_nest_lv2_3]
-name = "baby_birds_first_nest_lv2_3"
+[audio.baby_birds_first_nest_lv2-03]
+name = "baby_birds_first_nest_lv2-03"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 1.5, anim = "SHIMMY" },
                { time = 3.5, anim = "SILENT_YAWN" } ]
 
-[audio.baby_birds_first_nest_lv2_4]
-name = "baby_birds_first_nest_lv2_4"
+[audio.baby_birds_first_nest_lv2-04]
+name = "baby_birds_first_nest_lv2-04"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 3.5, anim = "SILENT_NO" },
                { time = 8.5, anim = "HEADPOINTBACK" } ]
 
-[audio.baby_birds_first_nest_lv2_5]
-name = "baby_birds_first_nest_lv2_5"
+[audio.baby_birds_first_nest_lv2-05]
+name = "baby_birds_first_nest_lv2-05"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 4.0, anim = "HEADPOINTBACK" },
                { time = 8.0, anim = "SILENT_NO" },
                { time = 21.0, anim = "SILENT_THINKING" } ]
 
-[audio.baby_birds_first_nest_lv2_6]
-name = "baby_birds_first_nest_lv2_6"
+[audio.baby_birds_first_nest_lv2-06]
+name = "baby_birds_first_nest_lv2-06"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 3.5, anim = "SILENT_YES" },
                { time = 6.0, anim = "SILENT_LEFTRIGHTLOOKING" },
                { time = 12.0, anim = "CIRCLING" } ]
 
-[audio.baby_birds_first_nest_lv2_7]
-name = "baby_birds_first_nest_lv2_7"
+[audio.baby_birds_first_nest_lv2-07]
+name = "baby_birds_first_nest_lv2-07"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 6.0, anim = "PERKUP" },
                { time = 12.0, anim = "SILENT_HAPPY_WIGGLE" } ]
 
-[audio.baby_birds_first_nest_lv2_8]
-name = "baby_birds_first_nest_lv2_8"
+[audio.baby_birds_first_nest_lv2-08]
+name = "baby_birds_first_nest_lv2-08"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 1.0, anim = "SILENT_FRUSTRATED" },
                { time = 10.0, anim = "SILENT_EXCITED" } ]
 
-[audio.baby_birds_first_nest_lv2_9]
-name = "baby_birds_first_nest_lv2_9"
+[audio.baby_birds_first_nest_lv2-09]
+name = "baby_birds_first_nest_lv2-09"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 1.0, anim = "SILENT_YAWN" },
                { time = 10.0, anim = "SILENT_BOUNCINGTILT" } ]
 
-[audio.baby_birds_first_nest_lv2_10]
-name = "baby_birds_first_nest_lv2_10"
+[audio.baby_birds_first_nest_lv2-10]
+name = "baby_birds_first_nest_lv2-10"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "HEADPOINTBACK" },
                { time = 8.0, anim = "PERKUP" } ]
 
-[audio.baby_birds_first_nest_lv2_11]
-name = "baby_birds_first_nest_lv2_11"
+[audio.baby_birds_first_nest_lv2-11]
+name = "baby_birds_first_nest_lv2-11"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "SILENT_SCARED" } ]
 
-[audio.baby_birds_first_nest_lv2_12]
-name = "baby_birds_first_nest_lv2_12"
+[audio.baby_birds_first_nest_lv2-12]
+name = "baby_birds_first_nest_lv2-12"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 7.0, anim = "SILENT_SWIPE_STAGERIGHT" } ]
 
-[audio.baby_birds_first_nest_lv2_13]
-name = "baby_birds_first_nest_lv2_13"
+[audio.baby_birds_first_nest_lv2-13]
+name = "baby_birds_first_nest_lv2-13"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "SILENT_INTERESTED" },
                { time = 7.0, anim = "HAPPY_UP" } ]
 
-[audio.baby_birds_first_nest_lv2_14]
-name = "baby_birds_first_nest_lv2_14"
+[audio.baby_birds_first_nest_lv2-14]
+name = "baby_birds_first_nest_lv2-14"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 6.0, anim = "SILENT_SCARED" } ]
 
-[audio.baby_birds_first_nest_lv2_15]
-name = "baby_birds_first_nest_lv2_15"
+[audio.baby_birds_first_nest_lv2-15]
+name = "baby_birds_first_nest_lv2-15"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 3.3, anim = "SILENT_CONFIRM" },
                { time = 6.6, anim = "SILENT_CONFIRM" } ]
 
-[audio.baby_birds_first_nest_lv2_16]
-name = "baby_birds_first_nest_lv2_16"
+[audio.baby_birds_first_nest_lv2-16]
+name = "baby_birds_first_nest_lv2-16"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 6.5, anim = "SILENT_INTERESTED" } ]
 
-[audio.baby_birds_first_nest_lv2_17]
-name = "baby_birds_first_nest_lv2_17"
+[audio.baby_birds_first_nest_lv2-17]
+name = "baby_birds_first_nest_lv2-17"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "SILENT_NO" },
                { time = 9.0, anim = "PERKUP" } ]
 
-[audio.baby_birds_first_nest_lv2_18]
-name = "baby_birds_first_nest_lv2_18"
+[audio.baby_birds_first_nest_lv2-18]
+name = "baby_birds_first_nest_lv2-18"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "SILENT_LEFTRIGHTLOOKING" },
                { time = 8.0, anim = "SILENT_NO" } ]
 
-[audio.baby_birds_first_nest_lv2_19]
-name = "baby_birds_first_nest_lv2_19"
+[audio.baby_birds_first_nest_lv2-19]
+name = "baby_birds_first_nest_lv2-19"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "SILENT_YES" },
                { time = 6.0, anim = "HEADPOINTBACK" } ]
 
-[audio.baby_birds_first_nest_lv2_20]
-name = "baby_birds_first_nest_lv2_20"
+[audio.baby_birds_first_nest_lv2-20]
+name = "baby_birds_first_nest_lv2-20"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 3.0, anim = "HEADPOINTBACK" },
                { time = 10.0, anim = "SILENT_YES" } ]
 
-[audio.baby_birds_first_nest_lv2_21]
-name = "baby_birds_first_nest_lv2_21"
+[audio.baby_birds_first_nest_lv2-21]
+name = "baby_birds_first_nest_lv2-21"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 5.0, anim = "HAPPY_UP" },
                { time = 10.0, anim = "SILENT_EXCITED" },
                { time = 18.0, anim = "SILENT_YAWN" } ]
 
-[audio.baby_birds_first_nest_lv2_22]
-name = "baby_birds_first_nest_lv2_22"
+[audio.baby_birds_first_nest_lv2-22]
+name = "baby_birds_first_nest_lv2-22"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "PERKUP" },
                { time = 13.0, anim = "PROUD" },
                { time = 16.0, anim = "CIRCLING" },
                { time = 22.0, anim = "SILENT_YES" } ]
 
-[audio.baby_birds_first_nest_lv2_23]
-name = "baby_birds_first_nest_lv2_23"
+[audio.baby_birds_first_nest_lv2-23]
+name = "baby_birds_first_nest_lv2-23"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 3.0, anim = "SILENT_PUZZLED" } ]
 
-[audio.baby_birds_first_nest_lv2_24]
-name = "baby_birds_first_nest_lv2_24"
+[audio.baby_birds_first_nest_lv2-24]
+name = "baby_birds_first_nest_lv2-24"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 4.0, anim = "SILENT_NO" },
                { time = 14.0, anim = "HAPPY_UP" } ]
-
-[audio.baby_birds_first_nest_lv2_25]
-name = "baby_birds_first_nest_lv2_25"
-animations = [ { time = 0.1, anim = "IDLESTILL" },
-               { time = 2.0, anim = "SILENT_EXCITED" },
-               { time = 6.0, anim = "SILENT_YES" },
-               { time = 15.0, anim = "SILENT_SWIPE_STAGERIGHT" } ]
 
 ## Audio with animations for the Baby Bird's First Nest story - level 3.
 # TODO May need to adjust the timing with my recorded speech.
-[audio.baby_birds_first_nest_lv3_1]
-name = "baby_birds_first_nest_lv3_1"
+[audio.baby_birds_first_nest_lv3-01]
+name = "baby_birds_first_nest_lv3-01"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 6.0, anim = "CIRCLING" },
                { time = 16.0, anim = "PERKUP" } ]
 
-[audio.baby_birds_first_nest_lv3_2]
-name = "baby_birds_first_nest_lv3_2"
+[audio.baby_birds_first_nest_lv3-02]
+name = "baby_birds_first_nest_lv3-02"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 1.0, anim = "SILENT_NO" },
                { time = 10.0, anim = "SILENT_SCARED" } ]
 
-[audio.baby_birds_first_nest_lv3_3]
-name = "baby_birds_first_nest_lv3_3"
+[audio.baby_birds_first_nest_lv3-03]
+name = "baby_birds_first_nest_lv3-03"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 1.5, anim = "SHIMMY" },
                { time = 3.5, anim = "SILENT_YAWN" } ]
 
-[audio.baby_birds_first_nest_lv3_4]
-name = "baby_birds_first_nest_lv3_4"
+[audio.baby_birds_first_nest_lv3-04]
+name = "baby_birds_first_nest_lv3-04"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 3.5, anim = "SILENT_NO" },
                { time = 8.5, anim = "HEADPOINTBACK" } ]
 
-[audio.baby_birds_first_nest_lv3_5]
-name = "baby_birds_first_nest_lv3_5"
+[audio.baby_birds_first_nest_lv3-05]
+name = "baby_birds_first_nest_lv3-05"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 4.0, anim = "HEADPOINTBACK" },
                { time = 8.0, anim = "SILENT_NO" },
                { time = 21.0, anim = "SILENT_THINKING" } ]
 
-[audio.baby_birds_first_nest_lv3_6]
-name = "baby_birds_first_nest_lv3_6"
+[audio.baby_birds_first_nest_lv3-06]
+name = "baby_birds_first_nest_lv3-06"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 3.5, anim = "SILENT_YES" },
                { time = 6.0, anim = "SILENT_LEFTRIGHTLOOKING" },
                { time = 12.0, anim = "CIRCLING" } ]
 
-[audio.baby_birds_first_nest_lv3_7]
-name = "baby_birds_first_nest_lv3_7"
+[audio.baby_birds_first_nest_lv3-07]
+name = "baby_birds_first_nest_lv3-07"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 6.0, anim = "PERKUP" },
                { time = 12.0, anim = "SILENT_HAPPY_WIGGLE" } ]
 
-[audio.baby_birds_first_nest_lv3_8]
-name = "baby_birds_first_nest_lv3_8"
+[audio.baby_birds_first_nest_lv3-08]
+name = "baby_birds_first_nest_lv3-08"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 1.0, anim = "SILENT_FRUSTRATED" },
                { time = 10.0, anim = "SILENT_EXCITED" } ]
 
-[audio.baby_birds_first_nest_lv3_9]
-name = "baby_birds_first_nest_lv3_9"
+[audio.baby_birds_first_nest_lv3-09]
+name = "baby_birds_first_nest_lv3-09"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 1.0, anim = "SILENT_YAWN" },
                { time = 10.0, anim = "SILENT_BOUNCINGTILT" } ]
 
-[audio.baby_birds_first_nest_lv3_10]
-name = "baby_birds_first_nest_lv3_10"
+[audio.baby_birds_first_nest_lv3-10]
+name = "baby_birds_first_nest_lv3-10"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "HEADPOINTBACK" },
                { time = 8.0, anim = "PERKUP" } ]
 
-[audio.baby_birds_first_nest_lv3_11]
-name = "baby_birds_first_nest_lv3_11"
+[audio.baby_birds_first_nest_lv3-11]
+name = "baby_birds_first_nest_lv3-11"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "SILENT_SCARED" } ]
 
-[audio.baby_birds_first_nest_lv3_12]
-name = "baby_birds_first_nest_lv3_12"
+[audio.baby_birds_first_nest_lv3-12]
+name = "baby_birds_first_nest_lv3-12"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 7.0, anim = "SILENT_SWIPE_STAGERIGHT" } ]
 
-[audio.baby_birds_first_nest_lv3_13]
-name = "baby_birds_first_nest_lv3_13"
+[audio.baby_birds_first_nest_lv3-13]
+name = "baby_birds_first_nest_lv3-13"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "SILENT_INTERESTED" },
                { time = 7.0, anim = "HAPPY_UP" } ]
 
-[audio.baby_birds_first_nest_lv3_14]
-name = "baby_birds_first_nest_lv3_14"
+[audio.baby_birds_first_nest_lv3-14]
+name = "baby_birds_first_nest_lv3-14"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 6.0, anim = "SILENT_SCARED" } ]
 
-[audio.baby_birds_first_nest_lv3_15]
-name = "baby_birds_first_nest_lv3_15"
+[audio.baby_birds_first_nest_lv3-15]
+name = "baby_birds_first_nest_lv3-15"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 3.3, anim = "SILENT_CONFIRM" },
                { time = 6.6, anim = "SILENT_CONFIRM" } ]
 
-[audio.baby_birds_first_nest_lv3_16]
-name = "baby_birds_first_nest_lv3_16"
+[audio.baby_birds_first_nest_lv3-16]
+name = "baby_birds_first_nest_lv3-16"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 6.5, anim = "SILENT_INTERESTED" } ]
 
-[audio.baby_birds_first_nest_lv3_17]
-name = "baby_birds_first_nest_lv3_17"
+[audio.baby_birds_first_nest_lv3-17]
+name = "baby_birds_first_nest_lv3-17"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "SILENT_NO" },
                { time = 9.0, anim = "PERKUP" } ]
 
-[audio.baby_birds_first_nest_lv3_18]
-name = "baby_birds_first_nest_lv3_18"
+[audio.baby_birds_first_nest_lv3-18]
+name = "baby_birds_first_nest_lv3-18"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "SILENT_LEFTRIGHTLOOKING" },
                { time = 8.0, anim = "SILENT_NO" } ]
 
-[audio.baby_birds_first_nest_lv3_19]
-name = "baby_birds_first_nest_lv3_19"
+[audio.baby_birds_first_nest_lv3-19]
+name = "baby_birds_first_nest_lv3-19"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "SILENT_YES" },
                { time = 6.0, anim = "HEADPOINTBACK" } ]
 
-[audio.baby_birds_first_nest_lv3_20]
-name = "baby_birds_first_nest_lv3_20"
+[audio.baby_birds_first_nest_lv3-20]
+name = "baby_birds_first_nest_lv3-20"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 3.0, anim = "HEADPOINTBACK" },
                { time = 10.0, anim = "SILENT_YES" } ]
 
-[audio.baby_birds_first_nest_lv3_21]
-name = "baby_birds_first_nest_lv3_21"
+[audio.baby_birds_first_nest_lv3-21]
+name = "baby_birds_first_nest_lv3-21"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 5.0, anim = "HAPPY_UP" },
                { time = 10.0, anim = "SILENT_EXCITED" },
                { time = 18.0, anim = "SILENT_YAWN" } ]
 
-[audio.baby_birds_first_nest_lv3_22]
-name = "baby_birds_first_nest_lv3_22"
+[audio.baby_birds_first_nest_lv3-22]
+name = "baby_birds_first_nest_lv3-22"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "PERKUP" },
                { time = 13.0, anim = "PROUD" },
                { time = 16.0, anim = "CIRCLING" },
                { time = 22.0, anim = "SILENT_YES" } ]
 
-[audio.baby_birds_first_nest_lv3_23]
-name = "baby_birds_first_nest_lv3_23"
+[audio.baby_birds_first_nest_lv3-23]
+name = "baby_birds_first_nest_lv3-23"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 3.0, anim = "SILENT_PUZZLED" } ]
 
-[audio.baby_birds_first_nest_lv3_24]
-name = "baby_birds_first_nest_lv3_24"
+[audio.baby_birds_first_nest_lv3-24]
+name = "baby_birds_first_nest_lv3-24"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 4.0, anim = "SILENT_NO" },
                { time = 14.0, anim = "HAPPY_UP" } ]
 
-[audio.baby_birds_first_nest_lv3_25]
-name = "baby_birds_first_nest_lv3_25"
+[audio.baby_birds_first_nest_lv3-25]
+name = "baby_birds_first_nest_lv3-25"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 2.0, anim = "SILENT_EXCITED" },
                { time = 6.0, anim = "SILENT_YES" },
