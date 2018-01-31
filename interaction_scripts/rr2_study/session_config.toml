@@ -149,7 +149,7 @@ negotiation = false
 corpus = "SR2_child"
 num_scenes = 2
 similar = true
-default_scenes = ["Pineforest"]
+default_scenes = ["Mars"]
 [sessions.9.default_stories.Iceberg]
 story = ""
 [sessions.9.default_stories.Treemeadow]
