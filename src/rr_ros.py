@@ -301,9 +301,9 @@ class RosNode(object):
                 self._start_response_received = True
                 self._response_received = data.message
             # Check if we got a press on some other named object.
-        elif data.objectName:
+            elif data.objectName:
                 self._tablet_response_received = (data.objectName,
-                        data.position)
+                                                  data.position)
         elif "release" in data.action:
             # No object
             pass
