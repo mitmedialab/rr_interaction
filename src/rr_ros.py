@@ -234,7 +234,7 @@ class RosNode(object):
         self._tega_pub.publish(msg)
         self._logger.debug(msg)
 
-    def send_entrain_audio_message(self, speech, visemes):
+    def send_entrain_audio_message(self, speech, visemes, entrain):
         """ Publish EntrainAudio message. """
         if self._entrainer_pub is None:
             self._logger.warning("EntrainAudio ROS publisher is none!")
@@ -245,7 +245,7 @@ class RosNode(object):
         msg.header.stamp = rospy.Time.now()
         msg.audio = speech
         msg.viseme_file = visemes
-        msg.entrain = True
+        msg.entrain = entrain
         self._entrainer_pub.publish(msg)
         rospy.loginfo(msg)
 

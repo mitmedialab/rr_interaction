@@ -900,6 +900,14 @@ class ScriptHandler(object):
         # for the robot to start speaking!
         self._ros_node.send_tega_command(fidgets=TegaAction.FIDGETS_EMPTY)
         if self._use_entrainer:
+            entrain = True
+            # For the RR2 study, if the participant's condition is set to NR,
+            # then set entrain=False so that audio goes through the entrainer
+            # but is not actually entrained.
+            if "condition" in self._pconfig:
+                if "NR" in self._pconfig["condition"]:
+                    entrain = False
+
             # Send the filename to the audio entrainer. Append the filepath to
             # the filename before sending. Note that an empty filepath can be
             # provided if the full filepaths are given in the script. We assume
@@ -911,7 +919,8 @@ class ScriptHandler(object):
             # audio.
             self._ros_node.send_entrain_audio_message(
                 self._audio_base_dir + audio_to_play,
-                self._viseme_base_dir + audio_to_play.replace(".wav", ".txt"))
+                self._viseme_base_dir + audio_to_play.replace(".wav", ".txt"),
+                entrain)
         else:
             # Send directly to the robot.
             self._ros_node.send_tega_command(audio=audio_to_play, enqueue=True)
