@@ -486,44 +486,68 @@ performance, generate config files for each participant for the next session.
 
 The personalization depends on several things:
 
-1. A TOML study session config file as (see
-   `interaction_scripts/rr2_study/session_config.toml` for an example). This
-   file configures what happens in each study session (e.g., what type of
-   stories the robot will tell and which story scenes get shown by default).
-2. An initial TOML performance log file, which should contain the levels at
-   which the robot's stories should be for story retell tasks and
-   create-a-story tasks for each participant/user, as well as the condition
-   each participant is in (i.e., "RR" for relational condition, "NR" for not
-   relational), and any other participant-specific information that will need
-   to be in future participant config files (such as name).
-3. Any performance log files (generated for each interaction run from
-   `src/rr_interaction_node.py`).
-4. A directory of stories that the robot can tell. Could have sub-directories
-   for particular story corpuses.
+1. **A TOML study session config file.** See
+   `interaction_scripts/rr2_study/session_config.toml` for an example. This
+   file configures what happens in each study session, e.g., what type of
+   stories the robot will tell and which story scenes get shown by default.
+2. **A TOML participant config file**, which should contain the levels at which
+   the robot's stories should be for story retell tasks and create-a-story
+   tasks for each participant/user, as well as the condition each participant
+   is in (i.e., "RR" for relational condition, "NR" for not relational), and
+   any other participant-specific information that will need to be in future
+   participant config files (such as name). See
+   `performance/rr2_participant_config00.toml` for an example.
+3. **Any performance log files so far,**  which generated for each interaction
+   session run from `src/rr_interaction_node.py` and put in the output
+   directory specified in the main `config.toml` file.
+4. **A directory of stories** that the robot can tell. Could have
+   sub-directories for particular story corpuses. Since this interaction
+   involves a lot of storytelling, the story corpuses are used to select
+   personalized stories that the robot could tell for each participant.
 
-**Note that you do not manually create participant config files.** They are
-always generated from the above using the following script:
+**Note that you manually create the first participant config file.** After the
+first interaction session, you will have performance log files, which you can
+feed into the following script to generate the next participant config file as
+well as update the master performance log file. The latest participant config
+file is used whenever you run an interaction session. It contains all
+participant-specific stuff that should happen in an interaction session
+
+**Note that you do not manually create performance log files.** They are always
+generated during the interaction session. Then, you can use the following
+script to create a master performance log file with the log files from all
+interaction sessions, as well as the next participant config file. The log
+files are used to track performance and to generate later participant config
+files, since they have a record of what each participant has done so far.
 
 Usage: `gen_next_session_config.py [-h] -d, --storydir STORY_DIR -o, --outdir
-OUTDIR -p, --performance PERFORMANCE -s, --sconfig STUDY_CONF [-c, --pconfig
-[PARTICIPANT_CONF]] log_files [log_files ...]`
+OUTDIR -s, --sconfig STUDY_CONF [-p, --performance [PERFORMANCE]] -c, --pconfig
+PARTICIPANT_CONF log_files [log_files ...]`
 
 positional arguments:
-- `log_files`: One or more performance log files to process
+- `log_files`: One or more performance log files to process. These are output
+  by the rr_interaction_node after each interaction session.
 
 optional arguments:
 - `-h, --help`: show this help message and exit
-- `-d, --storydir STORY_DIR`: Directory of robot story texts
-- `-o, --outdir OUTDIR`: Directory to save new config files in
-- `-p, --performance PERFORMANCE`: Toml file containing the participant
-  performance record so far
-- `-s, --sconfig STUDY_CONF`: Toml study session config file.
-- `-c, --pconfig PARTICIPANT_CONF`: Toml participant session config file.
+- `-d, --storydir STORY_DIR`: Directory of robot story texts, with
+  subdirectories for different story corpuses.
+- `-o, --outdir OUTDIR`: Directory to save new config files in. Wherever you
+  like; by default a "performance/" directory.
+- `-p, --performance PERFORMANCE`: Latest toml file containing the
+  participants' session performance record so far. You will not start with
+  this. The first one is generated the first time you run this script and give
+  it log files from the first interaction session.
+- `-s, --sconfig STUDY_CONF`: Toml study session config file. You create this
+  file once; it should contain info about what happens each session as well as
+  lists of available stories that can be played.
+- `-c, --pconfig PARTICIPANT_CONF`: Toml participant session config file. You
+  create the first one manually; after that, they will be automatically
+  generated.
 
-Example: ` python src/gen_next_session_config.py -d
-"interaction_scripts/rr2_study/stories/" -o "performance/" -p
-"performance/rr2_performance_log00.toml" -s
-"interaction_scripts/rr2_study/session_config.toml" performance/p00*log-1.toml`
+Example:
+```sh
+$ python src/gen_next_session_config.py -d "interaction_scripts/rr2_study/stories/" -o "performance/" -c "performance/rr2_participant_config00.toml" -s "interaction_scripts/rr2_study/session_config.toml" performance/p00*log-01.toml
+```
 
 ### Performance log files
 

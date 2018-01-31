@@ -35,18 +35,24 @@ import argparse  # To get command line args.
 import text_similarity_tools  # For getting similarity between stories.
 
 
-def generate_next_session_config(pid, performance, story_dir, study_config):
-    """ Given a participant's past performance, determine which stories they
-    should hear in the next session.
+def generate_next_session_config(pid, performance, pconfig, story_dir,
+        study_config):
+    """ Given a participant's past performance, and meta-information about the
+    participant's condition, personalization, etc, generate a configuration
+    file for everything for their next session (e.g., which stories they will
+    hear).
     """
     print "\nGenerating config for {}...".format(pid)
     print "Past performance is: {}".format(performance)
-    # The participant dictionary contains a dictionary for each session.
+    # The performance dictionary contains a dictionary for each session.
     # Each session dictionary contains which robot stories were heard, the
     # level of the stories heard, which story scenes were used for telling
     # stories that session, and the text of the participant's stories.
-    # It also contains information about what level stories the participant
-    # should get for each kind of story (i.e., retell or create).
+
+    # The participant config dictionary contains information about what level
+    # stories the participant should get for each kind of story (i.e., retell
+    # or create), whether the participant gets personalized stories, and what
+    # condition they are in.
 
     # We need particular session information from the study config file to
     # generate the next session's configuration files for each participant.
@@ -58,7 +64,16 @@ def generate_next_session_config(pid, performance, story_dir, study_config):
     # We need an initial performance log from the participant to be able to
     # generate a config file for their next session.
     if "session" not in performance:
-        print "No prior performance information for {}.".format(pid)
+        print "No prior performance information for {}. Skipping".format(pid)
+        return
+
+    # We also need initial information about the participant to be able to
+    # generate a config file for their next session.
+    if pid not in pconfig:
+        print "{} is not in the participant config file! We cannot generate " \
+              "anything for {} without knowing their condition, what levels " \
+              "of stories they get, whether they get personalization, etc. " \
+              "Skipping.".format(pid, pid)
         return
 
     # The current session is the one after the most recent session number that
@@ -73,28 +88,60 @@ def generate_next_session_config(pid, performance, story_dir, study_config):
 
     # We will generate a dictionary of configuration options for this
     # participant that we will write to a toml file.
-    p_config = {}
-    p_config[session] = {}
+    new_pconfig = {}
+    new_pconfig[session] = {}
 
     ##########################################################################
     # PERSONALIZATION: STORIES.
     ##########################################################################
-    # TODO function for all this?
     print "Selecting stories for this participant..."
+    new_pconfig = personalize_stories(pid, performance, pconfig[pid],
+            story_dir, study_config, new_pconfig, session)
+
+    ##########################################################################
+    # PERSONALIZATION: CATCHPHRASES.
+    ##########################################################################
+    # TODO Add places where we manually add robot catchphrase entrainment?
+
+    ##########################################################################
+    # PERSONALIZATION: SHARED NARRATIVE.
+    ##########################################################################
+    # TODO Add any participant-specific personalization of phrases?
+    if pconfig[pid]["condition"] == "RR":
+        print "TODO: relational personalization"
+
+    ##########################################################################
+    # PERSONALIZATION: RELATIONSHIP.
+    ##########################################################################
+    # TODO Add any relationship-related personalization?
+    if pconfig[pid]["condition"] == "RR":
+        print "TODO: relational personalization"
+
+    # TODO do something with new_pconfig
+    return new_pconfig
+
+
+def personalize_stories(pid, performance, pconfig, story_dir, study_config,
+        new_pconfig, session):
+    """ Given a participant, their performance so far, some configuration info
+    about the study sessions and the participant, and a directory of stories,
+    determine which stories the participant should hear next.
+    """
     # Check the session number. For some sessions, we do the story retell task.
     # Save the type for this session for the participant config for ease of
     # reference later.
-    p_config[session]["story_type"] = study_config["sessions"][session][
+    new_pconfig[session]["story_type"] = study_config["sessions"][session][
             "story_type"]
     # If this is a story retell session, which robot story will be told?
     print "Checking session... do we do a story retell this time?"
     if "retell" in study_config["sessions"][session]["story_type"]:
         # If so: Specify which story the robot should tell and its level.
-        p_config[session]["story"] = study_config["sessions"][session][
+        new_pconfig[session]["story"] = study_config["sessions"][session][
                 "story_name"]
-        p_config[session]["story_level"] = performance["story_retell_level"]
+        new_pconfig[session]["story_level"] = pconfig["story_retell_level"]
         print "Yes - Story retell: {} at level {}".format(
-                p_config[session]["story"], p_config[session]["story_level"])
+                new_pconfig[session]["story"],
+                new_pconfig[session]["story_level"])
 
     # Sometimes the child creates their own story. In this case, we need to
     # pick which story scenes to offer, and which robot story to tell in that
@@ -102,7 +149,7 @@ def generate_next_session_config(pid, performance, story_dir, study_config):
     elif "create" in study_config["sessions"][session]["story_type"]:
         print "No - no retell this time."
         print "Story type: Create\nLooking for story scenes to use..."
-        p_config[session]["story_level"] = performance["story_create_level"]
+        new_pconfig[session]["story_level"] = pconfig["story_create_level"]
 
         # We need two story scenes for the participant to pick from next.
         # 1. We take any scenes listed in the config. There may only be scenes
@@ -111,25 +158,25 @@ def generate_next_session_config(pid, performance, story_dir, study_config):
         #    and that then determines the scenes used. THAT IS unless this
         #    participant does not get personalized stories, in which case we
         #    use the list of default scenes.
-        if performance["personalized"]:
+        if pconfig["personalized"]:
             if "scenes" in study_config["sessions"][session]:
-                p_config[session]["scenes"] = study_config["sessions"][
+                new_pconfig[session]["scenes"] = study_config["sessions"][
                         session]["scenes"]
                 print "Found scene: {} from study config".format(
-                    p_config[session]["scenes"])
+                    new_pconfig[session]["scenes"])
             else:
-                p_config[session]["scenes"] = []
+                new_pconfig[session]["scenes"] = []
                 print "WARNING: No scenes in the config for this session."
 
         # Not personalized - use the default scenes.
         else:
             if "default_scenes" in study_config["sessions"][session]:
-                p_config[session]["scenes"] = study_config["sessions"][
+                new_pconfig[session]["scenes"] = study_config["sessions"][
                         session]["default_scenes"]
                 print "Found scene: {} from study config".format(
-                    p_config[session]["scenes"])
+                    new_pconfig[session]["scenes"])
             else:
-                p_config[session]["scenes"] = []
+                new_pconfig[session]["scenes"] = []
                 print "ERROR: No default scenes in the config for this " \
                       "session! We need the defaults for participants who " \
                       "don't get personalization! Exiting because we can't" \
@@ -138,7 +185,7 @@ def generate_next_session_config(pid, performance, story_dir, study_config):
 
         # 2. If there was a negotiation last session, we need to include the
         #    scene that wasn't used last time.
-        prev_session = str(session_int - 1)
+        prev_session = str(int(session) - 1)
         if "negotiation" in study_config["sessions"][prev_session] and \
                 study_config["sessions"][prev_session]["negotiation"]:
             # Check the participant log to see what scenes were offered last
@@ -147,7 +194,7 @@ def generate_next_session_config(pid, performance, story_dir, study_config):
             for scene in performance["session"][prev_session]["scenes_shown"]:
                 if scene not in performance["session"][prev_session][
                             "scenes_used"]:
-                    p_config[session]["scenes"].append(scene)
+                    new_pconfig[session]["scenes"].append(scene)
                     print "Found scene: {} from prior session {}".format(
                             scene, prev_session)
                     break
@@ -168,58 +215,41 @@ def generate_next_session_config(pid, performance, story_dir, study_config):
             print "Checking corpus {} for stories in these scenes...".format(
                     corpus_name)
 
-        if performance["personalized"]:
+        if pconfig["personalized"]:
             # Otherwise, the participant gets personalized stories:
             # Pick a story for each scene that might be used this session from
             # the stories available for the selected scenes for that corpus.
-            p_config[session]["stories"] = {}
-            for scene in p_config[session]["scenes"]:
-                (_, p_config[session]["stories"][scene], _) = pick_story(
+            new_pconfig[session]["stories"] = {}
+            for scene in new_pconfig[session]["scenes"]:
+                (_, new_pconfig[session]["stories"][scene], _) = pick_story(
                         story_corpus, corpus_name, performance, story_dir,
+                        pconfig["story_create_level"],
                         scene_to_pick_from=scene,
                         similar=study_config["sessions"][session]["similar"])
             # If there are no scenes listed, we'll need to look at stories from
             # all scenes, then pick stories, and then update the scene list.
-            while len(p_config[session]["scenes"]) < \
+            while len(new_pconfig[session]["scenes"]) < \
                     study_config["sessions"][session]["num_scenes"]:
                 (_, picked_story, picked_scene) = pick_story(
                         story_corpus, corpus_name, performance, story_dir,
-                        scenes_used=p_config[session]["scenes"],
+                        pconfig["story_create_level"],
+                        scenes_used=new_pconfig[session]["scenes"],
                         similar=study_config["sessions"][session]["similar"])
                 # Add the scene and story to our participant config file.
-                p_config[session]["stories"][picked_scene] = picked_story
-                p_config[session]["scenes"].append(picked_scene)
+                new_pconfig[session]["stories"][picked_scene] = picked_story
+                new_pconfig[session]["scenes"].append(picked_scene)
 
         # If the participant does not get personalization, use the default
         # stories for each scene.
         else:
-            p_config[session]["stories"] = {}
+            new_pconfig[session]["stories"] = {}
             print study_config["sessions"][session]["default_stories"]
-            for scene in p_config[session]["scenes"]:
-                p_config[session]["stories"][scene] = study_config[
+            for scene in new_pconfig[session]["scenes"]:
+                new_pconfig[session]["stories"][scene] = study_config[
                         "sessions"][session]["default_stories"][scene]
 
-    ##########################################################################
-    # PERSONALIZATION: CATCHPHRASES.
-    ##########################################################################
-    # TODO Add places where we manually add robot catchphrase entrainment?
-
-    ##########################################################################
-    # PERSONALIZATION: SHARED NARRATIVE.
-    ##########################################################################
-    # TODO Add any participant-specific personalization of phrases?
-    if p_config["condition"] == "RR":
-        print "TODO: relational personalization"
-
-    ##########################################################################
-    # PERSONALIZATION: RELATIONSHIP.
-    ##########################################################################
-    # TODO Add any relationship-related personalization?
-    if p_config["condition"] == "RR":
-        print "TODO: relational personalization"
-
-    # TODO do something with p_config
-    return p_config
+    # Return the new updated participant config information.
+    return new_pconfig
 
 
 def concat_participant_stories(pid):
@@ -245,8 +275,8 @@ def get_story_from_file(story_file):
         raise
 
 
-def pick_story(story_corpus, corpus_name, pid, story_dir, scenes_used=None,
-               scene_to_pick_from=None, similar=True):
+def pick_story(story_corpus, corpus_name, pid, story_dir, story_create_level,
+        scenes_used=None, scene_to_pick_from=None, similar=True):
     """ Given a set of stories, compute the similarity between the
     stories and the participant's stories, and choose the next story to tell.
     """
@@ -283,7 +313,7 @@ def pick_story(story_corpus, corpus_name, pid, story_dir, scenes_used=None,
                     story_corpus["level_names"][0] != "":
                 story_name += story_corpus["delimiter"] + \
                         story_corpus["level_names"][story_corpus["levels"][
-                            pid["story_create_level"]]]
+                            "story_create_level"]]
             print "Checking {}...".format(story_name)
             short_name = story_name
             story_name = story_dir + story_name
@@ -388,10 +418,11 @@ def read_toml(toml_file):
         # out information about the file that couldn't be read and re-raise the
         # exception.
         except TypeError as type_ex:
-            print "Didn't read file right: {}. Error: {}".format(tof, type_ex)
+            print "Didn't read file right: {}. Error: {}".format(toml_file,
+                type_ex)
             raise
         except TomlDecodeError as tde:
-            print "Bad toml in file: {}. Error: {}".format(tof, tde)
+            print "Bad toml in file: {}. Error: {}".format(toml_file, tde)
             raise
 
 
@@ -431,9 +462,12 @@ def process_performance_logs(prior_performance, log_files, out_dir):
     """ Process participants' performance logs and generate new config files
     for the next session.
     """
-    # Read in past performance config file.
-    print "Reading past performance record..."
-    performance = read_toml(prior_performance)
+    # Read in past performance config file, if it exists.
+    if prior_performance:
+        print "Reading past performance record..."
+        performance = read_toml(prior_performance)
+    else:
+        performance = {}
 
     # Update the record of participants' past performance using the most recent
     # performance logs.
@@ -444,7 +478,10 @@ def process_performance_logs(prior_performance, log_files, out_dir):
 
     # Save the record of participants' past performance to a new file.
     try:
-        outname = get_next_outfile_name(prior_performance, out_dir)
+        if prior_performance:
+            outname = get_next_outfile_name(prior_performance, out_dir)
+        else:
+            outname = out_dir + "performance_log00.toml"
         print "Saving updated performance record to {}...".format(outname)
         with open(outname, "w") as outf:
             toml.dump(performance, outf)
@@ -455,7 +492,7 @@ def process_performance_logs(prior_performance, log_files, out_dir):
 
 if __name__ == '__main__':
     # Args are:
-    # the performance logs to read from,
+    # the performance logs to read from (from individual interaction sessions),
     # a directory to save the new config files in,
     # a directory with text files with the story texts,
     # a config file containing participant performance so far
@@ -466,49 +503,59 @@ if __name__ == '__main__':
         files for each participant for the next session.""")
     # A directory with text files with the story texts.
     PARSER.add_argument("-d, --storydir", type=str, nargs=1, dest="story_dir",
-                        required=True, help="Directory of robot story texts")
+                        required=True, help="Directory of robot story texts, "
+                        "with subdirectories for different story corpuses.")
     # An output directory to save the new config files in.
     PARSER.add_argument("-o, --outdir", type=str, nargs=1, dest="outdir",
-                        required=True, help="""Directory to save new config
-                        files in""")
-    # A toml file containing participant performance so far.
-    PARSER.add_argument("-p, --performance", type=str, nargs=1, required=True,
-                        dest="performance", help="""Toml file containing the
-                        participant performance record so far""")
-    # The performance logs to read from.
-    PARSER.add_argument("log_files", type=str, nargs="+",
-                        help="One or more performance log files to process")
+                        required=True, default="performance/",
+                        help="Directory to save new config files in. Wherever "
+                        "you like; by default a \"performance/\" directory.")
     # A toml file containing the overall study session config.
     PARSER.add_argument("-s, --sconfig", type=str, nargs=1, dest="study_conf",
-                        required=True, help="Toml study session config file.")
+                        required=True, help="Toml study session config file. "
+                        "You create this file once; it should contain info "
+                        "about what happens each session as well as lists of "
+                        "available stories that can be played.")
+    # A toml file containing participant performance so far, if any.
+    PARSER.add_argument("-p, --performance", type=str, nargs="?",
+                        required=False, dest="performance",
+                        help="Latest toml file containing the participants' "
+                        "session performance record so far. You will "
+                        "not start with this. The first one is generated the "
+                        "first time you run this script and give it log files "
+                        "from the first interaction session.")
     # A toml file containing the overall participant config.
-    PARSER.add_argument("-c, --pconfig", type=str, nargs="?",
-                        dest="participant_conf", required=False,
-                        help="Toml participant session config file.")
+    PARSER.add_argument("-c, --pconfig", type=str, nargs=1,
+                        dest="participant_conf", required=True,
+                        help="Toml participant session config file. You create"
+                        " the first one manually; after that, they will be "
+                        "automatically generated.")
+    # The performance logs to read from.
+    PARSER.add_argument("log_files", type=str, nargs="+",
+                        help="One or more performance log files to process. "
+                        "These are output by the rr_interaction_node after "
+                        "each interaction session.")
 
     ARGS = PARSER.parse_args()
     print "ARGS are: {}".format(ARGS)
 
-    # Process performance logs.
-    LOG = process_performance_logs(ARGS.performance[0], ARGS.log_files,
+    # Process performance logs. Add them to the existing performance record, if
+    # an existing performance record was provided.
+    LOG = process_performance_logs(ARGS.performance, ARGS.log_files,
                                    ARGS.outdir[0])
 
     # Generate a config file for each participant's next session.
     print "Generating config files for next session!"
 
-    # If an existing participant config file was provided, read it in, and add
-    # the newly generated config to it, and write it out as a new file with an
-    # incremented number in the filename. If we didn't get an existing config
-    # file, make a new one.
-    if ARGS.participant_conf:
-        CONFIG = read_toml(ARGS.participant_conf)
-    else:
-        CONFIG = {}
-
+    # Read in the existing participant config file, add the newly generated
+    # config to it, and write it out as a new file with an incremented number
+    # in the filename.
+    CONFIG = read_toml(ARGS.participant_conf[0])
     for participant in LOG:
         pconfig = generate_next_session_config(
             participant,
             LOG[participant],
+            CONFIG,
             ARGS.story_dir[0],
             read_toml(ARGS.study_conf[0]))
         # If we did not get a configuration back, it means the information
@@ -528,12 +575,8 @@ if __name__ == '__main__':
 
     # Save the participant configs out to a new toml file.
     try:
-        OUTNAME = ""
-        if ARGS.participant_conf:
-            OUTNAME = get_next_outfile_name(ARGS.participant_conf,
-                                            ARGS.outdir[0])
-        else:
-            OUTNAME = ARGS.outdir[0] + "participant_config00.toml"
+        OUTNAME = get_next_outfile_name(ARGS.participant_conf[0],
+                ARGS.outdir[0])
         print "\nSaving updated participant config to {}!".format(OUTNAME)
         with open(OUTNAME, "w") as outf:
             toml.dump(CONFIG, outf)
