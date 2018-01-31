@@ -108,7 +108,7 @@ class ScriptHandler(object):
         # personalization for this participant.
         pconfig = None
         if "DEMO" in participant:
-            self._p_config = None
+            self._pconfig = None
         else:
             pconfig = self._load_toml_config(p_config)
             if participant not in pconfig:
@@ -127,7 +127,7 @@ class ScriptHandler(object):
                 # we include any higher-level participant config later, we will
                 # need that too - then just save this participant and refer to
                 # the session as needed.
-                self._p_config = pconfig[participant][session]
+                self._pconfig = pconfig[participant][session]
 
         # Set up performance logger for tracking participant performance this
         # session.
@@ -370,7 +370,7 @@ class ScriptHandler(object):
         # "NR" condition).
         if line.startswith("**") and len(elements) > 1:
             self._logger.info("Line is tagged. Checking condition...")
-            if self._p_config["condition"] in elements[0]:
+            if self._pconfig["condition"] in elements[0]:
                 self._logger.info("Right condition. Parsing line...")
                 # Remove the tag and parse the line as usual.
                 del elements[0]
@@ -807,9 +807,9 @@ class ScriptHandler(object):
         # did not get the user to pick one. So we need to selecte a scene
         # ourselves... pick one randomly:
         if self._picking_scene:
-            if "scenes" in self._p_config:
-                self._selected_scene = self._p_config["scenes"][random.randint(
-                    0, len(self._p_config["scenes"]) - 1)]
+            if "scenes" in self._pconfig:
+                self._selected_scene = self._pconfig["scenes"][random.randint(
+                    0, len(self._pconfig["scenes"]) - 1)]
                 self._logger.info("No user scene selection made! Selecting a "
                                   "scene... {}".format(self._selected_scene))
             else:
@@ -867,8 +867,8 @@ class ScriptHandler(object):
         # command with the name of the current participant, which may be in the
         # participant config file.
         if "<participant_name>" in command:
-            if "name" in self._p_config:
-                command = self._p_config["name"]
+            if "name" in self._pconfig:
+                command = self._pconfig["name"]
             self._logger.info("Told to play participant name: {}".format(
                 command))
 
@@ -1080,8 +1080,8 @@ class ScriptHandler(object):
         """ Switch the selected scene for a scene from the participant config's
         list of scenes that wasn't selected.
         """
-        if "scenes" in self._p_config:
-            for scene in self._p_config["scenes"]:
+        if "scenes" in self._pconfig:
+            for scene in self._pconfig["scenes"]:
                 if scene != self._selected_scene:
                     self._logger.info("Changing selected scene to {}".format(
                         scene))
@@ -1103,198 +1103,6 @@ class ScriptHandler(object):
         else:
             self._logger.warning("No {} found in the script config, so we "
                                  "cannot pick one to play!")
-
-    def _wait_for_tablet_response(self, response_to_get, timeout):
-        """ Wait for a user response on the tablet, or wait until the specified
-        time has elapsed. If the response is incorrect, allow multiple attempts
-        up to the maximum number of incorrect responses.
-        """
-        # TODO What kinds of responses will we be waiting for now?
-        # We don't use i in the loop, but you can't really loop without it.
-        # pylint: disable=unused-variable
-        print "TODO tablet responses"
-        """
-        for i in range(0, self._max_incorrect_responses):
-            self._logger.info("Waiting for user response...")
-
-            # Save the response we were trying to get in case we need to try
-            # again.
-            self._last_response_to_get = response_to_get
-            self._last_response_timeout = timeout
-            # Wait for the specified type of response, or until the specified
-            # time has elapsed.
-            response, answer = self._ros_node.wait_for_response(
-                response_to_get, datetime.timedelta(seconds=int(timeout)))
-
-            # After waiting for a response, need to play back an appropriate
-            # robot response.
-
-            # If we didn't receive a response, then it was probably because we
-            # didn't send a valid response to wait for.  This is different from
-            # a TIMEOUT since we didn't time out -- we just didn't get a
-            # response of any kind.
-            if not response:
-                self._logger.info("Done waiting. Did not get valid response!")
-                return False
-
-            elif "TIMEOUT" in response:
-                # TODO Determine whether we should wait again, or skip waiting
-                # for this response.
-                self._logger.warning("TODO: TIMEOUT waiting for user response")
-
-            # If response was INCORRECT, randomly select a robot response to an
-            # incorrect user action.
-            elif "INCORRECT" in response:
-                try:
-                    # TODO pick robot speech for incorrect response.
-                    audio_to_play = ""
-                    self._ros_node.send_tega_command(audio=audio_to_play)
-                    self._ros_node.wait_for_response(
-                        self._ros_node.ROBOT_NOT_SPEAKING,
-                        timeout=datetime.timedelta(
-                            seconds=int(self.WAIT_TIME)))
-                except AttributeError:
-                    self._logger.exception("Could not play an incorrect "
-                                           "response. Maybe none were loaded?")
-                # Don't break so we allow the user a chance to respond again.
-
-            # If response was NO, randomly select a robot response to the user
-            # selecting no.
-            elif "NO" in response:
-                try:
-                    # TODO pick robot speech for no responses.
-                    audio_to_play = ""
-                    self._ros_node.send_tega_command(audio=audio_to_play)
-                    self._ros_node.wait_for_response(
-                        self._ros_node.ROBOT_NOT_SPEAKING,
-                        timeout=datetime.timedelta(
-                            seconds=int(self.WAIT_TIME)))
-                except AttributeError:
-                    self._logger.exception("Could not play a response to user"
-                                           " NO. Maybe none were loaded?")
-                # Don't break so we allow the user a chance to respond again.
-
-            # If response was CORRECT, randomly select a robot response to a
-            # correct user action, highlight the correct answer, and break out
-            # of response loop.
-            elif "CORRECT" in response:
-                try:
-                    # TODO pick robot speech for correct responses.
-                    audio_to_play = ""
-                    self._ros_node.send_tega_command(audio=audio_to_play)
-                    self._ros_node.wait_for_response(
-                        self._ros_node.ROBOT_SPEAKING,
-                        timeout=datetime.timedelta(
-                            seconds=int(self.WAIT_TIME)))
-                    self._ros_node.send_opal_command("SHOW_CORRECT")
-                    self._ros_node.wait_for_response(
-                        self._ros_node.ROBOT_NOT_SPEAKING,
-                        timeout=datetime.timedelta(
-                            seconds=int(self.WAIT_TIME)))
-
-                    # Pause after speaking before hiding correct again
-                    time.sleep(self.ANSWER_FEEDBACK_PAUSE_TIME)
-                    self._ros_node.send_opal_command("HIDE_CORRECT")
-                except AttributeError:
-                    self._logger.exception("Could not play a correct response "
-                                           "or could not play robot's answer "
-                                           "feedback. Maybe none were loaded?")
-                # Break from the for loop so we don't give the user a chance to
-                # respond again.
-                break
-
-            # If response was START, randomly select a robot response to the
-            # user selecting START, and break out of response loop.
-            elif self._ros_node.START in response:
-                try:
-                    # TODO pick robot response to START.
-                    audio_to_play = ""
-                    self._ros_node.send_tega_command(audio=audio_to_play)
-                    self._ros_node.wait_for_response(
-                        self._ros_node.ROBOT_SPEAKING,
-                        timeout=datetime.timedelta(
-                            seconds=int(self.WAIT_TIME)))
-                except AttributeError:
-                    self._logger.exception("Could not play response to"
-                                           "user's START. Maybe none were "
-                                           "loaded?")
-                # Break from the for loop so we don't give the user a
-                # chance to respond again.
-                break
-
-        # We exhausted our allowed number of user responses, so have the robot
-        # do something instead of waiting more.
-        else:
-            # If user was never correct, play robot's correct answer feedback
-            # and show which answer was correct in the game.
-            if "CORRECT" in response_to_get:
-                try:
-                    self._ros_node.send_opal_command("SHOW_CORRECT")
-                    # TODO robot response to correct answers.
-                    audio_to_play = ""
-                    self._ros_node.send_tega_command(audio=audio_to_play)
-                    self._ros_node.wait_for_response(
-                        self._ros_node.ROBOT_SPEAKING,
-                        timeout=datetime.timedelta(
-                            seconds=int(self.WAIT_TIME)))
-
-                    # Pause after speaking before hiding correct again.
-                    time.sleep(self.ANSWER_FEEDBACK_PAUSE_TIME)
-                    self._ros_node.send_opal_command("HIDE_CORRECT")
-                except AttributeError:
-                    self._logger.exception("Could not play robot's answer "
-                                           "feedback! Maybe none were loaded?")
-
-            # If user never selects START (which is used to ask the user if
-            # they are ready to play), stop all stories and repeating scripts,
-            # continue with main script so we go to the end.
-            elif "START" in response_to_get:
-                self._repeating = False
-                self._doing_story = False
-
-        # We got a user response and responded to it!
-        return True
-        """
-
-    def skip_wait_for_user_response(self):
-        """ Skip waiting for a response; treat the skipped response as a NO or
-        INCORRECT response.
-        """
-        print "TODO skip waiting?"
-        """
-        # TODO is this function necessary anymore?
-        # If the response to wait for was CORRECT or INCORRECT, randomly select
-        # a robot response to an incorrect user action.
-        if "CORRECT" in self._last_response_to_get:
-            try:
-                # TODO robot response to incorrect action?
-                audio_to_play = ""
-                self._ros_node.send_tega_command(audio=audio_to_play,
-                                                 enqueue=True)
-                self._ros_node.wait_for_response(
-                    self._ros_node.ROBOT_SPEAKING,
-                    timeout=datetime.timedelta(
-                        seconds=int(self.WAIT_TIME)))
-            except AttributeError:
-                self._logger.exception("Could not play an incorrect response. "
-                                       "Maybe none were loaded?")
-
-        # If response to wait for was YES or NO, randomly select a robot
-        # response for a NO user action.
-        elif "NO" in self._last_response_to_get:
-            try:
-                # TODO robot response to NO actions?
-                audio_to_play = ""
-                self._ros_node.send_tega_command(audio=audio_to_play,
-                                                 enqueue=True)
-                self._ros_node.wait_for_response(
-                    self._ros_node.ROBOT_SPEAKING,
-                    timeout=datetime.timedelta(
-                        seconds=int(self.WAIT_TIME)))
-            except AttributeError:
-                self._logger.exception("Could not play a response to user's "
-                                       "NO. Maybe none were loaded?")
-       """
 
     def set_end_interaction(self):
         """ End the game gracefully -- stop any stories or repeating scripts,
@@ -1373,11 +1181,11 @@ class ScriptHandler(object):
         """
         # For CREATE stories, get the scenes to show for the user to pick from
         # from the participant config.
-        if "create" in self._p_config["story_type"] and \
-                "scenes" in self._p_config:
+        if "create" in self._pconfig["story_type"] and \
+                "scenes" in self._pconfig:
             self._logger.info("Scenes to pick from are: {}".format(
-                self._p_config["scenes"]))
-            for scene in self._p_config["scenes"]:
+                self._pconfig["scenes"]))
+            for scene in self._pconfig["scenes"]:
                 self._logger.info("Loading scene {}...".format(scene))
                 # TODO Display on the tablet with LOAD OBJECT - what position??
                 toload = {}
@@ -1387,7 +1195,7 @@ class ScriptHandler(object):
                 self._ros_node.send_opal_command("LOAD_OBJECT", json.dumps(
                     toload))
             # Log that the scenes were shown.
-            self._performance_log.log_scenes_shown(self._p_config["scenes"])
+            self._performance_log.log_scenes_shown(self._pconfig["scenes"])
 
     def _load_next_story_script(self):
         """ Load the script for the next story. """
@@ -1398,30 +1206,30 @@ class ScriptHandler(object):
             # Try loading the story script. This will either be for the
             # selected scene for a CREATE story or the storybook for a RETELL.
             # CREATE story:
-            if "create" in self._p_config["story_type"] and \
-                    self._selected_scene and "stories" in self._p_config:
+            if "create" in self._pconfig["story_type"] and \
+                    self._selected_scene and "stories" in self._pconfig:
                 self._story_parser.load_script(
                     self._study_path + self._story_script_path +
-                    self._p_config["stories"][self._selected_scene])
+                    self._pconfig["stories"][self._selected_scene])
                 self._logger.info("Loading story \"{}\" in scene {}...".format(
-                        self._p_config["stories"][self._selected_scene],
+                        self._pconfig["stories"][self._selected_scene],
                         self._selected_scene))
 
             # RETELL story:
-            elif "retell" in self._p_config["story_type"]:
+            elif "retell" in self._pconfig["story_type"]:
                 self._story_parser.load_script(
                     self._study_path + self._story_script_path +
-                    self._p_config["story"] + self._p_config["story_level"])
+                    self._pconfig["story"] + self._pconfig["story_level"])
                 self._logger.info("Loading story \"{}\" at level {}...".format(
-                        self._p_config["story"],
-                        self._p_config["story_level"]))
+                        self._pconfig["story"],
+                        self._pconfig["story_level"]))
             else:
                 self._logger.warning("Neither \"create\" nor \"retell\" is "
                                      "listed as the story type! Thus we don't"
                                      "have a story to load... Skipping STORY "
                                      "line. The selected scene was \"{}\" and "
                                      "here's the config: {}".format(
-                                         self._selected_scene, self._p_config))
+                                         self._selected_scene, self._pconfig))
         except IOError as ioerr:
             self._logger.exception("Script parser could not open story script!"
                                    "Skipping STORY line. {}".format(ioerr))
@@ -1438,7 +1246,7 @@ class ScriptHandler(object):
                                    "Skipping STORY line. {} {}".format(
                                        self._selected_scene,
                                        keyerr,
-                                       self._p_config))
+                                       self._pconfig))
             self._doing_story = False
             return
 
@@ -1448,7 +1256,7 @@ class ScriptHandler(object):
         # TODO it would be straightforward to add moveable characters. Load as
         # PlayObjects that are draggable. Could make a text file for each scene
         # and do "OPAL LOAD_ALL".
-        if "create" in self._p_config["story_type"]:
+        if "create" in self._pconfig["story_type"]:
             self._logger.info("Loading CREATE story on Opal device...")
             toload = {}
             toload["name"] = "sr2-scenes/" + self._selected_scene
@@ -1456,19 +1264,19 @@ class ScriptHandler(object):
             self._ros_node.send_opal_command("LOAD_OBJECT", json.dumps(toload))
             # Log that the story was played.
             self._performance_log.log_played_story(
-                    self._p_config["stories"][self._selected_scene],
-                    self._selected_scene, self._p_config["story_level"])
+                    self._pconfig["stories"][self._selected_scene],
+                    self._selected_scene, self._pconfig["story_level"])
 
         # RETELL story:
-        elif "retell" in self._p_config["story_type"]:
+        elif "retell" in self._pconfig["story_type"]:
             self._logger.info("Loading RETELL story on Opal device...")
             self._ros_node.send_opal_command("STORY_SELECTION",
-                                             self._p_config["story"])
+                                             self._pconfig["story"])
             # Start out with the arrow buttons hidden since it's the robot's
             # turn first. When loaded, stories start on the first page by
             # default.
             self._ros_node.send_opal_command("STORY_HIDE_BUTTONS")
             # Log that the story was played.
             self._performance_log.log_played_story(
-                    self._p_config["story"], None,
-                    self._p_config["story_level"])
+                    self._pconfig["story"], None,
+                    self._pconfig["story_level"])
