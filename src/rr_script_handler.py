@@ -34,6 +34,7 @@ import json  # For packing ros message properties
 import toml  # For reading the study config file.
 import random  # For picking robot responses and shuffling answer options
 import logging  # Log messages
+import os  # For checking if files and directories exist.
 from rr_script_parser import ScriptParser  # Parses scripts
 from rr_performance_logger import PerformanceLogger  # Logs participant data
 from asr_google_cloud.msg import AsrCommand  # Tell ASR to start/stop.
@@ -61,10 +62,7 @@ class ScriptHandler(object):
     # robot might have to say something long at some point.
     WAIT_TIME = 30
 
-    def __init__(self, ros_node, session, participant, study_path,
-                 story_script_path, session_script_path, script_config,
-                 p_config, audio_base_dir, viseme_base_dir, output_dir,
-                 entrain, experimenter):
+    def __init__(self, ros_node, session, participant, entrain, experimenter):
         """ Save references to ROS connection and logger, get scripts and
         set up to read script lines.
         """
@@ -73,11 +71,6 @@ class ScriptHandler(object):
         # Set up logger.
         self._logger = logging.getLogger(__name__)
         self._logger.info("Setting up script handler...")
-
-        # Get the study config file, if this is not the demo.
-        self._script_config = None
-        if "DEMO" not in participant:
-            self._script_config = self._load_toml_config(script_config)
 
         # Get the current experimenter's name.
         self._experimenter_name = experimenter
@@ -88,21 +81,22 @@ class ScriptHandler(object):
         # Save reference to our ros node so we can publish messages.
         self._ros_node = ros_node
 
+        # TODO read directly into self._vars?
+        # Read the main config file to get paths to interaction scripts, script
+        # directories, and more. If this is a demo interaction, load the demo
+        # config file; otherwise try reading in the regular config file.
         # Save study, script, audio, and viseme paths so we can load scripts
         # and audio later.
-        self._audio_base_dir = audio_base_dir
-        self._viseme_base_dir = viseme_base_dir
-        self._study_path = study_path
+        self._study_path, script_config, self._story_script_path, \
+            self._session_script_path, self._audio_base_dir, \
+            self._viseme_base_dir, output_dir, pconfig_dir = \
+                self._read_main_config("config.demo.toml" \
+                    if participant == "DEMO" else "config.toml")
 
-        if story_script_path is None:
-            self._story_script_path = ""
-        else:
-            self._story_script_path = story_script_path
-
-        if session_script_path is None:
-            self._session_script_path = ""
-        else:
-            self._session_script_path = session_script_path
+        # Get the study config file, if this is not the demo.
+        self._script_config = None
+        if "DEMO" not in participant:
+            self._script_config = self._load_toml_config(script_config)
 
         # Load the participant configuration file so we can look up the
         # personalization for this participant.
@@ -110,7 +104,8 @@ class ScriptHandler(object):
         if "DEMO" in participant:
             self._pconfig = None
         else:
-            pconfig = self._load_toml_config(p_config)
+            pconfig = self._load_toml_config(self._get_participant_config(
+                pconfig_dir))
             if participant not in pconfig:
                 self._logger.warn("{} is not in the participant config file "
                                   "we loaded! We can't personalize!".format(
@@ -120,7 +115,6 @@ class ScriptHandler(object):
                                   " file we loaded for {}! We can't"
                                   "personalize!".format(session, participant))
             else:
-
                 # Since we are only running one participant and one session, we
                 # only care about the configuration for this participant and
                 # this session. So we'll only save that information.  TODO if
@@ -237,6 +231,116 @@ class ScriptHandler(object):
                                    toml? Exiting because we need the config
                                    file to continue. {}""".format(config, exc))
             exit(1)
+
+    def _read_main_config(self, config):
+        """ Read in the main toml config file. """
+        # We don't actually have too many branches here; we need to try reading
+        # each value from the config file separately.
+        # pylint: disable=too-many-branches
+        try:
+            with open(config) as tof:
+                toml_data = toml.load(tof)
+            self._logger.debug("Reading config file...: {}".format(toml_data))
+            # Directory with scripts for this study.
+            if "study_path" in toml_data:
+                study_path = toml_data["study_path"]
+            else:
+                self._logger.error("Could not read path to interaction "
+                                   "scripts! Expected option \"study_path\" to"
+                                   "be in the config file. Exiting because we "
+                                   "need the scripts to run the interaction.")
+                exit(1)
+            # Study script config file location.
+            if "script_config" in toml_data:
+                script_config = toml_data["script_config"]
+            else:
+                self._logger.error("Could not read name of script_config! "
+                                   "Expected option \"script_config\" to be"
+                                   " in config file. Exiting because we "
+                                   "need the study config to continue.")
+                exit(1)
+            # Directory of story scripts.
+            if "story_script_path" in toml_data:
+                story_script_path = toml_data["story_script_path"]
+            else:
+                self._logger.error("Could not read path to story scripts! "
+                                   "Expected option \"story_script_path\" to "
+                                   "be in config file. Assuming story scripts "
+                                   "are in the main study directory and not a "
+                                   "sub-directory.")
+                story_script_path = ""
+            # Directory of session scripts.
+            if "session_script_path" in toml_data:
+                session_script_path = toml_data["session_script_path"]
+            else:
+                self._logger.error("Could not read path to session scripts! "
+                                   "Expected option \"session_script_path\" to"
+                                   " be in config file. Assuming session "
+                                   "scripts are in the main study directory "
+                                   "and not a sub-directory.")
+                session_script_path = ""
+            # Directory of audio files.
+            if "audio_base_dir" in toml_data:
+                audio_base_dir = toml_data["audio_base_dir"]
+            else:
+                self._logger.error("Could not read audio base directory path! "
+                                   "Expected option \"audio_base_dir\" to be "
+                                   "in config file. Assuming audio files are "
+                                   "in the main study directory.")
+                audio_base_dir = ""
+            # Directory of viseme files.
+            if "viseme_base_dir" in toml_data:
+                viseme_base_dir = toml_data["viseme_base_dir"]
+            else:
+                self._logger.error("Could not read viseme base directory path!"
+                                   " Expected option \"viseme_base_dir\" to be"
+                                   " in config file.Assuming audio files are "
+                                   "in the main study directory.")
+                viseme_base_dir = ""
+            # Directory where any output should be saved.
+            if "output_dir" in toml_data:
+                output_dir = toml_data["output_dir"]
+            else:
+                self._logger.error("Could not read path to the output  "
+                                   "directory! Expected option \"output_dir\""
+                                   "to be in the config file. Defaulting to "
+                                   "saving in the current working directory.")
+                output_dir = ""
+            # Directory where any output should be saved.
+            if "pconfig_dir" in toml_data:
+                pconfig_dir = toml_data["pconfig_dir"]
+            else:
+                self._logger.error("Could not read path to the participant "
+                                   "config directory! Expected \"pconfig_dir\""
+                                   "to be in the config file. Defaulting to "
+                                   "checking the current working directory.")
+                pconfig_dir = ""
+        except Exception as exc:  # pylint: disable=broad-except
+            self._logger.exception("Could not read your toml config file \"" +
+                                   str(config) + "\". Does the file exist? Is "
+                                   "it valid toml? Exiting because we need the"
+                                   " config file to continue. {}".format(exc))
+            exit(1)
+        return study_path, script_config, story_script_path, \
+            session_script_path, audio_base_dir, viseme_base_dir, output_dir, \
+            pconfig_dir
+
+    def _get_participant_config(self, pconfig_dir):
+        """ Given the directory with the participant config files in it, load
+        the current one (i.e. the one with the highest number in its filename).
+        """
+        # For all the files in the provided directory, check whether they
+        # follow the participant config file naming schema. Then sort them so
+        # the highest numbered file is at the end, since that's the one we
+        # want.
+        if pconfig_dir == "":
+            pconfig_dir = os.getcwd()
+        confs = sorted([c for c in os.listdir(pconfig_dir) if
+            (c.startswith("rr2_participant_config") and c.endswith(".toml"))])
+        if confs:
+            return pconfig_dir + confs[-1]
+        else:
+            return None
 
     def iterate_once(self):
         """ Get the next command from the script and execute it. """

@@ -32,4 +32,7 @@ phoneme_base_dir = "/path/to/phoneme/files/"
 
 # Where should we save any output files or performance files generated during
 # the interaction?
-output_dir = "/path/where/we/can/save/stuff/"
+output_dir = "path/where/we/can/save/stuff/"
+
+# Where are the participant config files?
+pconfig_dir = "path/to/participant/config/files/"

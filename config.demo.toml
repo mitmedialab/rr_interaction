@@ -33,3 +33,6 @@ viseme_base_dir = "/home/jakory/rr1_audio/formatted_phonemes/"
 # Where should we save any output files or performance files generated during
 # the interaction?
 output_dir = "performance/"
+
+# Where are the participant config files, if any?
+pconfig_dir = ""

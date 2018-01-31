@@ -165,11 +165,8 @@ if __name__ == '__main__':
         # Start the interaction with the provided session number, participant
         # ID, entrainment set to true, and experimenter name.
         INTERACTION_HANDLER = InteractionHandler()
-        # TODO for some reason interaction is launched with demo args??
-        # TODO pconfig will be automatically loaded soon
-        PCONFIG = "performance/rr2_participant_config00.toml"
         INTERACTION_HANDLER.launch_interaction(SESSION, PARTICIPANT, True,
-                                               PCONFIG, EXPERIMENTER)
+                                               EXPERIMENTER)
 
     except Exception as exc:
         print "Uh oh, something went wrong! {}".format(exc)

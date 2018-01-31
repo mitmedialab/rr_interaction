@@ -43,8 +43,7 @@ and copy it to the tablet).
 
 ## Usage
 
-Usage: `python src/rr_interaction_node.py [-h] [-e] [-p, --pconfig
-[PARTICIPANT_CONFIG]] [session] [participant]`
+Usage: `python src/rr_interaction_node.py [-h] [-e] [session] [participant]`
 
 This will start the main interaction handler, which orchestrates the
 interaction: loads scripts, uses ROS to tell the robot and tablet what to do.
@@ -60,9 +59,6 @@ positional arguments:
 optional arguments:
 - `-h, --help`: show this help message and exit
 - `-e, --use-entrainer`: Send audio to the entrainer on the way to the robot.
-- `-p, --pconfig [PARTICIPANT_CONFIG]`: Optional TOML participant-specific
-  config file.  Specify if the interaction should be personalized to
-  individuals.
 
 ### Launch RR2 study
 
@@ -152,6 +148,12 @@ The options you can set in this config file include:
 - **output\_dir**: The relative path from the config file (located at the top
   of the project respository) to the directory where any output or performance
   files generated during the interaction should be saved.
+
+- **pconfig_dir**: The relative path from the config file (located at the top
+  of the project repository) to the directory where any TOML
+  participant-specific configs file are located. See below about participant
+  config files. These files specify if the interaction should be personalized
+  to individuals.
 
 #### Script config
 
@@ -485,16 +487,22 @@ performance, generate config files for each participant for the next session.
 The personalization depends on several things:
 
 1. A TOML study session config file as (see
-   `interaction_scripts/rr2_study/session_config.toml` for an example).
+   `interaction_scripts/rr2_study/session_config.toml` for an example). This
+   file configures what happens in each study session (e.g., what type of
+   stories the robot will tell and which story scenes get shown by default).
 2. An initial TOML performance log file, which should contain the levels at
    which the robot's stories should be for story retell tasks and
    create-a-story tasks for each participant/user, as well as the condition
    each participant is in (i.e., "RR" for relational condition, "NR" for not
-   relational).
+   relational), and any other participant-specific information that will need
+   to be in future participant config files (such as name).
 3. Any performance log files (generated for each interaction run from
    `src/rr_interaction_node.py`).
 4. A directory of stories that the robot can tell. Could have sub-directories
    for particular story corpuses.
+
+**Note that you do not manually create participant config files.** They are
+always generated from the above using the following script:
 
 Usage: `gen_next_session_config.py [-h] -d, --storydir STORY_DIR -o, --outdir
 OUTDIR -p, --performance PERFORMANCE -s, --sconfig STUDY_CONF [-c, --pconfig
@@ -571,6 +579,7 @@ participant. These stories are selected based on the following criteria:
 
 The participant config file generated will list what scenes to show for each
 participant for the next session, as well as what stories to use in each scene.
+
 
 ## Testing
 
