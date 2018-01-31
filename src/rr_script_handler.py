@@ -1310,6 +1310,10 @@ class ScriptHandler(object):
             # Try loading the story script. This will either be for the
             # selected scene for a CREATE story or the storybook for a RETELL.
             # CREATE story:
+            # The levels of these stories are determined when putting the name
+            # of the story to load into the participant config file, since some
+            # stories from the SR2-child corpus do not have levels, but stories
+            # from the SR2-robot corpus do.
             if "create" in self._pconfig["story_type"] and \
                     self._selected_scene and "stories" in self._pconfig:
                 self._story_parser.load_script(
@@ -1320,10 +1324,14 @@ class ScriptHandler(object):
                         self._selected_scene))
 
             # RETELL story:
+            # The levels of these stories are determined by the number listed
+            # in the participant config, which is just appended to the story
+            # filename.
             elif "retell" in self._pconfig["story_type"]:
                 self._story_parser.load_script(
                     self._study_path + self._story_script_path +
-                    self._pconfig["story"] + self._pconfig["story_level"])
+                    self._pconfig["story"] + self._pconfig[
+                        "story_retell_level"])
                 self._logger.info("Loading story \"{}\" at level {}...".format(
                         self._pconfig["story"],
                         self._pconfig["story_level"]))
