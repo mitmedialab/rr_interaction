@@ -166,7 +166,10 @@ def personalize_stories(pid, performance, pconfig, story_dir, study_config,
                     new_pconfig[session]["scenes"])
             else:
                 new_pconfig[session]["scenes"] = []
-                print "WARNING: No scenes in the config for this session."
+                print "WARNING: No scenes in the config for this session. " \
+                      " This may be because we are supposed to pick based on" \
+                      " story similarity, since this participant gets " \
+                      "personalized stories!"
 
         # Not personalized - use the default scenes.
         else:
@@ -245,8 +248,9 @@ def personalize_stories(pid, performance, pconfig, story_dir, study_config,
             new_pconfig[session]["stories"] = {}
             print study_config["sessions"][session]["default_stories"]
             for scene in new_pconfig[session]["scenes"]:
-                new_pconfig[session]["stories"][scene] = study_config[
-                        "sessions"][session]["default_stories"][scene]
+                new_pconfig[session]["stories"][scene] = corpus_name + "/" + \
+                    study_config["sessions"][session]["default_stories"][
+                            scene][ "story"]
 
     # Return the new updated participant config information.
     return new_pconfig

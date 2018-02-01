@@ -546,7 +546,7 @@ optional arguments:
 
 Example:
 ```sh
-$ python src/gen_next_session_config.py -d "interaction_scripts/rr2_study/stories/" -o "performance/" -c "performance/rr2_participant_config00.toml" -s "interaction_scripts/rr2_study/session_config.toml" performance/p00*log-01.toml
+$ python src/gen_next_session_config.py -d "interaction_scripts/rr2_study/stories/" -o "performance/" -c "performance/rr2_participant_config00.toml" -s "interaction_scripts/rr2_study/session_config.toml" performance/example_performance/p00*log-01.toml
 ```
 
 ### Performance log files
