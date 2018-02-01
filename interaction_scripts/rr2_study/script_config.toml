@@ -208,7 +208,7 @@ question = "ImRed"
 timeout_prompts = ["ImRedWhatsYourName", "CanYouTellName"]
     [[questions.ImRed.user_input]]
     user_responses = [""]
-    robot_responses = ["ItsNiceToMeetYou"]
+    robot_responses = ["SayThatAgainShy"]
 
 ## Anomalous picture task questions.
 [questions.lets_look_at_silly_pictures]

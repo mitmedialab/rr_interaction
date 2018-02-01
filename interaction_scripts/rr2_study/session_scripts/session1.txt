@@ -14,8 +14,9 @@ PAUSE	1
 SET	PROMPT_TIME	8
 # Robot introduction.
 QUESTION	ImRed
+PAUSE	4
+ROBOT	DO	ItsNiceToMeetYou
 **RR	ROBOT	DO	<participant_name>
-PAUSE	2
 # Robot backstory.
 QUESTION	ImNewHereAreYou
 ROBOT	DO	SILENT_THINKING
