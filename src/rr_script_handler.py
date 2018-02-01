@@ -544,7 +544,14 @@ class ScriptHandler(object):
                         elements[1].lower()))
 
         #########################################################
-        # For OPAL lines, send command to Opal game
+        # For STATE lines, send an interaction state message with the contents
+        # of the line.
+        elif "STATE" in elements[0]:
+            self._logger.debug("STATE")
+            self._ros_node.send_interaction_state(state=elements[1])
+
+        #########################################################
+        # For OPAL lines, send command to Opal game.
         elif "OPAL" in elements[0]:
             self._logger.debug("OPAL")
             if "LOAD_ALL" in elements[1] and len(elements) >= 3:
@@ -746,7 +753,7 @@ class ScriptHandler(object):
         # pylint: disable=unused-variable
         for i in range(0, self._num_prompts + 1):
             # Announce that it's the user's turn to talk or act.
-            self._ros_node.send_interaction_state(True)
+            self._ros_node.send_interaction_state(is_user_turn=True)
             if using_asr:
                 # Tell ASR node to listen for a response and send us results.
                 self._ros_node.send_asr_command(AsrCommand.START_FINAL)

@@ -322,8 +322,9 @@ include the following, which are described in more detail below:
 - STORY
 - QUESTION
 - IF\_RESPONSE
+- STATE
 
-You can put commemts in scripts. Comments must start with a `#`.
+You can put comments in scripts. Comments must start with a `#`.
 
 You can tag lines in the scripts. Tags must start with `**` followed by the
 tag. Then write the rest of the line as usual. This can be used in order to add
@@ -467,6 +468,17 @@ another `QUESTION` or a `ROBOT DO` line:
 
 `IF_RESPONSE    QUESTION    what-else-do-you-like`
 `IF_RESPONSE    ROBOT   DO  EXCITED`
+
+#### STATE
+
+`STATE` is used to send an InteractionState message to tag different parts of
+the interaction. This can be useful if you plan on recording a rosbag of the
+whole interaction, since you will be able to look at portions of the rosbag
+pertaining to different states that you record with InteractionState mesages.
+The state you record can be any kind of string, for example:
+
+`STATE    start interaction`
+`STATE    end negotiation task`
 
 ### Checking the scripts
 

@@ -7,27 +7,35 @@ ROBOT	FIDGET	EMPTY
 # Sleep and wait for wakeup.
 ROBOT	DO	POSE_SLEEPING
 QUESTION	wait_for_wakeup
+STATE	start robot wakeup
 ROBOT	DO	YAWN
 ROBOT	DO	IceCream
 ROBOT	DO	LAUGH
+STATE	end robot wakeup
 PAUSE	1
 SET	PROMPT_TIME	8
 # Robot introduction.
+STATE	start introduction
 QUESTION	ImRed
 PAUSE	4
 ROBOT	DO	ItsNiceToMeetYou
 **RR	ROBOT	DO	<participant_name>
+STATE	end introduction
 # Robot backstory.
+STATE	start backstory
 QUESTION	ImNewHereAreYou
 ROBOT	DO	SILENT_THINKING
 ROBOT	DO	ImNotGoodAtHearing
 **NR	QUESTION	help_practiceNR
 **RR	QUESTION	help_practiceRR
+STATE	end backstory
 
 # First activity: Anomalous Pictures.
+STATE	start anomalous task
 ROBOT	DO	PERKUP
 QUESTION	lets_look_at_silly_pictures
 OPAL	CLEAR
+STATE	start anomalous picture 1
 OPAL	LOAD	{ "name": "anomalous/anomalousgiraffe.png", "tag": "PlayObject", "draggable": "false"}
 SET	PROMPT_TIME	15
 SET	NUM_PROMPTS	0
@@ -39,9 +47,11 @@ QUESTION	AnomalousPicture1
 SET	MAX_REPEAT_TIME	1
 SET	MAX_REPEATS	1
 IF_RESPONSE	REPEAT	MAX_REPEATS	anomalous.txt
+STATE	end anomalous picture 1
 # Do the next picture - same format.
 ROBOT	DO	LetsLookAtNextPicture
 OPAL	CLEAR
+STATE	start anomalous picture 2
 OPAL	LOAD	{ "name": "anomalous/anomalousgiraffe.png", "tag": "PlayObject", "draggable": "false"}
 SET	PROMPT_TIME	15
 SET	NUM_PROMPTS	0
@@ -49,33 +59,44 @@ QUESTION	AnomalousPicture2
 SET	MAX_REPEAT_TIME	1
 SET	MAX_REPEATS	1
 IF_RESPONSE	REPEAT	MAX_REPEATS	anomalous.txt
+STATE	end anomalous picture 2
 ROBOT	DO	ThereThatsAll
+STATE	end anomalous task
 
 # Second activity: Self-disclosure task.
 # Disclosure, wait for reply. If child says something, the robot will respond,
 # and then we have two opportunities for the child to say something else before
 # the robot moves on to the next thing.
+STATE	start self disclosure task
 SET	PROMPT_TIME	8
 SET	NUM_PROMPTS	1
+STATE	start disclosure 1
 QUESTION	SelfDisclosure1
 SET	NUM_PROMPTS	0
 IF_RESPONSE	QUESTION	SelfDisclosureGeneric
 IF_RESPONSE	QUESTION	SelfDisclosureGeneric2
+STATE	end disclosure 1
 SET	NUM_PROMPTS	1
+STATE	start disclosure 1
 QUESTION	SelfDisclosure2
 SET	NUM_PROMPTS	0
 IF_RESPONSE	QUESTION	SelfDisclosureGeneric2
 IF_RESPONSE	QUESTION	SelfDisclosureGeneric
+STATE	end disclosure 2
+STATE	end self disclosure task
 # Reset prompt time and number of prompts to the usual for this interaction.
 SET	PROMPT_TIME	8
 SET	NUM_PROMPTS	2
 
 # Third activity: Story retell.
 SET	MAX_REPEATS	1
+STATE	start story task
 ROBOT	DO	rr1_story_01
 REPEAT	MAX_REPEATS	story-retell.txt
+STATE	end story task
 
 # Photo with robot.
+STATE	start photo task
 QUESTION	WantAPhoto
 SET	PROMPT_TIME	1200
 ROBOT	DO	Booyah
@@ -83,8 +104,10 @@ ROBOT	DO	POSE_SMILE
 QUESTION	TakePhoto
 ROBOT	DO	ThanksShy
 **RR	ROBOT	DO	PictureIllRemember
+STATE	end photo task
 
 # Closing and robot goes back to sleep.
+STATE	start closing
 **NR	ROBOT	DO	rr1_story_19
 **RR	ROBOT	DO	LikedPlaying
 **RR	ROBOT	DO	<participant_name>
@@ -93,3 +116,4 @@ ROBOT	DO	SeeYouLaterHuman
 ROBOT	FIDGET	EMPTY
 ROBOT	DO	YAWN
 ROBOT	DO	POSE_SLEEPING
+STATE	end closing

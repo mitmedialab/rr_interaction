@@ -2,9 +2,11 @@ OPAL	PICK_STORY
 OPAL	CLEAR
 OPAL	LOAD_STORY
 QUESTION	listen_to_story_retell
+STATE	start story retell
 ROBOT	DO	ThisStoryIs
 STORY
 ROBOT	DO	TheEnd
+STATE	end story retell
 ROBOT	STORY_CLOSING
 QUESTION	liked_story
 OPAL	CLEAR

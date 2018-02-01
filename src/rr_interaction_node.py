@@ -216,11 +216,15 @@ class InteractionHandler(object):
                     # If we get a START message, start the interaction.
                     if UserInput.START in msg and not paused:
                         self._logger.info("Starting interaction!")
+                        self._ros_handler.send_interaction_state(
+                                state="start interaction")
                         started = True
 
                     # If we get a PAUSE command, pause script iteration.
                     if UserInput.PAUSE in msg and not paused:
                         self._logger.info("Interaction paused!")
+                        self._ros_handler.send_interaction_state(
+                                state="pause interaction")
                         log_timer = datetime.datetime.now()
                         paused = True
                         script_handler.pause_interaction_timer()
@@ -229,6 +233,8 @@ class InteractionHandler(object):
                     # iterating over the script. If we're not paused, ignore.
                     elif UserInput.RESUME in msg and paused:
                         self._logger.info("Resuming interaction!")
+                        self._ros_handler.send_interaction_state(
+                                state="resume interaction")
                         paused = False
                         script_handler.resume_interaction_timer()
 
@@ -259,6 +265,8 @@ class InteractionHandler(object):
 
             except StopIteration:
                 self._logger.info("Finished script!")
+                self._ros_handler.send_interaction_state(
+                        state="end interaction finished script")
                 break
 
     def _signal_handler(self, sig, nal):
@@ -266,6 +274,8 @@ class InteractionHandler(object):
         if sig == signal.SIGINT:
             self._logger.info("Got keyboard interrupt! Exiting. {} {}".format(
                 sig, nal))
+            self._ros_handler.send_interaction_state(
+                    state="end interaction by user")
             exit("Interrupted by user.")
 
 

@@ -249,12 +249,13 @@ class RosNode(object):
         self._entrainer_pub.publish(msg)
         rospy.loginfo(msg)
 
-    def send_interaction_state(self, is_user_turn):
+    def send_interaction_state(self, is_user_turn=False, state=""):
         """ Publish an interaction state message. """
         if self._state_pub is None:
             self._logger.warning("InteractionState ROS publisher is none!")
             return
-        self._logger.info("Sending interaction state: " + str(is_user_turn))
+        self._logger.info("Sending interaction state: \n\tis user turn? {}\n\t"
+                          "state: {}".format(is_user_turn, state))
         # Build message.
         msg = InteractionState()
         # Add header.
@@ -262,6 +263,8 @@ class RosNode(object):
         msg.header.stamp = rospy.Time.now()
         # Set whether it is currently the user's turn in the interaction.
         msg.is_participant_turn = is_user_turn
+        # Send the current state, if any.
+        msg.state = state
         # Send message.
         self._state_pub.publish(msg)
         self._logger.debug(msg)
