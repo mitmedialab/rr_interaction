@@ -495,6 +495,23 @@ phoneme files. It will print a list of all missing files to the screen (i.e.,
 files referenced in the scripts that don't exist as audio .wav or phoneme .txt
 files).
 
+## User Input GUI
+
+The user can provide input to a running interaction script via the UserInput GUI. This GUI must be started separately from the main interaction node, as follows:
+
+```sh
+$ python src/user_input_form.py
+```
+
+If you are running the RR2 study with the roslaunch file, the user input form
+has been included in the roslaunch file.
+
+The form lets you send two different kinds of UserInput messages:
+
+- Negotiation input (e.g., the outcome of a negotiation with the robot)
+- Interaction state input (such as telling the interaction to start, stop,
+  pause, and resume)
+
 ## Personalization
 
 This repository includes scripts for personalizing the interaction run with the
