@@ -48,7 +48,7 @@ class InteractionUI(QtGui.QWidget):
         self.ros_node = ros_node
 
         # Put buttons in a box.
-        self.interaction_box = QtGui.QGroupBox(self)
+        self.button_box = QtGui.QGroupBox(self)
         self.button_layout = QtGui.QGridLayout(self.button_box)
         self.button_box.setTitle("Interaction Controls")
 
@@ -60,7 +60,7 @@ class InteractionUI(QtGui.QWidget):
         sbutton = QtGui.QPushButton("Start interaction", self.button_box)
         sbutton.clicked.connect(lambda: self.on_button_selected(
             UserInput.START))
-        self.sbutton.setStyleSheet('QPushButton {color: green;}')
+        sbutton.setStyleSheet('QPushButton {color: green;}')
         self.button_layout.addWidget(sbutton, 0, 0)
 
         # Pause interaction.
@@ -80,37 +80,38 @@ class InteractionUI(QtGui.QWidget):
                                      self.button_box)
         stbutton.clicked.connect(lambda: self.on_button_selected(
              UserInput.STOP))
-        self.stbutton.setStyleSheet('QPushButton {color: red;}')
+        stbutton.setStyleSheet('QPushButton {color: red;}')
         self.button_layout.addWidget(stbutton, 3, 0)
 
         # Label for confirming choice.
         self.confirm_label = QtGui.QLabel(self.button_box)
         self.confirm_label.setText("You'll need to confirm your selection.")
-        self.button_layout.addWidget(self.confirm_label, 4, 0)
+        self.confirm_label.setWordWrap(True)
+        self.button_layout.addWidget(self.confirm_label, 4, 0, 2, 2)
 
         # Button for confirming choice.
         self.confirm_button = QtGui.QPushButton("CONFIRM AND SEND",
                                                 self.button_box)
-        self.confirm_button.clicked.connect(lambda: self.ros_node.send_message(
+        self.confirm_button.clicked.connect(lambda: self.on_confirm_button(
                                             self.control_selected))
         self.confirm_button.setEnabled(False)
-        self.button_layout.addWidget(self.confirm_button, 5, 0)
+        self.button_layout.addWidget(self.confirm_button, 6, 0)
 
     def on_button_selected(self, selected):
         """ When a button is pressed, update the label so the user can check it
         and confirm.
         """
         self.control_selected = selected
-        self.confirm_label.setText("PLEASE CONFIRM: You chose \"{}\"?".format(
+        self.confirm_label.setText("PLEASE CONFIRM: \nSend {}?".format(
                 selected))
         self.confirm_button.setStyleSheet('QPushButton {color: red;}')
         self.confirm_button.setEnabled(True)
 
-    def on_confirm_button(self):
+    def on_confirm_button(self, control_selected):
         """ After the user confirms their selection, send the message. """
         # Send message.
         self.ros_node.send_message(UserInput.INTERACTION_CONTROL,
-                                   self.control_selected)
+                                   control_selected)
         # Reset label and button.
         self.confirm_label.setText("Selection sent.")
         self.confirm_button.setStyleSheet('QPushButton {color: gray;}')

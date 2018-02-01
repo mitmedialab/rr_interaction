@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Jacqueline Kory Westlund
 November 2017
@@ -49,7 +50,7 @@ class UserInputForm(QtGui.QMainWindow):
 
         # Setup the GUI form interface.
         super(UserInputForm, self).__init__()
-        self.setGeometry(200, 50, 600, 400)
+        self.setGeometry(200, 50, 700, 400)
         self.setWindowTitle("RR User Input")
 
         # Create layout.
@@ -62,11 +63,11 @@ class UserInputForm(QtGui.QMainWindow):
 
         # Add interaction state buttons.
         interaction_ui = InteractionUI(self.ros)
-        self.central_layout.addWidget(interaction_ui, 0, 0, 6, 2)
+        self.central_layout.addWidget(interaction_ui, 0, 0, 8, 2)
 
         # Add negotiation buttons.
         negotiation_ui = NegotiationUI(self.ros)
-        self.central_layout.addWidget(negotiation_ui, 0, 2, 10, 2)
+        self.central_layout.addWidget(negotiation_ui, 0, 2, 11, 2)
 
 
 if __name__ == '__main__':

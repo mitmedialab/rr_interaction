@@ -27,7 +27,6 @@ SOFTWARE.
 
 import rospy  # ROS
 import logging  # Log messages.
-
 from rr_msgs.msg import UserInput  # Send user responses.
 from std_msgs.msg import Header  # standard ROS msg header
 
@@ -59,6 +58,6 @@ class UserFormROS(object):
             msg.header = Header()
             msg.header.stamp = rospy.Time.now()
             msg.response_type = response_type
-            msg.respones = response
+            msg.response = response
             self.user_input_pub.publish(msg)
             rospy.loginfo(msg)

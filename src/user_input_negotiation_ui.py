@@ -91,7 +91,7 @@ class NegotiationUI(QtGui.QWidget):
 
         # Compromise - do child's choice first.
         ccbutton = QtGui.QPushButton("Compromise: Do child's first",
-             self.negotiation_box)
+                                     self.negotiation_box)
         ccbutton.clicked.connect(lambda: self.on_outcome_selected(
              UserInput.COMPROMISE_CHILD))
         self.negotiation_layout.addWidget(ccbutton, 5, 0)
@@ -106,31 +106,32 @@ class NegotiationUI(QtGui.QWidget):
         # Label for confirming choice.
         self.confirm_label = QtGui.QLabel(self.negotiation_box)
         self.confirm_label.setText("You'll need to confirm your selection.")
-        self.negotiation_layout.addWidget(self.confirm_label, 7, 0)
+        self.confirm_label.setWordWrap(True)
+        self.negotiation_layout.addWidget(self.confirm_label, 7, 0, 2, 2)
 
         # Button for confirming choice.
         self.confirm_button = QtGui.QPushButton("CONFIRM AND SEND",
                                                 self.negotiation_box)
-        self.confirm_button.clicked.connect(lambda: self.ros_node.send_message(
+        self.confirm_button.clicked.connect(lambda: self.on_confirm_button(
                                             self.negotiation_outcome))
         self.confirm_button.setEnabled(False)
-        self.negotiation_layout.addWidget(self.confirm_button, 8, 0)
+        self.negotiation_layout.addWidget(self.confirm_button, 9, 0)
 
     def on_outcome_selected(self, selected):
         """ When the outcome is selected, update the label so the user can
         check it and confirm.
         """
         self.negotiation_outcome = selected
-        self.confirm_label.setText("PLEASE CONFIRM: You chose \"{}\"?".format(
+        self.confirm_label.setText("PLEASE CONFIRM: \nSend {}?".format(
                 selected))
         self.confirm_button.setStyleSheet('QPushButton {color: red;}')
         self.confirm_button.setEnabled(True)
 
-    def on_confirm_button(self):
+    def on_confirm_button(self, negotiation_outcome):
         """ After the user confirms their selection, send the message. """
         # Send message.
         self.ros_node.send_message(UserInput.NEGOTIATION,
-                self.negotiation_outcome)
+                                   negotiation_outcome)
         # Reset label and button.
         self.confirm_label.setText("Selection sent.")
         self.confirm_button.setStyleSheet('QPushButton {color: gray;}')
