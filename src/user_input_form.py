@@ -33,6 +33,7 @@ from PySide import QtGui  # Basic GUI stuff.
 from user_input_ros import UserFormROS
 from user_input_negotiation_ui import NegotiationUI
 from user_input_interaction_ui import InteractionUI
+from user_input_tega_ui import TegaUI
 
 
 class UserInputForm(QtGui.QMainWindow):
@@ -50,7 +51,7 @@ class UserInputForm(QtGui.QMainWindow):
 
         # Setup the GUI form interface.
         super(UserInputForm, self).__init__()
-        self.setGeometry(200, 50, 700, 400)
+        self.setGeometry(200, 50, 650, 450)
         self.setWindowTitle("RR User Input")
 
         # Create layout.
@@ -64,6 +65,10 @@ class UserInputForm(QtGui.QMainWindow):
         # Add interaction state buttons.
         interaction_ui = InteractionUI(self.ros)
         self.central_layout.addWidget(interaction_ui, 0, 0, 8, 2)
+
+        # Add Tega control buttons.
+        tega_ui = TegaUI(self.ros)
+        self.central_layout.addWidget(tega_ui, 9, 0, 3, 2)
 
         # Add negotiation buttons.
         negotiation_ui = NegotiationUI(self.ros)

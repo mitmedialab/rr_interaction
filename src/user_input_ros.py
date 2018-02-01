@@ -29,6 +29,7 @@ import rospy  # ROS
 import logging  # Log messages.
 from rr_msgs.msg import UserInput  # Send user responses.
 from std_msgs.msg import Header  # standard ROS msg header
+from r1d1_msgs.msg import TegaAction  # Send commands to Tega.
 
 
 class UserFormROS(object):
@@ -48,16 +49,37 @@ class UserFormROS(object):
         self.user_input_pub = rospy.Publisher('/rr/user_input', UserInput,
                                               queue_size=10)
 
+        # We can send a couple commands to the Tega robot.
+        self._tega_pub = rospy.Publisher('/tega', TegaAction, queue_size=10)
+
     def send_message(self, response_type, response):
         """ Publish UserInput message. """
-        if self.user_input_pub is not None:
-            self._logger.info("Publishing: type {}, response {}".format(
-                 response_type, response))
-            msg = UserInput()
-            # add header
-            msg.header = Header()
-            msg.header.stamp = rospy.Time.now()
-            msg.response_type = response_type
-            msg.response = response
-            self.user_input_pub.publish(msg)
-            rospy.loginfo(msg)
+        if self.user_input_pub is None:
+            self._logger.warning("UserInput ROS publisher is none!")
+            return
+        self._logger.info("Publishing: type {}, response {}".format(
+             response_type, response))
+        msg = UserInput()
+        # Build message.
+        msg.header = Header()
+        msg.header.stamp = rospy.Time.now()
+        msg.response_type = response_type
+        msg.response = response
+        # Send message.
+        self.user_input_pub.publish(msg)
+        self._logger.debug(msg)
+
+    def send_tega_animation(self, motion):
+        """ Publish a Tega command message. """
+        if self._tega_pub is None:
+            self._logger.warning("TegaAction ROS publisher is none!")
+            return
+        self._logger.info("Sending Tega command: {}".format(motion))
+        # Build message.
+        msg = TegaAction()
+        msg.header = Header()
+        msg.header.stamp = rospy.Time.now()
+        msg.motion = motion
+        # Send message.
+        self._tega_pub.publish(msg)
+        self._logger.debug(msg)
