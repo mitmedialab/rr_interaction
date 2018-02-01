@@ -27,7 +27,6 @@ SOFTWARE.
 """
 
 import json  # For reading log config file.
-import toml  # For reading our config files.
 import rospy  # ROS
 import argparse  # To parse command line arguments.
 import signal  # catching SIGINT signal
@@ -60,7 +59,7 @@ class InteractionHandler(object):
     # the ROS log output, which you can find in "~/.ros/log/" or
     # "$ROS_ROOT/log". You can then tail the appropriate file and see the log
     # output as it happens, e.g.,: "tail -f ~/.ros/log/relational_robot.log".
-    #_ros_node = rospy.init_node('relational_robot', anonymous=False)
+    # _ros_node = rospy.init_node('relational_robot', anonymous=False)
     def init_ros(self):
         """ Initialize the ROS node. """
         # TODO If running on network where DNS does not resolve local
@@ -75,8 +74,10 @@ class InteractionHandler(object):
 
     def __init__(self):
         """ Initialize anything that needs initialization. """
-        # Create variable for our ROS node. We give it a value later.
-        self._ros_ss = None
+        # Our ROS node. We give it a value later.
+        self._ros_node = None
+        # The class that handles all ROS communication for us.
+        self._ros_handler = None
         # Flag to indicate whether we should exit. We don't start stopped.
         self._stop = False
         # Set up queue that we use to get messages from ROS callbacks.
@@ -168,14 +169,14 @@ class InteractionHandler(object):
 
         # Set up ROS node publishers and subscribers.
         self.init_ros()
-        self._ros_ss = RosNode(self._queue)
+        self._ros_handler = RosNode(self._queue)
 
         # Load the session script. The script handler loads the main config
         # file since that file mostly has directories to where scripts and
         # other files are, which we don't need to know here but it does.
         try:
-            script_handler = ScriptHandler(self._ros_ss, session, participant,
-                                           entrain, experimenter)
+            script_handler = ScriptHandler(self._ros_handler, session,
+                                           participant, entrain, experimenter)
         except IOError as ioe:
             self._logger.exception("Did not load the session script... exiting"
                                    " because we need the session script to "
@@ -254,7 +255,8 @@ class InteractionHandler(object):
     def _signal_handler(self, sig, nal):
         """ Handle signals caught. """
         if sig == signal.SIGINT:
-            self._logger.info("Got keyboard interrupt! Exiting.")
+            self._logger.info("Got keyboard interrupt! Exiting. {} {}".format(
+                sig, nal))
             exit("Interrupted by user.")
 
 

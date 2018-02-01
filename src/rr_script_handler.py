@@ -36,7 +36,7 @@ import random  # For picking robot responses and shuffling answer options
 import logging  # Log messages
 import os  # For checking if files and directories exist.
 from rr_script_parser import ScriptParser  # Parses scripts
-from rr_performance_logger import PerformanceLogger  # Logs participant data
+from rr_performance_logger import PerformanceLogger  # Logs participant data.
 from asr_google_cloud.msg import AsrCommand  # Tell ASR to start/stop.
 from r1d1_msgs.msg import TegaAction  # Tell Tega to do different fidgets.
 from rr_msgs.msg import UserInput  # Get different user input responses.
@@ -81,7 +81,6 @@ class ScriptHandler(object):
         # Save reference to our ros node so we can publish messages.
         self._ros_node = ros_node
 
-        # TODO read directly into self._vars?
         # Read the main config file to get paths to interaction scripts, script
         # directories, and more. If this is a demo interaction, load the demo
         # config file; otherwise try reading in the regular config file.
@@ -90,8 +89,8 @@ class ScriptHandler(object):
         self._study_path, script_config, self._story_script_path, \
             self._session_script_path, self._audio_base_dir, \
             self._viseme_base_dir, output_dir, pconfig_dir = \
-                self._read_main_config("config.demo.toml" \
-                    if participant == "DEMO" else "config.toml")
+            self._read_main_config("config.demo.toml"
+                                   if participant == "DEMO" else "config.toml")
 
         # Get the study config file, if this is not the demo.
         self._script_config = None
@@ -336,7 +335,8 @@ class ScriptHandler(object):
         if pconfig_dir == "":
             pconfig_dir = os.getcwd()
         confs = sorted([c for c in os.listdir(pconfig_dir) if
-            (c.startswith("rr2_participant_config") and c.endswith(".toml"))])
+                       (c.startswith("rr2_participant_config") and
+                        c.endswith(".toml"))])
         if confs:
             return pconfig_dir + confs[-1]
         else:
@@ -614,8 +614,8 @@ class ScriptHandler(object):
 
         #########################################################
         # For WAIT lines, wait for the specified user response, which may be
-        # from a GUI form (i.e. a ros message) or from an Opal device (i.e. a
-        # different ros message), or for a timeout (i.e. no user response).
+        # from a GUI form (i.e. a ros message) or for a timeout (i.e. no user
+        # response).
         elif "WAIT" in elements[0] and len(elements) >= 4:
             self._logger.debug("WAIT")
             # The second and third elements specify what kind of user response
@@ -624,11 +624,10 @@ class ScriptHandler(object):
             if "USER_INPUT" in elements[1]:
                 # Wait for user input from a GUI.
                 self._wait_for_user_input(elements[2], int(elements[3]))
-            elif "OPAL" in elements[1]:
-                # Wait for a user response on the Opal device, e.g., a button
-                # press or answer response.
-                self._wait_for_tablet_response(elements[2],
-                                               int(elements[3]))
+            else:
+                self._logger.warning("Told to WAIT for {} {} which we don't "
+                                     "handle yet!".format(elements[2],
+                                                          elements[3]))
 
         #########################################################
         # For QUESTION lines, load and play the specified question, using
@@ -1239,14 +1238,6 @@ class ScriptHandler(object):
                     datetime.datetime.now() - self._pause_start_time
         # Reset pause start time.
         self._pause_start_time = None
-
-    def wait_for_last_response_again(self):
-        """ Wait for the same response that we just waited for again, with the
-        same parameters for the response and the timeout.
-        """
-        return self._wait_for_tablet_response(
-            self._last_response_to_get,
-            self._last_response_timeout)
 
     def _done_telling_stories(self):
         """ Check whether we're allowed to tell another story or not. """
