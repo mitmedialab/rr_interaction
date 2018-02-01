@@ -35,6 +35,7 @@ import Queue  # for getting messages from ROS callback threads
 import datetime  # for getting time deltas for timeouts
 from rr_script_handler import ScriptHandler  # plays back script lines
 from rr_ros import RosNode  # we put all our ROS stuff here
+from rr_msgs.msg import UserInput  # For user input form response constants.
 
 
 class InteractionHandler(object):
@@ -192,6 +193,7 @@ class InteractionHandler(object):
         """
         # Flags for interaction control.
         paused = False
+        started = False
         log_timer = datetime.datetime.now()
 
         # Set up signal handler to catch SIGINT (e.g., ctrl-c).
@@ -200,9 +202,6 @@ class InteractionHandler(object):
         # Start the interaction!
         self._logger.info("Starting interaction!")
         # Loop until we reach the end of the script or are told to exit.
-        # TODO We should receive PAUSE, RESUME, and EXIT messages in case we
-        # need to pause partway through the interaction or if we need to exit
-        # early.
         while not self._stop:
             try:
                 try:
@@ -214,8 +213,13 @@ class InteractionHandler(object):
                     pass
                 else:
                     # Got a message! Parse:
+                    # If we get a START message, start the interaction.
+                    if UserInput.START in msg and not paused:
+                        self._logger.info("Starting interaction!")
+                        started = True
+
                     # If we get a PAUSE command, pause script iteration.
-                    if "PAUSE" in msg and not paused:
+                    if UserInput.PAUSE in msg and not paused:
                         self._logger.info("Interaction paused!")
                         log_timer = datetime.datetime.now()
                         paused = True
@@ -223,29 +227,34 @@ class InteractionHandler(object):
 
                     # If we are paused and get a RESUME command, we can resume
                     # iterating over the script. If we're not paused, ignore.
-                    elif "RESUME" in msg and paused:
+                    elif UserInput.RESUME in msg and paused:
                         self._logger.info("Resuming interaction!")
                         paused = False
                         script_handler.resume_interaction_timer()
 
-                    # When we receive an EXIT command, we need to exit
+                    # When we receive an STOP command, we need to exit
                     # gracefully. Stop all repeating scripts and story scripts,
                     # go directly to the end.
-                    elif "EXIT" in msg:
+                    elif UserInput.STOP in msg:
                         self._logger.info("Ending interaction!")
                         script_handler.set_end_interaction()
 
-                # If the interaction is not paused, parse and handle the next
-                # script line.
-                if not paused:
+                # If the interaction has started and is not paused, parse and
+                # handle the next script line.
+                if started and not paused:
                     script_handler.iterate_once()
 
-                # If the interaction is paused, print a periodic log message
-                # stating that we are waiting for a RESUME command.
-                elif (datetime.datetime.now() - log_timer >
-                        datetime.timedelta(seconds=int(5))):
-                    self._logger.info("Interaction paused... waiting for "
-                                      "command to resume.")
+                # If the interaction has not started yet or is paused, print a
+                # periodic log message stating that we are waiting for a START
+                # command or a RESUME command.
+                elif (not started or paused) and \
+                        (datetime.datetime.now() - log_timer >
+                            datetime.timedelta(seconds=int(5))):
+                    if paused:
+                        self._logger.info("Interaction paused... waiting "
+                                          "for command to resume.")
+                    elif not started:
+                        self._logger.info("Waiting for command to start.")
                     log_timer = datetime.datetime.now()
 
             except StopIteration:

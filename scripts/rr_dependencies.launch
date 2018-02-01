@@ -19,4 +19,9 @@
     <!-- Rosbridge (for talking to the tablet) -->
     <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" />
 
+    <!-- User input GUI (for giving input to rr_interaction) -->
+    <node name="rr_user_input_form"
+          pkg="rr_interaction"
+          type="user_input_form.py" />
+
 </launch>

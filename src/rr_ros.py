@@ -354,8 +354,9 @@ class RosNode(object):
             self._negotiation_response_received = True
         if self.USER_INPUT_INTERACTION_CONTROL in data.response_type:
             self._control_response_received = True
-            # TODO also need to tell main thread when we receive this, in case
-            # it means we need to start, stop, pause or resume the interaction.
+            # Tell the main thread when we receive this, in case it means we
+            # need to start, stop, pause, or resume the interaction.
+            self._main_queue.put(data.response)
         self._response_received = data.response
 
     def wait_for_response(self, response, timeout):
