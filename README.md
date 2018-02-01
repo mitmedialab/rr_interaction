@@ -25,6 +25,12 @@ it's recommended that you use the `--user` flag to only install for your user.
 - [text_similarity_tools](https://github.com/mitmedialab/text_phrase_matching)
   (v2.0.0)
 
+You will also need the following ROS nodes:
+- [asr_google_cloud](https://github.com/mitmedialab/asr_google_cloud) (v2.0.0)
+- [r1d1_msgs](https://github.com/mitmedialab/r1d1_msgs) (v10.0.0)
+- [rr_msgs](https://github.com/mitmedialab/rr_msgs) (v7.0.0)
+- [sar_opal_msgs](https://github.com/mitmedialab/sar_opal_msgs) (v5.0.0)
+
 
 ### Opal tablet communication
 
@@ -288,7 +294,6 @@ the ROS topic "rr/opal_command".
 The node publishes
 [rr_msgs](https://github.com/mitmedialab/rr_msgs)/EntrainAudio) messages on the
 ROS topic "rr/entrain_audio".
-
 
 ## Interaction scripts
 
