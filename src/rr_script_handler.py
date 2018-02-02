@@ -1081,7 +1081,6 @@ class ScriptHandler(object):
         # available number of prompts.
         for i in range(0, self._num_prompts + 1):
             # Wait for a button press from the form.
-            # TODO Send message to form to tell it to tell user to give input?
             # The response is a tuple with the response, possibly followed
             # by a string indicating what type of response this was.
             response = self._ros_node.wait_for_response(
@@ -1111,7 +1110,13 @@ class ScriptHandler(object):
                 if i >= self._num_prompts:
                     self._performance_log.log_negotiation_outcome(response,
                                                                   "none")
-                    break
+                    # Play some final speech that wraps this up.
+                    resp = self._get_response_from_config(
+                            "negotiation_no_response")
+                    if resp:
+                        # Play the selected response.
+                        self._send_robot_do(resp)
+
                 # Pick one of a set of possible negotiation timeout prompts.
                 resp = self._get_response_from_config(
                         "negotiation_timeout_prompts")
@@ -1124,11 +1129,6 @@ class ScriptHandler(object):
             # Log the outcome of the negotiation so it can be referenced later.
             self._performance_log.log_negotiation_outcome(response,
                                                           self._selected_scene)
-
-            # TODO these assume that the child picked a choice to begin with.
-            # How would this need to change if the child didn't care, then the
-            # robot picked one, and during the negotiation the child wanted to
-            # pick something else?
 
             # Case (2): Refusal.
             if UserInput.REFUSAL in response:

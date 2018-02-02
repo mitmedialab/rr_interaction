@@ -12,6 +12,12 @@ backchannel_prompts = ["mmhm", "uhuhh"]
 story_intro = ["OkayIHaveAGoodIdea", "HmLetsSee"]
 story_closing = ["ThisIsSuchFun", "ThisIsMyFavoriteGame", "OkayMyStorysOver"]
 
+negotiation_timeout_prompts = ["negotiation_timeout_1", "negotiation_timeout_2"]
+negotiation_no_response = ["OkayIllPick", "YouDontCare", "IllPickThen"]
+negotiation_refusal = ["negotiation_refusal_1", "negotiation_refusal_2", "negotiation_refusal_3"]
+negotiation_acquiese = ["negotiation_acquiesce_1", "negotiation_acquiesce_2", "negotiation_acquisce_3"]
+negotiation_general = ["negotiation_general_1", "negotiation_general_2", "negotiation_general_3"]
+
 #######################################################################
 ## EXAMPLE QUESTION.
 #######################################################################
@@ -193,14 +199,14 @@ question = "choose_a_scene1"
 timeout_prompts = ["touchOneSoIKnow", "touchOneYouWant"]
 max_attempt = ["OkayIllPick"]
     [[questions.choose_a_scene1.user_input]]
-    user_responses = ["I don't care", "doesn't matter", "either one", "any", "neither"]
+    user_responses = ["I don't care", "doesn't matter", "either", "any", "neither"]
     robot_responses = ["YouDontCare"]
     [[questions.choose_a_scene1.user_input]]
-    user_responses = ["you pick", "you choose", "you want"]
+    user_responses = ["you pick", "you choose", "you want", "Red pick"]
     robot_responses = ["OkayIllPick"]
 
     [[questions.choose_a_scene1.tablet_input]]
-    user_responses = ["scene", "Background"]
+    user_responses = ["Scene"]
     robot_responses = ["IWantOtherOne"]
 
 [questions.ImRed]

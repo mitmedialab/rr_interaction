@@ -73,31 +73,17 @@ def check_script_config(filename):
     with open(filename) as tof:
         toml_data = toml.load(tof)
 
-    # Check generic responses (max_attempt, timeout_prompts, etc).
-    if "max_attempt" in toml_data:
-        for audio in toml_data["max_attempt"]:
-            check_audio_file(audio)
-            check_viseme_file(audio)
+    # Check default responses (max_attempt, timeout_prompts, etc).
+    defaults = ["max_attempt", "timeout_prompts", "backchannel_prompts",
+                "story_intro", "story_closing", "negotiation_timeout_prompts",
+                "negotiation_no_response", "negotiation_refusal",
+                "negotiation_acquiesce", "negotiation_general"]
 
-    if "timeout_prompts" in toml_data:
-        for audio in toml_data["timeout_prompts"]:
-            check_audio_file(audio)
-            check_viseme_file(audio)
-
-    if "backchannel_prompts" in toml_data:
-        for audio in toml_data["backchannel_prompts"]:
-            check_audio_file(audio)
-            check_viseme_file(audio)
-
-    if "story_intro" in toml_data:
-        for audio in toml_data["story_intro"]:
-            check_audio_file(audio)
-            check_viseme_file(audio)
-
-    if "story_closing" in toml_data:
-        for audio in toml_data["story_closing"]:
-            check_audio_file(audio)
-            check_viseme_file(audio)
+    for response_type in defaults:
+        if response_type in toml_data:
+            for audio in toml_data[response_type]:
+                check_audio_file(audio)
+                check_viseme_file(audio)
 
     # Check questions.
     if "questions" in toml_data:
@@ -110,28 +96,11 @@ def check_script_config(filename):
                 check_viseme_file(toml_data["questions"][question]["question"])
 
             # Check any defaults that are overridden.
-            if "max_attempt" in toml_data["questions"][question]:
-                for audio in toml_data["questions"][question]["max_attempt"]:
-                    check_audio_file(audio)
-                    check_viseme_file(audio)
-            if "timeout_prompts" in toml_data["questions"][question]:
-                for audio in toml_data["questions"][question][
-                        "timeout_prompts"]:
-                    check_audio_file(audio)
-                    check_viseme_file(audio)
-            if "backchannel_prompts" in toml_data["questions"][question]:
-                for audio in toml_data["questions"][question][
-                        "backchannel_prompts"]:
-                    check_audio_file(audio)
-                    check_viseme_file(audio)
-            if "story_intro" in toml_data["questions"][question]:
-                for audio in toml_data["questions"][question]["story_intro"]:
-                    check_audio_file(audio)
-                    check_viseme_file(audio)
-            if "story_closing" in toml_data["questions"][question]:
-                for audio in toml_data["questions"][question]["story_closing"]:
-                    check_audio_file(audio)
-                    check_viseme_file(audio)
+            for resp_type in defaults:
+                if resp_type in toml_data["questions"][question]:
+                    for audio in toml_data["questions"][question][resp_type]:
+                        check_audio_file(audio)
+                        check_viseme_file(audio)
 
             # Check all robot responses to user input.
             if "user_input" in toml_data["questions"][question]:
