@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <package>
   <name>rr_interaction</name>
-  <version>0.0.0</version>
+  <version>0.1.0</version>
   <description>Relational robot interaction control node</description>
 
   <maintainer email="jakory@media.mit.edu">jakory</maintainer>
-  <license>GPL3</license>
+  <license>MIT</license>
   <url type="website">https://github.com/mitmedialab/rr_interaction</url>
   <author email="jakory@media.mit.edu">jakory</author>
 
