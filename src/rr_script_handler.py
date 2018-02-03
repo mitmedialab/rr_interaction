@@ -538,7 +538,7 @@ class ScriptHandler(object):
                     # thing each time.
                     robot_action = self._script_config[elements[1].lower()]
                     self._send_robot_do(
-                        robot_action[random.randint(0, len(robot_action - 1))])
+                        robot_action[random.randint(0, len(robot_action) - 1)])
                 except KeyError:
                     self._logger.warning("{} not in script config!".format(
                         elements[1].lower()))
