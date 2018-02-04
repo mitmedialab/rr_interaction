@@ -27,6 +27,7 @@ SOFTWARE.
 
 import rospy  # ROS
 import datetime  # For header times and timeouts.
+import random  # For choosing backchannel actions.
 import time  # For sleep.
 import logging  # For log messages.
 from r1d1_msgs.msg import TegaAction  # Send commands to Tega.
@@ -39,7 +40,7 @@ from rr_msgs.msg import UserInput  # Receive user input form responses.
 from asr_google_cloud.msg import AsrResult  # Get ASR results back.
 from asr_google_cloud.msg import AsrCommand  # Tell ASR to start/stop.
 from std_msgs.msg import Header  # Standard ROS msg header.
-from std_msgs.msg import String  # Get string state from audio entrainer.
+from std_msgs.msg import String  # Several different ROS msgs.
 
 
 class RosNode(object):
@@ -90,13 +91,33 @@ class RosNode(object):
         "STORY_GO_TO_PAGE": OpalCommand.STORY_GO_TO_PAGE
     }
 
-    def __init__(self, queue):
+    # These are different actions that could be taken for different backchannel
+    # states that can occur.
+    WORDY = ["YES", "LAUGH", "SILENT_CONFIRM", "SILENT_YES", "SMILE",
+             "uhuhh.wav", "hmm.wav"]
+    LONG_PAUSE = ["YES", "uhuhh", "SILENT_LAUGH", "YES", "SMILE",
+                  "uhhuh.wav", "mmm.wav"]
+    ENERGY = ["uhhuh.wav", "LAUGH_AGREEMENT", "YES", "SMILE", "uhhuh.wav",
+              "uhhuh.wav", "mmhm.wav"]
+
+    def __init__(self, queue, use_entrainer, entrain, audio_base_dir,
+                 viseme_base_dir):
         """ Initialize ROS """
+        # Set up logger
+        self._logger = logging.getLogger(__name__)
         # We get a reference to the main node's queue so we can give it
         # messages.
         self._main_queue = queue
-        # Set up logger
-        self._logger = logging.getLogger(__name__)
+        # Backchanneling starts disabled.
+        self._backchanneling_enabled = False
+        # Do we send audio through the entrainer or not? Does the entrainer
+        # actually entrain that audio, or merely stream it?
+        self._use_entrainer = use_entrainer
+        self._entrain = entrain
+        # Filepaths for audio and visemes, if we need them for sending through
+        # the entrainer.
+        self._audio_base_dir = audio_base_dir
+        self._viseme_base_dir = viseme_base_dir
 
         # Initialize the flags we use to track responses from the robot and
         # from the user.
@@ -144,6 +165,9 @@ class RosNode(object):
         rospy.Subscriber('/asr_result', AsrResult, self.on_asr_result_msg)
         # User input form responses.
         rospy.Subscriber('/rr/user_input', UserInput, self.on_user_input_msg)
+        # Subscribe to backchannel output so we know when to backchannel and
+        # what kind of action to do.
+        rospy.Subscriber("msg_bc", String, self.on_bc_msg_received)
 
     def send_opal_command(self, command, properties=None):
         """ Publish opal command message. Optionally, wait for a response. """
@@ -248,6 +272,27 @@ class RosNode(object):
         msg.entrain = entrain
         self._entrainer_pub.publish(msg)
         rospy.loginfo(msg)
+
+    def send_speech(self, audio):
+        """ Send audio either through the entrainer or directly to the robot.
+        """
+        if self._use_entrainer:
+            # Send the filename to the audio entrainer. Append the filepath to
+            # the filename before sending. Note that an empty filepath can be
+            # provided if the full filepaths are given in the script. We assume
+            # that corresponding viseme files have the same name but with a
+            # .txt extension, and are located at the viseme filepath. If full
+            # filepaths are provided in the script, then an empty filepath
+            # should be provided for the viseme filepath as well, and the
+            # viseme text files should be located in the same directory as the
+            # audio.
+            self.send_entrain_audio_message(
+                self._audio_base_dir + audio,
+                self._viseme_base_dir + audio.replace(".wav", ".txt"),
+                self._entrain)
+        else:
+            # Send directly to the robot.
+            self.send_tega_command(audio=audio, enqueue=True)
 
     def send_interaction_state(self, is_user_turn=False, state=""):
         """ Publish an interaction state message. """
@@ -361,6 +406,40 @@ class RosNode(object):
             # need to start, stop, pause, or resume the interaction.
             self._main_queue.put(data.response)
         self._response_received = data.response
+
+    def enable_backchanneling(self, enabled):
+        """ Turn backchanneling on or off. """
+        self._backchanneling_enabled = enabled
+
+    def on_bc_msg_received(self, data):
+        """ When we receive output from the backchannel module, if
+        backchanneling is enabled, send an appropriate action command to the
+        robot, or, if it is in use and the action to take is speech, through
+        the audio entrainer.
+        """
+        if not self._backchanneling_enabled:
+            return
+
+        # Randomly select a backchannel action based on the type of action
+        # we should take and send to the robot.
+        command = ""
+        if "wordy" in data.data.lower():
+            self._logger.info("Choosing WORDY backchannel action...")
+            command = self.WORDY[random.randint(0, len(self.WORDY) - 1)]
+        elif "longpause" in data.data.lower():
+            self._logger.info("Choosing LONG PAUSE backchannel action...")
+            command = self.LONG_PAUSE[random.randint(0,
+                                                     len(self.LONG_PAUSE) - 1)]
+        elif "energy" in data.data.lower():
+            self._logger.info("Choosing ENERGY backchannel action...")
+            command = self.ENERGY[random.randint(0, len(self.ENERGY) - 1)]
+
+        # If the command is lowercase, it's speech; otherwise, it's an
+        # animation/motion command that we should send directly to the robot.
+        if command.islower():
+            self.send_speech(command)
+        else:
+            self.send_tega_command(motion=command)
 
     def wait_for_response(self, response, timeout):
         """ Wait for particular user or robot responses for the specified

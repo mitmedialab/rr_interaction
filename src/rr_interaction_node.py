@@ -31,6 +31,8 @@ import rospy  # ROS
 import argparse  # To parse command line arguments.
 import signal  # catching SIGINT signal
 import logging  # log messages
+import os  # For determining if files exist.
+import toml  # For reading the study config file.
 import Queue  # for getting messages from ROS callback threads
 import datetime  # for getting time deltas for timeouts
 from rr_script_handler import ScriptHandler  # plays back script lines
@@ -160,7 +162,131 @@ class InteractionHandler(object):
             return (args.session, args.participant, args.use_entrainer,
                     args.experimenter.lower())
 
-    def launch_interaction(self, session, participant, entrain, experimenter):
+    def _read_main_config(self, config):
+        """ Read in the main toml config file. """
+        try:
+            with open(config) as tof:
+                toml_data = toml.load(tof)
+            self._logger.debug("Reading config file...: {}".format(toml_data))
+            # Directory with scripts for this study.
+            if "study_path" in toml_data:
+                study_path = toml_data["study_path"]
+            else:
+                self._logger.error("Could not read path to interaction "
+                                   "scripts! Expected option \"study_path\" to"
+                                   "be in the config file. Exiting because we "
+                                   "need the scripts to run the interaction.")
+                exit(1)
+            # Study script config file location.
+            if "script_config" in toml_data:
+                script_config = toml_data["script_config"]
+            else:
+                self._logger.error("Could not read name of script_config! "
+                                   "Expected option \"script_config\" to be"
+                                   " in config file. Exiting because we "
+                                   "need the study config to continue.")
+                exit(1)
+            # Directory of story scripts.
+            if "story_script_path" in toml_data:
+                story_script_path = toml_data["story_script_path"]
+            else:
+                self._logger.error("Could not read path to story scripts! "
+                                   "Expected option \"story_script_path\" to "
+                                   "be in config file. Assuming story scripts "
+                                   "are in the main study directory and not a "
+                                   "sub-directory.")
+                story_script_path = ""
+            # Directory of session scripts.
+            if "session_script_path" in toml_data:
+                session_script_path = toml_data["session_script_path"]
+            else:
+                self._logger.error("Could not read path to session scripts! "
+                                   "Expected option \"session_script_path\" to"
+                                   " be in config file. Assuming session "
+                                   "scripts are in the main study directory "
+                                   "and not a sub-directory.")
+                session_script_path = ""
+            # Directory of audio files.
+            if "audio_base_dir" in toml_data:
+                audio_base_dir = toml_data["audio_base_dir"]
+            else:
+                self._logger.error("Could not read audio base directory path! "
+                                   "Expected option \"audio_base_dir\" to be "
+                                   "in config file. Assuming audio files are "
+                                   "in the main study directory.")
+                audio_base_dir = ""
+            # Directory of viseme files.
+            if "viseme_base_dir" in toml_data:
+                viseme_base_dir = toml_data["viseme_base_dir"]
+            else:
+                self._logger.error("Could not read viseme base directory path!"
+                                   " Expected option \"viseme_base_dir\" to be"
+                                   " in config file.Assuming audio files are "
+                                   "in the main study directory.")
+                viseme_base_dir = ""
+            # Directory where any output should be saved.
+            if "output_dir" in toml_data:
+                output_dir = toml_data["output_dir"]
+            else:
+                self._logger.error("Could not read path to the output  "
+                                   "directory! Expected option \"output_dir\""
+                                   "to be in the config file. Defaulting to "
+                                   "saving in the current working directory.")
+                output_dir = ""
+            # Directory where any output should be saved.
+            if "pconfig_dir" in toml_data:
+                pconfig_dir = toml_data["pconfig_dir"]
+            else:
+                self._logger.error("Could not read path to the participant "
+                                   "config directory! Expected \"pconfig_dir\""
+                                   "to be in the config file. Defaulting to "
+                                   "checking the current working directory.")
+                pconfig_dir = ""
+        except Exception as exc:  # pylint: disable=broad-except
+            self._logger.exception("Could not read your toml config file \"" +
+                                   str(config) + "\". Does the file exist? Is "
+                                   "it valid toml? Exiting because we need the"
+                                   " config file to continue. {}".format(exc))
+            exit(1)
+        return study_path, script_config, story_script_path, \
+            session_script_path, audio_base_dir, viseme_base_dir, output_dir, \
+            pconfig_dir
+
+    def _load_toml_config(self, config):
+        """ Load in a toml config file for later reference. """
+        try:
+            with open(config) as tof:
+                toml_data = toml.load(tof)
+            self._logger.debug("Reading toml config...: {}".format(
+                toml_data))
+            return toml_data
+        except Exception as exc:  # pylint: disable=broad-except
+            self._logger.exception("""Could not read your toml config file
+                                   \"{}\". Does the file exist? Is it valid
+                                   toml? Exiting because we need the config
+                                   file to continue. {}""".format(config, exc))
+            exit(1)
+
+    def _get_participant_config(self, pconfig_dir):
+        """ Given the directory with the participant config files in it, load
+        the current one (i.e. the one with the highest number in its filename).
+        """
+        # For all the files in the provided directory, check whether they
+        # follow the participant config file naming schema. Then sort them so
+        # the highest numbered file is at the end, since that's the one we
+        # want.
+        if pconfig_dir == "":
+            pconfig_dir = os.getcwd()
+        confs = sorted([c for c in os.listdir(pconfig_dir) if
+                       (c.startswith("rr2_participant_config") and
+                        c.endswith(".toml"))])
+        if confs:
+            return pconfig_dir + confs[-1]
+        else:
+            return None
+
+    def launch_interaction(self, session, participant, use_entrainer,
+                           experimenter):
         """ Launch interaction based on the current session and participant.
         """
         # Log session and participant ID.
@@ -168,16 +294,69 @@ class InteractionHandler(object):
                           "\nSession: {}, Participant ID: {}".format(
                               session, participant))
 
+        # Read the main config file to get paths to interaction scripts, script
+        # directories, and more. If this is a demo interaction, load the demo
+        # config file; otherwise try reading in the regular config file.
+        # Save study, script, audio, and viseme paths so we can load scripts
+        # and audio later.
+        study_path, script_config_path, story_script_path, \
+            session_script_path, audio_base_dir, viseme_base_dir, output_dir, \
+            pconfig_dir = self._read_main_config(
+                "config.demo.toml" if participant == "DEMO" else "config.toml")
+
+        # Get the script config, if this is not the demo.
+        if "DEMO" not in participant:
+            script_config = self._load_toml_config(script_config_path)
+        else:
+            script_config = {}
+
+        # Read in the main participant config file to get this participant's
+        # configuration.
+        if "DEMO" in participant:
+            pconfig = {}
+        else:
+            pconfig = self._load_toml_config(self._get_participant_config(
+                pconfig_dir))
+            if participant not in pconfig:
+                self._logger.warn("{} is not in the participant config file "
+                                  "we loaded! We can't personalize!".format(
+                                       participant))
+            elif session not in pconfig[participant]:
+                self._logger.warn("Session {} is not in the participant config"
+                                  " file we loaded for {}! We can't "
+                                  "personalize!".format(session, participant))
+            else:
+                # Since we are only running one participant and one session, we
+                # only care about the configuration for this participant and
+                # this session. So we'll only save that information.  TODO if
+                # we include any higher-level participant config later, we will
+                # need that too - then just save this participant and refer to
+                # the session as needed.
+                pconfig = pconfig[participant][session]
+
+        # For the RR2 study, if the participant's condition is set to NR,
+        # then set entrain=False so that audio is streamed through the
+        # entrainer but is not actually entrained.
+        entrain = True
+        if "condition" in pconfig:
+            if "NR" in pconfig["condition"]:
+                entrain = False
+
         # Set up ROS node publishers and subscribers.
         self.init_ros()
-        self._ros_handler = RosNode(self._queue)
+        self._ros_handler = RosNode(self._queue, use_entrainer, entrain,
+                                    audio_base_dir, viseme_base_dir)
 
         # Load the session script. The script handler loads the main config
         # file since that file mostly has directories to where scripts and
         # other files are, which we don't need to know here but it does.
         try:
             script_handler = ScriptHandler(self._ros_handler, session,
-                                           participant, entrain, experimenter)
+                                           participant, experimenter,
+                                           study_path, script_config,
+                                           story_script_path,
+                                           session_script_path,
+                                           output_dir, pconfig)
         except IOError as ioe:
             self._logger.exception("Did not load the session script... exiting"
                                    " because we need the session script to "

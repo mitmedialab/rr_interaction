@@ -66,6 +66,17 @@ optional arguments:
 - `-h, --help`: show this help message and exit
 - `-e, --use-entrainer`: Send audio to the entrainer on the way to the robot.
 
+The interaction can include the following automatic behaviors:
+- Backchanneling via the [backchannel
+  module](https://github.com/mitmedialab/Moody_BackChanneling/) (enable in
+  script files, see Interaction Scripts below for details)
+- Audio entrainment via the [audio
+  entrainer](https://github.com/mitmedialab/rr_audio_entrainer) (enable with a
+  command-line argument)
+- Automatic speech recognition via
+  [asr_google_cloud](https://github.com/mitmedialab/asr_google_cloud/) (always
+  used for getting user speech)
+
 ### Launch RR2 study
 
 You will need to run two scripts to launch the RR2 experiment study sessions.
@@ -264,7 +275,11 @@ The node subscribes to "/[r1d1\_msgs](https://github.com/mitmedialab/r1d1_msgs
 "/r1d1_msgs")/TegaState" on the ROS topic "/tega_state".
 
 The node subscribes to std_msgs/String messages on the ROS topic
-"rr/audio_entrainer".
+"rr/audio_entrainer", if the entrainer is enabled.
+
+The node subscribes to std_msgs/String messages on the ROS topic "msg_bc",
+which is published by the [backchannel
+module](https://github.com/mitmedialab/Moody_BackChanneling/).
 
 The node subscribes to
 [asr_google_cloud](https://github.com/mitmedialab/asr_google_cloud/)/AsrResult
@@ -349,13 +364,19 @@ the following:
 - PROMPT\_TIME: The amount of time to wait after asking a question before
   playing a prompt, in seconds.
 - NUM\_PROMPTS: How many prompts to give before moving on.
+- BACKCHANNEL ON/OFF: Enable or disable backchanneling. This means the robot
+  will use input from the backchannel module to automatically perform
+  backchanneling animations and speech actions when the user is speaking. By
+  default, backchanneling starts disabled.
 
 For example, the following commands will set the maximum incorrect responses to
-2 and the maximum game time allowed to 10 minutes:
+2 and the maximum game time allowed to 10 minutes, and enable backchanneling:
 
 `SET MAX_INCORRECT_RESPONSES    2`
 
 `SET MAX_GAME_TIME 10`
+
+`SET BACKCHANNEL ON`
 
 #### ROBOT
 

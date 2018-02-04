@@ -24,4 +24,7 @@
           pkg="rr_interaction"
           type="user_input_form.py" />
 
+    <!-- Backchanneling. Has multiple nodes as part of it. -->
+    <include file="$(find moody_backchanneling)/backchannel_module/backchannel_dependencies.launch" />
+
 </launch>
