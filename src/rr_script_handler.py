@@ -1136,6 +1136,11 @@ class ScriptHandler(object):
             # of the story to load into the participant config file, since some
             # stories from the SR2-child corpus do not have levels, but stories
             # from the SR2-robot corpus do.
+            if "story_type" not in self._pconfig:
+                self._logger.warning("No story type listed in pconfig! Cannot "
+                                     "load story. Skipping STORY line.")
+                return
+
             if "create" in self._pconfig["story_type"] and \
                     self._selected_scene and "stories" in self._pconfig:
                 self._story_parser.load_script(
@@ -1190,6 +1195,11 @@ class ScriptHandler(object):
         # TODO it would be straightforward to add moveable characters. Load as
         # PlayObjects that are draggable. Could make a text file for each scene
         # and do "OPAL LOAD_ALL".
+        if "story_type" not in self._pconfig:
+            self._logger.warning("No story type listed in pconfig! Cannot "
+                                 "load story. Skipping STORY line.")
+            return
+
         if "create" in self._pconfig["story_type"]:
             self._logger.info("Loading CREATE story on Opal device...")
             toload = {}
