@@ -133,16 +133,22 @@ class RosNode(object):
 
         # Set up rostopics we publish:
         self._logger.info("We will publish to topics: rr/opal_command, /tega, "
-                          + "/rr/entrain_audio, /rr/state")
+                          + "/rr/state"
+                          + (", /rr/entrain_audio" if self._use_entrainer
+                             else ""))
+
         # Commands to the Opal game.
         self._opal_pub = rospy.Publisher('/rr/opal_command', OpalCommand,
                                          queue_size=10)
         # Commands to the Tega robot.
         self._tega_pub = rospy.Publisher('/tega', TegaAction, queue_size=10)
-        # Commands to entrain audio.
-        self._entrainer_pub = rospy.Publisher('/rr/entrain_audio',
-                                              EntrainAudio,
-                                              queue_size=10)
+
+        # Commands to entrain audio, if entrainment is enabled.
+        self._entrainer_pub = None
+        if self._use_entrainer:
+            self._entrainer_pub = rospy.Publisher('/rr/entrain_audio',
+                                                  EntrainAudio,
+                                                  queue_size=10)
         # Interaction state messages.
         self._state_pub = rospy.Publisher('/rr/state', InteractionState,
                                           queue_size=10)
@@ -153,14 +159,14 @@ class RosNode(object):
 
         # Set up rostopics we subscribe to:
         self._logger.info("Subscribing to topics: /rr/opal_action, "
-                          + "/tega_state, /rr/audio_entrainer, /asr_result")
+                          + "/tega_state, /asr_result, /msg_bc"
+                          + (", /rr/audio_entrainer" if self._use_entrainer
+                             else ""))
         # State from the Opal game.
         rospy.Subscriber('/rr/opal_action', OpalAction,
                          self.on_opal_action_msg)
         # State from the Tega robot.
         rospy.Subscriber('/tega_state', TegaState, self.on_tega_state_msg)
-        # State from the audio entrainer.
-        rospy.Subscriber('/rr/audio_entrainer', String, self.on_entrainer_msg)
         # ASR results from the ASR Google Cloud node.
         rospy.Subscriber('/asr_result', AsrResult, self.on_asr_result_msg)
         # User input form responses.
@@ -168,6 +174,11 @@ class RosNode(object):
         # Subscribe to backchannel output so we know when to backchannel and
         # what kind of action to do.
         rospy.Subscriber("msg_bc", String, self.on_bc_msg_received)
+
+        if self._use_entrainer:
+            # State from the audio entrainer.
+            rospy.Subscriber('/rr/audio_entrainer', String,
+                             self.on_entrainer_msg)
 
     def send_opal_command(self, command, properties=None):
         """ Publish opal command message. Optionally, wait for a response. """
