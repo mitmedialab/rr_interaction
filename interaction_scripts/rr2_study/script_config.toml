@@ -106,6 +106,7 @@ timeout_prompts = ["WillYouHelp", "ItsJustPlaying"]
     user_responses = ["no", "nah", "nope", "uh"]
     robot_responses = ["ThatsOkay"]
 
+# Story task questions.
 [questions.listen_to_story]
 question = "rr1_story_02"
 timeout_prompts = ["PleaseIHaveAGoodIdea", "AwComeOnItllBeFun"]
@@ -134,6 +135,12 @@ question = "rr1_story_06"
     [[questions.liked_story.user_input]]
     user_responses = ["no", "didn't", "not"]
     robot_responses = ["YouDidntSorry", "AwIllHaveToPracticeMore"]
+
+[questions.RetellStoryToMe]
+question = "retellStoryToMe"
+    [[questions.RetellStoryToMe.user_input]]
+    user_responses = [""]
+    robot_responses = ["ItsOkayIfDontRemember", "UseArrows"]
 
 ## Questions to start the picture conversation task.
 [questions.look_at_pictures]
