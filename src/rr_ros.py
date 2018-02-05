@@ -29,6 +29,7 @@ import rospy  # ROS
 import datetime  # For header times and timeouts.
 import random  # For choosing backchannel actions.
 import time  # For sleep.
+import threading  # Timer for randomly backchanneling.
 import logging  # For log messages.
 from r1d1_msgs.msg import TegaAction  # Send commands to Tega.
 from r1d1_msgs.msg import TegaState  # ROS msgs to get info from Tega.
@@ -92,7 +93,7 @@ class RosNode(object):
     }
 
     def __init__(self, queue, use_entrainer, entrain, audio_base_dir,
-                 viseme_base_dir, backchannel_actions):
+                 viseme_base_dir, backchannel_actions, backchannel_random):
         """ Initialize ROS """
         # Set up logger
         self._logger = logging.getLogger(__name__)
@@ -102,6 +103,7 @@ class RosNode(object):
         # Backchanneling starts disabled.
         self._backchanneling_enabled = False
         self._story_backchanneling_enabled = False
+        self._backchannel_random = False
         # Do we send audio through the entrainer or not? Does the entrainer
         # actually entrain that audio, or merely stream it?
         self._use_entrainer = use_entrainer
@@ -418,8 +420,38 @@ class RosNode(object):
         self._backchanneling_enabled = enabled
         # If the story flag was set, then we will sometimes use story prompts
         # in our backchannel action set.
-        if story:
-            self._story_backchanneling_enabled = True
+        self._story_backchanneling_enabled = story
+        if enabled and self._backchannel_random:
+            self._randomly_backchannel()
+
+    def randomly_backchannel(self):
+        """ Randomly play backchannel actions every so often until
+        backchanneling is disabled.
+        """
+        # If backchanneling is no longer enabled, we'll stop sending actions.
+        if not self._backchanneling_enabled:
+            return
+
+        if "random" not in self._backchannel_actions:
+            self._logger.warning("No random backchannel actions listed in the "
+                                 "script config!")
+            return
+
+        # Randomly pick a backchannel action to do and send it to the robot.
+        self._logger.info("Choosing a random backchannel action...")
+        command = self._backchannel_actions["random"]["actions"][
+                    random.randint(0, len(self._backchannel_actions[
+                        "random"]["actions"]) - 1)]
+        # If the command is lowercase, it's speech; otherwise, it's an
+        # animation/motion command that we should send directly to the robot.
+        if command.islower():
+            self.send_speech(command + ".wav")
+        else:
+            self.send_tega_command(motion=command)
+
+        # Call this function again to randomly backchannel again in a little
+        # while, after a random interval of seconds.
+        threading.Timer(random.randint(5, 15), randomly_backchannel).start()
 
     def on_bc_msg_received(self, data):
         """ When we receive output from the backchannel module, if
@@ -427,7 +459,7 @@ class RosNode(object):
         robot, or, if it is in use and the action to take is speech, through
         the audio entrainer.
         """
-        if not self._backchanneling_enabled:
+        if not self._backchanneling_enabled and not self._backchannel_random:
             return
 
         # If backchanneling is happening during a story, we can occasionally
@@ -436,7 +468,7 @@ class RosNode(object):
         if self._story_backchanneling_enabled and \
                 "long_pause" in data.data.lower() and \
                 random.randint(1, 5) > 3:
-            self._logger.info("Choosing a story backchannel action..."
+            self._logger.info("Choosing a story backchannel action...")
             command = self._backchannel_actions["long_pause_story"]["actions"][
                     random.randint(0, len(self._backchannel_actions[
                         "long_pause_story"]["actions"]) - 1)]

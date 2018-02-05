@@ -338,9 +338,11 @@ class InteractionHandler(object):
         # then set entrain=False so that audio is streamed through the
         # entrainer but is not actually entrained.
         entrain = True
+        backchannel_random = False
         if "condition" in pconfig:
             if "NR" in pconfig["condition"]:
                 entrain = False
+                backchannel_random = True
 
         # Set up ROS node publishers and subscribers. Pass in the lists of
         # backchannel actions from the script config file.
@@ -352,7 +354,7 @@ class InteractionHandler(object):
         self.init_ros()
         self._ros_handler = RosNode(self._queue, use_entrainer, entrain,
                                     audio_base_dir, viseme_base_dir,
-                                    backchannel_actions)
+                                    backchannel_actions, backchannel_random)
 
         # Load the session script. The script handler loads the main config
         # file since that file mostly has directories to where scripts and

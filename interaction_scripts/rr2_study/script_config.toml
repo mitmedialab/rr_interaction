@@ -32,6 +32,9 @@ actions = ["uhhuh", "LAUGH_AGREEMENT", "YES", "SMILE", "uhhuh", "uhhuh",
            "mmhm"]
 [backchannel_actions.long_pause_story]
 actions = ["AndThenWhatHappened", "WhatHappenedNext", "Andthen", "keepGoing"]
+[backchannel_actions.random]
+actions = ["YES", "LAUGH", "SILENT_CONFIRM", "SILENT_YES", "SMILE", "uhuhh",
+           "hmm", "mmm", "LAUGH_AGREEMENT", "mmhm"]
 
 #######################################################################
 ## EXAMPLE QUESTION.
