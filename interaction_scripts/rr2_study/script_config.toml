@@ -19,6 +19,20 @@ negotiation_acquiese = ["negotiation_acquiesce_1", "negotiation_acquiesce_2", "n
 negotiation_general = ["negotiation_general_1", "negotiation_general_2", "negotiation_general_3"]
 
 #######################################################################
+# Different actions (speech and motion/animations) that could get played for
+# different backchannel states that can occur.
+[backchannel_actions.wordy]
+actions = ["YES", "LAUGH", "SILENT_CONFIRM", "SILENT_YES", "SMILE", "uhuhh",
+           "hmm"]
+[backchannel_actions.long_pause]
+actions = ["YES", "uhuhh", "SILENT_LAUGH", "YES", "SMILE", "uhhuh", "mmm"]
+[backchannel_actions.energy]
+actions = ["uhhuh", "LAUGH_AGREEMENT", "YES", "SMILE", "uhhuh", "uhhuh",
+           "mmhm"]
+[backchannel_actions.long_pause_story]
+actions = ["AndThenWhatHappened", "WhatHappenedNext", "Andthen", "keepGoing"]
+
+#######################################################################
 ## EXAMPLE QUESTION.
 #######################################################################
 # [questions.questionname]

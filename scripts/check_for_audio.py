@@ -85,6 +85,19 @@ def check_script_config(filename):
                 check_audio_file(audio)
                 check_viseme_file(audio)
 
+    # Check backchannel actions.
+    if "backchannel_actions" in toml_data:
+        for bca in toml_data["backchannel_actions"]:
+            if "actions" not in toml_data["backchannel_actions"][bca]:
+                print "ERROR: {} has no \"actions\" line!".format(bca)
+            else:
+                # Check the backchannel actions listed. Actions in uppercase
+                # are robot animations/motion, not speech we need to check.
+                for action in toml_data["backchannel_actions"][bca]["actions"]:
+                    if action.islower():
+                        check_audio_file(action)
+                        check_viseme_file(action)
+
     # Check questions.
     if "questions" in toml_data:
         for question in toml_data["questions"]:

@@ -447,7 +447,8 @@ class ScriptHandler(object):
                 self._logger.info("Set NUM_PROMPTS to {}".format(elements[2]))
             elif "BACKCHANNEL" in elements[1]:
                 backchannel = True if "ON" in elements[2] else False
-                self._ros_node.enable_backchanneling(backchannel)
+                story = True if "STORY" in elements[2] else False
+                self._ros_node.enable_backchanneling(backchannel, story=story)
                 self._logger.info("Set BACKCHANNEL to {}".format(backchannel))
             elif "MAX_GAME_TIME" in elements[1]:
                 self._max_game_time = datetime.timedelta(

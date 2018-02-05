@@ -367,16 +367,22 @@ the following:
 - BACKCHANNEL ON/OFF: Enable or disable backchanneling. This means the robot
   will use input from the backchannel module to automatically perform
   backchanneling animations and speech actions when the user is speaking. By
-  default, backchanneling starts disabled.
+  default, backchanneling starts disabled. You can add the word "STORY" with
+  the "ON" toggle if you want to enable the use of  specific story prompts in
+  addition to the regular backchannel actions during a story. All backchannel
+  actions should be defined in the script config file; see
+  `interaction_scripts/rr2_study/script_config.toml` for an example.
 
 For example, the following commands will set the maximum incorrect responses to
-2 and the maximum game time allowed to 10 minutes, and enable backchanneling:
+2 and the maximum game time allowed to 10 minutes, and enable backchanneling,
+with the occasional use of specific story prompts in addition to the regular
+backchannel actions:
 
 `SET MAX_INCORRECT_RESPONSES    2`
 
 `SET MAX_GAME_TIME 10`
 
-`SET BACKCHANNEL ON`
+`SET BACKCHANNEL ON STORY`
 
 #### ROBOT
 

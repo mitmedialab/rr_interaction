@@ -91,17 +91,8 @@ class RosNode(object):
         "STORY_GO_TO_PAGE": OpalCommand.STORY_GO_TO_PAGE
     }
 
-    # These are different actions that could be taken for different backchannel
-    # states that can occur.
-    WORDY = ["YES", "LAUGH", "SILENT_CONFIRM", "SILENT_YES", "SMILE",
-             "uhuhh.wav", "hmm.wav"]
-    LONG_PAUSE = ["YES", "uhuhh", "SILENT_LAUGH", "YES", "SMILE",
-                  "uhhuh.wav", "mmm.wav"]
-    ENERGY = ["uhhuh.wav", "LAUGH_AGREEMENT", "YES", "SMILE", "uhhuh.wav",
-              "uhhuh.wav", "mmhm.wav"]
-
     def __init__(self, queue, use_entrainer, entrain, audio_base_dir,
-                 viseme_base_dir):
+                 viseme_base_dir, backchannel_actions):
         """ Initialize ROS """
         # Set up logger
         self._logger = logging.getLogger(__name__)
@@ -110,6 +101,7 @@ class RosNode(object):
         self._main_queue = queue
         # Backchanneling starts disabled.
         self._backchanneling_enabled = False
+        self._story_backchanneling_enabled = False
         # Do we send audio through the entrainer or not? Does the entrainer
         # actually entrain that audio, or merely stream it?
         self._use_entrainer = use_entrainer
@@ -118,6 +110,9 @@ class RosNode(object):
         # the entrainer.
         self._audio_base_dir = audio_base_dir
         self._viseme_base_dir = viseme_base_dir
+        # These are different actions that could be taken for different
+        # backchannel states that can occur.
+        self._backchannel_actions = backchannel_actions
 
         # Initialize the flags we use to track responses from the robot and
         # from the user.
@@ -418,9 +413,13 @@ class RosNode(object):
             self._main_queue.put(data.response)
         self._response_received = data.response
 
-    def enable_backchanneling(self, enabled):
+    def enable_backchanneling(self, enabled, story=False):
         """ Turn backchanneling on or off. """
         self._backchanneling_enabled = enabled
+        # If the story flag was set, then we will sometimes use story prompts
+        # in our backchannel action set.
+        if story:
+            self._story_backchanneling_enabled = True
 
     def on_bc_msg_received(self, data):
         """ When we receive output from the backchannel module, if
@@ -431,24 +430,31 @@ class RosNode(object):
         if not self._backchanneling_enabled:
             return
 
+        # If backchanneling is happening during a story, we can occasionally
+        # use a story prompt after a long pause instead of a regular
+        # backchannel action.
+        if self._story_backchanneling_enabled and \
+                "long_pause" in data.data.lower() and \
+                random.randint(1, 5) > 3:
+            self._logger.info("Choosing a story backchannel action..."
+            command = self._backchannel_actions["long_pause_story"]["actions"][
+                    random.randint(0, len(self._backchannel_actions[
+                        "long_pause_story"]["actions"]) - 1)]
+
         # Randomly select a backchannel action based on the type of action
         # we should take and send to the robot.
         command = ""
-        if "wordy" in data.data.lower():
-            self._logger.info("Choosing WORDY backchannel action...")
-            command = self.WORDY[random.randint(0, len(self.WORDY) - 1)]
-        elif "longpause" in data.data.lower():
-            self._logger.info("Choosing LONG PAUSE backchannel action...")
-            command = self.LONG_PAUSE[random.randint(0,
-                                                     len(self.LONG_PAUSE) - 1)]
-        elif "energy" in data.data.lower():
-            self._logger.info("Choosing ENERGY backchannel action...")
-            command = self.ENERGY[random.randint(0, len(self.ENERGY) - 1)]
+        if data.data.lower() in self._backchannel_actions:
+            self._logger.info("Choosing {} backchannel action...".format(
+                data.data))
+            command = self._backchannel_actions[data.data.lower()]["actions"][
+                    random.randint(0, len(self._backchannel_actions[
+                        data.data.lower()]["actions"]) - 1)]
 
         # If the command is lowercase, it's speech; otherwise, it's an
         # animation/motion command that we should send directly to the robot.
         if command.islower():
-            self.send_speech(command)
+            self.send_speech(command + ".wav")
         else:
             self.send_tega_command(motion=command)
 

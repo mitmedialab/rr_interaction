@@ -342,10 +342,17 @@ class InteractionHandler(object):
             if "NR" in pconfig["condition"]:
                 entrain = False
 
-        # Set up ROS node publishers and subscribers.
+        # Set up ROS node publishers and subscribers. Pass in the lists of
+        # backchannel actions from the script config file.
+        if "backchannel_actions" in script_config:
+            backchannel_actions = script_config["backchannel_actions"]
+        else:
+            backchannel_actions = {}
+
         self.init_ros()
         self._ros_handler = RosNode(self._queue, use_entrainer, entrain,
-                                    audio_base_dir, viseme_base_dir)
+                                    audio_base_dir, viseme_base_dir,
+                                    backchannel_actions)
 
         # Load the session script. The script handler loads the main config
         # file since that file mostly has directories to where scripts and
