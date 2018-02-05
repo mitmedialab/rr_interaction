@@ -450,8 +450,10 @@ class RosNode(object):
             self.send_tega_command(motion=command)
 
         # Call this function again to randomly backchannel again in a little
-        # while, after a random interval of seconds.
-        threading.Timer(random.randint(5, 15), randomly_backchannel).start()
+        # while, after a random interval of seconds (interval from Park et al.
+        # 2017 backchanneling HRI paper).
+        threading.Timer(5.53 + random.uniform(-1.5, 1.5),
+                randomly_backchannel).start()
 
     def on_bc_msg_received(self, data):
         """ When we receive output from the backchannel module, if
