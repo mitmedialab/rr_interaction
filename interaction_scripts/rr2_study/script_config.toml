@@ -11,6 +11,7 @@ backchannel_prompts = ["mmhm", "uhuhh"]
 
 story_intro = ["OkayIHaveAGoodIdea", "HmLetsSee"]
 story_closing = ["ThisIsSuchFun", "ThisIsMyFavoriteGame", "OkayMyStorysOver"]
+child_story_closing = ["ThatWasAGoodStory", "GoodTelling", "ILikedYourStory"]
 
 negotiation_timeout_prompts = ["negotiation_timeout_1", "negotiation_timeout_2"]
 negotiation_no_response = ["OkayIllPick", "YouDontCare", "IllPickThen"]
@@ -120,7 +121,7 @@ timeout_prompts = ["WillYouHelp", "ItsJustPlaying"]
     user_responses = ["no", "nah", "nope", "uh"]
     robot_responses = ["ThatsOkay"]
 
-# Story task questions.
+## Story task questions.
 [questions.listen_to_story]
 question = "rr1_story_02"
 timeout_prompts = ["PleaseIHaveAGoodIdea", "AwComeOnItllBeFun"]
@@ -154,7 +155,22 @@ question = "rr1_story_06"
 question = "retellStoryToMe"
     [[questions.RetellStoryToMe.user_input]]
     user_responses = [""]
-    robot_responses = ["ItsOkayIfDontRemember", "UseArrows"]
+    robot_responses = ["ItsOkayIfDontRemember", "UseArrows", "SayTheEnd"]
+
+[questions.WhatHappenedFirst]
+question = "HeresFirstPage"
+    [[questions.WhatHappenedFirst.user_input]]
+    user_responses = ["don't know", "don't remember", "can't remember", "not sure", "don't want"]
+    robot_responses = ["WhatsHappeningInPicture"]
+
+[questions.wait_for_story_end]
+question = ""
+timeout_prompts = [""]
+backchannel_prompts = [""]
+max_attempt = [""]
+    [[questions.wait_for_wakeup.user_input]]
+    user_responses = ["the end", "end of story", "end of the story", "story end", "thee end"]
+    robot_responses = [""]
 
 ## Questions to start the picture conversation task.
 [questions.look_at_pictures]

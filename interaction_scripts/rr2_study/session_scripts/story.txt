@@ -1,3 +1,4 @@
+OPAL	ENABLE_TOUCH
 OPAL	PICK_STORY
 # Activity: Negotiation Task.
 STATE	start negotiation task
@@ -6,6 +7,7 @@ WAIT	USER_INPUT	NEGOTIATE	10
 STATE	end negotiation task
 OPAL	CLEAR
 OPAL	LOAD_STORY
+OPAL	DISABLE_TOUCH
 # Then do story.
 QUESTION	listen_to_story
 ROBOT	STORY_INTRO
@@ -15,5 +17,5 @@ STORY
 ROBOT	DO	TheEnd
 STATE	end story sr2
 ROBOT	STORY_CLOSING
-QUESTION	liked_story
+QUESTION	liked_story2
 OPAL	CLEAR

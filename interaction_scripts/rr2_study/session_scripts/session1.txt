@@ -35,6 +35,7 @@ STATE	start anomalous task
 ROBOT	DO	PERKUP
 QUESTION	lets_look_at_silly_pictures
 OPAL	CLEAR
+OPAL	DISABLE_TOUCH
 STATE	start anomalous picture 1
 OPAL	LOAD	{ "name": "anomalous/anomalousgiraffe.png", "tag": "PlayObject", "draggable": "false"}
 SET	PROMPT_TIME	15
@@ -93,18 +94,12 @@ SET	MAX_REPEATS	1
 STATE	start story task
 ROBOT	DO	rr1_story_01
 REPEAT	MAX_REPEATS	story-retell.txt
-# Child retelling.
-ROBOT	DO	Hey
-**RR	ROBOT	DO	<participant_name>
-QUESTION	RetellStoryToMe
-
-
 STATE	end story task
 
 # Photo with robot.
 STATE	start photo task
 QUESTION	WantAPhoto
-SET	PROMPT_TIME	1200
+SET	PROMPT_TIME	300
 ROBOT	DO	Booyah
 ROBOT	DO	POSE_SMILE
 QUESTION	TakePhoto

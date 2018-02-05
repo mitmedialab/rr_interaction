@@ -77,7 +77,8 @@ def check_script_config(filename):
     defaults = ["max_attempt", "timeout_prompts", "backchannel_prompts",
                 "story_intro", "story_closing", "negotiation_timeout_prompts",
                 "negotiation_no_response", "negotiation_refusal",
-                "negotiation_acquiesce", "negotiation_general"]
+                "negotiation_acquiesce", "negotiation_general",
+                "child_story_closing"]
 
     for response_type in defaults:
         if response_type in toml_data:
