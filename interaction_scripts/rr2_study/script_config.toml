@@ -26,9 +26,9 @@ negotiation_general = ["negotiation_general_1", "negotiation_general_2", "negoti
 actions = ["YES", "LAUGH", "SILENT_CONFIRM", "SILENT_YES", "SMILE", "uhuhh",
            "hmm"]
 [backchannel_actions.long_pause]
-actions = ["YES", "uhuhh", "SILENT_LAUGH", "YES", "SMILE", "uhhuh", "mmm"]
+actions = ["YES", "uhuhh", "SILENT_LAUGH", "YES", "SMILE", "uhuhh", "mmm"]
 [backchannel_actions.energy]
-actions = ["uhhuh", "LAUGH_AGREEMENT", "YES", "SMILE", "uhhuh", "uhhuh",
+actions = ["uhuhh", "LAUGH_AGREEMENT", "YES", "SMILE", "uhuhh", "uhuhh",
            "mmhm"]
 [backchannel_actions.long_pause_story]
 actions = ["AndThenWhatHappened", "WhatHappenedNext", "Andthen", "keepGoing"]
@@ -155,7 +155,7 @@ question = "rr1_story_06"
     robot_responses = ["YouDidntSorry", "AwIllHaveToPracticeMore"]
 
 [questions.RetellStoryToMe]
-question = "retellStoryToMe"
+question = "RetellStoryToMe"
     [[questions.RetellStoryToMe.user_input]]
     user_responses = [""]
     robot_responses = ["ItsOkayIfDontRemember", "UseArrows", "SayTheEnd"]
@@ -256,6 +256,18 @@ timeout_prompts = ["ImRedWhatsYourName", "CanYouTellName"]
     user_responses = [""]
     robot_responses = ["SayThatAgainShy"]
 
+[questions.ImNewHereAreYou]
+question = "ImNewHereAreYou"
+    [[questions.ImNewHereAreYou.user_input]]
+    user_responses = ["yes", "of course", "yeah", "years", "my whole life"]
+    robot_responses = ["SoYouKnowEveryone"]
+    [[questions.ImNewHereAreYou.user_input]]
+    user_responses = ["no", "new too", "new two", "I'm new", "my first year"]
+    robot_responses = ["SoYoureLikeMe"]
+    [[questions.ImNewHereAreYou.user_input]]
+    user_responses = [""]
+    robot_responses = ["OhHuhOkay"]
+
 ## Anomalous picture task questions.
 [questions.lets_look_at_silly_pictures]
 question = "LookSillyPictures"
@@ -295,7 +307,7 @@ max_attempt = [""]
 [questions.AnomalousPicture1]
 question = ""
 timeout_prompts = [""]
-max_attempt = ["LetsLookAtNextPicture"]
+max_attempt = ["LetsLookAtAnotherPicture"]
     [[questions.AnomalousPicture1.user_input]]
     user_responses = [""]
     robot_responses = ["WowNeverSawBefore"]
@@ -311,7 +323,7 @@ max_attempt = ["ThereThatsAll"]
 [questions.AnomalousPicture3]
 question = ""
 timeout_prompts = [""]
-max_attempt = ["LetsLookAtNextPicture"]
+max_attempt = ["LetsLookAtAnotherPicture"]
     [[questions.AnomalousPicture3.user_input]]
     user_responses = [""]
     robot_responses = ["ThatsSoSilly"]

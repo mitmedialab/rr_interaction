@@ -20,6 +20,7 @@ QUESTION	ImRed
 PAUSE	4
 ROBOT	DO	ItsNiceToMeetYou
 **RR	ROBOT	DO	<participant_name>
+**RR	ROBOT	DO	LAUGH
 STATE	end introduction
 # Robot backstory.
 STATE	start backstory
@@ -50,7 +51,7 @@ SET	MAX_REPEATS	1
 IF_RESPONSE	REPEAT	MAX_REPEATS	anomalous.txt
 STATE	end anomalous picture 1
 # Do the next picture - same format.
-ROBOT	DO	LetsLookAtNextPicture
+ROBOT	DO	LetsLookAtAnotherPicture
 OPAL	CLEAR
 STATE	start anomalous picture 2
 OPAL	LOAD	{ "name": "anomalous/anomalousgiraffe.png", "tag": "PlayObject", "draggable": "false"}
@@ -114,6 +115,7 @@ STATE	start closing
 **RR	ROBOT	DO	<participant_name>
 ROBOT	DO	PERKUP
 ROBOT	DO	SeeYouLaterHuman
+**RR	ROBOT	DO	LAUGH
 ROBOT	FIDGET	EMPTY
 ROBOT	DO	YAWN
 ROBOT	DO	POSE_SLEEPING
