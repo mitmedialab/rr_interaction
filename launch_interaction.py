@@ -104,7 +104,7 @@ def check_name(name):
         # Directory of audio files.
         if "audio_base_dir" in toml_data:
             audio_base_dir = toml_data["audio_base_dir"]
-            return os.path.isfile(audio_base_dir + "source/" + name + ".wav")
+            return os.path.isfile(audio_base_dir + name + ".wav")
         else:
             print "Could not read audio base directory path! Expected option "\
                   "\"audio_base_dir\" to be in config file. We need to know "\
