@@ -594,6 +594,13 @@ class ScriptHandler(object):
         # Tell the robot to play the question.
         self._send_robot_do(question_audio)
 
+        if not response_to_wait_for:
+            self._logger.warning("No input of any kind send for this question!"
+                                 " We can't wait for a response if there is no"
+                                 " response to wait for! Skipping the rest of"
+                                 " the question!")
+            return
+
         # Wait for a user response or a timeout. If we get a timeout, use a
         # prompt and wait again. Repeat until we have used all the allowed
         # number of prompts have been used, at which point, if we still haven't

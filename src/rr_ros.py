@@ -496,6 +496,10 @@ class RosNode(object):
         """ Wait for particular user or robot responses for the specified
         amount of time. Timeout should be a datetime.timedelta object.
         """
+        if not response:
+            self._logger.warning("No response to wait for provided! Cannot "
+                                 "wait for a nonexistent response. Skipping.")
+            return
         # Check what response to wait for, and set that response received flag
         # to false. Valid responses to wait for are defined as constants in
         # this class.
