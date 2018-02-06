@@ -1115,6 +1115,11 @@ class ScriptHandler(object):
         """
         # For CREATE stories, get the scenes to show for the user to pick from
         # from the participant config.
+        if "story_type" not in self._pconfig:
+            self._logger.warning("No story type listed in pconfig! Cannot "
+                                 "load story. Skipping STORY line.")
+            return
+
         if "create" in self._pconfig["story_type"] and \
                 "scenes" in self._pconfig:
             self._logger.info("Scenes to pick from are: {}".format(
