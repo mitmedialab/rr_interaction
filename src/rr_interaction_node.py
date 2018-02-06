@@ -98,7 +98,7 @@ class InteractionHandler(object):
                                    json_data)
         except Exception as exc:  # pylint: disable=broad-except
             # Could not read config file -- use basic configuration.
-            print "Error loading log config: {}".format(exc)
+            self._logger.error("Error loading log config: {}".format(exc))
             logging.basicConfig(filename="ss.log", level=logging.DEBUG)
             self._logger.exception("""ERROR! Could not read your json log
                                    config file \"" + config_file + "\". Does

@@ -271,7 +271,7 @@ class RosNode(object):
         if self._entrainer_pub is None:
             self._logger.warning("EntrainAudio ROS publisher is none!")
             return
-        print '\nsending entrain speech message: %s' % speech
+        self._logger.debug("Sending entrain speech message: {}".format(speech))
         msg = EntrainAudio()
         msg.header = Header()
         msg.header.stamp = rospy.Time.now()
@@ -279,7 +279,7 @@ class RosNode(object):
         msg.viseme_file = visemes
         msg.entrain = entrain
         self._entrainer_pub.publish(msg)
-        rospy.loginfo(msg)
+        self._logger.debug(msg)
 
     def send_speech(self, audio):
         """ Send audio either through the entrainer or directly to the robot.
@@ -605,10 +605,12 @@ class RosNode(object):
             counter += increment
             time.sleep(increment)
 
-        print "Waited {} seconds".format(counter)
+        self._logger.debug("Waited {} seconds for robot to start sound".format(
+            counter))
         if counter >= timeout:
-            print "Warning: timed out waiting for robot to start playing " \
-                     "sound! timeout: " + str(timeout) + ". Moving on..."
+            self._logger.warning("Warning: timed out waiting for robot to "
+                                 "start playing sound! timeout: {} "
+                                 "Moving on...".format(timeout))
 
     def wait_for_motion(self, timeout=5):
         """ Wait until the robot has started playing an animation before going
@@ -624,5 +626,6 @@ class RosNode(object):
             time.sleep(increment)
 
         if counter >= timeout:
-            print "Warning: timed out waiting for robot to start doing " \
-                     "motion! timeout: " + str(timeout) + ". Moving on..."
+            self._logger.warning("Warning: timed out waiting for robot to "
+                                 "start doing motion! timeout: {} "
+                                 "Moving on...".format(timeout))
