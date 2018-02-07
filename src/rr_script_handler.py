@@ -1118,6 +1118,7 @@ class ScriptHandler(object):
         if "story_type" not in self._pconfig:
             self._logger.warning("No story type listed in pconfig! Cannot "
                                  "load story. Skipping STORY line.")
+            self._doing_story = False
             return
 
         if "create" in self._pconfig["story_type"] and \
@@ -1152,6 +1153,7 @@ class ScriptHandler(object):
             if "story_type" not in self._pconfig:
                 self._logger.warning("No story type listed in pconfig! Cannot "
                                      "load story. Skipping STORY line.")
+                self._doing_story = False
                 return
 
             if "create" in self._pconfig["story_type"] and \
@@ -1182,6 +1184,7 @@ class ScriptHandler(object):
                                      "line. The selected scene was \"{}\" and "
                                      "here's the config: {}".format(
                                          self._selected_scene, self._pconfig))
+                self._doing_story = False
         except IOError as ioerr:
             self._logger.exception("Script parser could not open story script!"
                                    "Skipping STORY line. {}".format(ioerr))
@@ -1211,6 +1214,7 @@ class ScriptHandler(object):
         if "story_type" not in self._pconfig:
             self._logger.warning("No story type listed in pconfig! Cannot "
                                  "load story. Skipping STORY line.")
+            self._doing_story = False
             return
 
         if "create" in self._pconfig["story_type"]:
