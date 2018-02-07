@@ -29,6 +29,7 @@ SOFTWARE.
 import os  # For checking if files and directories exist.
 import os.path  # For checking if files and directories exist.
 import toml  # For reading our config file.
+import wave  # For checking whether audio is mono or stereo.
 
 
 def check_script(filename):
@@ -153,8 +154,14 @@ def check_audio_file(filename):
     if filename == "" or filename == "<experimenter_name>" or \
             filename == "<participant_name>":
         return
-    if not os.path.isfile(AUDIO_BASE_DIR + "source/" + filename + ".wav"):
+
+    name = AUDIO_BASE_DIR + filename + ".wav"
+    if not os.path.isfile(name):
         MISSING_AUDIO.append(filename + ".wav")
+    else:
+        wav = wave.open(name, 'r')
+        if wav.getnchannels() == 2:
+            STEREO_FILES.append(filename + ".wav")
 
 
 def check_viseme_file(filename):
@@ -164,8 +171,7 @@ def check_viseme_file(filename):
     if filename == "" or filename == "<experimenter_name>" or \
             filename == "<participant_name>":
         return
-    if not os.path.isfile(VISEME_BASE_DIR + "formatted_phonemes/" + filename
-                          + ".txt"):
+    if not os.path.isfile(VISEME_BASE_DIR + filename + ".txt"):
         MISSING_VISEMES.append(filename + ".txt")
 
 
@@ -252,6 +258,7 @@ if __name__ == '__main__':
 
     MISSING_AUDIO = []
     MISSING_VISEMES = []
+    STEREO_FILES = []
 
     print "Checking script config..."
     check_script_config(SCRIPT_CONFIG)
@@ -266,7 +273,11 @@ if __name__ == '__main__':
         if filename.endswith(".txt"):
             check_script(SESSIONS_TO_CHECK + filename)
 
-    # Print all thet missing files, without duplicates.
+    # Print all the missing and stereo files, without duplicates.
+    print "=================\nSTEREO FILES:"
+    for audio in sorted(list(set(STEREO_FILES))):
+        print audio
+
     print "=================\nMISSING AUDIO FILES:"
     for audio in sorted(list(set(MISSING_AUDIO))):
         print audio
