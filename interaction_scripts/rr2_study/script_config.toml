@@ -171,7 +171,7 @@ question = ""
 timeout_prompts = [""]
 backchannel_prompts = [""]
 max_attempt = [""]
-    [[questions.wait_for_wakeup.user_input]]
+    [[questions.wait_for_story_end.user_input]]
     user_responses = ["the end", "end of story", "end of the story", "story end", "thee end"]
     robot_responses = [""]
 

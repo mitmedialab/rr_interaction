@@ -12,7 +12,8 @@ STATE	end story retell
 QUESTION	liked_story
 
 # Child retelling.
-ROBOT	DO	Hey
+**NR	ROBOT	DO	HeyNoName
+**RR	ROBOT	DO	Hey
 **RR	ROBOT	DO	<participant_name>
 QUESTION	RetellStoryToMe
 OPAL	STORY_SHOW_BUTTONS
