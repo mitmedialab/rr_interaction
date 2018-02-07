@@ -45,23 +45,43 @@
     },
 
     "loggers": {
-        "rr_script_handler": {
+        "src.rr_script_handler": {
+            "level": "DEBUG",
+            "handlers": ["rosout", "info_file_handler", "console"]
+        },
+        "src.rr_script_parser": {
+            "level": "DEBUG",
+            "handlers": ["rosout", "info_file_handler", "console"]
+        },
+        "src.rr_interaction_node": {
+            "level": "DEBUG",
+            "handlers": ["rosout", "info_file_handler", "console"]
+        },
+        "src.rr_performance_logger": {
             "level": "DEBUG",
             "handlers": ["rosout"]
         },
-        "rr_script_parser": {
+        "src.rr_ros": {
+            "level": "DEBUG",
+            "handlers": ["rosout", "info_file_handler", "console"]
+        },
+        "src.user_input_form": {
             "level": "DEBUG",
             "handlers": ["rosout"]
         },
-        "rr_interaction_node": {
+        "src.user_input_ros": {
             "level": "DEBUG",
             "handlers": ["rosout"]
         },
-        "rr_personalization_manager": {
+        "src.user_input_interaction_ui": {
             "level": "DEBUG",
             "handlers": ["rosout"]
         },
-        "rr_ros": {
+        "src.user_input_negotiation_ui": {
+            "level": "DEBUG",
+            "handlers": ["rosout"]
+        },
+        "src.user_input_tega_ui": {
             "level": "DEBUG",
             "handlers": ["rosout"]
         }

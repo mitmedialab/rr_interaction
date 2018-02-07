@@ -87,6 +87,7 @@ class InteractionHandler(object):
         self._queue = Queue.Queue()
         # Set up logger.
         self._logger = logging.getLogger(__name__)
+
         # Configure logging.
         try:
             config_file = "rr_log_config.json"
@@ -98,12 +99,13 @@ class InteractionHandler(object):
                                    json_data)
         except Exception as exc:  # pylint: disable=broad-except
             # Could not read config file -- use basic configuration.
+            print "Error loading log config: {}".format(exc)
             self._logger.error("Error loading log config: {}".format(exc))
-            logging.basicConfig(filename="ss.log", level=logging.DEBUG)
+            logging.basicConfig(filename="rr.log", level=logging.DEBUG)
             self._logger.exception("""ERROR! Could not read your json log
                                    config file \"" + config_file + "\". Does
                                    the file exist? Is it valid json?\n\nUsing
-                                   default log setup to log to \"ss.log\". Will
+                                   default log setup to log to \"rr.log\". Will
                                    not be logging to rosout!""")
 
     def parse_arguments(self):
