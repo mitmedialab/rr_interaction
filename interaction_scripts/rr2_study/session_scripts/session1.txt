@@ -12,7 +12,6 @@ ROBOT	DO	YAWN
 ROBOT	DO	IceCream
 ROBOT	DO	LAUGH
 STATE	end robot wakeup
-PAUSE	1
 SET	PROMPT_TIME	8
 # Robot introduction.
 STATE	start introduction
@@ -25,7 +24,7 @@ STATE	end introduction
 # Robot backstory.
 STATE	start backstory
 QUESTION	ImNewHereAreYou
-ROBOT	DO	SILENT_THINKING
+ROBOT	DO	SIDEPERK
 ROBOT	DO	ImNotGoodAtHearing
 **NR	QUESTION	help_practiceNR
 **RR	QUESTION	help_practiceRR
@@ -38,7 +37,7 @@ QUESTION	lets_look_at_silly_pictures
 OPAL	CLEAR
 OPAL	DISABLE_TOUCH
 STATE	start anomalous picture 1
-OPAL	LOAD	{ "name": "anomalous/anomalousgiraffe.png", "tag": "PlayObject", "draggable": "false"}
+OPAL	LOAD_OBJECT	{ "name": "anomalous/anomalousgiraffe.png", "tag": "PlayObject", "draggable": "false"}
 SET	PROMPT_TIME	15
 SET	NUM_PROMPTS	0
 # If the child says nothing, the robot will say the max attempt speech after
@@ -54,7 +53,7 @@ STATE	end anomalous picture 1
 ROBOT	DO	LetsLookAtAnotherPicture
 OPAL	CLEAR
 STATE	start anomalous picture 2
-OPAL	LOAD	{ "name": "anomalous/anomalousgiraffe.png", "tag": "PlayObject", "draggable": "false"}
+OPAL	LOAD_OBJECT	{ "name": "anomalous/anomalousgiraffe.png", "tag": "PlayObject", "draggable": "false"}
 SET	PROMPT_TIME	15
 SET	NUM_PROMPTS	0
 QUESTION	AnomalousPicture2
