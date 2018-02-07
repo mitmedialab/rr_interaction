@@ -328,8 +328,8 @@ class ScriptHandler(object):
 
         # If this is an IF RESPONSE line, only do the line if the last question
         # got a response (i.e. did not time out).
-        if len(elements) > 1 and "IF_REPONSE" in elements[0]:
-            self._logger.debug("IF_REPONSE")
+        if len(elements) > 1 and "IF_RESPONSE" in elements[0]:
+            self._logger.debug("IF_RESPONSE")
             if self._got_a_response:
                 # Remove the tag and parse the line as usual.
                 del elements[0]
