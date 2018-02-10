@@ -235,7 +235,7 @@ class InteractionHandler(object):
                                    "to be in the config file. Defaulting to "
                                    "saving in the current working directory.")
                 output_dir = ""
-            # Directory where any output should be saved.
+            # Directory where participant config files are located.
             if "pconfig_dir" in toml_data:
                 pconfig_dir = toml_data["pconfig_dir"]
             else:
@@ -244,6 +244,15 @@ class InteractionHandler(object):
                                    "to be in the config file. Defaulting to "
                                    "checking the current working directory.")
                 pconfig_dir = ""
+            # Naming pattern for participant config files.
+            if "pconfig_name" in toml_data:
+                pconfig_name = toml_data["pconfig_name"]
+            else:
+                self._logger.error("Could not read name for the participant "
+                                   "config files! Expected \"pconfig_name\""
+                                   "to be in the config file. Defaulting to "
+                                   "\"participant_config\".")
+                pconfig_name = "participant_config"
         except Exception as exc:  # pylint: disable=broad-except
             self._logger.exception("Could not read your toml config file \"" +
                                    str(config) + "\". Does the file exist? Is "
@@ -252,7 +261,7 @@ class InteractionHandler(object):
             exit(1)
         return study_path, script_config, story_script_path, \
             session_script_path, audio_base_dir, viseme_base_dir, output_dir, \
-            pconfig_dir
+            pconfig_dir, pconfig_name
 
     def _load_toml_config(self, config):
         """ Load in a toml config file for later reference. """
@@ -269,7 +278,7 @@ class InteractionHandler(object):
                                    file to continue. {}""".format(config, exc))
             exit(1)
 
-    def _get_participant_config(self, pconfig_dir):
+    def _get_participant_config(self, pconfig_dir, pconfig_name):
         """ Given the directory with the participant config files in it, load
         the current one (i.e. the one with the highest number in its filename).
         """
@@ -280,9 +289,10 @@ class InteractionHandler(object):
         if pconfig_dir == "":
             pconfig_dir = os.getcwd()
         confs = sorted([c for c in os.listdir(pconfig_dir) if
-                       (c.startswith("rr2_participant_config") and
+                       (c.startswith(pconfig_name) and
                         c.endswith(".toml"))])
         if confs:
+            self._logger.info("Found participant config: {}".format(confs[-1]))
             return pconfig_dir + confs[-1]
         else:
             return None
@@ -303,7 +313,7 @@ class InteractionHandler(object):
         # and audio later.
         study_path, script_config_path, story_script_path, \
             session_script_path, audio_base_dir, viseme_base_dir, output_dir, \
-            pconfig_dir = self._read_main_config(
+            pconfig_dir, pconfig_name = self._read_main_config(
                 "config.demo.toml" if participant == "DEMO" else "config.toml")
 
         # Get the script config, if this is not the demo.
@@ -318,7 +328,8 @@ class InteractionHandler(object):
             pconfig = {}
         else:
             pconfig = self._load_toml_config(self._get_participant_config(
-                pconfig_dir))
+                pconfig_dir, pconfig_name))
+            self._logger.debug(pconfig)
             if participant not in pconfig:
                 self._logger.warn("{} is not in the participant config file "
                                   "we loaded! We can't personalize!".format(

@@ -36,3 +36,9 @@ output_dir = "performance/"
 
 # Where are the participant config files?
 pconfig_dir = "performance/"
+
+# What is the naming pattern for the participant config files? We assume all
+# the participant config files have the same pattern, i.e., a name followed by
+# a number. We will automatically load the file with the highest number in its
+# filename.
+pconfig_name = "rr2_participant_config"

@@ -1,6 +1,6 @@
 # Relative to this config file, where is the directory with scripts for the
 # current study?
-study_path = "interaction_scripts/demo/"
+study_path = "path/to/scripts/"
 
 # In the study directory, what is the directory with story scripts? If there is
 # no subdirectory, set to the empty string. If story and session scripts are in
@@ -13,7 +13,7 @@ story_script_path = "story_scripts/"
 session_script_path = "session_scripts/"
 
 # Relative to this config file, where is the study script config file?
-script_config = "interaction_scripts/rr2_study/script_config.toml"
+script_config = "path/to/script_config.toml"
 
 # Where are the audio files located? We need to know the full file path so we
 # can stream audio to the robot. You can either specify full filepaths in your
@@ -36,3 +36,9 @@ output_dir = "path/where/we/can/save/stuff/"
 
 # Where are the participant config files?
 pconfig_dir = "path/to/participant/config/files/"
+
+# What is the naming pattern for the participant config files? We assume all
+# the participant config files have the same pattern, i.e., a name followed by
+# a number. We will automatically load the file with the highest number in its
+# filename.
+pconfig_name = "participant_config"
