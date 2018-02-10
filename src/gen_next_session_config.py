@@ -36,7 +36,7 @@ import text_similarity_tools  # For getting similarity between stories.
 
 
 def generate_next_session_config(pid, performance, pconfig, story_dir,
-        study_config):
+                                 study_config):
     """ Given a participant's past performance, and meta-information about the
     participant's condition, personalization, etc, generate a configuration
     file for everything for their next session (e.g., which stories they will
@@ -80,8 +80,6 @@ def generate_next_session_config(pid, performance, pconfig, story_dir,
     # has been recorded for this participant. The session numbers are probably
     # strings so we convert them to ints before checking.
     session = max([int(k) for k in performance["session"].keys()]) + 1
-    # Save as an int.
-    session_int = session
     # Make it a string since for the dictionaries it's a string as a key.
     session = str(session)
     print "Next is Session {}".format(session)
@@ -96,7 +94,8 @@ def generate_next_session_config(pid, performance, pconfig, story_dir,
     ##########################################################################
     print "Selecting stories for this participant..."
     new_pconfig = personalize_stories(pid, performance, pconfig[pid],
-            story_dir, study_config, new_pconfig, session)
+                                      story_dir, study_config, new_pconfig,
+                                      session)
 
     ##########################################################################
     # PERSONALIZATION: CATCHPHRASES.
@@ -122,7 +121,7 @@ def generate_next_session_config(pid, performance, pconfig, story_dir,
 
 
 def personalize_stories(pid, performance, pconfig, story_dir, study_config,
-        new_pconfig, session):
+                        new_pconfig, session):
     """ Given a participant, their performance so far, some configuration info
     about the study sessions and the participant, and a directory of stories,
     determine which stories the participant should hear next.
@@ -250,7 +249,7 @@ def personalize_stories(pid, performance, pconfig, story_dir, study_config,
             for scene in new_pconfig[session]["scenes"]:
                 new_pconfig[session]["stories"][scene] = corpus_name + "/" + \
                     study_config["sessions"][session]["default_stories"][
-                            scene][ "story"]
+                            scene]["story"]
 
     # Return the new updated participant config information.
     return new_pconfig
@@ -280,7 +279,7 @@ def get_story_from_file(story_file):
 
 
 def pick_story(story_corpus, corpus_name, pid, story_dir, story_create_level,
-        scenes_used=None, scene_to_pick_from=None, similar=True):
+               scenes_used=None, scene_to_pick_from=None, similar=True):
     """ Given a set of stories, compute the similarity between the
     stories and the participant's stories, and choose the next story to tell.
     """
@@ -422,8 +421,8 @@ def read_toml(toml_file):
         # out information about the file that couldn't be read and re-raise the
         # exception.
         except TypeError as type_ex:
-            print "Didn't read file right: {}. Error: {}".format(toml_file,
-                type_ex)
+            print "Didn't read file right: {}. Error: {}".format(
+                    toml_file, type_ex)
             raise
         except TomlDecodeError as tde:
             print "Bad toml in file: {}. Error: {}".format(toml_file, tde)
@@ -580,7 +579,7 @@ if __name__ == '__main__':
     # Save the participant configs out to a new toml file.
     try:
         OUTNAME = get_next_outfile_name(ARGS.participant_conf[0],
-                ARGS.outdir[0])
+                                        ARGS.outdir[0])
         print "\nSaving updated participant config to {}!".format(OUTNAME)
         with open(OUTNAME, "w") as outf:
             toml.dump(CONFIG, outf)

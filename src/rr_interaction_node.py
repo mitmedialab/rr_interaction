@@ -65,11 +65,6 @@ class InteractionHandler(object):
     # _ros_node = rospy.init_node('relational_robot', anonymous=False)
     def init_ros(self):
         """ Initialize the ROS node. """
-        # TODO If running on network where DNS does not resolve local
-        # hostnames, get the public IP address of this machine and
-        # export to the environment variable $ROS_IP to set the public
-        # address of this node, so the user doesn't have to remember
-        # to do this before starting the node.
         self._ros_node = rospy.init_node('relational_robot', anonymous=False)
         # We could set the ROS log level here if we want:
         # log_level=rospy.DEBUG)
@@ -268,8 +263,8 @@ class InteractionHandler(object):
         try:
             with open(config) as tof:
                 toml_data = toml.load(tof)
-            self._logger.debug("Reading toml config...: {}".format(
-                toml_data))
+            # self._logger.debug("Reading toml config...: {}".format(
+            #    toml_data))
             return toml_data
         except Exception as exc:  # pylint: disable=broad-except
             self._logger.exception("""Could not read your toml config file
@@ -334,18 +329,14 @@ class InteractionHandler(object):
                 self._logger.warn("{} is not in the participant config file "
                                   "we loaded! We can't personalize!".format(
                                        participant))
-            elif session not in pconfig[participant]:
+            elif str(session) not in pconfig[participant]:
                 self._logger.warn("Session {} is not in the participant config"
                                   " file we loaded for {}! We can't "
                                   "personalize!".format(session, participant))
             else:
                 # Since we are only running one participant and one session, we
-                # only care about the configuration for this participant and
-                # this session. So we'll only save that information.  TODO if
-                # we include any higher-level participant config later, we will
-                # need that too - then just save this participant and refer to
-                # the session as needed.
-                pconfig = pconfig[participant][session]
+                # only care about the configuration for this participant.
+                pconfig = pconfig[participant]
 
         # For the RR2 study, if the participant's condition is set to NR,
         # then set entrain=False so that audio is streamed through the

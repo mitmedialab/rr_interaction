@@ -115,6 +115,10 @@ class ScriptHandler(object):
             # didn't get a script.
             raise
 
+        # Save the session number as a string for later use in checking the
+        # participant config file.
+        self._session = str(session)
+
         # Initialize flags and counters:
         # Set up counter for how many stories have been told this session.
         self._stories_told = 0
@@ -773,16 +777,26 @@ class ScriptHandler(object):
         # did not get the user to pick one. So we need to selecte a scene
         # ourselves... pick one randomly:
         if self._picking_scene:
-            if "scenes" in self._pconfig:
-                self._selected_scene = self._pconfig["scenes"][random.randint(
-                    0, len(self._pconfig["scenes"]) - 1)]
-                self._logger.info("No user scene selection made! Selecting a "
-                                  "scene... {}".format(self._selected_scene))
+            if self._session in self._pconfig:
+                if "scenes" in self._pconfig[self._session]:
+                    self._selected_scene = self._pconfig[self._session][
+                            "scenes"][random.randint(
+                                0, len(self._pconfig[self._session][
+                                    "scenes"]) - 1)]
+                    self._logger.info("No user scene selection made! Selecting"
+                                      " a scene... {}".format(
+                                          self._selected_scene))
+                else:
+                    self._logger.error("We were supposed to pick a scene to "
+                                       "play, but there are none in the"
+                                       "participant config file for this "
+                                       "session!")
+                self._picking_scene = False
             else:
                 self._logger.error("We were supposed to pick a scene to play, "
-                                   "but there are none in the participant "
-                                   "config file! What's up with that?")
-            self._picking_scene = False
+                                   "but there is no session {} in the "
+                                   "participant config file!".format(
+                                    self._session))
 
         # Play the "max attempts reached" robot response, since we used up
         # all the prompts and didn't get an expected user response. Either
@@ -1022,17 +1036,24 @@ class ScriptHandler(object):
         """ Switch the selected scene for a scene from the participant config's
         list of scenes that wasn't selected.
         """
-        if "scenes" in self._pconfig:
-            for scene in self._pconfig["scenes"]:
-                if scene != self._selected_scene:
-                    self._logger.info("Changing selected scene to {}".format(
-                        scene))
-                    self._selected_scene = scene
-                    break
+        if self._session in self._pconfig:
+            if "scenes" in self._pconfig[self._session]:
+                for scene in self._pconfig["scenes"][self._session]:
+                    if scene != self._selected_scene:
+                        self._logger.info("Changing selected scene to "
+                                          "{}".format(scene))
+                        self._selected_scene = scene
+                        break
+            else:
+                self._logger.error("No scenes in participant config? Not sure "
+                                   "how we picked a scene before if none were "
+                                   "available to pick from. Not switching "
+                                   "scene!")
         else:
-            self._logger.error("No scenes in participant config? Not sure how"
-                               " we picked a scene before if there weren't any"
-                               " available to pick from? Not switching scene!")
+            self._logger.error("We were supposed to switch the selected scene,"
+                               " but there is no session {} in the participant"
+                               "config file with a scene list!".format(
+                                self._session))
 
     def _get_response_from_config(self, response_to_get):
         """ Given a response to get out of the config file, try to get it and
@@ -1115,17 +1136,27 @@ class ScriptHandler(object):
         """
         # For CREATE stories, get the scenes to show for the user to pick from
         # from the participant config.
-        if "story_type" not in self._pconfig:
-            self._logger.warning("No story type listed in pconfig! Cannot "
-                                 "load story. Skipping STORY line.")
+        if self._session not in self._pconfig:
+            self._logger.warning("No session information for {} listed in the "
+                                 "participant config file! Cannot check story"
+                                 " type for this session. Skipping STORY line."
+                                 .format(self._session))
             self._doing_story = False
             return
 
-        if "create" in self._pconfig["story_type"] and \
-                "scenes" in self._pconfig:
+        if "story_type" not in self._pconfig[self._session]:
+            self._logger.warning("No story type listed in the participant "
+                                 "config file for session {}! Cannot load "
+                                 "story. Skipping STORY line.".format(
+                                  self._session))
+            self._doing_story = False
+            return
+
+        if "create" in self._pconfig[self._session]["story_type"] and \
+                "scenes" in self._pconfig[self._session]:
             self._logger.info("Scenes to pick from are: {}".format(
-                self._pconfig["scenes"]))
-            for scene in self._pconfig["scenes"]:
+                self._pconfig[self._session]["scenes"]))
+            for scene in self._pconfig[self._session]["scenes"]:
                 self._logger.info("Loading scene {}...".format(scene))
                 # TODO Display on the tablet with LOAD OBJECT - what position??
                 toload = {}
@@ -1135,10 +1166,27 @@ class ScriptHandler(object):
                 self._ros_node.send_opal_command("LOAD_OBJECT", json.dumps(
                     toload))
             # Log that the scenes were shown.
-            self._performance_log.log_scenes_shown(self._pconfig["scenes"])
+            self._performance_log.log_scenes_shown(
+                    self._pconfig[self._session]["scenes"])
 
     def _load_next_story_script(self):
         """ Load the script for the next story. """
+        if self._session not in self._pconfig:
+            self._logger.warning("No session information for {} listed in the "
+                                 "participant config file! Cannot load next "
+                                 "story. Skipping STORY line.".format(
+                                     self._session))
+            self._doing_story = False
+            return
+
+        if "story_type" not in self._pconfig[self._session]:
+            self._logger.warning("No story type listed in the participant "
+                                 "config for session {}! Cannot load story. "
+                                 "Skipping STORY line.".format(
+                                     self._session))
+            self._doing_story = False
+            return
+
         # Create a script parser for the filename provided, assuming it is
         # in the story scripts directory.
         self._story_parser = ScriptParser()
@@ -1150,40 +1198,38 @@ class ScriptHandler(object):
             # of the story to load into the participant config file, since some
             # stories from the SR2-child corpus do not have levels, but stories
             # from the SR2-robot corpus do.
-            if "story_type" not in self._pconfig:
-                self._logger.warning("No story type listed in pconfig! Cannot "
-                                     "load story. Skipping STORY line.")
-                self._doing_story = False
-                return
-
-            if "create" in self._pconfig["story_type"] and \
-                    self._selected_scene and "stories" in self._pconfig:
+            if "create" in self._pconfig[self._session]["story_type"] and \
+                    self._selected_scene and \
+                    "stories" in self._pconfig[self._session]:
                 self._story_parser.load_script(
                     self._study_path + self._story_script_path +
-                    self._pconfig["stories"][self._selected_scene])
-                self._logger.info("Loading story \"{}\" in scene {}...".format(
-                        self._pconfig["stories"][self._selected_scene],
-                        self._selected_scene))
+                    self._pconfig[self._session]["stories"][
+                        self._selected_scene])
+                self._logger.info("Loading story \"{}\" in scene {}..."
+                                  .format(self._pconfig[self._session][
+                                      "stories"][self._selected_scene],
+                                       self._selected_scene))
 
             # RETELL story:
             # The levels of these stories are determined by the number listed
             # in the participant config, which is just appended to the story
             # filename.
-            elif "retell" in self._pconfig["story_type"]:
+            elif "retell" in self._pconfig[self._session]["story_type"]:
                 self._story_parser.load_script(
                     self._study_path + self._story_script_path +
-                    self._pconfig["story"] + self._pconfig[
-                        "story_retell_level"])
+                    self._pconfig[self._session]["story"] + self._pconfig[
+                        self._session]["story_retell_level"])
                 self._logger.info("Loading story \"{}\" at level {}...".format(
-                        self._pconfig["story"],
-                        self._pconfig["story_level"]))
+                        self._pconfig[self._session]["story"],
+                        self._pconfig[self._session]["story_level"]))
             else:
                 self._logger.warning("Neither \"create\" nor \"retell\" is "
                                      "listed as the story type! Thus we don't"
                                      "have a story to load... Skipping STORY "
                                      "line. The selected scene was \"{}\" and "
                                      "here's the config: {}".format(
-                                         self._selected_scene, self._pconfig))
+                                         self._selected_scene,
+                                         self._pconfig[self._session]))
                 self._doing_story = False
         except IOError as ioerr:
             self._logger.exception("Script parser could not open story script!"
@@ -1201,23 +1247,33 @@ class ScriptHandler(object):
                                    "Skipping STORY line. {} {}".format(
                                        self._selected_scene,
                                        keyerr,
-                                       self._pconfig))
+                                       self._pconfig[self._session]))
             self._doing_story = False
             return
 
     def _load_next_story_graphics(self):
         """ Set up the game scene and load scene graphics. """
+        if self._session not in self._pconfig:
+            self._logger.warning("No session information for {} listed in the "
+                                 "participant config file! Cannot load next "
+                                 "story graphics. Skipping STORY line.".format(
+                                     self._session))
+            self._doing_story = False
+            return
+
+        if "story_type" not in self._pconfig[self._session]:
+            self._logger.warning("No story type listed in the participant "
+                                 "config for session {}! Cannot load story "
+                                 "graphics. Skipping STORY line.".format(
+                                     self._session))
+            self._doing_story = False
+            return
+
         # CREATE story:
         # TODO it would be straightforward to add moveable characters. Load as
         # PlayObjects that are draggable. Could make a text file for each scene
         # and do "OPAL LOAD_ALL".
-        if "story_type" not in self._pconfig:
-            self._logger.warning("No story type listed in pconfig! Cannot "
-                                 "load story. Skipping STORY line.")
-            self._doing_story = False
-            return
-
-        if "create" in self._pconfig["story_type"]:
+        if "create" in self._pconfig[self._session]["story_type"]:
             self._logger.info("Loading CREATE story on Opal device...")
             toload = {}
             toload["name"] = "sr2-scenes/" + self._selected_scene
@@ -1225,19 +1281,22 @@ class ScriptHandler(object):
             self._ros_node.send_opal_command("LOAD_OBJECT", json.dumps(toload))
             # Log that the story was played.
             self._performance_log.log_played_story(
-                    self._pconfig["stories"][self._selected_scene],
-                    self._selected_scene, self._pconfig["story_level"])
+                    self._pconfig[self._session]["stories"][
+                        self._selected_scene],
+                    self._selected_scene,
+                    self._pconfig[self._session]["story_create_level"])
 
         # RETELL story:
-        elif "retell" in self._pconfig["story_type"]:
+        elif "retell" in self._pconfig[self._session]["story_type"]:
             self._logger.info("Loading RETELL story on Opal device...")
-            self._ros_node.send_opal_command("STORY_SELECTION",
-                                             self._pconfig["story"])
+            self._ros_node.send_opal_command(
+                "STORY_SELECTION",
+                self._pconfig[self._session]["story_name"])
             # Start out with the arrow buttons hidden since it's the robot's
             # turn first. When loaded, stories start on the first page by
             # default.
             self._ros_node.send_opal_command("STORY_HIDE_BUTTONS")
             # Log that the story was played.
             self._performance_log.log_played_story(
-                    self._pconfig["story"], None,
-                    self._pconfig["story_level"])
+                    self._pconfig[self._session]["story_name"], None,
+                    self._pconfig["story_retell_level"])
