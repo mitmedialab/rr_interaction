@@ -1,0 +1,26 @@
+[p000.5]
+scenes = [ "Castle", "Castle",]
+
+[p002.5]
+scenes = [ "Castle", "PineForest",]
+
+[p001.5]
+scenes = [ "Castle", "Iceberg",]
+
+[p003.5]
+scenes = [ "Castle", "PineForest",]
+
+[p002.5.stories]
+Castle = "interaction_scripts/rr2_study/stories/SR2_robot/Castle-ReshmaParty-H"
+PineForest = "interaction_scripts/rr2_study/stories/SR2_robot/PineForest-TinnaFortune-H"
+
+[p003.5.stories]
+Castle = "interaction_scripts/rr2_study/stories/SR2_robot/Castle-EvilKing-H"
+PineForest = "interaction_scripts/rr2_study/stories/SR2_robot/PineForest-TinnaFortune-H"
+
+[p000.5.stories]
+Castle = "interaction_scripts/rr2_study/stories/SR2_robot/Castle-EvilKing-E"
+
+[p001.5.stories]
+Castle = "interaction_scripts/rr2_study/stories/SR2_robot/Castle-ReshmaParty-E"
+Iceberg = "interaction_scripts/rr2_study/stories/SR2_robot/Iceberg-SnowmanHat-E"

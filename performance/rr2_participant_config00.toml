@@ -1,0 +1,47 @@
+[p000]
+story_retell_level = 1
+story_create_level = 0
+personalized = true
+condition = "RR"
+name = "jackie"
+
+[p001]
+story_retell_level = 2
+story_create_level = 0
+personalized = false
+condition = "NR"
+name = "jackie"
+
+[p002]
+story_retell_level = 2
+story_create_level = 1
+personalized = true
+condition = "RR"
+name = "jackie"
+
+[p003]
+story_retell_level = 3
+story_create_level = 1
+personalized = false
+condition = "NR"
+name = "jackie"
+
+[p000.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+negotiation = false
+
+[p001.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+negotiation = false
+
+[p002.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+negotiation = false
+
+[p003.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+negotiation = false

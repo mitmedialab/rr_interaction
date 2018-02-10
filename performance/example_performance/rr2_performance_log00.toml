@@ -1,0 +1,19 @@
+[p000]
+story_retell_level = 0
+story_create_level = 0
+personalized = true
+
+[p001]
+story_retell_level = 1
+story_create_level = 0
+personalized = false
+
+[p002]
+story_retell_level = 1
+story_create_level = 1
+personalized = true
+
+[p003]
+story_retell_level = 2
+story_create_level = 1
+personalized = false

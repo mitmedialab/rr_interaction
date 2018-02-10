@@ -1,6 +1,6 @@
-# Project-specific files
-performance/
-!performance/*.example.toml
+# Project-specific files. Ignore generated log files, but include the examples
+# for testing purposes, and include the RR2 config files.
+performance/*-log*
 
 # vim/gvim swap files
 *.swp

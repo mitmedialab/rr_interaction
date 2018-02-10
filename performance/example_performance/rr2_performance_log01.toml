@@ -1,0 +1,31 @@
+[p000]
+personalized = true
+story_retell_level = 0
+story_create_level = 0
+
+[p001]
+personalized = false
+story_retell_level = 1
+story_create_level = 0
+
+[p002]
+personalized = true
+story_retell_level = 1
+story_create_level = 1
+
+[p003]
+personalized = false
+story_retell_level = 2
+story_create_level = 1
+
+[p000.overall]
+scenes_used = [ "Castle",]
+stories_heard_levels = [ 0,]
+stories_heard = [ "Castle-ReshmaParty-E",]
+
+[p000.session.3]
+story_text = [ "One day  Michael wanted to play on the swing. So he went back and forth, back and forth. She swung a little too high and landed on the slide and slid down. She landed on the boxes and climbed up. She found a yellow ball. And she gave the ball to Mike and then to Rose and then to her. She went to the swing.  Both girls thought it was a good idea to swing on balls. They swung and swung and swung. And this ball swung the highest. Then she flew into a tree, poof poof  and slid out. And  they played hopscotch and climbed up the steps. Catch.  And she gave it to him when she gave it to her. She climbed down and went down the slide again. She took the ball with her up the boxes. And he said, Give us back our ball. No, she said. There's a ball on your head. I can't balance a ball on my head. Poor Rose. So give us our ball. Alright. I'll give you your ball as long as you let me have the blue one. So they played catch. The end",]
+scenes_used = [ "Castle",]
+stories_heard_levels = [ 0,]
+scenes_shown = [ "Playground", "Castle",]
+stories_heard = [ "Castle-ReshmaParty-E",]

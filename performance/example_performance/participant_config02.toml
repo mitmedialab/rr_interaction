@@ -1,0 +1,55 @@
+[p003.3]
+scenes = [ "Playground", "Treemeadow",]
+
+[p003.5]
+scenes = [ "Castle", "Dinoville",]
+
+[p002.5]
+scenes = [ "Castle", "Dinoville",]
+
+[p002.3]
+scenes = [ "Playground", "Iceberg",]
+
+[p001.3]
+scenes = [ "Playground", "Treemeadow",]
+
+[p001.5]
+scenes = [ "Castle", "Dinoville",]
+
+[p000.5]
+scenes = [ "Castle", "Playground",]
+
+[p000.3]
+scenes = [ "Playground", "Treemeadow",]
+
+[p002.3.stories]
+Iceberg = "interaction_scripts/rr2_study/stories/SR2_child/Iceberg-sr2-session1-p015-story1"
+Playground = "interaction_scripts/rr2_study/stories/SR2_child/Playground-sr2-session4-p013-story2"
+
+[p002.5.stories]
+Dinoville = "interaction_scripts/rr2_study/stories/SR2_robot/Dinoville-DinoEater-H"
+Castle = "interaction_scripts/rr2_study/stories/SR2_robot/Castle-ReshmaParty-H"
+
+[p003.5.stories]
+Dinoville = "interaction_scripts/rr2_study/stories/SR2_robot/Dinoville-DinoEater-H"
+Castle = "interaction_scripts/rr2_study/stories/SR2_robot/Castle-ReshmaParty-H"
+
+[p000.5.stories]
+Castle = "interaction_scripts/rr2_study/stories/SR2_robot/Castle-ReshmaParty-E"
+Playground = "interaction_scripts/rr2_study/stories/SR2_robot/Playground-PlayBall-E"
+
+[p003.3.stories]
+Treemeadow = "interaction_scripts/rr2_study/stories/SR2_child/Treemeadow-sr2-session7-p006-story1"
+Playground = "interaction_scripts/rr2_study/stories/SR2_child/Playground-sr2-session8-p004-story2"
+
+[p001.5.stories]
+Dinoville = "interaction_scripts/rr2_study/stories/SR2_robot/Dinoville-DinoEater-E"
+Castle = "interaction_scripts/rr2_study/stories/SR2_robot/Castle-ReshmaParty-E"
+
+[p000.3.stories]
+Treemeadow = "interaction_scripts/rr2_study/stories/SR2_child/Treemeadow-sr2-session7-p006-story1"
+Playground = "interaction_scripts/rr2_study/stories/SR2_child/Playground-sr2-session1-p015-story2"
+
+[p001.3.stories]
+Treemeadow = "interaction_scripts/rr2_study/stories/SR2_child/Treemeadow-sr2-session6-p013-story1"
+Playground = "interaction_scripts/rr2_study/stories/SR2_child/Playground-sr2-session1-p015-story2"
