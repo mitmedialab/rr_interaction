@@ -1766,6 +1766,19 @@ animations = [ { time = 0.2, anim = "SIDEPERK" } ]
 #name = ""
 #animations = [ { time = , anim = "" } ]
 
+## Session 1 Audio
 [audio.ItsNiceToMeetYou]
 name = "ItsNiceToMeetYou"
-animations = [ { time = 0.5, anim = "PERKUP" } ]
+animations = [ { time = 0.5, anim = "PERKUP" },
+               { time = 1.5, anim = "SMILE" } ]
+
+[audio.LikedPlaying]
+name = "LikedPlaying"
+animations = [ { time = 0.5, anim = "SILENT_NOD" } ]
+
+[audio.Hey]
+name = "Hey"
+animations = [ { time = 0.1, anim = "SILENT_INTERESTED" } ]
+
+
+

@@ -16,6 +16,7 @@ SET	PROMPT_TIME	8
 # Robot introduction.
 STATE	start introduction
 QUESTION	ImRed
+**RR	ROBOT	DO	SMILE
 PAUSE	4
 ROBOT	DO	ItsNiceToMeetYou
 **RR	ROBOT	DO	<participant_name>
@@ -37,7 +38,7 @@ QUESTION	lets_look_at_silly_pictures
 OPAL	CLEAR
 OPAL	DISABLE_TOUCH
 STATE	start anomalous picture 1
-OPAL	LOAD_OBJECT	{ "name": "anomalous/anomalousgiraffe.png", "tag": "PlayObject", "draggable": "false"}
+OPAL	LOAD_OBJECT	{ "name": "anomalous/anomalousgiraffe.png", "tag": "PlayObject", "draggable": "false", "scale": ["20","20","20"]}
 SET	PROMPT_TIME	15
 SET	NUM_PROMPTS	0
 # If the child says nothing, the robot will say the max attempt speech after
@@ -53,7 +54,7 @@ STATE	end anomalous picture 1
 ROBOT	DO	LetsLookAtAnotherPicture
 OPAL	CLEAR
 STATE	start anomalous picture 2
-OPAL	LOAD_OBJECT	{ "name": "anomalous/anomalousgiraffe.png", "tag": "PlayObject", "draggable": "false"}
+OPAL	LOAD_OBJECT	{ "name": "anomalous/anomalousgiraffe.png", "tag": "PlayObject", "draggable": "false", "scale": ["20","20","20"]}
 SET	PROMPT_TIME	15
 SET	NUM_PROMPTS	0
 QUESTION	AnomalousPicture2
@@ -61,7 +62,9 @@ SET	MAX_REPEAT_TIME	1
 SET	MAX_REPEATS	1
 IF_RESPONSE	REPEAT	MAX_REPEATS	anomalous.txt
 STATE	end anomalous picture 2
+OPAL	CLEAR
 ROBOT	DO	ThereThatsAll
+**RR	ROBOT	DO	SMILE
 STATE	end anomalous task
 
 # Second activity: Self-disclosure task.
@@ -101,10 +104,11 @@ STATE	start photo task
 QUESTION	WantAPhoto
 SET	PROMPT_TIME	300
 ROBOT	DO	Booyah
-ROBOT	DO	POSE_SMILE
+ROBOT	DO	POSE_SMILE2
 QUESTION	TakePhoto
 ROBOT	DO	ThanksShy
 **RR	ROBOT	DO	PictureIllRemember
+**RR	ROBOT	DO	SMILE
 STATE	end photo task
 
 # Closing and robot goes back to sleep.
@@ -112,6 +116,7 @@ STATE	start closing
 **NR	ROBOT	DO	rr1_story_19
 **RR	ROBOT	DO	LikedPlaying
 **RR	ROBOT	DO	<participant_name>
+**RR	ROBOT	DO	SMILE
 ROBOT	DO	PERKUP
 ROBOT	DO	SeeYouLaterHuman
 **RR	ROBOT	DO	LAUGH
