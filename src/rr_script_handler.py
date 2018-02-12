@@ -1198,9 +1198,29 @@ class ScriptHandler(object):
             # of the story to load into the participant config file, since some
             # stories from the SR2-child corpus do not have levels, but stories
             # from the SR2-robot corpus do.
-            if "create" in self._pconfig[self._session]["story_type"] and \
-                    self._selected_scene and \
-                    "stories" in self._pconfig[self._session]:
+            if "create" in self._pconfig[self._session]["story_type"]:
+                # If there are no stories listed in the config, we don't know
+                # what story to load.
+                if "stories" not in self._pconfig[self._session]:
+                    self._logger.warning("No stories are listed in the "
+                                         "participant config for session {}! "
+                                         "Cannot load story. Skipping STORY "
+                                         "line. {}".format(
+                                             self._session,
+                                             self._pconfig[self._session]))
+                    self._doing_story = False
+                    return
+                # If no scene was selected, we don't know what story to load.
+                if not self._selected_scene:
+                    self._logger.warning("No scene was selected to play. "
+                                         "Negotiation happened? Can't load "
+                                         "story without knowing the scene. "
+                                         " Skipping STORY line. {}".format(
+                                             self._session,
+                                             self._pconfig[self._session]))
+                    self._doing_story = False
+                    return
+                # Load story with the script parser!
                 self._story_parser.load_script(
                     self._study_path + self._story_script_path +
                     self._pconfig[self._session]["stories"][
@@ -1215,10 +1235,30 @@ class ScriptHandler(object):
             # in the participant config, which is just appended to the story
             # filename.
             elif "retell" in self._pconfig[self._session]["story_type"]:
+                # If there is no story name listed in the config, we don't know
+                # what story to load and thus can't load it.
+                if "story_name" not in self._pconfig[self._session]:
+                    self._logger.warning("No story name listed in the "
+                                         "participant config for session {}! "
+                                         "Cannot load story. Skipping STORY "
+                                         "line. {}".format(
+                                             self._session,
+                                             self._pconfig[self._session]))
+                    self._doing_story = False
+                    return
+                # Get the story retell level; default to level 1 if none is
+                # listed in the participant config file.
+                level = 1
+                if "story_retell_level" not in self._pconfig:
+                    self._logger.warning("No story retell level listed in the "
+                                         "participant config! {} Defaulting to"
+                                         " level 1.".format(self._pconfig))
+                else:
+                    level = self._pconfig["story_retell_level"]
+                # Load the story with the script parser!
                 self._story_parser.load_script(
                     self._study_path + self._story_script_path +
-                    self._pconfig[self._session]["story"] + self._pconfig[
-                        self._session]["story_retell_level"])
+                    self._pconfig[self._session]["story_name"] + str(level))
                 self._logger.info("Loading story \"{}\" at level {}...".format(
                         self._pconfig[self._session]["story"],
                         self._pconfig[self._session]["story_level"]))
@@ -1244,7 +1284,7 @@ class ScriptHandler(object):
             return
         except KeyError as keyerr:
             self._logger.exception("Could not find scene \"{}\" in the config!"
-                                   "Skipping STORY line. {} {}".format(
+                                   " Skipping STORY line. {} {}".format(
                                        self._selected_scene,
                                        keyerr,
                                        self._pconfig[self._session]))
