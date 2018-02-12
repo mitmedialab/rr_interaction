@@ -109,7 +109,7 @@ class PerformanceLogger(object):
         negotiation/choice portion.
         """
         self._logger.info("Logging that scenes were shown: {}".format(scenes))
-        if self._log["scenes_shown"]:
+        if "scenes_shown" in self._log:
             for scene in scenes:
                 self._log["scenes_shown"].append(scene)
         else:
@@ -123,15 +123,15 @@ class PerformanceLogger(object):
         # If we already have some stories and scenes listed as played, just
         # append the new one to the lists. Otherwise, create a new list with
         # the newly played story or scene in it.
-        if self._log["stories_heard"]:
+        if "stories_heard" in self._log:
             self._log["stories_heard"].append(story_name)
         else:
             self._log["stories_heard"] = [story_name]
-        if self._log["stories_heard_levels"]:
+        if "stories_heard_levels" in self._log:
             self._log["stories_heard_levels"].append(story_level)
         else:
             self._log["stories_heard_levels"] = [story_level]
-        if self._log["scenes_used"] and scene:
+        if "scenes_used" in self._log and scene:
             self._log["scenes_used"].append(scene)
         else:
             self._log["scenes_used"] = [scene]
@@ -143,7 +143,7 @@ class PerformanceLogger(object):
         available.
         """
         self._logger.info("Logging participant's story: {}".format(text))
-        if self._log["story_text"]:
+        if "story_text" in self._log:
             self._log["story_text"].append(text)
         else:
             self._log["story_text"] = [text]
@@ -155,11 +155,11 @@ class PerformanceLogger(object):
         """
         self._logger.info("Logging child's scene choice ({}) and negotiation "
                           "outcome: {}".format(outcome, child_choice))
-        if self._log["negotiation_outcome"]:
+        if "negotiation_outcome" in self._log:
             self._log["negotiation_outcome"].append(outcome)
         else:
             self._log["negotiation_outcome"] = [outcome]
-        if self._log["child_scene_choice"]:
+        if "child_scene_choice" in self._log:
             self._log["child_scene_choice"].append(child_choice)
         else:
             self._log["child_scene_choice"] = [child_choice]
