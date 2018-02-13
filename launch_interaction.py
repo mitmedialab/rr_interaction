@@ -53,7 +53,7 @@ def get_args():
         # If the corresponding audio file exists, this is an acceptable name.
         if check_name(name):
             print "\tOkay! Hi {}, have fun running the experiment!".format(
-                    name)
+                    (name[:1].upper() + name[1:]))
             break
         else:
             print "{} is not a valid experimenter name. Try again. Example: " \
