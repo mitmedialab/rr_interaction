@@ -1224,7 +1224,7 @@ class ScriptHandler(object):
                 self._story_parser.load_script(
                     self._study_path + self._story_script_path +
                     self._pconfig[self._session]["stories"][
-                        self._selected_scene])
+                        self._selected_scene] + ".txt")
                 self._logger.info("Loading story \"{}\" in scene {}..."
                                   .format(self._pconfig[self._session][
                                       "stories"][self._selected_scene],
@@ -1258,7 +1258,8 @@ class ScriptHandler(object):
                 # Load the story with the script parser!
                 self._story_parser.load_script(
                     self._study_path + self._story_script_path +
-                    self._pconfig[self._session]["story_name"] + str(level))
+                    self._pconfig[self._session]["story_name"] + str(level) +
+                    ".txt")
                 self._logger.info("Loading story \"{}\" at level {}...".format(
                         self._pconfig[self._session]["story"],
                         self._pconfig[self._session]["story_level"]))
