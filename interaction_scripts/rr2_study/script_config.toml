@@ -278,7 +278,7 @@ max_attempt = ["WellLetsLookAnyway"]
     robot_responses = ["HereWeGo"]
     [[questions.lets_look_at_silly_pictures.user_input]]
     user_responses = ["no", "nah", "nope", "uh"]
-    robot_responses = ["NoQuestion"]
+    robot_responses = ["NoQuestion", "WellLetsLookAnyway"]
 
 [questions.AnomalousGeneric1]
 question = ""
@@ -487,303 +487,303 @@ max_attempt = ["HmNeutral"]
     robot_responses = ["HmNeutral"]
 
 ## "Can you say..." for each keyword in the story retells.
-[questions.can_you_say_clamor]
+[questions.clamor]
 question = "clamor"
 backchannel_prompts = ["clamor"]
 timeout_prompts = ["clamor"]
 max_attempt = ["clamor"]
-    [[questions.can_you_say_clamor.user_input]]
+    [[questions.clamor.user_input]]
     user_responses = ["clamor"]
     robot_responses = ["RightExcited"]
-    [[questions.can_you_say_clamor.user_input]]
+    [[questions.clamor.user_input]]
     user_responses = [""]
     robot_responses = ["clamor"]
 
-[questions.can_you_say_crest]
+[questions.crest]
 question = "crest"
 backchannel_prompts = ["crest"]
 timeout_prompts = ["crest"]
 max_attempt = ["crest"]
-    [[questions.can_you_say_crest.user_input]]
+    [[questions.crest.user_input]]
     user_responses = ["crest"]
     robot_responses = ["awesome"]
-    [[questions.can_you_say_crest.user_input]]
+    [[questions.crest.user_input]]
     user_responses = [""]
     robot_responses = ["crest"]
 
-[questions.can_you_say_reeds]
+[questions.reeds]
 question = "reeds"
 backchannel_prompts = ["reeds"]
 timeout_prompts = ["reeds"]
 max_attempt = ["reeds"]
-    [[questions.can_you_say_reeds.user_input]]
+    [[questions.reeds.user_input]]
     user_responses = ["reeds"]
     robot_responses = ["Booyah"]
-    [[questions.can_you_say_reeds.user_input]]
+    [[questions.reeds.user_input]]
     user_responses = [""]
     robot_responses = ["reeds"]
 
-[questions.can_you_say_emerge]
+[questions.emerge]
 question = "emerge"
 backchannel_prompts = ["emerge"]
 timeout_prompts = ["emerge"]
 max_attempt = ["emerge"]
-    [[questions.can_you_say_emerge.user_input]]
+    [[questions.emerge.user_input]]
     user_responses = ["emerge"]
     robot_responses = ["RightExcited"]
-    [[questions.can_you_say_emerge.user_input]]
+    [[questions.emerge.user_input]]
     user_responses = [""]
     robot_responses = ["emerge"]
 
-[questions.can_you_say_inhale]
+[questions.inhale]
 question = "inhale"
 backchannel_prompts = ["inhale"]
 timeout_prompts = ["inhale"]
 max_attempt = ["inhale"]
-    [[questions.can_you_say_inhale.user_input]]
+    [[questions.inhale.user_input]]
     user_responses = ["inhale"]
     robot_responses = ["RightExcited"]
-    [[questions.can_you_say_inhale.user_input]]
+    [[questions.inhale.user_input]]
     user_responses = [""]
     robot_responses = ["inhale"]
 
-[questions.can_you_say_rotund]
+[questions.rotund]
 question = "rotund"
 backchannel_prompts = ["rotund"]
 timeout_prompts = ["rotund"]
 max_attempt = ["rotund"]
-    [[questions.can_you_say_rotund.user_input]]
+    [[questions.rotund.user_input]]
     user_responses = ["rotund"]
     robot_responses = ["awesome"]
-    [[questions.can_you_say_rotund.user_input]]
+    [[questions.rotund.user_input]]
     user_responses = [""]
     robot_responses = ["rotund"]
 
-[questions.can_you_say_tuft]
+[questions.tuft]
 question = "tuft"
 backchannel_prompts = ["tuft"]
 timeout_prompts = ["tuft"]
 max_attempt = ["tuft"]
-    [[questions.can_you_say_tuft.user_input]]
+    [[questions.tuft.user_input]]
     user_responses = ["tuft"]
     robot_responses = ["RightExcited"]
-    [[questions.can_you_say_tuft.user_input]]
+    [[questions.tuft.user_input]]
     user_responses = [""]
     robot_responses = ["tuft"]
 
-[questions.can_you_say_slumber]
+[questions.slumber]
 question = "slumber"
 backchannel_prompts = ["slumber"]
 timeout_prompts = ["slumber"]
 max_attempt = ["slumber"]
-    [[questions.can_you_say_slumber.user_input]]
+    [[questions.slumber.user_input]]
     user_responses = ["slumber"]
     robot_responses = ["Booyah"]
-    [[questions.can_you_say_slumber.user_input]]
+    [[questions.slumber.user_input]]
     user_responses = [""]
     robot_responses = ["slumber"]
 
-[questions.can_you_say_montage]
+[questions.montage]
 question = "montage"
 backchannel_prompts = ["montage"]
 timeout_prompts = ["montage"]
 max_attempt = ["montage"]
-    [[questions.can_you_say_montage.user_input]]
+    [[questions.montage.user_input]]
     user_responses = ["montage"]
     robot_responses = ["RightExcited"]
-    [[questions.can_you_say_montage.user_input]]
+    [[questions.montage.user_input]]
     user_responses = [""]
     robot_responses = ["montage"]
 
-[questions.can_you_say_perched]
+[questions.perched]
 question = "perched"
 backchannel_prompts = ["perched"]
 timeout_prompts = ["perched"]
 max_attempt = ["perched"]
-    [[questions.can_you_say_perched.user_input]]
+    [[questions.perched.user_input]]
     user_responses = ["perched"]
     robot_responses = ["awesome"]
-    [[questions.can_you_say_perched.user_input]]
+    [[questions.perched.user_input]]
     user_responses = [""]
     robot_responses = ["perched"]
 
-[questions.can_you_say_dove]
+[questions.dove]
 question = "dove"
 backchannel_prompts = ["dove"]
 timeout_prompts = ["dove"]
 max_attempt = ["dove"]
-    [[questions.can_you_say_dove.user_input]]
+    [[questions.dove.user_input]]
     user_responses = ["dove"]
     robot_responses = ["RightExcited"]
-    [[questions.can_you_say_dove.user_input]]
+    [[questions.dove.user_input]]
     user_responses = [""]
     robot_responses = ["dove"]
 
-[questions.can_you_say_prostrate]
+[questions.prostrate]
 question = "prostrate"
 backchannel_prompts = ["prostrate"]
 timeout_prompts = ["prostrate"]
 max_attempt = ["prostrate"]
-    [[questions.can_you_say_prostrate.user_input]]
+    [[questions.prostrate.user_input]]
     user_responses = ["prostrate"]
     robot_responses = ["RightExcited"]
-    [[questions.can_you_say_prostrate.user_input]]
+    [[questions.prostrate.user_input]]
     user_responses = [""]
     robot_responses = ["prostrate"]
 
-[questions.can_you_say_mauve]
+[questions.mauve]
 question = "mauve"
 backchannel_prompts = ["mauve"]
 timeout_prompts = ["mauve"]
 max_attempt = ["mauve"]
-    [[questions.can_you_say_mauve.user_input]]
+    [[questions.mauve.user_input]]
     user_responses = ["mauve", "mof"]
     robot_responses = ["Booyah"]
-    [[questions.can_you_say_mauve.user_input]]
+    [[questions.mauve.user_input]]
     user_responses = [""]
     robot_responses = ["mauve"]
 
-[questions.can_you_say_hind]
+[questions.hind]
 question = "hind"
 backchannel_prompts = ["hind"]
 timeout_prompts = ["hind"]
 max_attempt = ["hind"]
-    [[questions.can_you_say_hind.user_input]]
+    [[questions.hind.user_input]]
     user_responses = ["hind"]
     robot_responses = ["awesome"]
-    [[questions.can_you_say_hind.user_input]]
+    [[questions.hind.user_input]]
     user_responses = [""]
     robot_responses = [""]
 
-[questions.can_you_say_spatula]
+[questions.spatula]
 question = "spatula"
 backchannel_prompts = ["spatula"]
 timeout_prompts = ["spatula"]
 max_attempt = ["spatula"]
-    [[questions.can_you_say_spatula.user_input]]
+    [[questions.spatula.user_input]]
     user_responses = ["spatula"]
     robot_responses = ["RightExcited"]
-    [[questions.can_you_say_spatula.user_input]]
+    [[questions.spatula.user_input]]
     user_responses = [""]
     robot_responses = ["spatula"]
 
-[questions.can_you_say_bunting]
+[questions.bunting]
 question = "bunting"
 backchannel_prompts = ["bunting"]
 timeout_prompts = ["bunting"]
 max_attempt = ["bunting"]
-    [[questions.can_you_say_bunting.user_input]]
+    [[questions.bunting.user_input]]
     user_responses = ["bunting"]
     robot_responses = ["awesome"]
-    [[questions.can_you_say_bunting.user_input]]
+    [[questions.bunting.user_input]]
     user_responses = [""]
     robot_responses = ["bunting"]
 
-[questions.can_you_say_zigzag]
+[questions.zigzag]
 question = "zigzag"
 backchannel_prompts = ["zigzag"]
 timeout_prompts = ["zigzag"]
 max_attempt = ["zigzag"]
-    [[questions.can_you_say_zigzag.user_input]]
+    [[questions.zigzag.user_input]]
     user_responses = ["zigzag", "zig", "zag"]
     robot_responses = ["Booyah"]
-    [[questions.can_you_say_zigzag.user_input]]
+    [[questions.zigzag.user_input]]
     user_responses = [""]
     robot_responses = ["zigzag"]
 
-[questions.can_you_say_donned]
+[questions.donned]
 question = "donned"
 backchannel_prompts = ["donned"]
 timeout_prompts = ["donned"]
 max_attempt = ["donned"]
-    [[questions.can_you_say_donned.user_input]]
+    [[questions.donned.user_input]]
     user_responses = ["donned", "dawned", "dawn", "don"]
     robot_responses = ["RightExcited"]
-    [[questions.can_you_say_donned.user_input]]
+    [[questions.donned.user_input]]
     user_responses = [""]
     robot_responses = ["donned"]
 
-[questions.can_you_say_unruly]
+[questions.unruly]
 question = "unruly"
 backchannel_prompts = ["unruly"]
 timeout_prompts = ["unruly"]
 max_attempt = ["unruly"]
-    [[questions.can_you_say_unruly.user_input]]
+    [[questions.unruly.user_input]]
     user_responses = ["unruly"]
     robot_responses = ["awesome"]
-    [[questions.can_you_say_unruly.user_input]]
+    [[questions.unruly.user_input]]
     user_responses = [""]
     robot_responses = ["unruly"]
 
-[questions.can_you_say_ripples]
+[questions.ripples]
 question = "ripples"
 backchannel_prompts = ["ripples"]
 timeout_prompts = ["ripples"]
 max_attempt = ["ripples"]
-    [[questions.can_you_say_ripples.user_input]]
+    [[questions.ripples.user_input]]
     user_responses = ["ripples", "ripple"]
     robot_responses = ["RightExcited"]
-    [[questions.can_you_say_ripples.user_input]]
+    [[questions.ripples.user_input]]
     user_responses = [""]
     robot_responses = ["ripples"]
 
-[questions.can_you_say_arch]
+[questions.arch]
 question = "arch"
 backchannel_prompts = ["arch"]
 timeout_prompts = ["arch"]
 max_attempt = ["arch"]
-    [[questions.can_you_say_arch.user_input]]
+    [[questions.arch.user_input]]
     user_responses = ["arch"]
     robot_responses = ["awesome"]
-    [[questions.can_you_say_arch.user_input]]
+    [[questions.arch.user_input]]
     user_responses = ["arch"]
     robot_responses = ["arch"]
 
-[questions.can_you_say_corona]
+[questions.corona]
 question = "corona"
 backchannel_prompts = ["corona"]
 timeout_prompts = ["corona"]
 max_attempt = ["corona"]
-    [[questions.can_you_say_corona.user_input]]
+    [[questions.corona.user_input]]
     user_responses = ["corona", "core own"]
     robot_responses = ["Booyah"]
-    [[questions.can_you_say_corona.user_input]]
+    [[questions.corona.user_input]]
     user_responses = [""]
     robot_responses = ["corona"]
 
-[questions.can_you_say_plummet]
+[questions.plummet]
 question = "plummet"
 backchannel_prompts = ["plummet"]
 timeout_prompts = ["plummet"]
 max_attempt = ["plummet"]
-    [[questions.can_you_say_plummet.user_input]]
+    [[questions.plummet.user_input]]
     user_responses = ["plummet"]
     robot_responses = ["RightExcited"]
-    [[questions.can_you_say_plummet.user_input]]
+    [[questions.plummet.user_input]]
     user_responses = [""]
     robot_responses = ["plummet"]
 
-[questions.can_you_say_auburn]
+[questions.auburn]
 question = "auburn"
 backchannel_prompts = ["auburn"]
 timeout_prompts = ["auburn"]
 max_attempt = ["auburn"]
-    [[questions.can_you_say_auburn.user_input]]
+    [[questions.auburn.user_input]]
     user_responses = ["auburn"]
     robot_responses = ["awesome"]
-    [[questions.can_you_say_auburn.user_input]]
+    [[questions.auburn.user_input]]
     user_responses = [""]
     robot_responses = ["auburn"]
 
-[questions.can_you_say_aloft]
+[questions.aloft]
 question = "aloft"
 backchannel_prompts = ["aloft"]
 timeout_prompts = ["aloft"]
 max_attempt = ["aloft"]
-    [[questions.can_you_say_aloft.user_input]]
+    [[questions.aloft.user_input]]
     user_responses = ["aloft", "loft"]
     robot_responses = ["Booyah"]
-    [[questions.can_you_say_aloft.user_input]]
+    [[questions.aloft.user_input]]
     user_responses = [""]
     robot_responses = ["aloft"]
 
@@ -977,8 +977,8 @@ animations = [ { time = 0.1, anim = "SILENT_INTERESTED" },
 
 [audio.ImNotGoodAtHearing]
 name = "ImNotGoodAtHearing"
-animations = [ { time = 5.0, anim = "SILENT_SAD" },
-               { time = 10.0, anim = "SILENT_THINKING" },
+animations = [ { time = 7.0, anim = "SILENT_SAD" },
+               { time = 12.0, anim = "SILENT_THINKING" },
                { time = 15.0, anim = "PERKUP" } ]
 
 [audio.SeeYouLaterHuman]
@@ -1780,5 +1780,54 @@ animations = [ { time = 0.5, anim = "SILENT_NOD" } ]
 name = "Hey"
 animations = [ { time = 0.1, anim = "SILENT_INTERESTED" } ]
 
+[audio.self_disclosure_1]
+name = "self_disclosure_1"
+animations = [ { time = 2.5, anim = "PERKUP" },
+               { time = 8.5, anim = "SIDEPERK" },
+               { time = 13.5, anim = "SILENT_INTERESTED" } ]
 
+[audio.self_disclosure_2]
+name = "self_disclosure_2"
+animations = [ { time = 2.5, anim = "SILENT_NO" },
+               { time = 8.0, anim = "SILENT_SAD" },
+               { time = 14.5, anim = "SILENT_INTERESTED" } ]
 
+[audio.srPre_7_2]
+name = "srPre_7_2"
+animations = [ { time = 2.5, anim = "PERKUP" } ]
+
+[audio.rr1_story_01]
+name = "rr1_story_01"
+animations = [ { time = 0.2, anim = "SHIMMY" } ]
+
+[audio.WantAPhoto]
+name = "WantAPhoto"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.WellAPhoto]
+name = "WellAPhoto"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.Booyah]
+name = "Booyah"
+animations = [ { time = 0.1, anim = "SIDEPERK" } ]
+
+[audio.PictureIllRemember]
+name = "PictureIllRemember"
+animations = [ { time = 1.0, anim = "HAPPY_WIGGLE" } ]
+
+[audio.ThereThatsAll]
+name = "ThereThatsAll"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.ImRedWhatsYourName]
+name = "ImRedWhatsYourName"
+animations = [ { time = 0.5, anim = "PERKUP" } ]
+
+[audio.SayThatAgainShy]
+name = "SayThatAgainShy"
+animations = [ { time = 0.1, anim = "SILENT_PUZZLED" } ]
+
+[audio.MaybeYouHelpMeRR]
+name = "MaybeYouHelpMeRR"
+animations = [ { time = 1.0, anim = "SILENT_NOD" } ]

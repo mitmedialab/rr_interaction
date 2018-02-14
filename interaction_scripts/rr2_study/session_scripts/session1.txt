@@ -1,7 +1,8 @@
 SET	MAX_GAME_TIME	20
 SET	MAX_REPEAT_TIME	20
 SET	PROMPT_TIME	1200
-PAUSE	3
+PAUSE	1
+OPAL	CLEAR
 ROBOT	FIDGET	EMPTY
 
 # Sleep and wait for wakeup.
@@ -17,7 +18,7 @@ SET	PROMPT_TIME	8
 STATE	start introduction
 QUESTION	ImRed
 **RR	ROBOT	DO	SMILE
-PAUSE	4
+PAUSE	3
 ROBOT	DO	ItsNiceToMeetYou
 **RR	ROBOT	DO	<participant_name>
 **RR	ROBOT	DO	LAUGH
@@ -38,7 +39,7 @@ QUESTION	lets_look_at_silly_pictures
 OPAL	CLEAR
 OPAL	DISABLE_TOUCH
 STATE	start anomalous picture 1
-OPAL	LOAD_OBJECT	{ "name": "anomalous/anomalousgiraffe.png", "tag": "PlayObject", "draggable": "false", "scale": ["20","20","20"]}
+OPAL	LOAD_OBJECT	{ "name": "anomalous/anomalousgiraffe.png", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
 SET	PROMPT_TIME	15
 SET	NUM_PROMPTS	0
 # If the child says nothing, the robot will say the max attempt speech after
@@ -54,7 +55,7 @@ STATE	end anomalous picture 1
 ROBOT	DO	LetsLookAtAnotherPicture
 OPAL	CLEAR
 STATE	start anomalous picture 2
-OPAL	LOAD_OBJECT	{ "name": "anomalous/anomalousgiraffe.png", "tag": "PlayObject", "draggable": "false", "scale": ["20","20","20"]}
+OPAL	LOAD_OBJECT	{ "name": "anomalous/anomalouscat.png", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
 SET	PROMPT_TIME	15
 SET	NUM_PROMPTS	0
 QUESTION	AnomalousPicture2
