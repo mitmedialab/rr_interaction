@@ -599,7 +599,7 @@ class ScriptHandler(object):
         self._send_robot_do(question_audio)
 
         if not response_to_wait_for:
-            self._logger.warning("No input of any kind send for this question!"
+            self._logger.warning("No input of any kind set for this question!"
                                  " We can't wait for a response if there is no"
                                  " response to wait for! Skipping the rest of"
                                  " the question!")
@@ -1261,8 +1261,8 @@ class ScriptHandler(object):
                     self._pconfig[self._session]["story_name"] + str(level) +
                     ".txt")
                 self._logger.info("Loading story \"{}\" at level {}...".format(
-                        self._pconfig[self._session]["story"],
-                        self._pconfig[self._session]["story_level"]))
+                        self._pconfig[self._session]["story_name"],
+                        self._pconfig["story_retell_level"]))
             else:
                 self._logger.warning("Neither \"create\" nor \"retell\" is "
                                      "listed as the story type! Thus we don't"
