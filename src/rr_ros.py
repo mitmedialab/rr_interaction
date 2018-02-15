@@ -103,7 +103,7 @@ class RosNode(object):
         # Backchanneling starts disabled.
         self._backchanneling_enabled = False
         self._story_backchanneling_enabled = False
-        self._backchannel_random = False
+        self._backchannel_random = backchannel_random
         # Do we send audio through the entrainer or not? Does the entrainer
         # actually entrain that audio, or merely stream it?
         self._use_entrainer = use_entrainer
@@ -422,7 +422,7 @@ class RosNode(object):
         # in our backchannel action set.
         self._story_backchanneling_enabled = story
         if enabled and self._backchannel_random:
-            self._randomly_backchannel()
+            self.randomly_backchannel()
 
     def randomly_backchannel(self):
         """ Randomly play backchannel actions every so often until
@@ -453,7 +453,7 @@ class RosNode(object):
         # while, after a random interval of seconds (interval from Park et al.
         # 2017 backchanneling HRI paper).
         threading.Timer(5.53 + random.uniform(-1.5, 1.5),
-                randomly_backchannel).start()
+                        self.randomly_backchannel).start()
 
     def on_bc_msg_received(self, data):
         """ When we receive output from the backchannel module, if
