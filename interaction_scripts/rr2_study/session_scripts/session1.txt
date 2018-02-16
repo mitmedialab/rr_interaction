@@ -4,6 +4,7 @@ SET	PROMPT_TIME	1200
 PAUSE	1
 OPAL	CLEAR
 ROBOT	FIDGET	EMPTY
+ROBOT	VOLUME	0.7
 
 # Sleep and wait for wakeup.
 ROBOT	DO	POSE_SLEEPING
@@ -32,6 +33,8 @@ ROBOT	DO	ImNotGoodAtHearing
 **RR	QUESTION	help_practiceRR
 **RRME	ROBOT	DO	LAUGH
 **RRLE	ROBOT	DO	SMILE
+**RRME	ROBOT	VOLUME	0.75
+**RRLE	ROBOT	VOLUME	0.65
 STATE	end backstory
 
 # First activity: Anomalous Pictures.
@@ -77,6 +80,8 @@ STATE	end anomalous task
 # and then we have two opportunities for the child to say something else before
 # the robot moves on to the next thing.
 STATE	start self disclosure task
+**RRLE	ROBOT	VOLUME	0.6
+**RRME	ROBOT	VOLUME	0.8
 SET	PROMPT_TIME	8
 SET	NUM_PROMPTS	1
 STATE	start disclosure 1
@@ -101,12 +106,15 @@ SET	NUM_PROMPTS	2
 SET	MAX_REPEATS	1
 STATE	start story task
 **RR	ROBOT	DO	SMILE
+**RRLE	ROBOT	VOLUME	0.7
+**RRME	ROBOT	VOLUME	0.9
 ROBOT	DO	rr1_story_01
 REPEAT	MAX_REPEATS	story-retell.txt
 STATE	end story task
 
 # Photo with robot.
 STATE	start photo task
+**RRLE	ROBOT	VOLUME	0.75
 QUESTION	WantAPhoto
 SET	PROMPT_TIME	300
 ROBOT	DO	Booyah

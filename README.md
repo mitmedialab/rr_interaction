@@ -391,6 +391,12 @@ actions, list the name of the speech-action set to play. For example:
 
 `ROBOT   DO intro-1`
 
+You can change the robot's volume. The value you provide should be a percentage
+of the total volume. The following would set the robot's volume at 70% of the
+maximum:
+
+`ROBOT   VOLUME 0.7`
+
 You can also enable or disable fidgets with the FIDGET action. Specify the
 name of the fidget set (EMPTY, SPEECH, PHYSICAL), which correspond to the
 names in "/[r1d1\_msgs](https://github.com/mitmedialab/r1d1_msgs

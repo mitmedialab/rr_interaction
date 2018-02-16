@@ -366,6 +366,10 @@ class ScriptHandler(object):
                 # Send a DO speech or animation playback command to the robot.
                 if "DO" in elements[1]:
                     self._send_robot_do(elements[2])
+                elif "VOLUME" in elements[1]:
+                    self._logger.info("Setting robot volume to {}".format(
+                        elements[2]))
+                    self._ros_node.send_tega_command(volume=float(elements[2]))
                 # Send a fidget command to the robot.
                 elif "FIDGET" in elements[1]:
                     if "EMPTY" in elements[2]:
