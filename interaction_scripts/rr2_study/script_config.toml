@@ -6,8 +6,8 @@
 # chosen randomly. These can be overridden for individual questions below in
 # the question configuration.
 max_attempt = ["ThatsOkay", "FeelingShy", "ShareWhatYouThink"]
-timeout_prompts = ["Well", "WhatDoYouThink", "HmPrompt"]
-backchannel_prompts = ["mmhm", "uhuhh"]
+timeout_prompts = ["Well", "Well2", "Well3", "WhatDoYouThink2", "WhatDoYouThink", "WhatDoYouThink3", "HmPrompt", "HmPrompt2", "HmPrompt3"]
+backchannel_prompts = ["mmhm", "uhuhh", "mmm", "hmm"]
 
 story_intro = ["OkayIHaveAGoodIdea", "HmLetsSee"]
 story_closing = ["ThisIsSuchFun", "ThisIsMyFavoriteGame", "OkayMyStorysOver"]
@@ -1932,3 +1932,30 @@ animations = [ { time = 0.1, anim = "SILENT_INTERESTED" } ]
 name = "SayTheEnd"
 animations = [ { time = 0.1, anim = "SHIMMY" } ]
 
+[audio.WhatDoYouThink]
+name = "WhatDoYouThink"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.WhatDoYouThink2]
+name = "WhatDoYouThink"
+animations = [ { time = 1.5, anim = "SIDEPERK" } ]
+
+[audio.WhatDoYouThink3]
+name = "WhatDoYouThink"
+animations = [ { time = 0.1, anim = "SILENT_INTERESTED" } ]
+
+[audio.Well2]
+name = "Well"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.Well3]
+name = "Well"
+animations = [ { time = 0.1, anim = "SHIMMY" } ]
+
+[audio.HmPrompt2]
+name = "HmPrompt"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.HmPrompt3]
+name = "HmPrompt"
+animations = [ { time = 0.1, anim = "SILENT_INTERESTED" } ]
