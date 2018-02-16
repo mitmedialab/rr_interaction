@@ -4,28 +4,34 @@ ROBOT	DO	baby_birds_first_nest_lv1-01
 SET	PROMPT_TIME	5
 SET	NUM_PROMPTS	1
 QUESTION	baby_birds_first_nest_q_l_1
+SET	NUM_PROMPTS	0
 ROBOT	DO	CanYouSay
 QUESTION	prostrate
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv1-02
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv1-03
+SET	NUM_PROMPTS	1
 QUESTION	baby_birds_first_nest_q_l_2
+SET	NUM_PROMPTS	0
 ROBOT	DO	YourTurnCanYouSay
 QUESTION	slumber
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv1-04
-QUESTION	baby_birds_first_nest_q_f_3
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv1-05
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv1-06
+SET	NUM_PROMPTS	1
 QUESTION	baby_birds_first_nest_q_l_4
+SET	NUM_PROMPTS	0
 ROBOT	DO	CanYouSay
 QUESTION	montage
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv1-07
+SET	NUM_PROMPTS	1
 QUESTION	baby_birds_first_nest_q_l_5
+SET	NUM_PROMPTS	0
 ROBOT	DO	CanYouSay
 QUESTION	tuft
 OPAL	NEXT_PAGE
@@ -34,7 +40,9 @@ OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv1-09
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv1-10
+SET	NUM_PROMPTS	1
 QUESTION	baby_birds_first_nest_q_l_7
+SET	NUM_PROMPTS	0
 ROBOT	DO	CanYouSay
 QUESTION	dove
 OPAL	NEXT_PAGE
@@ -45,7 +53,9 @@ OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv1-13
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv1-14
+SET	NUM_PROMPTS	1
 QUESTION	baby_birds_first_nest_q_l_8
+SET	NUM_PROMPTS	0
 ROBOT	DO	YourTurnCanYouSay
 QUESTION	hind
 OPAL	NEXT_PAGE
@@ -54,7 +64,9 @@ OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv1-16
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv1-17
+SET	NUM_PROMPTS	1
 QUESTION	baby_birds_first_nest_q_l_9
+SET	NUM_PROMPTS	0
 ROBOT	DO	YourTurnCanYouSay
 QUESTION	perched
 OPAL	NEXT_PAGE
@@ -67,12 +79,13 @@ OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv1-21
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv1-22
+SET	NUM_PROMPTS	1
 QUESTION	baby_birds_first_nest_q_l_11
+SET	NUM_PROMPTS	0
 ROBOT	DO	CanYouSay
 QUESTION	mauve
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv1-23
-QUESTION	baby_birds_first_nest_q_i_12
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv1-24
 OPAL	NEXT_PAGE
