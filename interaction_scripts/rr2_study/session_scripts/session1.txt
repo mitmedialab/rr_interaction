@@ -30,12 +30,16 @@ ROBOT	DO	SIDEPERK
 ROBOT	DO	ImNotGoodAtHearing
 **NR	QUESTION	help_practiceNR
 **RR	QUESTION	help_practiceRR
+**RRME	ROBOT	DO	LAUGH
+**RRLE	ROBOT	DO	SMILE
 STATE	end backstory
 
 # First activity: Anomalous Pictures.
 STATE	start anomalous task
 ROBOT	DO	PERKUP
-QUESTION	lets_look_at_silly_pictures
+**NR	QUESTION	lets_look_at_silly_pictures
+**RRLE	QUESTION	lets_look_at_silly_picturesLE
+**RRME	QUESTION	lets_look_at_silly_picturesME
 OPAL	CLEAR
 OPAL	DISABLE_TOUCH
 STATE	start anomalous picture 1
@@ -96,6 +100,7 @@ SET	NUM_PROMPTS	2
 # Third activity: Story retell.
 SET	MAX_REPEATS	1
 STATE	start story task
+**RR	ROBOT	DO	SMILE
 ROBOT	DO	rr1_story_01
 REPEAT	MAX_REPEATS	story-retell.txt
 STATE	end story task
@@ -108,7 +113,8 @@ ROBOT	DO	Booyah
 ROBOT	DO	POSE_SMILE2
 QUESTION	TakePhoto
 ROBOT	DO	ThanksShy
-**RR	ROBOT	DO	PictureIllRemember
+**RRME	ROBOT	DO	PictureIllRememberME
+**RRLE	ROBOT	DO	PictureIllRememberLE
 **RR	ROBOT	DO	SMILE
 STATE	end photo task
 
@@ -117,7 +123,8 @@ STATE	start closing
 **NR	ROBOT	DO	rr1_story_19
 **RR	ROBOT	DO	LikedPlaying
 **RR	ROBOT	DO	<participant_name>
-**RR	ROBOT	DO	SMILE
+**RRME	ROBOT	DO	LAUGH
+**RRLE	ROBOT	DO	SMILE
 ROBOT	DO	PERKUP
 ROBOT	DO	SeeYouLaterHuman
 **RR	ROBOT	DO	LAUGH

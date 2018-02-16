@@ -7,7 +7,9 @@ QUESTION	listen_to_story_retell
 STATE	start story retell
 ROBOT	DO	ThisStoryIs
 STORY
-ROBOT	DO	TheEnd
+**NR	ROBOT	DO	TheEnd
+**RRME	ROBOT	DO	TheEndME
+**RRLE	ROBOT	DO	TheEndLE
 STATE	end story retell
 QUESTION	liked_story
 
@@ -15,7 +17,9 @@ QUESTION	liked_story
 **NR	ROBOT	DO	HeyNoName
 **RR	ROBOT	DO	Hey
 **RR	ROBOT	DO	<participant_name>
-QUESTION	RetellStoryToMe
+**NR	QUESTION	RetellStoryToMe
+**RRME	QUESTION	RetellStoryToMeME
+**RRLE	QUESTION	RetellStoryToMeLE
 OPAL	STORY_SHOW_BUTTONS
 OPAL	ENABLE_TOUCH
 OPAL	STORY_GO_TO_PAGE	1

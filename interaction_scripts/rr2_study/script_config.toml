@@ -160,6 +160,18 @@ question = "RetellStoryToMe"
     user_responses = [""]
     robot_responses = ["ItsOkayIfDontRemember", "UseArrows", "SayTheEnd"]
 
+[questions.RetellStoryToMeME]
+question = "RetellStoryToMeME"
+    [[questions.RetellStoryToMeME.user_input]]
+    user_responses = [""]
+    robot_responses = ["ItsOkayIfDontRemember", "UseArrowsME", "SayTheEndME"]
+
+[questions.RetellStoryToMeLE]
+question = "RetellStoryToMeLE"
+    [[questions.RetellStoryToMeLE.user_input]]
+    user_responses = [""]
+    robot_responses = ["ItsOkayIfDontRemember", "UseArrowsLE", "SayTheEndLE"]
+
 [questions.WhatHappenedFirst]
 question = "HeresFirstPage"
     [[questions.WhatHappenedFirst.user_input]]
@@ -277,6 +289,28 @@ max_attempt = ["WellLetsLookAnyway"]
     user_responses = ["yes", "ok", "okay", "of course", "yeah", "picture", "like"]
     robot_responses = ["HereWeGo"]
     [[questions.lets_look_at_silly_pictures.user_input]]
+    user_responses = ["no", "nah", "nope", "uh"]
+    robot_responses = ["NoQuestion", "WellLetsLookAnyway"]
+
+[questions.lets_look_at_silly_picturesME]
+question = "LookSillyPicturesME"
+timeout_prompts = ["ItsJustPictures", "AwComeOnItllBeFun"]
+max_attempt = ["WellLetsLookAnyway"]
+    [[questions.lets_look_at_silly_picturesME.user_input]]
+    user_responses = ["yes", "ok", "okay", "of course", "yeah", "picture", "like"]
+    robot_responses = ["HereWeGo"]
+    [[questions.lets_look_at_silly_picturesME.user_input]]
+    user_responses = ["no", "nah", "nope", "uh"]
+    robot_responses = ["NoQuestion", "WellLetsLookAnyway"]
+
+[questions.lets_look_at_silly_picturesLE]
+question = "LookSillyPicturesLE"
+timeout_prompts = ["ItsJustPictures", "AwComeOnItllBeFun"]
+max_attempt = ["WellLetsLookAnyway"]
+    [[questions.lets_look_at_silly_picturesLE.user_input]]
+    user_responses = ["yes", "ok", "okay", "of course", "yeah", "picture", "like"]
+    robot_responses = ["HereWeGo"]
+    [[questions.lets_look_at_silly_picturesLE.user_input]]
     user_responses = ["no", "nah", "nope", "uh"]
     robot_responses = ["NoQuestion", "WellLetsLookAnyway"]
 
@@ -801,6 +835,28 @@ max_attempt = ["PleaseYoullLikeIt"]
     user_responses = ["yes", "okay", "ok", "of course", "sure", "yeah", "okay"]
     robot_responses = [ "Yay", "<experimenter_name>", "CanYouTakePhoto" ]
     [[questions.WantAPhoto.user_input]]
+    user_responses = ["no", "nope", "don't"]
+    robot_responses = [ "NoThatsOkay",  "<experimenter_name>", "TakeAPictureOfMe" ]
+
+[questions.WantAPhotoME]
+question = "WantAPhotoME"
+timeout_prompts = ["WellAPhoto"]
+max_attempt = ["PleaseYoullLikeIt"]
+    [[questions.WantAPhotoME.user_input]]
+    user_responses = ["yes", "okay", "ok", "of course", "sure", "yeah", "okay"]
+    robot_responses = [ "Yay", "<experimenter_name>", "CanYouTakePhoto" ]
+    [[questions.WantAPhotoME.user_input]]
+    user_responses = ["no", "nope", "don't"]
+    robot_responses = [ "NoThatsOkay",  "<experimenter_name>", "TakeAPictureOfMe" ]
+
+[questions.WantAPhotoLE]
+question = "WantAPhotoLE"
+timeout_prompts = ["WellAPhoto"]
+max_attempt = ["PleaseYoullLikeIt"]
+    [[questions.WantAPhotoLE.user_input]]
+    user_responses = ["yes", "okay", "ok", "of course", "sure", "yeah", "okay"]
+    robot_responses = [ "Yay", "<experimenter_name>", "CanYouTakePhoto" ]
+    [[questions.WantAPhotoLE.user_input]]
     user_responses = ["no", "nope", "don't"]
     robot_responses = [ "NoThatsOkay",  "<experimenter_name>", "TakeAPictureOfMe" ]
 
@@ -1804,6 +1860,14 @@ animations = [ { time = 0.2, anim = "SHIMMY" } ]
 name = "WantAPhoto"
 animations = [ { time = 0.1, anim = "PERKUP" } ]
 
+[audio.WantAPhotoLE]
+name = "WantAPhoto"
+animations = [ { time = 0.1, anim = "SHIMMY" } ]
+
+[audio.WantAPhotoME]
+name = "WantAPhoto"
+animations = [ { time = 0.1, anim = "HAPPY_DANCE" } ]
+
 [audio.WellAPhoto]
 name = "WellAPhoto"
 animations = [ { time = 0.1, anim = "PERKUP" } ]
@@ -1812,9 +1876,13 @@ animations = [ { time = 0.1, anim = "PERKUP" } ]
 name = "Booyah"
 animations = [ { time = 0.1, anim = "SIDEPERK" } ]
 
-[audio.PictureIllRemember]
+[audio.PictureIllRememberME]
 name = "PictureIllRemember"
 animations = [ { time = 1.0, anim = "HAPPY_WIGGLE" } ]
+
+[audio.PictureIllRememberLE]
+name = "PictureIllRemember"
+animations = [ { time = 1.0, anim = "SHIMMY" } ]
 
 [audio.ThereThatsAll]
 name = "ThereThatsAll"
@@ -1831,3 +1899,36 @@ animations = [ { time = 0.1, anim = "SILENT_PUZZLED" } ]
 [audio.MaybeYouHelpMeRR]
 name = "MaybeYouHelpMeRR"
 animations = [ { time = 1.0, anim = "SILENT_NOD" } ]
+
+[audio.LookSillyPicturesLE]
+name = "LookSillyPictures"
+animations = [ { time = 1.5, anim = "PERKUP" } ]
+
+[audio.LookSillyPicturesME]
+name = "LookSillyPictures"
+animations = [ { time = 1.5, anim = "SIDEPERK" } ]
+
+[audio.TheEndLE]
+name = "TheEnd"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.TheEndME]
+name = "TheEnd"
+animations = [ { time = 0.1, anim = "HAPPY_DANCE" } ]
+
+[audio.UseArrowsME]
+name = "UseArrows"
+animations = [ { time = 0.1, anim = "SHIMMY" } ]
+
+[audio.UseArrowsLE]
+name = "UseArrows"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.SayTheEndME]
+name = "SayTheEnd"
+animations = [ { time = 0.1, anim = "SILENT_INTERESTED" } ]
+
+[audio.SayTheEndLE]
+name = "SayTheEnd"
+animations = [ { time = 0.1, anim = "SHIMMY" } ]
+
