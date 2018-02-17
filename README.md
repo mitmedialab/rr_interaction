@@ -354,6 +354,15 @@ different intro statements for the robot based on which tag a participant has:
 `**RR   ROBOT   DO  intro-relational`
 `**NR   ROBOT   DO  intro-basic`
 
+You can double-tag lines for the purposes of exuberance entrainment (see
+section under Personalization, below). This means the lines would be executed
+only if the condition matches, and then if the exuberance matches. Exuberance
+lines can be tagged either "ME" (more exuberant) or "LE" (less exuberant). They
+must also have a condition tag, as follows:
+
+`**RRME   ROBOT   DO  liked-story-ME`
+`**RRLE   ROBOT   DO  liked-story-LE`
+`**NR   ROBOT   DO  liked-story`
 
 #### SET
 
@@ -652,9 +661,30 @@ performance and activity for that session:
   any speech entrained to during the session (i.e., how much did we have to
   adjust the robot's speech to match the participant's). If the duration factor
   is 0, then no speech was detected.
+- total_questions_asked: The total number of questions the robot asked the
+  participant.
+- total_prompts_used: The total number of prompts that were used during the
+  questions. This indicates whether the participant "timed out" a lot when
+  being asked questions (or whether the ASR was bad at picking up their
+  speech...)
+- total_prompts_available: The total number of prompts available for all the
+  questions, regardless of how many actually got played (some questions have
+  more prompts available than others).
+- total_max_attempts_hit: the total number of times the participant timed out
+  for the entire question and reached the max number of tries to answer.
+- questions: A dictionary with four lists, one each for prompts_used,
+  prompts_available, max_attempt_hit, and response latencies (which is a list
+  of lists, where each sub-list contains the latencies for each response to a
+  given question). These lists contain the aforementioned data for each
+  question asked, so we can analyze later whether the number of timeouts,
+  prompts needed, or response latencies changed over the session.
 
 These log files are used to personalize later sessions for individual
 participants.
+
+The entrainment and question/prompt values are used to compute the
+participant's exuberance during the session for the purpose of exuberance
+entrainment (see below for more details).
 
 As mentioned above, when you run `gen_next_session_config.py`, an aggregate
 performance log containing the performance for all participants for all
@@ -687,6 +717,30 @@ participant. These stories are selected based on the following criteria:
 The participant config file generated will list what scenes to show for each
 participant for the next session, as well as what stories to use in each scene.
 
+### Exuberance entrainment
+
+Exuberance entrainment uses input from the audio entrainer regarding the
+participant's speaking rate, intensity, and speaking rate relative to the
+robot, as well as the number of prompts used, max attempts hit, and response
+latency to determine whether the participant can be classified as "more
+exuberant" (ME) or "less exuberant" (LE).
+
+This classification is used to determine whether certain script lines tagged
+either ME or LE should be played back for a participant. Generally, there will
+be two adjacent lines in the script, one tagged ME and one tagged LE, such that
+a participant will get the more appropriate line played back for them. Since
+exuberance entrainment is only applicable to participants who get
+personalization, in the RR2 study, any lines tagged ME or LE should also be
+tagged RR, so that only participants in the relational condition will get
+different exuberance lines; there should be another line tagged NR for
+participants in the non-relational condition. See the example earlier regarding
+tagging lines.
+
+Exuberance entrainment is used to do the following (similar to the RR1 study,
+just automatic instead of teleoperated):
+- Adjust the robot's volume up or down
+- Play more exuberant/lively/excited animations vs. less exuberant/quieter
+  animations
 
 ## Testing
 

@@ -313,16 +313,34 @@ class ScriptHandler(object):
         self._logger.debug("... {} elements: {}".format(
             len(elements), elements))
 
-        # If this line is tagged with a phrase (e.g., "RR" or "NR") do the line
-        # only if the participant has the same tag (i.e., is in the "RR" or
-        # "NR" condition).
+        # If this line is tagged with a phrase (e.g., "RR" or "NR" for
+        # condition, or "ME" or "LE" for more/less exuberant) do the line only
+        # if the participant has the same tag (i.e., is in the "RR" or "NR"
+        # condition, and/or is more/less exuberant).
         if line.startswith("**") and len(elements) > 1:
-            self._logger.info("Line is tagged. Checking condition...")
+            self._logger.info("Line is tagged. Checking to see if we do it...")
             if "condition" in self._pconfig:
                 if self._pconfig["condition"] in elements[0]:
                     self._logger.info("Right condition. Parsing line...")
-                    # Remove the tag and parse the line as usual.
-                    del elements[0]
+                    # Check if this is an exuberance line. In general, we only
+                    # do exuberance if this is a personalized/relational robot,
+                    # but this is specified in the tag.
+                    if "ME" in elements[0] or "LE" in elements[0]:
+                        # Check the user's exuberance to determine if we play
+                        # this line.
+                        if self._performance_log.get_exuberance() in \
+                                elements[0]:
+                            self._logger.info(
+                                "Right exuberance! Parsing line...")
+                            # Remove the tag and parse the line as usual.
+                            del elements[0]
+                        else:
+                            self._logger.info(
+                                "Wrong exuberance. Skipping line.")
+                            return
+                    else:
+                        # Remove the tag and parse the line as usual.
+                        del elements[0]
                 else:
                     self._logger.info("Wrong condition. Skipping line.")
                     return
@@ -561,6 +579,7 @@ class ScriptHandler(object):
         if "questions" not in self._script_config:
             self._logger.warning("No questions present in script config!")
 
+        # For determining what audio to play for different responses.
         self._got_a_response = False
         question_audio = ""
         user_input = []
@@ -608,6 +627,11 @@ class ScriptHandler(object):
                                  " the question!")
             return
 
+        # For logging number of prompts needed for the question.
+        prompts_played = 0
+        max_attempt_hit = False
+        latencies = []
+
         # Wait for a user response or a timeout. If we get a timeout, use a
         # prompt and wait again. Repeat until we have used all the allowed
         # number of prompts have been used, at which point, if we still haven't
@@ -621,9 +645,10 @@ class ScriptHandler(object):
                 # Tell ASR node to listen for a response and send us results.
                 self._ros_node.send_asr_command(AsrCommand.START_FINAL)
             # Wait for a response and get results! The first part of the tuple
-            # is the response, and the second part is optionally information
-            # about the response type (e.g. ASR or tablet response).
-            results, response_type = self._ros_node.wait_for_response(
+            # is the response, the second part is optionally information about
+            # the response type (e.g. ASR or tablet response), and the third is
+            # the time elapsed waiting for the response.
+            results, response_type, waited = self._ros_node.wait_for_response(
                     response_to_wait_for,
                     timeout=datetime.timedelta(
                         seconds=int(self._prompt_time)))
@@ -634,6 +659,9 @@ class ScriptHandler(object):
                                ": {}".format(results))
             if using_asr:
                 self._ros_node.send_asr_command(AsrCommand.STOP_ALL)
+
+            # Log the response latency.
+            latencies.append(str(waited))
 
             # After waiting for a response, we need to play back an appropriate
             # robot response. The robot's response depends on what kind of
@@ -661,6 +689,7 @@ class ScriptHandler(object):
                 if i >= self._num_prompts:
                     break
                 self._logger.debug("TIMEOUT: Playing a prompt.")
+                prompts_played += 1
                 # Pick a random prompt from the set of timeout prompts for this
                 # question, or, if there are none for this question, from the
                 # general list of timeout prompts.
@@ -805,6 +834,7 @@ class ScriptHandler(object):
         # all the prompts and didn't get an expected user response. Either
         # play a generic one, or, if this question has a specific set of
         # max attempts robot responses, use one of those.
+        max_attempt_hit = True
         self._logger.info("Playing max attempts robot response, since we did "
                           "not get a response to the prompts.")
         audio_to_play = ""
@@ -822,6 +852,8 @@ class ScriptHandler(object):
             self._logger.warning("No max attempt audio found in script config"
                                  " so we cannot play one!")
         self._send_robot_do(audio_to_play)
+        self._performance_log.log_question(self._num_prompts, prompts_played,
+                                           max_attempt_hit, latencies)
 
     def _send_robot_do(self, command):
         """ Given a command for the robot to do, get any details from the

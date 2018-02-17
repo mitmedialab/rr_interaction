@@ -584,7 +584,8 @@ class RosNode(object):
             # responses.
             if waiting_for_tablet and self._tablet_response_received:
                 self._logger.info("Got {} response!".format(response))
-                return self._tablet_response_received, self.TABLET_RESPONSE
+                return self._tablet_response_received, self.TABLET_RESPONSE, \
+                    (datetime.datetime.now() - start_time)
             elif (waiting_for_start and self._start_response_received) \
                     or (waiting_for_asr and self._asr_response_received) \
                     or (waiting_for_negotiation and
@@ -599,12 +600,12 @@ class RosNode(object):
                     or (waiting_for_robot_speaking
                         and self._robot_speaking):
                 self._logger.info("Got {} response!".format(response))
-                return self._response_received, ""
-
+                return self._response_received, "", \
+                    (datetime.datetime.now() - start_time)
         # If we don't get the response we were waiting for, we're done
         # waiting and timed out.
         self._logger.info("Timed out! Moving on...")
-        return self.TIMEOUT, ""
+        return self.TIMEOUT, "", timeout
 
     def wait_for_not_speaking(self):
         """ Wait until the robot is not making any sound. """

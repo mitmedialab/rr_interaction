@@ -37,6 +37,10 @@ class PerformanceLogger(object):
     a different location or format, e.g., to a database instead of a toml file.
     """
 
+    # Threshold for determining whether a user's exuberance score counts as
+    # more or less exuberant.
+    EXUBERANCE_THRESHOLD = 4.5
+
     def __init__(self, participant, session, directory):
         """ Initialize performance logger. """
         # Set up logger.
@@ -48,6 +52,11 @@ class PerformanceLogger(object):
         self._log = {}
         self._set_up_log(participant, session, directory)
         # For dealing with exuberance entrainment.
+        self._total_prompts_used = 0
+        self._total_prompts_available = 0
+        self._total_max_attempts_hit = 0
+        self._total_questions_asked = 0
+        self._response_latencies = []
         self._total_entrained = 0
         self._mean_intensity = []
         self._speaking_rate = []
@@ -182,6 +191,59 @@ class PerformanceLogger(object):
             self._logger.error("Error writing to file: {}\nError: {}".format(
                 self._filename, ioe))
 
+    def log_question(self, num_prompts, prompts_used, max_attempt_hit,
+                     latencies):
+        """ Log the number of prompts played for a question. Log as a ratio of
+        prompts available to prompts used. Record whether the user timed out,
+        i.e. hit the max number of answer attempts.
+        """
+        self._logger.info("Logging the prompts used in the most recent "
+                          "question: {} of {}, max attempt hit? {}".format(
+                              prompts_used, num_prompts, max_attempt_hit))
+
+        # Increment the total number of questions asked.
+        self._total_questions_asked += 1
+        # Update the total prompts counts.
+        self._total_prompts_used += prompts_used
+        self._total_prompts_available += num_prompts
+        # Update the total number of max attempts hit.
+        self._total_max_attempts_hit += 1 if max_attempt_hit else 0
+        # Update the list of response latencies.
+        self._response_latencies += latencies
+
+        # Update the log.
+        self._log["total_prompts_used"] = self._total_prompts_used
+        self._log["total_prompts_available"] = self._total_prompts_available
+        self._log["total_max_attempts_hit"] = self._total_max_attempts_hit
+        self._log["total_questions_asked"] = self._total_questions_asked
+
+        if "questions" in self._log:
+            if "prompts_used" in self._log["questions"]:
+                self._log["questions"]["prompts_used"].append(prompts_used)
+            else:
+                self._log["questions"]["prompts_used"] = [prompts_used]
+            if "prompts_available" in self._log["questions"]:
+                self._log["questions"]["prompts_available"].append(num_prompts)
+            else:
+                self._log["questions"]["prompts_available"] = [num_prompts]
+            if "max_attempt_hit" in self._log["questions"]:
+                self._log["questions"]["max_attempt_hit"].append(
+                        max_attempt_hit)
+            else:
+                self._log["questions"]["max_attempt_hit"] = [max_attempt_hit]
+            if "response_latencies" in self._log["questions"]:
+                self._log["questions"]["response_latencies"].append(latencies)
+            else:
+                self._log["questions"]["response_latencies"] = [latencies]
+
+        else:
+            self._log["questions"] = {}
+            self._log["questions"]["prompts_used"] = [prompts_used]
+            self._log["questions"]["prompts_available"] = [num_prompts]
+            self._log["questions"]["max_attempt_hit"] = [max_attempt_hit]
+            self._log["questions"]["response_latencies"] = [latencies]
+        self._write_log_to_file()
+
     def log_entrainment(self, mean_intensity, speaking_rate, duration_factor):
         """ Keep a running average of the mean intensity of the user's speech,
         a running average of the user's speaking rate, and a running average of
@@ -212,3 +274,109 @@ class PerformanceLogger(object):
         else:
             self._log["duration_factor"] = [duration_factor]
         self._write_log_to_file()
+
+    def get_exuberance(self):
+        """ Update our estimate of whether this user is more or less exuberant.
+        """
+        # Determine the ratio of the number of prompts used to the prompts
+        # available. This gives us a sense of how often the user responds to
+        # the robot's prompts (or how often the ASR detects what they say...).
+        # Because this is reverse-scored, we set the default to 1 if there
+        # isn't anything to calculate.
+        prompt_ratio = 1 if self._total_prompts_available == 0 else float(
+                self._total_prompts_used) / self._total_prompts_available
+
+        # Determine the ratio of the number of max attempts hit to questions
+        # asked. This gives us a sense of whether the user is responding at all
+        # to the robot (or how often the ASR detects what they say...). Because
+        # this is reverse-scored, we set the default to 1 if there isn't
+        # anything to calculate.
+        max_attempt_ratio = 1 if self._total_questions_asked == 0 else float(
+                self._total_max_attempts_hit) / self._total_questions_asked
+
+        # Get the current average of the user's mean intensity, which gives us
+        # a sense of how loud or quiet the user is. Intensity is also relative
+        # to how close or far from the microphone the user is, so low intensity
+        # could signal either that the user is far or that the user is speaking
+        # quietly, or both. High intensity could signal that the user is
+        # closer, speaking louder, or both. In either case, we can we use the
+        # louder/closer vs. quieter/farther to know something about the user.
+        mean_mean_intensity = 0 if len(self._mean_intensity) == 0 else sum(
+                self._mean_intensity) / float(len(self._mean_intensity))
+
+        # Get the current average of the user's speaking rate. This gives us a
+        # sense of how fast or slow the user is speaking.
+        mean_speaking_rate = 0 if len(self._speaking_rate) == 0 else sum(
+            self._speaking_rate) / float(len(self._speaking_rate))
+
+        # Get the current average of the speaking rate duration adjustment
+        # factor. This gives us a sense of how fast or slow the user is
+        # speaking relative to the robot, i.e., how much the robot had to
+        # adjust to match the user's speaking rate. Because this is
+        # reverse-scored, we set the default to the max value (1.3 if there
+        # isn't anything to calculate.
+        mean_duration_factor = 1.3 if len(self._duration_factor) == 0 else sum(
+            self._duration_factor) / float(len(self._duration_factor))
+
+        # Get the current average response latency. Although some of the
+        # latency is due to the ASR and network, in general this can give us a
+        # sense of how quickly the user responded to the robot. Because this is
+        # reverse-scored, we set the default to the max value (15) if there
+        # isn't anything to calculate.
+        mean_latency = 15 if len(self._response_latencies) == 0 else sum(
+            self._response_latencies) / float(len(self._response_latencies))
+
+        self._logger.info("Computing exuberance! Total prompts ratio: {}\n"
+                          "Total max attempts ratio: {}\nCurrent mean "
+                          "intensity: {}\nCurrent mean speaking rate: {}\n"
+                          "Current mean duration factor: {}\nCurrent mean "
+                          "latency: {}".format(
+                              prompt_ratio, max_attempt_ratio,
+                              mean_mean_intensity, mean_speaking_rate,
+                              mean_duration_factor, mean_latency))
+
+        # Users are less exuberant if they:
+        #  - need more prompts
+        #  - hit more max attempts (respond to the robot less)
+        #  - lower intensity speech (quieter and/or farther)
+        #  - slower speaking rate
+        #  - longer latency before responses
+        # Users are more exuberant if they:
+        #  - need fewer prompts
+        #  - hit fewer max attempts (respond to the robot more)
+        #  - higher intensity speech (louder and/or closer)
+        #  - faster speaking rate
+        #  - shorter latency before responses
+        #
+        # Compute an exuberance score:
+        # We convert all values to (approximately) a 0-1 scale.
+        # We add 6 values together, and weight some more than others. The final
+        # score should be in the range 0-8. Higher value means more exuberant;
+        # lower means less exuberant.
+        score = (
+            # Prompt ratio: 0-1. Lower number is fewer prompts needed, so we
+            # reverse score.
+            (1 - prompt_ratio) + \
+            # Max attempt ratio: 0-1. Lower number is fewer max attempts hit,
+            # so we reverse score.
+            2 * (1 - max_attempt_ratio) + \
+            # Intensity: around 50-80. Background noise around 50. Robot often
+            # is around 75. Person speaking normally around 65. Convert to a
+            # 0-1 scale. Higher number is louder.
+            2 * ((mean_mean_intensity - 50) / 40.0) + \
+            # Speaking rate: around 1.5-5. Robot often around 4. Higher number
+            # is faster speech. Convert to a 0-1 scale.
+            (mean_speaking_rate / 5.0) + \
+            # Duration factor: -1.30 - 1.30. Capped at those values. Higher
+            # number means the user spoke slower than the robot. Convert to a
+            # 0-1 scale. Reverse scored.
+            (1 - ((mean_duration_factor - -1.3) / 2.6)) + \
+            # Latency: 0 - timeout length. Lower values mean the user spoke
+            # sooner, so we reverse score. Convert to a 0-1 scale.
+            (1 - ((mean_latency - 15) / 15)))
+        self._logger.info("Current exuberance score: {}".format(score))
+
+        # Based on the score, threshold and determine if the user is more or
+        # less exuberant, and return the appropriate tag.
+        # TODO adjust exuberance threshold and score calculation above.
+        return "ME" if score < self.EXUBERANCE_THRESHOLD else "LE"
