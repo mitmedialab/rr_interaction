@@ -47,6 +47,11 @@ class PerformanceLogger(object):
         # For holding the performance log.
         self._log = {}
         self._set_up_log(participant, session, directory)
+        # For dealing with exuberance entrainment.
+        self._total_entrained = 0
+        self._mean_intensity = []
+        self._speaking_rate = []
+        self._duration_factor = []
 
     def _set_up_log(self, participant, session, directory):
         """ Create an initial performance log file in the specified directory
@@ -176,3 +181,34 @@ class PerformanceLogger(object):
         except IOError as ioe:
             self._logger.error("Error writing to file: {}\nError: {}".format(
                 self._filename, ioe))
+
+    def log_entrainment(self, mean_intensity, speaking_rate, duration_factor):
+        """ Keep a running average of the mean intensity of the user's speech,
+        a running average of the user's speaking rate, and a running average of
+        the user's speaking rate relative to the robot's (i.e., how much the
+        robot's speech had to be adjusted in order to match the user's).
+        """
+        # Increment the total number of entrained audio files.
+        self._total_entrained += 1
+        # Update the lists of mean intensity values, speaking rate, and the
+        # duration factor. These are used to compute means across the entire
+        # session later.
+        self._mean_intensity.append(mean_intensity)
+        self._speaking_rate.append(speaking_rate)
+        self._duration_factor.append(duration_factor)
+
+        # Update the log.
+        self._log["total_entrained_audio"] = self._total_entrained
+        if "mean_intensity" in self._log:
+            self._log["mean_intensity"].append(mean_intensity)
+        else:
+            self._log["mean_intensity"] = [mean_intensity]
+        if "speaking_rate" in self._log:
+            self._log["speaking_rate"].append(speaking_rate)
+        else:
+            self._log["speaking_rate"] = [speaking_rate]
+        if "duration_factor" in self._log:
+            self._log["duration_factor"].append(duration_factor)
+        else:
+            self._log["duration_factor"] = [duration_factor]
+        self._write_log_to_file()

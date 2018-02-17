@@ -34,7 +34,6 @@ import json  # For packing ros message properties
 import random  # For picking robot responses and shuffling answer options
 import logging  # Log messages
 from rr_script_parser import ScriptParser  # Parses scripts
-from rr_performance_logger import PerformanceLogger  # Logs participant data.
 from asr_google_cloud.msg import AsrCommand  # Tell ASR to start/stop.
 from r1d1_msgs.msg import TegaAction  # Tell Tega to do different fidgets.
 from rr_msgs.msg import UserInput  # Get different user input responses.
@@ -60,9 +59,9 @@ class ScriptHandler(object):
     # robot might have to say something long at some point.
     WAIT_TIME = 30
 
-    def __init__(self, ros_node, session, participant, experimenter,
+    def __init__(self, ros_node, session, experimenter,
                  study_path, script_config, story_script_path,
-                 session_script_path, output_dir, pconfig):
+                 session_script_path, output_dir, pconfig, performance_logger):
         """ Save references to ROS connection and logger, get scripts and
         set up to read script lines.
         """
@@ -89,10 +88,10 @@ class ScriptHandler(object):
         # Save the study config.
         self._script_config = script_config
 
-        # Set up performance logger for tracking participant performance this
+        # Save the performance logger for tracking participant performance this
         # session.
-        self._performance_log = PerformanceLogger(participant, session,
-                                                  output_dir)
+        self._performance_log = performance_logger
+
         # Set up script parser.
         self._script_parser = ScriptParser()
         # These are other script parsers we may use later.

@@ -38,6 +38,7 @@ from sar_opal_msgs.msg import OpalAction  # Get Opal device state and actions.
 from rr_msgs.msg import EntrainAudio  # Send audio to the audio entrainer.
 from rr_msgs.msg import InteractionState  # Send state to the audio entrainer.
 from rr_msgs.msg import UserInput  # Receive user input form responses.
+from rr_msgs.msg import EntrainmentData  # Receive data about entrainment.
 from asr_google_cloud.msg import AsrResult  # Get ASR results back.
 from asr_google_cloud.msg import AsrCommand  # Tell ASR to start/stop.
 from std_msgs.msg import Header  # Standard ROS msg header.
@@ -93,7 +94,8 @@ class RosNode(object):
     }
 
     def __init__(self, queue, use_entrainer, entrain, audio_base_dir,
-                 viseme_base_dir, backchannel_actions, backchannel_random):
+                 viseme_base_dir, backchannel_actions, backchannel_random,
+                 performance_logger):
         """ Initialize ROS """
         # Set up logger
         self._logger = logging.getLogger(__name__)
@@ -115,6 +117,9 @@ class RosNode(object):
         # These are different actions that could be taken for different
         # backchannel states that can occur.
         self._backchannel_actions = backchannel_actions
+        # Save the performance logger for tracking participant performance this
+        # session.
+        self._performance_log = performance_logger
 
         # Initialize the flags we use to track responses from the robot and
         # from the user.
@@ -155,10 +160,10 @@ class RosNode(object):
                                                 queue_size=10)
 
         # Set up rostopics we subscribe to:
-        self._logger.info("Subscribing to topics: /rr/opal_action, "
+        self._logger.info("Subscribing to topics: /rr/opal_action,"
                           + "/tega_state, /asr_result, /msg_bc"
-                          + (", /rr/audio_entrainer" if self._use_entrainer
-                             else ""))
+                          + (", /rr/entrainment_data, /rr/audio_entrainer" if
+                              self._use_entrainer else ""))
         # State from the Opal game.
         rospy.Subscriber('/rr/opal_action', OpalAction,
                          self.on_opal_action_msg)
@@ -173,6 +178,10 @@ class RosNode(object):
         rospy.Subscriber("msg_bc", String, self.on_bc_msg_received)
 
         if self._use_entrainer:
+            # Subscribe to entrainment data so we can personalize based on
+            # features detected from the audio.
+            rospy.Subscriber("/rr/entrainment_data", EntrainmentData,
+                             self.on_entrainment_data_msg)
             # State from the audio entrainer.
             rospy.Subscriber('/rr/audio_entrainer', String,
                              self.on_entrainer_msg)
@@ -391,6 +400,17 @@ class RosNode(object):
         """
         self._logger.info("Received audio entrainer message: " + str(data))
         # TODO do something with this?
+
+    def on_entrainment_data_msg(self, data):
+        """ Called when we receive EntrainmentData messages from the audio
+        entrainer with information about thetarget  audio entrained to and how
+        much the source audio was entrained.
+        """
+        self._logger.info("Received entrainment data message: " + str(data))
+        # Pass relevant data to the performance logger.
+        self._performance_log.log_entrainment(
+            data.target_mean_intensity, data.target_speaking_rate,
+            data.adjusted_duration_morph_factor)
 
     def on_asr_result_msg(self, data):
         """ Called when we receive AsrResult messages from the ASR node. """

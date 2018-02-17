@@ -277,6 +277,10 @@ The node subscribes to "/[r1d1\_msgs](https://github.com/mitmedialab/r1d1_msgs
 The node subscribes to std_msgs/String messages on the ROS topic
 "rr/audio_entrainer", if the entrainer is enabled.
 
+The node subscribes to
+[rr_msgs](https://github.com/mitmedialab/rr_msgs)/EntrainmentData) messages on
+the ROS topic "rr/entrainment_data".
+
 The node subscribes to std_msgs/String messages on the ROS topic "msg_bc",
 which is published by the [backchannel
 module](https://github.com/mitmedialab/Moody_BackChanneling/).
@@ -636,6 +640,18 @@ performance and activity for that session:
   `["Iceberg"]`.
 - story_text: A list of strings, each containing the full text of a story the
   participant told.
+- total_entrained_audio: The number of audio files entrained during the session
+  for the robot to the participant.
+- mean_intensity: A list of mean intensity values for any speech entrained to
+  during the session. If the corresponding speaking rate and duration factor
+  are both 0, then the mean intensity value corresponds to the intensity of the
+  background noise in the area, since no speech was detected.
+- speaking_rate: A list of speaking rate values for any speech entrained to
+  during the session. If the speaking rate is 0, then no speech was detected.
+- duration_factor: A list of the speaking rate duration factor adjustment for
+  any speech entrained to during the session (i.e., how much did we have to
+  adjust the robot's speech to match the participant's). If the duration factor
+  is 0, then no speech was detected.
 
 These log files are used to personalize later sessions for individual
 participants.

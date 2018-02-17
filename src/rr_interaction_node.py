@@ -36,6 +36,7 @@ import toml  # For reading the study config file.
 import Queue  # for getting messages from ROS callback threads
 import datetime  # for getting time deltas for timeouts
 from rr_script_handler import ScriptHandler  # plays back script lines
+from rr_performance_logger import PerformanceLogger  # Logs user performance!
 from rr_ros import RosNode  # we put all our ROS stuff here
 from rr_msgs.msg import UserInput  # For user input form response constants.
 
@@ -355,21 +356,25 @@ class InteractionHandler(object):
         else:
             backchannel_actions = {}
 
+        # Create a performance logger for this session so we can share it with
+        # the script handler and ros node.
+        performance_logger = PerformanceLogger(participant, session,
+                                               output_dir)
+
         self.init_ros()
         self._ros_handler = RosNode(self._queue, use_entrainer, entrain,
                                     audio_base_dir, viseme_base_dir,
-                                    backchannel_actions, backchannel_random)
+                                    backchannel_actions, backchannel_random,
+                                    performance_logger)
 
         # Load the session script. The script handler loads the main config
         # file since that file mostly has directories to where scripts and
         # other files are, which we don't need to know here but it does.
         try:
-            script_handler = ScriptHandler(self._ros_handler, session,
-                                           participant, experimenter,
-                                           study_path, script_config,
-                                           story_script_path,
-                                           session_script_path,
-                                           output_dir, pconfig)
+            script_handler = ScriptHandler(
+                    self._ros_handler, session, experimenter, study_path,
+                    script_config, story_script_path, session_script_path,
+                    output_dir, pconfig, performance_logger)
         except IOError as ioe:
             self._logger.exception("Did not load the session script... exiting"
                                    " because we need the session script to "
@@ -377,9 +382,9 @@ class InteractionHandler(object):
             exit(1)
 
         # We've loaded a script and are all configured. Start!
-        self.run_interaction(script_handler)
+        self.run_interaction(script_handler, performance_logger)
 
-    def run_interaction(self, script_handler):
+    def run_interaction(self, script_handler, performance_logger):
         """ Run the interaction until we reach the end of the script or are
         told to exit.
         """
