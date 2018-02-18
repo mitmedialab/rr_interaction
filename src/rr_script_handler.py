@@ -33,6 +33,7 @@ import time  # For sleep
 import json  # For packing ros message properties
 import random  # For picking robot responses and shuffling answer options
 import logging  # Log messages
+import rr_commons as rr_commons # Common constants.
 from rr_script_parser import ScriptParser  # Parses scripts
 from asr_google_cloud.msg import AsrCommand  # Tell ASR to start/stop.
 from r1d1_msgs.msg import TegaAction  # Tell Tega to do different fidgets.
@@ -383,6 +384,16 @@ class ScriptHandler(object):
                 # Send a DO speech or animation playback command to the robot.
                 if "DO" in elements[1]:
                     self._send_robot_do(elements[2])
+                elif "LOOKAT" in elements[1]:
+                    try:
+                        self._logger.info("Sending lookat {}".format(
+                            elements[2]))
+                        self._ros_node.send_tega_command(
+                            lookat=rr_commons.LOOKAT[elements[2]])
+                    except KeyError keyerr:
+                        self._logger.warning("Told to send lookat {}, but it's"
+                                             "not the presets list!".format(
+                                              elements[2]))
                 elif "VOLUME" in elements[1]:
                     self._logger.info("Setting robot volume to {}".format(
                         elements[2]))

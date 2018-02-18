@@ -425,6 +425,13 @@ names in "/[r1d1\_msgs](https://github.com/mitmedialab/r1d1_msgs
 
 `ROBOT  FIDGET  SPEECH`
 
+You can tell the robot to look at different preset things, including the USER,
+TABLET, UP, DOWN, LEFT, and RIGHT. The presets (defined in `src/rr_commons.py`)
+assume that the tablet is placed stageright of the robot (i.e., on the robot's
+left if you are facing the robot). For example:
+
+`ROBOT  LOOKAT  USER`
+
 The robot commands also include a few special commands that indicate that one
 of the robot commands from a special list such as `STORY_INTROS` or
 `STORY_CLOSINGS` should be used, such as:
