@@ -575,6 +575,38 @@ The form lets you send two different kinds of UserInput messages:
 - Interaction state input (such as telling the interaction to start, stop,
   pause, and resume)
 
+## Lookat node
+
+The robot's gaze behaviors are partly scripted and partly reactive to the
+interaction state and child's behavior. You can script gaze behaviors (e.g.,
+looking down while speaking; looking at the tablet before speaking) into the
+interaction scripts as described earlier. The robot will automatically be told
+to look at the user when it is the user's turn to speak. The lookat node
+located in `src/lookat_node.py` handles most of the other reactive, automatic
+stuff.
+
+The lookat node must be started separately from the main interaction node, as
+follows:
+
+```sh
+$ python src/lookat_node.py
+```
+
+If you are running the RR2 study with the roslaunch file, the lookat node has
+been included in the roslaunch file.
+
+The lookat node listens to InteractionState messages and OpalCommand messages
+to determine when the robot should be looking at the tablet vs. at the user. In
+particular:
+- When the child is telling or retelling a story, the robot's gaze is directed
+  primarily to the tablet, glancing over at the child every 5 +/- 0.5s and
+  staying on the child for 2.5 +/- 0.5s. This interval was used in the SR2
+  storybot study (Kory, 2014, master's thesis), based on pilot data collected
+  for that study, and seemed to work reasonably well.
+- The robot glances at the tablet for 2.5 +/- 0.5s every time something new
+  appears on the tablet or when the story page is turned when the robot is
+  telling a story.
+
 ## Personalization
 
 This repository includes scripts for personalizing the interaction run with the

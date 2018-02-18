@@ -24,6 +24,11 @@
           pkg="rr_interaction"
           type="user_input_form.py" />
 
+    <!-- Lookat node (for sending lookat commands to the robot) -->
+    <node name="rr_lookat_node"
+          pkg="rr_interaction"
+          type="lookat_node.py" />
+
     <!-- Backchanneling. Has multiple nodes as part of it. -->
     <include file="$(find moody_backchanneling)/backchannel_module/backchannel_dependencies.launch" />
 

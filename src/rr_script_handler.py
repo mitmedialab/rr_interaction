@@ -652,6 +652,9 @@ class ScriptHandler(object):
         for i in range(0, self._num_prompts + 1):
             # Announce that it's the user's turn to talk or act.
             self._ros_node.send_interaction_state(is_user_turn=True)
+            # Since it's the user's turn to talk or act, the robot should look
+            # at the user.
+            self._ros_node.send_tega_command(lookat=rr_commons.LOOKAT["USER"])
             if using_asr:
                 # Tell ASR node to listen for a response and send us results.
                 self._ros_node.send_asr_command(AsrCommand.START_FINAL)
