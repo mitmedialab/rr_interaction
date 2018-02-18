@@ -1264,6 +1264,12 @@ class ScriptHandler(object):
                                   .format(self._pconfig[self._session][
                                       "stories"][self._selected_scene],
                                        self._selected_scene))
+                # Log that the story was played.
+                self._performance_log.log_played_story(
+                        self._pconfig[self._session]["stories"][
+                            self._selected_scene],
+                        self._selected_scene,
+                        self._pconfig[self._session]["story_create_level"])
 
             # RETELL story:
             # The levels of these stories are determined by the number listed
@@ -1298,6 +1304,10 @@ class ScriptHandler(object):
                 self._logger.info("Loading story \"{}\" at level {}...".format(
                         self._pconfig[self._session]["story_name"],
                         self._pconfig["story_retell_level"]))
+                # Log that the story was played.
+                self._performance_log.log_played_story(
+                        self._pconfig[self._session]["story_name"], None,
+                        self._pconfig["story_retell_level"])
             else:
                 self._logger.warning("Neither \"create\" nor \"retell\" is "
                                      "listed as the story type! Thus we don't"
@@ -1351,16 +1361,22 @@ class ScriptHandler(object):
         # and do "OPAL LOAD_ALL".
         if "create" in self._pconfig[self._session]["story_type"]:
             self._logger.info("Loading CREATE story on Opal device...")
+
+            # But if no scene was selected, we don't know what story to load.
+            if not self._selected_scene:
+                self._logger.warning("No scene was selected to play. "
+                                     "Negotiation happened? Can't load story "
+                                     "without knowing the scene. Skipping "
+                                     "STORY line. {}".format(
+                                         self._session,
+                                         self._pconfig[self._session]))
+                self._doing_story = False
+                return
+
             toload = {}
             toload["name"] = "sr2-scenes/" + self._selected_scene
             toload["tag"] = "Background"
             self._ros_node.send_opal_command("LOAD_OBJECT", json.dumps(toload))
-            # Log that the story was played.
-            self._performance_log.log_played_story(
-                    self._pconfig[self._session]["stories"][
-                        self._selected_scene],
-                    self._selected_scene,
-                    self._pconfig[self._session]["story_create_level"])
 
         # RETELL story:
         elif "retell" in self._pconfig[self._session]["story_type"]:
@@ -1372,7 +1388,3 @@ class ScriptHandler(object):
             # turn first. When loaded, stories start on the first page by
             # default.
             self._ros_node.send_opal_command("STORY_HIDE_BUTTONS")
-            # Log that the story was played.
-            self._performance_log.log_played_story(
-                    self._pconfig[self._session]["story_name"], None,
-                    self._pconfig["story_retell_level"])

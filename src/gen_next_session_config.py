@@ -355,7 +355,7 @@ def pick_story(story_corpus, corpus_name, pid, story_dir, story_create_level,
     return top_match
 
 
-def update_performance(log, performance_data):
+def update_performance(log, performance):
     """ Update the performance dictionary with a participant's most recent
     performance log data.
     """
@@ -373,42 +373,38 @@ def update_performance(log, performance_data):
 
     # If we haven't recorded anything for this participant or session before,
     # make new dictionaries to hold the data.
-    if log["pid"] not in performance_data:
-        performance_data[log["pid"]] = {}
-    if "session" not in performance_data[log["pid"]]:
-        performance_data[log["pid"]]["session"] = {}
-    if log["session"] not in performance_data[log["pid"]]["session"]:
-        performance_data[log["pid"]]["session"][str(log["session"])] = {}
-    if "overall" not in performance_data[log["pid"]]:
-        performance_data[log["pid"]]["overall"] = {}
-    if "scenes_used" not in performance_data[log["pid"]]["overall"]:
-        performance_data[log["pid"]]["overall"]["scenes_used"] = []
-    if "stories_heard" not in performance_data[log["pid"]]["overall"]:
-        performance_data[log["pid"]]["overall"]["stories_heard"] = []
-    if "stories_heard_levels" not in performance_data[log["pid"]]["overall"]:
-        performance_data[log["pid"]]["overall"]["stories_heard_levels"] = []
+    if log["pid"] not in performance:
+        performance[log["pid"]] = {}
+    if "session" not in performance[log["pid"]]:
+        performance[log["pid"]]["session"] = {}
+    if log["session"] not in performance[log["pid"]]["session"]:
+        performance[log["pid"]]["session"][str(log["session"])] = {}
+    if "overall" not in performance[log["pid"]]:
+        performance[log["pid"]]["overall"] = {}
+    if "scenes_used" not in performance[log["pid"]]["overall"]:
+        performance[log["pid"]]["overall"]["scenes_used"] = []
+    if "stories_heard" not in performance[log["pid"]]["overall"]:
+        performance[log["pid"]]["overall"]["stories_heard"] = []
+    if "stories_heard_levels" not in performance[log["pid"]]["overall"]:
+        performance[log["pid"]]["overall"]["stories_heard_levels"] = []
 
     # Update!
-    performance_data[log["pid"]]["session"][str(log["session"])][
-            "scenes_shown"] = log["scenes_shown"]
-    performance_data[log["pid"]]["session"][str(log["session"])][
-            "stories_heard"] = log["stories_heard"]
-    performance_data[log["pid"]]["session"][str(log["session"])][
-            "stories_heard_levels"] = log["stories_heard_levels"]
-    performance_data[log["pid"]]["session"][str(log["session"])][
-            "scenes_used"] = log["scenes_used"]
-    performance_data[log["pid"]]["session"][str(log["session"])][
-            "story_text"] = log["story_text"]
+    for key in log:
+        # Skip the session and participant ID since we handled those already.
+        if "session" in key or "pid" in key:
+            continue
+        # Save all the new data from the log under the participant and session
+        # that it was logged for!
+        performance[log["pid"]]["session"][str(log["session"])][key] = log[key]
+
     # Also add stories told list overall list of story scenes used for ease
     # of reference later.
-    performance_data[log["pid"]]["overall"]["scenes_used"] += \
-        log["scenes_used"]
-    performance_data[log["pid"]]["overall"]["stories_heard"] += \
-        log["stories_heard"]
-    performance_data[log["pid"]]["overall"]["stories_heard_levels"] += \
+    performance[log["pid"]]["overall"]["scenes_used"] += log["scenes_used"]
+    performance[log["pid"]]["overall"]["stories_heard"] += log["stories_heard"]
+    performance[log["pid"]]["overall"]["stories_heard_levels"] += \
         log["stories_heard_levels"]
 
-    return performance_data
+    return performance
 
 
 def read_toml(toml_file):

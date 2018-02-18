@@ -29,19 +29,15 @@ name = "jackie"
 [p000.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
-negotiation = false
 
 [p001.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
-negotiation = false
 
 [p002.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
-negotiation = false
 
 [p003.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
-negotiation = false
