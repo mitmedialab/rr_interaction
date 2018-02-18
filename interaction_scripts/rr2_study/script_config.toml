@@ -1866,7 +1866,7 @@ animations = [ { time = 0.1, anim = "SHIMMY" } ]
 
 [audio.WantAPhotoME]
 name = "WantAPhoto"
-animations = [ { time = 0.1, anim = "HAPPY_DANCE" } ]
+animations = [ { time = 0.1, anim = "SILENT_HAPPY_DANCE" } ]
 
 [audio.WellAPhoto]
 name = "WellAPhoto"
@@ -1878,7 +1878,7 @@ animations = [ { time = 0.1, anim = "SIDEPERK" } ]
 
 [audio.PictureIllRememberME]
 name = "PictureIllRemember"
-animations = [ { time = 1.0, anim = "HAPPY_WIGGLE" } ]
+animations = [ { time = 1.0, anim = "SILENT_HAPPY_WIGGLE" } ]
 
 [audio.PictureIllRememberLE]
 name = "PictureIllRemember"
@@ -1914,7 +1914,7 @@ animations = [ { time = 0.1, anim = "PERKUP" } ]
 
 [audio.TheEndME]
 name = "TheEnd"
-animations = [ { time = 0.1, anim = "HAPPY_DANCE" } ]
+animations = [ { time = 0.1, anim = "SILENT_HAPPY_DANCE" } ]
 
 [audio.UseArrowsME]
 name = "UseArrows"

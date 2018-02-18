@@ -41,6 +41,10 @@ following command:
 
 `roslaunch rosbridge_server rosbridge_websocket.launch`
 
+If you run the whole interaction (e.g. for the RR2 study) using the launch
+scripts described below, you do not have to remember to start the websocket, as
+it will be started for you.
+
 You will also need to ensure that the opal tablet's config file lists the IP
 address or hostname of the machine running roscore. The [opal
 tablet](https://github.com/mitmedialab/SAR-opal-base) documentation explains
@@ -271,46 +275,48 @@ For more details, see the Personalization section below.
 
 ### Subscribers
 
-The node subscribes to "/[r1d1\_msgs](https://github.com/mitmedialab/r1d1_msgs
+The interaction node subscribes to
+"/[r1d1\_msgs](https://github.com/mitmedialab/r1d1_msgs
 "/r1d1_msgs")/TegaState" on the ROS topic "/tega_state".
 
 The node subscribes to std_msgs/String messages on the ROS topic
 "rr/audio_entrainer", if the entrainer is enabled.
 
-The node subscribes to
+The interaction node subscribes to
 [rr_msgs](https://github.com/mitmedialab/rr_msgs)/EntrainmentData) messages on
 the ROS topic "rr/entrainment_data".
 
-The node subscribes to std_msgs/String messages on the ROS topic "msg_bc",
-which is published by the [backchannel
+The interaction node subscribes to std_msgs/String messages on the ROS topic
+"msg_bc", which is published by the [backchannel
 module](https://github.com/mitmedialab/Moody_BackChanneling/).
 
-The node subscribes to
+The interaction node subscribes to
 [asr_google_cloud](https://github.com/mitmedialab/asr_google_cloud/)/AsrResult
 messages on the ROS topic "/asr_result".
 
-The node subscribes to
+The interaction node subscribes to
 [sar_opal_msgs](https://github.com/mitmedialab/sar_opal_msgs)/OpalAction on
 the ROS topic "rr/opal_action".
 
 ### Publishers
 
-The node publishes "/[r1d1\_msgs](https://github.com/mitmedialab/r1d1_msgs
+The interaction node publishes
+"/[r1d1\_msgs](https://github.com/mitmedialab/r1d1_msgs
 "/r1d1_msgs")/TegaAction" on the ROS topic "/tega".
 
-The node publishes
+The interaction node publishes
 "/[rr_msgs](https://github.com/mitmedialab/rr_msgs)/InteractionState"
 messages on the ROS topic "/rr/state".
 
-The node publishes
+The interaction node publishes
 [asr_google_cloud](https://github.com/mitmedialab/asr_google_cloud/)/AsrCommand
 messages on the ROS topic "/asr_command".
 
-The node publishes
+The interaction node publishes
 [sar_opal_msgs](https://github.com/mitmedialab/sar_opal_msgs)/OpalCommand on
 the ROS topic "rr/opal_command".
 
-The node publishes
+The interaction node publishes
 [rr_msgs](https://github.com/mitmedialab/rr_msgs)/EntrainAudio) messages on the
 ROS topic "rr/entrain_audio".
 
@@ -318,7 +324,9 @@ ROS topic "rr/entrain_audio".
 
 The program will attempt to read interaction scripts from the directory listed
 in the config file. For the demo interaction, the interaction scripts are
-located in the `interaction_scripts/demo/` directory.
+located in the `interaction_scripts/demo/` directory. For the RR2 study
+interaction, the interaction scripts are located in the
+`interaction_scripts/rr2_study/` directory.
 
 ### Script format
 
@@ -543,7 +551,9 @@ files).
 
 ## User Input GUI
 
-The user can provide input to a running interaction script via the UserInput GUI. This GUI must be started separately from the main interaction node, as follows:
+The user can provide input to a running interaction script via the UserInput
+GUI. This GUI must be started separately from the main interaction node, as
+follows:
 
 ```sh
 $ python src/user_input_form.py
