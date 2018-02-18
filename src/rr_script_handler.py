@@ -949,7 +949,19 @@ class ScriptHandler(object):
                     time.sleep(animations[i]["time"] - animations[i-1]["time"])
 
                 # Play the next animation!
-                self._ros_node.send_tega_command(motion=animations[i]["anim"])
+                # If it starts with "LOOKAT" then it's actually a lookat
+                # command and not an animation.
+                if not animations[i]["anim"].startswith("LOOKAT_"):
+                    self._ros_node.send_tega_command(motion=animations[i]["anim"])
+                else:
+                    # Remove the "LOOKAT_" and send the lookat command.
+                    try:
+                        self._ros_node.send_tega_command(lookat=
+                            rr_commons.LOOKAT[animations[i]["anim"][7:]])
+                    except KeyError keyerr:
+                        self._logger.warning("LOOKAT command {} not in our "
+                                             "list of presets!".format(
+                                             animations[i]["anim"][7:]))
 
             # If we've played all the animatons, wait for the robot to be done
             # speaking before moving on.

@@ -892,9 +892,14 @@ max_attempt = [""]
 ## Name of the audio file.
 #name = "filename"
 ## Animations that should be played during the audio. The time is in seconds
-## since the start of the audio file.
+## since the start of the audio file. These can either be animation names for
+## the Tega robot (names defined in r1d1_msgs/TegaAction message), or lookat
+## commands prefixed by "LOOKAT_", which will tell the robot to look to
+## different preset places (presets defined in src/rr_commons.py)
 #animations = [ { time = 0.1, anim = "EXCITED" },
-#               { time = 0.1, anim = "PERKUP" } ]
+#               { time = 4.0, anim = "LOOKAT_USER" },
+#               { time = 8.5, anim = "PERKUP" },
+#               { time = 4.0, anim = "LOOKAT_DOWN" } ]
 #######################################################################
 [audio.Yay]
 name = "Yay"
