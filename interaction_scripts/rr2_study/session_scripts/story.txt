@@ -8,8 +8,10 @@ STATE	end negotiation task
 OPAL	CLEAR
 OPAL	LOAD_STORY
 OPAL	DISABLE_TOUCH
-# Then do story.
+
+# Robot tell a story.
 QUESTION	listen_to_story
+ROBOT	LOOKAT	TABLET
 ROBOT	STORY_INTRO
 STATE	start story sr2
 ROBOT	DO	IllTellAStoryAbout
@@ -18,4 +20,8 @@ ROBOT	DO	TheEnd
 STATE	end story sr2
 ROBOT	STORY_CLOSING
 QUESTION	liked_story2
+
+# TODO Add in: Robot asks child to make up a story
+STATE	start child story create
+STATE	end child story create
 OPAL	CLEAR

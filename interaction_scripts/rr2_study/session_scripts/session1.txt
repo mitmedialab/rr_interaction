@@ -4,9 +4,9 @@ SET	PROMPT_TIME	1200
 PAUSE	1
 OPAL	CLEAR
 ROBOT	FIDGET	EMPTY
-ROBOT	VOLUME	0.7
 
 # Sleep and wait for wakeup.
+ROBOT	VOLUME	0.7
 ROBOT	DO	POSE_SLEEPING
 QUESTION	wait_for_wakeup
 STATE	start robot wakeup
@@ -28,7 +28,6 @@ ROBOT	LOOKAT	USER
 STATE	end introduction
 # Robot backstory.
 STATE	start backstory
-ROBOT	LOOKAT	DOWN
 QUESTION	ImNewHereAreYou
 ROBOT	DO	SIDEPERK
 ROBOT	DO	ImNotGoodAtHearing

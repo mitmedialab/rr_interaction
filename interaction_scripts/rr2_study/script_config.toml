@@ -1038,9 +1038,13 @@ animations = [ { time = 0.1, anim = "SILENT_INTERESTED" },
 
 [audio.ImNotGoodAtHearing]
 name = "ImNotGoodAtHearing"
-animations = [ { time = 7.0, anim = "SILENT_SAD" },
-               { time = 12.0, anim = "SILENT_THINKING" },
-               { time = 15.0, anim = "PERKUP" } ]
+animations = [ { time = 0.1, anim = "LOOKAT_DOWN" },
+               { time = 4.0, anim = "LOOKAT_USER" },
+               { time = 6.0, anim = "SILENT_SAD" },
+               { time = 10.0, anim = "SILENT_THINKING" },
+               { time = 14.0, anim = "LOOKAT_DOWN" },
+               { time = 18.0, anim = "LOOKAT_USER" },
+               { time = 19.0, anim = "PERKUP" } ]
 
 [audio.SeeYouLaterHuman]
 name = "SeeYouLaterHuman"
@@ -1964,3 +1968,8 @@ animations = [ { time = 0.1, anim = "PERKUP" } ]
 [audio.HmPrompt3]
 name = "HmPrompt"
 animations = [ { time = 0.1, anim = "SILENT_INTERESTED" } ]
+
+[audio.ImNewHereAreYou]
+name = "ImNewHereAreYou"
+animations = [ { time = 0.1, anim = "LOOKAT_DOWN" },
+               { time = 3.0, anim = "LOOKAT_USER" } ]

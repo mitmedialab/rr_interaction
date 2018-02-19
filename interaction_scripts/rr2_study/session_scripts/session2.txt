@@ -1,31 +1,50 @@
 SET	MAX_GAME_TIME	20
+SET	MAX_REPEAT_TIME	20
 SET	PROMPT_TIME	1200
-PAUSE	3
+PAUSE	1
+OPAL	CLEAR
 ROBOT	FIDGET	EMPTY
+ROBOT	VOLUME	0.7
 
 # Sleep and wait for wakeup.
 ROBOT	DO	POSE_SLEEPING
 QUESTION	wait_for_wakeup
+STATE	start robot wakeup
 ROBOT	DO	YAWN
 ROBOT	DO	IceCream
 ROBOT	DO	LAUGH
-PAUSE	1
+STATE	end robot wakeup
 SET	PROMPT_TIME	8
 
-# TODO Robot introduction.
-ROBOT	DO	INTERESTED
-ROBOT	DO	MyNameIsRed
-ROBOT	DO	rr1_intro_02
+# Robot introduction.
+STATE	start introduction
+**RR	ROBOT	DO	SMILE
+# TODO greeting, remind child of name, say hi to participant
+**RR	ROBOT	DO	<participant_name>
+STATE	end introduction
+
+# TODO add RR line talking about what they did last time
+
+STATE	start self-disclosure question
 ROBOT	DO	PERKUP
 QUESTION	favorite_color
+
+# TODO replace with a self-disclosure question learning about child
 ROBOT	DO	rr1_intro_05
 QUESTION	what_like_do
 ROBOT	DO	PERKUP
 QUESTION	like_dance
 
-# First activity: Picture conversation with Fourth Picture Empathy/Helping task.
-# TODO Maybe only 3 pictures total? It's long.
+**RRME	ROBOT	DO	LAUGH
+**RRLE	ROBOT	DO	SMILE
+**RRME	ROBOT	VOLUME	0.75
+**RRLE	ROBOT	VOLUME	0.65
+STATE	end self-disclosure question
+
+
+# First activity: Picture conversation with Third Picture Empathy/Helping task.
 # TODO User input for 4th picture or not? Like negotiation sort of.
+# TODO add STATE lines
 QUESTION	look_at_pictures
 ROBOT	DO	rr1_picture3_01
 ROBOT	DO	rr1_picture3_02
@@ -36,6 +55,8 @@ QUESTION	picture3_friends
 QUESTION	tellmemore
 ROBOT	DO	rr1_picturegen_01
 ROBOT	DO	rr1_picture4_01
+**RRLE	ROBOT	VOLUME	0.6
+**RRME	ROBOT	VOLUME	0.8
 ROBOT	DO	rr1_picture4_02
 QUESTION	picture4_movie
 QUESTION	tellmemore
@@ -46,12 +67,26 @@ ROBOT	DO	ThatsAllPictures
 
 # Third activity: Create a story. Includes the Negotiation task.
 SET	MAX_REPEATS	1
+STATE	start story task
+**RR	ROBOT	DO	SMILE
+**RRLE	ROBOT	VOLUME	0.7
+**RRME	ROBOT	VOLUME	0.9
+ROBOT	LOOKAT	TABLET
 ROBOT	DO	rr1_story_01
 REPEAT	MAX_REPEATS	story.txt
+STATE	end story task
 
 # Closing and robot goes back to sleep.
-ROBOT	DO	rr1_story_19
-ROBOT	DO	rr1_story_20
+STATE	start closing
+**NR	ROBOT	DO	rr1_story_19
+**RR	ROBOT	DO	LikedPlaying
+**RR	ROBOT	DO	<participant_name>
+**RRME	ROBOT	DO	LAUGH
+**RRLE	ROBOT	DO	SMILE
+ROBOT	DO	PERKUP
+ROBOT	DO	SeeYouLaterHuman
+**RR	ROBOT	SILENT_NOD
 ROBOT	FIDGET	EMPTY
 ROBOT	DO	YAWN
 ROBOT	DO	POSE_SLEEPING
+STATE	end closing
