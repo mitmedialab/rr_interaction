@@ -33,7 +33,7 @@ import time  # For sleep
 import json  # For packing ros message properties
 import random  # For picking robot responses and shuffling answer options
 import logging  # Log messages
-import rr_commons as rr_commons # Common constants.
+import rr_commons as rr_commons  # Common constants.
 from rr_script_parser import ScriptParser  # Parses scripts
 from asr_google_cloud.msg import AsrCommand  # Tell ASR to start/stop.
 from r1d1_msgs.msg import TegaAction  # Tell Tega to do different fidgets.
@@ -390,10 +390,10 @@ class ScriptHandler(object):
                             elements[2]))
                         self._ros_node.send_tega_command(
                             lookat=rr_commons.LOOKAT[elements[2]])
-                    except KeyError keyerr:
+                    except KeyError as keyerr:
                         self._logger.warning("Told to send lookat {}, but it's"
-                                             "not the presets list!".format(
-                                              elements[2]))
+                                             "not the presets list! {}".format(
+                                              elements[2], keyerr))
                 elif "VOLUME" in elements[1]:
                     self._logger.info("Setting robot volume to {}".format(
                         elements[2]))
@@ -675,7 +675,7 @@ class ScriptHandler(object):
                 self._ros_node.send_asr_command(AsrCommand.STOP_ALL)
 
             # Log the response latency.
-            latencies.append(str(waited))
+            latencies.append(waited.total_seconds())
 
             # After waiting for a response, we need to play back an appropriate
             # robot response. The robot's response depends on what kind of
@@ -955,16 +955,19 @@ class ScriptHandler(object):
                 # If it starts with "LOOKAT" then it's actually a lookat
                 # command and not an animation.
                 if not animations[i]["anim"].startswith("LOOKAT_"):
-                    self._ros_node.send_tega_command(motion=animations[i]["anim"])
+                    self._ros_node.send_tega_command(
+                            motion=animations[i]["anim"])
                 else:
                     # Remove the "LOOKAT_" and send the lookat command.
                     try:
-                        self._ros_node.send_tega_command(lookat=
-                            rr_commons.LOOKAT[animations[i]["anim"][7:]])
-                    except KeyError keyerr:
+                        self._ros_node.send_tega_command(
+                                lookat=rr_commons.LOOKAT[
+                                    animations[i]["anim"][7:]])
+                    except KeyError as keyerr:
                         self._logger.warning("LOOKAT command {} not in our "
-                                             "list of presets!".format(
-                                             animations[i]["anim"][7:]))
+                                             "list of presets! {}".format(
+                                                 animations[i]["anim"][7:],
+                                                 keyerr))
 
             # If we've played all the animatons, wait for the robot to be done
             # speaking before moving on.
