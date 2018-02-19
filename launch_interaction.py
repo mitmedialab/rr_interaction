@@ -171,11 +171,13 @@ if __name__ == '__main__':
     except Exception as exc:
         print "Uh oh, something went wrong! {}".format(exc)
         print "Stopping rosbag recording if it's not stopped already..."
-        BAG_PROCESS.send_signal(signal.SIGINT)
-        BAG_PROCESS.wait()
+        if BAG_PROCESS:
+            BAG_PROCESS.send_signal(signal.SIGINT)
+            BAG_PROCESS.wait()
         raise
 
     # After the interaction ends, stop rosbag recording.
-    print "Stopping rosbag recording..."
-    BAG_PROCESS.send_signal(signal.SIGINT)
-    BAG_PROCESS.wait()
+    if BAG_PROCESS:
+        print "Stopping rosbag recording..."
+        BAG_PROCESS.send_signal(signal.SIGINT)
+        BAG_PROCESS.wait()
