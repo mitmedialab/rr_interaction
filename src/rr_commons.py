@@ -32,7 +32,7 @@ from geometry_msgs.msg import Vector3  # Vectors for lookat coordinates.
 # Assumes tablet is stageright of the robot.
 LOOKAT = {
     "USER": Vector3(0, 20, 40),
-    "TABLET": Vector3(15, 20, 40),
+    "TABLET": Vector3(-15, 20, 40),
     "UP": Vector3(0, 40, 40),
     "DOWN": Vector3(0, 10, 40),
     "LEFT": Vector3(-15, 20, 40),
