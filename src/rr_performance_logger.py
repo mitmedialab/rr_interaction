@@ -39,7 +39,7 @@ class PerformanceLogger(object):
 
     # Threshold for determining whether a user's exuberance score counts as
     # more or less exuberant.
-    EXUBERANCE_THRESHOLD = 4.5
+    EXUBERANCE_THRESHOLD = 5
 
     def __init__(self, participant, session, directory):
         """ Initialize performance logger. """
@@ -359,18 +359,18 @@ class PerformanceLogger(object):
             (1 - prompt_ratio) + \
             # Max attempt ratio: 0-1. Lower number is fewer max attempts hit,
             # so we reverse score.
-            2 * (1 - max_attempt_ratio) + \
-            # Intensity: around 50-80. Background noise around 50. Robot often
+            3 * (1 - max_attempt_ratio) + \
+            # Intensity: around 40-80. Background noise around 50. Robot often
             # is around 75. Person speaking normally around 65. Convert to a
             # 0-1 scale. Higher number is louder.
-            2 * ((mean_mean_intensity - 50) / 40.0) + \
+            2 * ((mean_mean_intensity - 40) / 50.0) + \
             # Speaking rate: around 1.5-5. Robot often around 4. Higher number
             # is faster speech. Convert to a 0-1 scale.
             (mean_speaking_rate / 5.0) + \
             # Duration factor: -1.30 - 1.30. Capped at those values. Higher
             # number means the user spoke slower than the robot. Convert to a
             # 0-1 scale. Reverse scored.
-            (1 - ((mean_duration_factor - -1.3) / 2.6)) + \
+            2 * (1 - ((mean_duration_factor - -1.3) / 2.6)) + \
             # Latency: 0 - timeout length. Lower values mean the user spoke
             # sooner, so we reverse score. Convert to a 0-1 scale.
             (1 - ((mean_latency - 15) / 15)))
