@@ -376,6 +376,12 @@ class PerformanceLogger(object):
             (1 - ((mean_latency - 15) / 15)))
         self._logger.info("Current exuberance score: {}".format(score))
 
+        # Add to log.
+        if "exuberance" in self._log:
+            self._log["exuberance"].append(score)
+        else:
+            self._log["exuberance"] = [score]
+
         # Based on the score, threshold and determine if the user is more or
         # less exuberant, and return the appropriate tag.
         # TODO adjust exuberance threshold and score calculation above.
