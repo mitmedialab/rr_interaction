@@ -32,6 +32,7 @@ import errno  # Used when checking error codes when trying to make a directory.
 import datetime  # So we can append the date and time to rosbags.
 import toml  # For reading our config file.
 import subprocess  # For starting rosbag.
+import psutil  # Dealing with closing the rosbag properly.
 import signal  # Sending SIGINT signal to rosbag.
 from src.rr_interaction_node import InteractionHandler  # Start interaction.
 
@@ -146,6 +147,15 @@ def start_rosbag(pid, session):
         raise
 
 
+def close_rosbag():
+    """ Close the rosbag and all its child processes. """
+    print "Stopping rosbag recording if it's not stopped already..."
+    process = psutil.Process(BAG_PROCESS.pid)
+    for subp in process.get_children(recursive=True):
+        subp.send_signal(signal.SIGINT)
+    BAG_PROCESS.wait()
+
+
 if __name__ == '__main__':
     """ Start the relational robot interaction node and rosbag recording. This
     cannot be done in the roslaunch file because the configuration of the node
@@ -170,14 +180,10 @@ if __name__ == '__main__':
 
     except Exception as exc:
         print "Uh oh, something went wrong! {}".format(exc)
-        print "Stopping rosbag recording if it's not stopped already..."
         if BAG_PROCESS:
-            BAG_PROCESS.send_signal(signal.SIGINT)
-            BAG_PROCESS.wait()
+            close_rosbag()
         raise
 
     # After the interaction ends, stop rosbag recording.
     if BAG_PROCESS:
-        print "Stopping rosbag recording..."
-        BAG_PROCESS.send_signal(signal.SIGINT)
-        BAG_PROCESS.wait()
+        close_rosbag()
