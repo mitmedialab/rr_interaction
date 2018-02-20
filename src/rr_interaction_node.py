@@ -374,7 +374,7 @@ class InteractionHandler(object):
             script_handler = ScriptHandler(
                     self._ros_handler, session, experimenter, study_path,
                     script_config, story_script_path, session_script_path,
-                    output_dir, pconfig, performance_logger)
+                    pconfig, performance_logger)
         except IOError as ioe:
             self._logger.exception("Did not load the session script... exiting"
                                    " because we need the session script to "

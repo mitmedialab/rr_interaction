@@ -62,7 +62,7 @@ class ScriptHandler(object):
 
     def __init__(self, ros_node, session, experimenter,
                  study_path, script_config, story_script_path,
-                 session_script_path, output_dir, pconfig, performance_logger):
+                 session_script_path, pconfig, performance_logger):
         """ Save references to ROS connection and logger, get scripts and
         set up to read script lines.
         """
