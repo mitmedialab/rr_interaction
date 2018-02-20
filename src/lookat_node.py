@@ -26,6 +26,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import atexit  # Handle cleanup before exit.
 import logging  # Log messages.
 import random  # For choosing backchannel actions.
 import rospy  # ROS
@@ -128,6 +129,15 @@ def send_lookat(lookat):
     LOGGER.debug(msg)
 
 
+def cleanup():
+    """ Cleanup before exit. """
+    LOGGER.info("Cleaning up lookat handler...")
+    if ISTATE_SUB:
+        ISTATE_SUB.unregister()
+    if OPAL_SUB:
+        OPAL_SUB.unregister()
+
+
 if __name__ == "__main__":
     """ Send lookat commands to the robot based on the current interaction
     state.
@@ -135,6 +145,9 @@ if __name__ == "__main__":
     # Set up logger.
     LOGGER = logging.getLogger(__name__)
     LOGGER.info("Initializing lookat handler...")
+
+    # Add exit handler.
+    atexit.register(cleanup)
 
     try:
         # Initialize our ROS node.
@@ -147,10 +160,15 @@ if __name__ == "__main__":
         TEGA_PUB = rospy.Publisher('/tega', TegaAction, queue_size=10)
 
         # Interaction state messages.
-        rospy.Subscriber('/rr/state', InteractionState, on_state_msg)
+        ISTATE_SUB = rospy.Subscriber('/rr/state', InteractionState,
+                                      on_state_msg)
 
         # Opal Command messages, so we can see when the tablet page changes.
-        rospy.Subscriber('/rr/opal_command', OpalCommand, on_opal_msg)
+        OPAL_SUB = rospy.Subscriber('/rr/opal_command', OpalCommand,
+                                    on_opal_msg)
+
+        # We do not start in a user story.
+        USER_STORY = False
 
         # Spin.
         rospy.spin()

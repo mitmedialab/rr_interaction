@@ -165,26 +165,44 @@ class RosNode(object):
                           + (", /rr/entrainment_data, /rr/audio_entrainer" if
                               self._use_entrainer else ""))
         # State from the Opal game.
-        rospy.Subscriber('/rr/opal_action', OpalAction,
-                         self.on_opal_action_msg)
+        self._opal_action_sub = rospy.Subscriber('/rr/opal_action', OpalAction,
+                                                 self.on_opal_action_msg)
         # State from the Tega robot.
-        rospy.Subscriber('/tega_state', TegaState, self.on_tega_state_msg)
+        self._tega_state_sub = rospy.Subscriber('/tega_state', TegaState,
+                                                self.on_tega_state_msg)
         # ASR results from the ASR Google Cloud node.
-        rospy.Subscriber('/asr_result', AsrResult, self.on_asr_result_msg)
+        self._asr_sub = rospy.Subscriber('/asr_result', AsrResult,
+                                         self.on_asr_result_msg)
         # User input form responses.
-        rospy.Subscriber('/rr/user_input', UserInput, self.on_user_input_msg)
+        self._user_input_sub = rospy.Subscriber('/rr/user_input', UserInput,
+                                                self.on_user_input_msg)
         # Subscribe to backchannel output so we know when to backchannel and
         # what kind of action to do.
-        rospy.Subscriber("msg_bc", String, self.on_bc_msg_received)
+        self._bc_sub = rospy.Subscriber("msg_bc", String,
+                                        self.on_bc_msg_received)
 
         if self._use_entrainer:
             # Subscribe to entrainment data so we can personalize based on
             # features detected from the audio.
-            rospy.Subscriber("/rr/entrainment_data", EntrainmentData,
-                             self.on_entrainment_data_msg)
+            self._entrain_data_sub = rospy.Subscriber(
+               "/rr/entrainment_data", EntrainmentData,
+               self.on_entrainment_data_msg)
             # State from the audio entrainer.
-            rospy.Subscriber('/rr/audio_entrainer', String,
-                             self.on_entrainer_msg)
+            self._entrainer_state_sub = rospy.Subscriber('/rr/audio_entrainer',
+                                                         String,
+                                                         self.on_entrainer_msg)
+
+    def unregister(self):
+        """ Unregister from all subscribed topics. """
+        self._logger.info("Cleaning up...")
+        self._opal_action_sub.unregister()
+        self._tega_state_sub.unregister()
+        self._asr_sub.unregister()
+        self._user_input_sub.unregister()
+        self._bc_sub.unregister()
+        if self._use_entrainer:
+            self._entrain_data_sub.unregister()
+            self._entrainer_state_sub.unregister()
 
     def send_opal_command(self, command, properties=None):
         """ Publish opal command message. Optionally, wait for a response. """

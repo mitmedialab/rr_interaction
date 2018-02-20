@@ -465,6 +465,8 @@ class InteractionHandler(object):
                 self._ros_handler.send_interaction_state(
                         state="end interaction finished script")
                 break
+        # At the end of the script. Clean up ROS before exiting.
+        self._ros_handler.unregister()
 
     def _signal_handler(self, sig, nal):
         """ Handle signals caught. """
@@ -473,6 +475,8 @@ class InteractionHandler(object):
                 sig, nal))
             self._ros_handler.send_interaction_state(
                     state="end interaction by user")
+            # Unsubscribe from stuff and cleanup before exiting.
+            self._ros_handler.unregister()
             exit("Interrupted by user.")
 
 
