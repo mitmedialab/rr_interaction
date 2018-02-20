@@ -26,11 +26,20 @@ it's recommended that you use the `--user` flag to only install for your user.
   (v2.0.0)
 
 You will also need the following ROS nodes:
-- [asr_google_cloud](https://github.com/mitmedialab/asr_google_cloud) (v2.0.0)
-- [r1d1_msgs](https://github.com/mitmedialab/r1d1_msgs) (v10.0.0)
-- [rr_msgs](https://github.com/mitmedialab/rr_msgs) (v7.0.0)
-- [sar_opal_msgs](https://github.com/mitmedialab/sar_opal_msgs) (v5.0.0)
+- [asr_google_cloud](https://github.com/mitmedialab/asr_google_cloud) (v2.0.1)
+  - Automatic speech recognition
+- [r1d1_msgs](https://github.com/mitmedialab/r1d1_msgs) (v11.0.0) -
+  Communication with the robot
+- [rr_msgs](https://github.com/mitmedialab/rr_msgs) (v8.0.0) - Communication
+  with other RR nodes
+- [sar_opal_msgs](https://github.com/mitmedialab/sar_opal_msgs) (v5.0.0) -
+  Communication with the Opal tablet
 
+To launch the RR2 study, you will additionally need the following:
+- [rr_audio_entrainer](https://github.com/mitmedialab/rr_audio_entrainer)
+  (v1.4.0) - Entrain audio
+- [backchannel module](https://github.com/mitmedialab/Moody_BackChanneling/)
+  (v1.0.0) - Automatic backchanneling
 
 ### Opal tablet communication
 
