@@ -128,10 +128,9 @@ class ScriptHandler(object):
         self._selected_scene = None
 
         # When we start, we are not currently telling a story or repeating a
-        # script, or at the end of the game.
+        # script.
         self._doing_story = False
         self._repeating = False
-        self._end_game = False
 
         # We are also not actively trying to pick a scene to play for a story.
         self._picking_scene = False
@@ -245,7 +244,6 @@ class ScriptHandler(object):
                 # repeat time, or if we've run out of game time, go back to the
                 # main session script (set the repeating flag to false).
                 if self._repetitions >= self._max_repetitions \
-                    or self._end_game \
                     or ((datetime.datetime.now() - self._repeat_start_time)
                         - self._repeat_time_paused >= self._max_repeat_time) \
                     or ((datetime.datetime.now() - self._start_time)
@@ -1132,20 +1130,25 @@ class ScriptHandler(object):
                                  "cannot pick one to play!")
 
     def set_end_interaction(self):
-        """ End the game gracefully -- stop any stories or repeating scripts,
-        go back to main session script and finish.
+        """ End the game now -- make the robot fall asleep and say we're done.
         """
-        # For now, we just need to set a flag indicating we should end the
-        # game. When we check whether we should load another story or repeat a
-        # repeating script, this flag will be used to skip back to the main
-        # session script, to the end of the game.
-        self._end_game = True
+        # Tell the robot to stop fidgeting, yawn, and fall asleep.
+        self._ros_node.send_tega_command(fidgets=TegaAction.FIDGETS_EMPTY)
+        self._send_robot_do("YAWN")
+        self._send_robot_do("POSE_SLEEPING")
+        # Raise a StopIteration exception, which is how we indicate that we're
+        # at the end of a script normally.
+        raise StopIteration
 
     def pause_interaction_timer(self):
         """ Track how much time we spend paused so when we check whether we
         have reached the max game time, we don't include time spent paused.
         """
         self._pause_start_time = datetime.datetime.now()
+        # Tell the robot to stop fidgeting, yawn, and fall asleep.
+        self._ros_node.send_tega_command(fidgets=TegaAction.FIDGETS_EMPTY)
+        self._send_robot_do("YAWN")
+        self._send_robot_do("POSE_SLEEPING")
 
     def resume_interaction_timer(self):
         """ Add how much time we spent paused to our total time spent paused.
@@ -1162,6 +1165,10 @@ class ScriptHandler(object):
                     datetime.datetime.now() - self._pause_start_time
         # Reset pause start time.
         self._pause_start_time = None
+        # Tell the robot to yawn and wakeup.
+        self._send_robot_do("YAWN")
+        self._send_robot_do("PERKUP")
+        self._ros_node.send_tega_command(fidgets=TegaAction.FIDGETS_PHYSICAL)
 
     def _done_telling_stories(self):
         """ Check whether we're allowed to tell another story or not. """
@@ -1170,8 +1177,7 @@ class ScriptHandler(object):
         # play error message from robot saying we have to be done now.
         if self._stories_told >= self._max_stories \
                 or ((datetime.datetime.now() - self._start_time)
-                    - self._total_time_paused >= self._max_game_time) \
-                or self._end_game:
+                    - self._total_time_paused >= self._max_game_time):
             self._logger.info("We were told to load another story, but we've "
                               "already played the maximum number of stories or"
                               " we ran out of time! Skipping and ending now.")
