@@ -52,6 +52,7 @@ class PerformanceLogger(object):
         self._log = {}
         self._set_up_log(participant, session, directory)
         # For dealing with exuberance entrainment.
+        self._exuberance = 0
         self._total_prompts_used = 0
         self._total_prompts_available = 0
         self._total_max_attempts_hit = 0
@@ -244,6 +245,10 @@ class PerformanceLogger(object):
             self._log["questions"]["response_latencies"] = [latencies]
         self._write_log_to_file()
 
+        # Update the current exuberance score with the new information from
+        # this question.
+        self._compute_exuberance()
+
     def log_entrainment(self, mean_intensity, speaking_rate, duration_factor):
         """ Keep a running average of the mean intensity of the user's speech,
         a running average of the user's speaking rate, and a running average of
@@ -276,8 +281,14 @@ class PerformanceLogger(object):
         self._write_log_to_file()
 
     def get_exuberance(self):
-        """ Update our estimate of whether this user is more or less exuberant.
-        """
+        """ Return whether the user is currently more or less exuberant. """
+        # Based on the score, threshold and determine if the user is more or
+        # less exuberant, and return the appropriate tag.
+        # TODO adjust exuberance threshold and score calculation.
+        return "ME" if self._exuberance < self.EXUBERANCE_THRESHOLD else "LE"
+
+    def _compute_exuberance(self):
+        """ Update our estimate of the user's exuberance. """
         # Determine the ratio of the number of prompts used to the prompts
         # available. This gives us a sense of how often the user responds to
         # the robot's prompts (or how often the ASR detects what they say...).
@@ -353,7 +364,7 @@ class PerformanceLogger(object):
         # We add 6 values together, and weight some more than others. The final
         # score should be in the range 0-8. Higher value means more exuberant;
         # lower means less exuberant.
-        score = (
+        self._exuberance = (
             # Prompt ratio: 0-1. Lower number is fewer prompts needed, so we
             # reverse score.
             (1 - prompt_ratio) + \
@@ -374,15 +385,11 @@ class PerformanceLogger(object):
             # Latency: 0 - timeout length. Lower values mean the user spoke
             # sooner, so we reverse score. Convert to a 0-1 scale.
             (1 - ((mean_latency - 15) / 15)))
-        self._logger.info("Current exuberance score: {}".format(score))
+        self._logger.info("Current exuberance score: {}".format(
+            self._exuberance))
 
         # Add to log.
         if "exuberance" in self._log:
-            self._log["exuberance"].append(score)
+            self._log["exuberance"].append(self._exuberance)
         else:
-            self._log["exuberance"] = [score]
-
-        # Based on the score, threshold and determine if the user is more or
-        # less exuberant, and return the appropriate tag.
-        # TODO adjust exuberance threshold and score calculation above.
-        return "ME" if score < self.EXUBERANCE_THRESHOLD else "LE"
+            self._log["exuberance"] = [self._exuberance]

@@ -783,11 +783,17 @@ robot, as well as the number of prompts used, max attempts hit, and response
 latency to determine whether the participant can be classified as "more
 exuberant" (ME) or "less exuberant" (LE).
 
-This classification is used to determine whether certain script lines tagged
-either ME or LE should be played back for a participant. Generally, there will
-be two adjacent lines in the script, one tagged ME and one tagged LE, such that
-a participant will get the more appropriate line played back for them. Since
-exuberance entrainment is only applicable to participants who get
+An exuberance score is computed after each question in the interaction script.
+This is because the values used to compute the score all relate to conversation
+with the robot, specifically responding during questions. This score is
+computed and all the relevant values logged in the performance log regardless
+of the participant's condition.
+
+The exuberance classification is used to determine whether certain script lines
+tagged either ME or LE should be played back for a participant. Generally,
+there will be two adjacent lines in the script, one tagged ME and one tagged
+LE, such that a participant will get the more appropriate line played back for
+them. Since exuberance entrainment is only applicable to participants who get
 personalization, in the RR2 study, any lines tagged ME or LE should also be
 tagged RR, so that only participants in the relational condition will get
 different exuberance lines; there should be another line tagged NR for

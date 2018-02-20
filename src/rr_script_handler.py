@@ -763,6 +763,10 @@ class ScriptHandler(object):
                             # Play the robot's responses in sequence.
                             for resp in resp_option["robot_responses"]:
                                 self._send_robot_do(resp)
+                            # Log the data from this question.
+                            self._performance_log.log_question(
+                                    self._num_prompts, prompts_played,
+                                    max_attempt_hit, latencies)
                             # Return so we don't give the user a chance to
                             # respond again, since we already got their
                             # response and dealt with it.
@@ -781,6 +785,10 @@ class ScriptHandler(object):
                             # Play the robot's responses in sequence.
                             for resp in resp_option["robot_responses"]:
                                 self._send_robot_do(resp)
+                            # Log the data from this question.
+                            self._performance_log.log_question(
+                                    self._num_prompts, prompts_played,
+                                    max_attempt_hit, latencies)
                             # Return so we don't give the user a chance to
                             # respond again, since we already got their
                             # response and dealt with it.
@@ -864,6 +872,7 @@ class ScriptHandler(object):
             self._logger.warning("No max attempt audio found in script config"
                                  " so we cannot play one!")
         self._send_robot_do(audio_to_play)
+        # Log the data from this question and update the exuberance score.
         self._performance_log.log_question(self._num_prompts, prompts_played,
                                            max_attempt_hit, latencies)
 
@@ -925,7 +934,7 @@ class ScriptHandler(object):
         # Otherwise, send the audio command, and tell the ROS node to send the
         # list of animations. Turn on speech fidgets in case it takes a while
         # for the robot to start speaking!
-        self._ros_node.send_tega_command(fidgets=TegaAction.FIDGETS_EMPTY)
+        self._ros_node.send_tega_command(fidgets=TegaAction.FIDGETS_SPEECH)
         self._ros_node.send_speech(audio_to_play)
 
         # If there are no animations to play during this speech, just wait for
