@@ -26,20 +26,24 @@ it's recommended that you use the `--user` flag to only install for your user.
   (v2.0.0)
 
 You will also need the following ROS nodes:
-- [asr_google_cloud](https://github.com/mitmedialab/asr_google_cloud) (v2.0.1)
-  - Automatic speech recognition
-- [r1d1_msgs](https://github.com/mitmedialab/r1d1_msgs) (v11.0.0) -
+- [asr_google_cloud](https://github.com/mitmedialab/asr_google_cloud) (v2.0.1):
+  Automatic speech recognition
+- [r1d1_msgs](https://github.com/mitmedialab/r1d1_msgs) (v11.0.0):
   Communication with the robot
-- [rr_msgs](https://github.com/mitmedialab/rr_msgs) (v8.0.0) - Communication
+- [rr_msgs](https://github.com/mitmedialab/rr_msgs) (v8.0.0): Communication
   with other RR nodes
-- [sar_opal_msgs](https://github.com/mitmedialab/sar_opal_msgs) (v5.0.0) -
+- [sar_opal_msgs](https://github.com/mitmedialab/sar_opal_msgs) (v5.0.0):
   Communication with the Opal tablet
 
 To launch the RR2 study, you will additionally need the following:
 - [rr_audio_entrainer](https://github.com/mitmedialab/rr_audio_entrainer)
-  (v1.4.0) - Entrain audio
+  (v1.4.0): Entrain audio
 - [backchannel module](https://github.com/mitmedialab/Moody_BackChanneling/)
-  (v1.0.0) - Automatic backchanneling
+  (v1.0.0): Automatic backchanneling
+- [TegaCam-Affect-Analysis](https://github.com/mitmedialab/TegaCam-Affect-Analysis):
+  Runs affdex processing on Tega's camera
+- [affdex_ros_msg](https://github.com/mitmedialab/affdex_ros_msg) (v1.0.0):
+  Communication with Affdex
 
 ### Opal tablet communication
 
@@ -89,6 +93,14 @@ The interaction can include the following automatic behaviors:
 - Automatic speech recognition via
   [asr_google_cloud](https://github.com/mitmedialab/asr_google_cloud/) (always
   used for getting user speech)
+- Affect mirroring, lookats, and head pose mirroring via
+  `src/lookat_and_affect_node.py` (using affect data provided by
+  [TegaCam-Affect-Analysis](https://github.com/mitmedialab/TegaCam-Affect-Analysis))
+
+Note that TegaCam-Affect-Analysis operates on the data sent by the physical
+Tega robot from its external camera to the "/USBCam_images/compressed" topic,
+and thus, will not send data or process affect without a physical robot. If you
+are testing on a virtual robot, you will not get any affect data this way.
 
 ### Launch RR2 study
 
@@ -584,29 +596,32 @@ The form lets you send two different kinds of UserInput messages:
 - Interaction state input (such as telling the interaction to start, stop,
   pause, and resume)
 
-## Lookat node
+## Lookat and affect node
 
 The robot's gaze behaviors are partly scripted and partly reactive to the
 interaction state and child's behavior. You can script gaze behaviors (e.g.,
 looking down while speaking; looking at the tablet before speaking) into the
 interaction scripts as described earlier. The robot will automatically be told
-to look at the user when it is the user's turn to speak. The lookat node
-located in `src/lookat_node.py` handles most of the other reactive, automatic
-stuff.
+to look at the user when it is the user's turn to speak. The lookat and affect
+node located in `src/lookat_and_affect_node.py` handles most of the other
+reactive, automatic stuff.
 
-The lookat node must be started separately from the main interaction node, as
-follows:
+The lookat and affect node must be started separately from the main interaction
+node, as follows:
 
 ```sh
-$ python src/lookat_node.py
+$ python src/lookat_and_affect_node.py
 ```
 
-If you are running the RR2 study with the roslaunch file, the lookat node has
-been included in the roslaunch file.
+If you are running the RR2 study with the roslaunch file, the lookat and affect
+node has been included in the roslaunch file.
 
-The lookat node listens to InteractionState messages and OpalCommand messages
-to determine when the robot should be looking at the tablet vs. at the user. In
-particular:
+The node listens to
+[rr_msgs](https://github.com/mitmedialab/rr_msgs)/InteractionState messages on
+the topic /rr/state and
+[opal_msgs](https://github.com/mitmedialab/opal_msgs)/OpalCommand messages on
+the topic /rr/opal_command to determine when the robot should be looking at the
+tablet vs. at the user. In particular:
 - When the child is telling or retelling a story, the robot's gaze is directed
   primarily to the tablet, glancing over at the child every 5 +/- 0.5s and
   staying on the child for 2.5 +/- 0.5s. This interval was used in the SR2
@@ -615,6 +630,12 @@ particular:
 - The robot glances at the tablet for 2.5 +/- 0.5s every time something new
   appears on the tablet or when the story page is turned when the robot is
   telling a story.
+
+The node listens to
+[affdex_ros_msg](https://github.com/mitmedialab/affdex_ros_msg)/AffdexFrameInfo
+messages on the topic /affdex_data. This data is used to determine the user's
+head pose so that the robot can follow gaze/pose, and to determine the user's
+affective state in order to react appropriately.
 
 ## Personalization
 
@@ -821,7 +842,10 @@ This program was developed and tested with:
 
 - Python 2.7.6
 - Ubuntu 14.04 LTS 32-bit
+- Ubuntu 14.04 LTS 64-bit
 - ROS Indigo
+
+Including the Affdex stuff from TegaCam-Affect-Analysis requires 64-bit Ubuntu.
 
 Some code and documentation in this repository was copied and modified from
 [sar_social_stories](https://github.com/mitmedialab/sar_social_stories) 2.3.5.

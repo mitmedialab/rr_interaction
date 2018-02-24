@@ -33,9 +33,10 @@ import rospy  # ROS
 import time  # For sleep.
 import threading  # Timer for randomly backchanneling.
 import rr_commons as rr_commons  # Common constants, such as lookat vectors.
-from rr_msgs.msg import InteractionState  # Send state to the audio entrainer.
+from affdex_ros_msgs import AffdexFrameInfo  # Receive affdex data.
+from rr_msgs.msg import InteractionState  # Get info on the interaction state.
 from r1d1_msgs.msg import TegaAction  # Send commands to Tega.
-from sar_opal_msgs.msg import OpalCommand  # Send commands an Opal device.
+from sar_opal_msgs.msg import OpalCommand  # See commands sent to Opal devices.
 from std_msgs.msg import Header  # Standard ROS msg header.
 
 
@@ -129,6 +130,13 @@ def send_lookat(lookat):
     LOGGER.debug(msg)
 
 
+def on_affdex_data(data):
+    """ When we receive Affdex data, process it and determine what behaviors to
+    do, if any.
+    """
+    LOGGER.warning("TODO: Respond to Affdex data!")
+
+
 def cleanup():
     """ Cleanup before exit. """
     LOGGER.info("Cleaning up lookat handler...")
@@ -136,6 +144,8 @@ def cleanup():
         ISTATE_SUB.unregister()
     if OPAL_SUB:
         OPAL_SUB.unregister()
+    if AFFDEX_SUB:
+        AFFDEX_SUB.unregister()
 
 
 if __name__ == "__main__":
@@ -154,7 +164,7 @@ if __name__ == "__main__":
         rospy.init_node("lookat_handler", anonymous=False)
 
         LOGGER.info("We will publish to topics: /tega")
-        LOGGER.info("We subscribe to topics: /rr/state, /rr_opal_command")
+        LOGGER.info("We subscribe to topics: /rr/state, /rr/opal_command")
 
         # We will send action or speech commands to the Tega robot.
         TEGA_PUB = rospy.Publisher('/tega', TegaAction, queue_size=10)
@@ -166,6 +176,10 @@ if __name__ == "__main__":
         # Opal Command messages, so we can see when the tablet page changes.
         OPAL_SUB = rospy.Subscriber('/rr/opal_command', OpalCommand,
                                     on_opal_msg)
+
+        # Affdex data messages.
+        AFFDEX_SUB = rospy.Subscribes('/affdex_data', AffdexFrameInfo,
+                                      on_affdex_msg)
 
         # We do not start in a user story.
         USER_STORY = False
