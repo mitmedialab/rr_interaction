@@ -2,11 +2,13 @@ SET	MAX_GAME_TIME	20
 SET	MAX_REPEAT_TIME	20
 SET	PROMPT_TIME	1200
 PAUSE	1
+STATE	<condition>
 OPAL	CLEAR
 ROBOT	VOLUME	0.7
 ROBOT	FIDGET	EMPTY
 
 # Sleep and wait for wakeup.
+STATE	robot sleeping
 ROBOT	DO	POSE_SLEEPING
 QUESTION	wait_for_wakeup
 STATE	start robot wakeup

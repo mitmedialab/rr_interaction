@@ -424,9 +424,20 @@ class ScriptHandler(object):
         #########################################################
         # For STATE lines, send an interaction state message with the contents
         # of the line.
-        elif "STATE" in elements[0]:
+        elif "STATE" in elements[0] and len(elements) >= 2:
             self._logger.debug("STATE")
-            self._ros_node.send_interaction_state(state=elements[1])
+            if "<condition>" in elements[1]:
+                if "condition" in self._pconfig:
+                    self._ros_node.send_interaction_state(
+                        state=self._pconfig["condition"])
+                else:
+                    self._ros_node.send_interaction_state(
+                        state="no condition set")
+                    self._logger.warning("Told to send STATE message with the "
+                                         "condition, but no condition is set "
+                                         "in the participant config file!")
+            else:
+                self._ros_node.send_interaction_state(state=elements[1])
 
         #########################################################
         # For OPAL lines, send command to Opal game.
