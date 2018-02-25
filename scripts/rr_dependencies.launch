@@ -32,4 +32,7 @@
     <!-- Backchanneling. Has multiple nodes as part of it. -->
     <include file="$(find moody_backchanneling)/backchannel_module/backchannel_dependencies.launch" />
 
+    <!-- Affect detection. -->
+    <include file="$(find tega_cam_affect_analysis)/launch/tega_cam_affect_analysis.launch" />
+
 </launch>
