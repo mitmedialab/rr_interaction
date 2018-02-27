@@ -132,6 +132,34 @@ class ScriptHandler(object):
         self._doing_story = False
         self._repeating = False
 
+        # Track whether we just played an exuberance line. Each time the script
+        # parser finds a line tagged for exuberance (i.e., ME or LE), it checks
+        # the current exuberance. Exuberance scores are updated after each
+        # question that is asked. Thus, if there are two exuberance lines in a
+        # row (e.g., ME then LE, which is very common since you generally want
+        # the user to hear either a ME or LE line), and the line happens to be
+        # a question, the exuberance score will be updated and could
+        # potentially change from ME to LE or vice versa. If the score changes,
+        # then it is possible that both lines tagged ME and LE will be played
+        # in a row. This would be weird, since they are usually the same audio
+        # paired with different animations. So we need to track whether we have
+        # just played an exuberance line or not so that we can skip the second
+        # one regardless of whether it matches the exuberance condition.  We
+        # track it with two variables: one tracks whether we've hit an
+        # exuberance line, the other track whether we played it. Two variables
+        # are necessary so we can have multiple pairs of tagged lines in a row.
+        # Hit one: right exuberance? Yes. Set both flags. Hit the next: the
+        # numbers are equal so skip, reset. Hit the next: We've reset, so check
+        # exuberance. Right? No; flag one only. Next line: right? Yes.
+        # Play it and reset both values. Hit a line with no exuberance? Reset
+        # both values.
+        #
+        # This is a hack. The right solution may be to change the script format
+        # or something, but because I would like to graduate we are going with
+        # the hack that is faster to write.
+        self._exuberance_line_hit = False
+        self._exuberance_line_played = False
+
         # We are also not actively trying to pick a scene to play for a story.
         self._picking_scene = False
 
@@ -325,19 +353,38 @@ class ScriptHandler(object):
                     # do exuberance if this is a personalized/relational robot,
                     # but this is specified in the tag.
                     if "ME" in elements[0] or "LE" in elements[0]:
-                        # Check the user's exuberance to determine if we play
-                        # this line.
-                        if self._performance_log.get_exuberance() in \
+                        # If we did not just play an exuberance line, then we
+                        # can play this one, assuming the user has the
+                        # appropriate exuberance level.
+                        if ((self._exuberance_line_hit and
+                                not self._exuberance_line_played) or
+                                (not self._exuberance_line_hit and
+                                    not self._exuberance_line_played)) and \
+                                self._performance_log.get_exuberance() in \
                                 elements[0]:
-                            self._logger.info(
-                                "Right exuberance! Parsing line...")
+                            self._logger.info("Right exuberance! Parsing.")
                             # Remove the tag and parse the line as usual.
                             del elements[0]
+                            self._exuberance_line_played = True
+                            self._exuberance_line_hit = \
+                                not self._exuberance_line_hit
+                        # Otherwise, we already played an exuberance line, or
+                        # we didn't, but this is the wrong exuberance level.
                         else:
-                            self._logger.info(
-                                "Wrong exuberance. Skipping line.")
+                            self._logger.info("Wrong exuberance, or we just "
+                                              "played an exuberance line. "
+                                              "Skipping line.")
+                            # If we had hit a line before that we played, reset
+                            # so we can hit the next pair even if it's the next
+                            # thing.
+                            self._exuberance_line_played = False
+                            self._exuberance_line_hit = \
+                                not self._exuberance_line_hit
                             return
                     else:
+                        # Not an exuberance tag; set flags accordingly.
+                        self._exuberance_line_hit = False
+                        self._exuberance_line_played = False
                         # Remove the tag and parse the line as usual.
                         del elements[0]
                 else:
@@ -345,6 +392,10 @@ class ScriptHandler(object):
                     return
             else:
                 self._logger.warning("No condition listed for participant!")
+        else:
+            # There was no tag on this, so we can clear the exuberance flag.
+            self._exuberance_line_hit = False
+            self._exuberance_line_played = False
 
         # If this is an IF RESPONSE line, only do the line if the last question
         # got a response (i.e. did not time out).
