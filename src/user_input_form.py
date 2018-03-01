@@ -34,6 +34,7 @@ from user_input_ros import UserFormROS
 from user_input_negotiation_ui import NegotiationUI
 from user_input_interaction_ui import InteractionUI
 from user_input_tega_ui import TegaUI
+from user_input_yesno_ui import YesNoUI
 
 
 class UserInputForm(QtGui.QMainWindow):
@@ -73,6 +74,10 @@ class UserInputForm(QtGui.QMainWindow):
         # Add negotiation buttons.
         negotiation_ui = NegotiationUI(self.ros)
         self.central_layout.addWidget(negotiation_ui, 0, 2, 11, 2)
+
+        # Add yes/no buttons.
+        yesno_ui = YesNoUI(self.ros)
+        self.central_layout.addWidget(yesno_ui, 11, 2, 4, 2)
 
 
 if __name__ == '__main__':

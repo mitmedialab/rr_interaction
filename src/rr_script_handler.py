@@ -196,10 +196,12 @@ class ScriptHandler(object):
 
         # Sometimes we may need to know what the last user response we waited
         # for was, how long we waited, and whether we got a response (or timed
-        # out).
+        # out). In a couple cases, we need to track what response we got from a
+        # user input form so we can take appropriate action later.
         self._last_response_to_get = None
         self._last_response_timeout = None
         self._got_a_response = False
+        self._user_input_response = "none"
 
         # Save start time so we can check whether we've run out of time.
         self._start_time = datetime.datetime.now()
@@ -405,6 +407,18 @@ class ScriptHandler(object):
                 # Remove the tag and parse the line as usual.
                 del elements[0]
                 self._logger.info("Got a response last time, doing line!")
+
+                # Check whether this IF RESPONSE line depends on the type of
+                # response gotten (currently, positive or negative)
+                if len(elements) > 1 and "RESPONSE_" in elements[0]:
+                    if self._user_input_response in elements[0]:
+                        # Remove tag and parse line as usual.
+                        del elements[0]
+                        self._logger.info("Needed a certain response; got it!")
+                    else:
+                        self._logger.info("Didn't get the needed response! "
+                                          "Skipping line...")
+                        return
             else:
                 self._logger.info("Did not get a response last time, "
                                   "skipping line...")
@@ -437,7 +451,7 @@ class ScriptHandler(object):
                     try:
                         self._logger.info("Sending lookat {}".format(
                             elements[2]))
-                        self._ros_node.send_tega_command(
+                        self._ros_node.send_tega_command(enqueue=True,
                             lookat=rr_commons.LOOKAT[elements[2]])
                     except KeyError as keyerr:
                         self._logger.warning("Told to send lookat {}, but it's"
@@ -446,7 +460,8 @@ class ScriptHandler(object):
                 elif "VOLUME" in elements[1]:
                     self._logger.info("Setting robot volume to {}".format(
                         elements[2]))
-                    self._ros_node.send_tega_command(volume=float(elements[2]))
+                    self._ros_node.send_tega_command(enqueue=True,
+                         volume=float(elements[2]))
                 # Send a fidget command to the robot.
                 elif "FIDGET" in elements[1]:
                     if "EMPTY" in elements[2]:
@@ -714,7 +729,8 @@ class ScriptHandler(object):
             self._ros_node.send_interaction_state(is_user_turn=True)
             # Since it's the user's turn to talk or act, the robot should look
             # at the user.
-            self._ros_node.send_tega_command(lookat=rr_commons.LOOKAT["USER"])
+            self._ros_node.send_tega_command(enqueue=True,
+                lookat=rr_commons.LOOKAT["USER"])
             if using_asr:
                 # Tell ASR node to listen for a response and send us results.
                 self._ros_node.send_asr_command(AsrCommand.START_FINAL)
@@ -1049,11 +1065,95 @@ class ScriptHandler(object):
         """ Wait for user input from a GUI form, or wait until the specified
         time as elapsed.
         """
-        if "NEGOTIATE" not in response_type:
+        if "YESNO" in response_type:
+            self._wait_for_yesno(timeout)
+        elif "NEGOTIATE" in response_type:
+            self._wait_for_negotiate(timeout)
+        else:
             self._logger.error("Told to wait for user input, but the type to "
                                "wait for was \"{}\" and we don't handle that"
                                " yet!".format(response_type))
 
+    def _wait_for_yesno(self, timeout):
+        """ Steps to take if we need to wait for UserInput on a YESNO line.
+        """
+        # Robot response to send.
+        resp = ""
+        # Wait for a button press from the form, or until we exhaust our
+        # available number of prompts.
+        for i in range(0, self._num_prompts + 1):
+            # Wait for a button press from the form.
+            # The response is a tuple with the response, possibly followed
+            # by a string indicating what type of response this was.
+            response = self._ros_node.wait_for_response(
+                    self._ros_node.USER_INPUT_YESNO,
+                    timeout=datetime.timedelta(seconds=timeout))[0]
+
+            # We either got a response or timed out.
+            self._logger.debug("Done waiting for user input. Timed out or "
+                               "response: {}".format(response))
+            # Response could be:
+            # 1) no response (timeout)
+            #      -> prompt again
+            # 2) positive (yes let's do another picture)
+            #      -> record response so we will play the next picture
+            # 3) negative (no let's not do another picture)
+            #      -> record response so we will skip the next picture
+
+            # Case (1): Nothing / Timeout.
+            if UserInput.TIMEOUT in response:
+                # If we have exhausted our allowed number of prompts, leave the
+                # loop if we didn't get a user response.
+                # Log the outcome so it can be referenced next time.
+                if i >= self._num_prompts:
+                    self._performance_log.log_extra_picture_outcome(response)
+                    # Play some final speech that wraps this up.
+                    resp = self._get_response_from_config(
+                            "extra_picture_no_response")
+                    if resp:
+                        # Play the selected response.
+                        self._send_robot_do(resp)
+
+                # Pick one of a set of possible timeout prompts.
+                resp = self._get_response_from_config(
+                        "extra_picture_timeout")
+                if resp:
+                    # Play the selected prompt.
+                    self._send_robot_do(resp)
+                # Wait for the next user response.
+                continue
+
+            # Log the outcome of the negotiation so it can be referenced later.
+            self._performance_log.log_extra_picture_outcome(response)
+
+            # Case (2): Positive.
+            if UserInput.YES in response:
+                self._logger.debug("Outcome: YES - do picture!")
+                self._user_input_response = "YES"
+                # Play one of the posssible acquiescence responses.
+                resp = self._get_response_from_config("extra_picture_yes")
+                # Break so we don't give the user a chance to respond again,
+                # since we already got a response and dealt with it.
+                break
+            # Case (3): Negative.
+            elif UserInput.NO in response:
+                self._logger.debug("Outcome: NO - don't do picture!")
+                self._user_input_response = "NO"
+                # Play one of the posssible acquiescence responses.
+                resp = self._get_response_from_config("extra_picture_no")
+                # Break so we don't give the user a chance to respond again,
+                # since we already got a response and dealt with it.
+                break
+        # If we get here, we got a response, found the thing the robot should
+        # say in reply, logged relevant information about the outcome of the
+        # activity, and just need the robot to actually do something!
+        if resp:
+            # Play the selected prompt.
+            self._send_robot_do(resp)
+
+    def _wait_for_negotiate(self, timeout):
+        """ Steps to take if we need to wait for UserInput on a NEGOTIATE line.
+        """
         # Robot response to send.
         resp = ""
         # Wait for a button press from the form, or until we exhaust our

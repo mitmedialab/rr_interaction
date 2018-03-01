@@ -63,6 +63,7 @@ class RosNode(object):
     TABLET_RESPONSE = "TABLET_RESPONSE"
     USER_INPUT_NEGOTIATION = UserInput.NEGOTIATION
     USER_INPUT_INTERACTION_CONTROL = UserInput.INTERACTION_CONTROL
+    USER_INPUT_YESNO = UserInput.YESNO
 
     # We keep a dictionary of the strings used in the script and the actual
     # OpalCommand constants to use for lookup.
@@ -132,6 +133,7 @@ class RosNode(object):
         self._control_response_received = False
         self._tablet_response_received = None
         self._negotiation_response_received = False
+        self._yesno_response_received = False
 
         # Set up rostopics we publish:
         self._logger.info("We will publish to topics: rr/opal_command, /tega, "
@@ -446,7 +448,9 @@ class RosNode(object):
         # so we can return them later.
         if self.USER_INPUT_NEGOTIATION in data.response_type:
             self._negotiation_response_received = True
-        if self.USER_INPUT_INTERACTION_CONTROL in data.response_type:
+        elif self.USER_INPUT_YESNO in data.response_type:
+            self._yesno_response_received = True
+        elif self.USER_INPUT_INTERACTION_CONTROL in data.response_type:
             self._control_response_received = True
             # Tell the main thread when we receive this, in case it means we
             # need to start, stop, pause, or resume the interaction.
@@ -550,6 +554,7 @@ class RosNode(object):
         waiting_for_negotiation = False
         waiting_for_control = False
         waiting_for_tablet = False
+        waiting_for_yesno = False
         if self.START in response:
             self._start_response_received = False
             waiting_for_start = True
@@ -574,6 +579,9 @@ class RosNode(object):
         elif self.USER_INPUT_INTERACTION_CONTROL in response:
             self._control_response_received = False
             waiting_for_control = True
+        elif self.USER_INPUT_YESNO in response:
+            self._yesno_response_received = False
+            waiting_for_yesno = True
         elif self.TABLET_RESPONSE in response:
             self._tablet_response_received = None
             waiting_for_tablet = True
@@ -610,6 +618,7 @@ class RosNode(object):
                         self._negotiation_response_received) \
                     or (waiting_for_control and
                         self._control_response_received) \
+                    or (waiting_for_yesno and self._yesno_response_received) \
                     or (waiting_for_robot_not_speaking
                         and not self._robot_speaking
                         and not self._robot_doing_action) \

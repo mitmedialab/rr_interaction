@@ -180,6 +180,17 @@ class PerformanceLogger(object):
             self._log["child_scene_choice"] = [child_choice]
         self._write_log_to_file()
 
+    def log_extra_picture_outcome(self, outcome):
+        """ Log the outcome of an extra picture task: Did the child agree to do
+        an extra picture, or not?
+        """
+        self._logger.info("Logging extra picture outcome: {}".format(outcome))
+        if "extra_picture" in self._log:
+            self._log["extra_picture"].append(outcome)
+        else:
+            self._log["extra_picture"] = [outcome]
+        self._write_log_to_file()
+
     def _write_log_to_file(self):
         """ Write the perfromance log out to the log file. """
         try:
