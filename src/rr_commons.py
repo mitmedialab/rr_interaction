@@ -30,6 +30,7 @@ from geometry_msgs.msg import Vector3  # Vectors for lookat coordinates.
 
 # Preset lookat vectors that we use when lookats come up in the script.
 # Assumes tablet is stageright of the robot.
+LOOKAT_ARR = [ "USER", "TABLET", "UP", "DOWN", "LEFT", "RIGHT" ]
 LOOKAT = {
     "USER": Vector3(0, 20, 40),
     "TABLET": Vector3(-20, 20, 40),

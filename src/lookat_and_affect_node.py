@@ -108,16 +108,18 @@ def on_opal_msg(data):
         # The non-reational robot will look around randomly, at approximately
         # the same intervals as the relational robot.
         if not RELATIONAL:
-            send_tega_command(lookat=rr_commons.LOOKAT[random.randint(
-                0, len(rr_commons.LOOKAT) - 1)])
+            send_tega_command(lookat=rr_commons.LOOKAT[rr_commons.LOOKAT_ARR[
+                              random.randint(
+                                  0, len(rr_commons.LOOKAT_ARR) - 1)]])
             # Call this function again in a little while to look again. Use a
             # random distribution that means the robot will look somewhere
             # again with approximately the same frequency as the relational
             # robot.
             threading.Timer(2.5 + random.uniform(-0.5, 0.5),
                             send_tega_command(lookat=rr_commons.LOOKAT[
-                                random.randint(
-                                    0, len(rr_commons.LOOKAT) - 1)])).start()
+                                rr_commons.LOOKAT_ARR[random.randint(
+                                    0,
+                                    len(rr_commons.LOOKAT_ARR) - 1)]])).start()
         else:
             # The relational robot will look at the tablet.
             send_tega_command(lookat=rr_commons.LOOKAT["TABLET"])
@@ -136,8 +138,9 @@ def do_story_lookat(looking_at_user):
     # The non-reational robot will look around randomly, at approximately the
     # same intervals as the relational robot.
     if not RELATIONAL:
-        send_tega_command(lookat=rr_commons.LOOKAT[random.randint(
-            0, len(rr_commons.LOOKAT) - 1)])
+        send_tega_command(lookat=rr_commons.LOOKAT[rr_commons.LOOKAT_ARR[
+            random.randint(
+                0, len(rr_commons.LOOKAT_ARR) - 1)]])
         # Call this function again in a little while to look back at the user.
         # Use a random distribution that means the robot will look somewhere
         # again with approximately the same frequency as the relational robot.
