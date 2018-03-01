@@ -1,0 +1,10 @@
+STATE	start picture task picture3
+ROBOT	DO	holidays_intro1
+ROBOT	DO	holidays_intro2
+QUESTION	picture_holidays
+QUESTION	tellmemore
+ROBOT	DO	Holidays_1
+QUESTION	picture_holidays_q2
+QUESTION	tellmemore
+STATE	end picture task picture3
+

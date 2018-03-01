@@ -19,6 +19,11 @@ negotiation_refusal = ["negotiation_refusal_1", "negotiation_refusal_2", "negoti
 negotiation_acquiese = ["negotiation_acquiesce_1", "negotiation_acquiesce_2", "negotiation_acquisce_3"]
 negotiation_general = ["negotiation_general_1", "negotiation_general_2", "negotiation_general_3"]
 
+extra_picture_yes = ["extra_picture_yes1", "extra_picture_yes2"]
+extra_picture_no = ["extra_picture_no1", "extra_picture_no2"]
+extra_picture_timeout = ["extra_picture_timeout1", "extra_picture_timeout2"]
+extra_picture_no_response = ["extra_picture_noresp1", "extra_picture_noresp2"]
+
 #######################################################################
 # Different actions (speech and motion/animations) that could get played for
 # different backchannel states that can occur.
@@ -72,14 +77,14 @@ actions = ["YES", "LAUGH", "SILENT_CONFIRM", "SILENT_YES", "SMILE", "uhuhh",
 #   robot_responses = ["ads", "sdasd"]
 #######################################################################
 [questions.favorite_color]
-question = "rr1_intro_03"
+question = "hey_favorite_color"
 timeout_prompts = ["fav_color_prompt1", "fav_color_prompt2"]
+    [[questions.favorite_color.user_input]]
+    user_responses = ["none", "nothing", "no", "don't know", "I don't"]
+    robot_responses = ["No_colors"]
     [[questions.favorite_color.user_input]]
     user_responses = [""]
     robot_responses = ["rr1_intro_04"]
-    [[questions.favorite_color.user_input]]
-    user_responses = ["none", "nothing", "no"]
-    robot_responses = ["No_colors"]
 
 [questions.what_like_do]
 question = "rr1_intro_06"
@@ -205,7 +210,7 @@ question = "rr1_picture3_03"
 timeout_prompts = ["DontLikeAboutPark", "HavebeenToPark"]
     [[questions.picture3_park.user_input]]
     user_responses = [""]
-    robot_responses = ["uhuhh"]
+    robot_responses = ["SayThatAgainShy"]
 
 [questions.tellmemore]
 question = "TellMeMore"
@@ -226,6 +231,12 @@ timeout_prompts = ["FriendIsGirl", "DoYouPlay"]
 question = "rr1_picture4_03"
 timeout_prompts = ["YouKnowMovies", "MoviesSuchAs"]
     [[questions.picture4_movie.user_input]]
+    user_responses = ["no", "nah", "nope", "uh"]
+    robot_responses = ["NotAnyMovies"]
+    [[questions.picture4_movie.user_input]]
+    user_responses = ["yes", "yeah", "lots", "of course", "yeah", "movies" ]
+    robot_responses = ["WhichOnes"]
+    [[questions.picture4_movie.user_input]]
     user_responses = [""]
     robot_responses = ["uhuhh"]
 
@@ -235,6 +246,36 @@ timeout_prompts = ["FlyToo", "WhatWouldBeCool"]
     [[questions.picture4_superpower.user_input]]
     user_responses = [""]
     robot_responses = ["mmhm"]
+
+## Holidays picture.
+[questions.picture_holidays]
+question = "rr1_picture1_05"
+timeout_prompts = ["WhatHolidays", "WhatHolidays2"]
+    [[questions.picture_holidays.user_input]]
+    user_responses = ["none", "don't know", "no", "uh"]
+    robot_responses = ["TellMeAboutHoliday"]
+    [[questions.picture_holidays.user_input]]
+    user_responses = [""]
+    robot_responses = ["uhuhh"]
+
+[questions.picture_holidays_q2]
+question = "Holidays_2"
+timeout_prompts = ["DidYouDressUp", "WereYouARobot"]
+    [[questions.picture_holidays_q2.user_input]]
+    user_responses = [""]
+    robot_responses = ["Woah"]
+
+## Extra picture
+[questions.DoFinalPicture]
+question = "DoFinalPicture"
+    # TODO finish this one
+    [[questions.picture4_movie.user_input]]
+    user_responses = ["no", "nah", "nope", "uh"]
+    robot_responses = ["NotAnyMovies"]
+    [[questions.picture4_movie.user_input]]
+    user_responses = ["yes", "yeah", "lots", "of course", "yeah", "movies" ]
+    robot_responses = ["WhichOnes"]
+
 
 ## Robot is asleep, wait for the user to say "ice cream!"
 [questions.wait_for_wakeup]
@@ -430,6 +471,18 @@ max_attempt = [""]
     [[questions.SelfDisclosureGeneric2.user_input]]
     user_responses = [""]
     robot_responses = ["Woah"]
+
+## Self-disclosure questions for sessions 2-7.
+[questions.DisclosureS2]
+question = "DisclosureS2"
+timeout_prompts = ["Well", "HmPrompt"]
+max_attempt = ["srPre_4_1"]
+    [[questions.SelfDisclosure1.user_input]]
+    user_responses = ["no", "nothing", "don't know", "not sure", "don't want"]
+    robot_responses = ["FeelingShy"]
+    [[questions.SelfDisclosure1.user_input]]
+    user_responses = [""]
+    robot_responses = ["srPre_4_2"]
 
 ## Baby bird's first nest - dialogic questions.
 [questions.baby_birds_first_nest_q_l_1]
@@ -869,6 +922,26 @@ max_attempt = [""]
     user_responses = ["all done", "done", "okay done", "ok done"]
     robot_responses = ["Yay"]
 
+## Session 2
+[questions.RememberSession1]
+question = "RememberSession1"
+    [[questions.RememberSession1.user_input]]
+    user_responses = ["yes", "yeah", "i remember", "maybe", "of course"]
+    robot_responses = [""]
+    [[questions.RememberSession1.user_input]]
+    user_responses = ["no", "nah", "nope", "uh", "don't know"]
+    robot_responses = ["RememberBabyBird"]
+
+[questions.WhatDidYouDo]
+question = "WhatDidYouDo"
+    [[questions.WhatDidYouDo.user_input]]
+    user_responses = ["nothing", "no", "not sure", "uh", "don't know"]
+    robot_responses = ["DontKnowOkay"]
+    [[questions.WhatDidYouDo.user_input]]
+    user_responses = [""]
+    robot_responses = ["SrPre_4_2"]
+
+## Session 3
 
 #[questions.questionname2]
 #question = "question_audio"

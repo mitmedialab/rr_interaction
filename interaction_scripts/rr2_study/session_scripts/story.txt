@@ -7,6 +7,7 @@ WAIT	USER_INPUT	NEGOTIATE	10
 STATE	end negotiation task
 OPAL	CLEAR
 OPAL	LOAD_STORY
+OPAL	STORY_HIDE_BUTTONS
 OPAL	DISABLE_TOUCH
 
 # Robot tell a story.
@@ -16,12 +17,32 @@ ROBOT	STORY_INTRO
 STATE	start story sr2
 ROBOT	DO	IllTellAStoryAbout
 STORY
-ROBOT	DO	TheEnd
+**NR	ROBOT	DO	TheEnd
+**RRME	ROBOT	DO	TheEndME
+**RRLE	ROBOT	DO	TheEndLE
 STATE	end story sr2
 ROBOT	STORY_CLOSING
 QUESTION	liked_story2
 
 # TODO Add in: Robot asks child to make up a story
+**NR	ROBOT	DO	HeyNoName
+**RR	ROBOT	DO	Hey
+**RR	ROBOT	DO	<participant_name>
+**NR	QUESTION	CreateAStory
+**RRME	QUESTION	CreateAStoryME
+**RRLE	QUESTION	CreateAStoryLE
+ROBOT	LOOKAT	TABLET
+OPAL	ENABLE_TOUCH
 STATE	start child story create
+QUESTION	WhatCouldBeHappening
+SET	PROMPT_TIME	1200
+SET	BACKCHANNEL	ON STORY
+QUESTION	wait_for_story_end
+SET	BACKCHANNEL	OFF
 STATE	end child story create
+**NR	ROBOT	DO	ILikedYourStory
+**RRME	ROBOT	DO	ILikedYourStoryME
+**RRLE	ROBOT	DO	ILikedYourStoryLE
+**RR	ROBOT	DO	SMILE
 OPAL	CLEAR
+
