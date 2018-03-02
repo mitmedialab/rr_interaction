@@ -79,16 +79,18 @@ def on_state_msg(data):
     else:
         USER_TURN = False
 
-    # If this is during a story, we can occasionally glance at the tablet.
-    # We will also be backchanneling.
+    # If this is during a story or a picture task, we can occasionally glance
+    # at the tablet. We will also be backchanneling.
     if ("start child story retell" in data.state or
-            "start child story create" in data.state):
+            "start child story create" in data.state or
+            "start picture task" in data.state):
         # Look at the tablet and start alternating.
         send_tega_command(lookat=rr_commons.LOOKAT["TABLET"])
         USER_STORY = True
         do_story_lookat(False)
     elif ("end child story retell" in data.state or
-            "end child story create" in data.state):
+            "end child story create" in data.state or
+            "end picture task" in data.state):
         # At the end of the user's story, stop glancing at the tablet.
         USER_STORY = False
 
@@ -226,9 +228,6 @@ def on_affdex_msg(data):
     SAD.append(data.emotions[6])
     HAPPY.append(data.emotions[0])
     SURPRISE.append((data.emotions[7], data.expressions[2]))
-    # Save the current face tracking delta in case we want to use it later to
-    # perform lookats.
-    HEAD_TRACKING = data.face_tracking_deltax
 
     # User stories have backchanneling so let's not add more stuff during them.
     # If we are not in a user story, respond! If we have 90+ values in our
@@ -500,7 +499,6 @@ if __name__ == "__main__":
         HAPPY = []
         SAD = []
         SURPRISE = []
-        HEAD_TRACKING = 0
         COUNTER = 0
 
         # Spin.
