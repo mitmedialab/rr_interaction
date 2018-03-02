@@ -52,7 +52,7 @@ class UserInputForm(QtGui.QMainWindow):
 
         # Setup the GUI form interface.
         super(UserInputForm, self).__init__()
-        self.setGeometry(200, 50, 650, 450)
+        self.setGeometry(200, 50, 700, 550)
         self.setWindowTitle("RR User Input")
 
         # Create layout.
@@ -69,7 +69,7 @@ class UserInputForm(QtGui.QMainWindow):
 
         # Add Tega control buttons.
         tega_ui = TegaUI(self.ros)
-        self.central_layout.addWidget(tega_ui, 9, 0, 3, 2)
+        self.central_layout.addWidget(tega_ui, 10, 2, 4, 2)
 
         # Add negotiation buttons.
         negotiation_ui = NegotiationUI(self.ros)
@@ -77,7 +77,7 @@ class UserInputForm(QtGui.QMainWindow):
 
         # Add yes/no buttons.
         yesno_ui = YesNoUI(self.ros)
-        self.central_layout.addWidget(yesno_ui, 11, 2, 4, 2)
+        self.central_layout.addWidget(yesno_ui, 8, 0, 6, 2)
 
 
 if __name__ == '__main__':

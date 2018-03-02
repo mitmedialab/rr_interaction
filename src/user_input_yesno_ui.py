@@ -64,7 +64,7 @@ class YesNoUI(QtGui.QWidget):
         # No response / timeout.
         tbutton = QtGui.QPushButton("Timeout / no response",
                                     self.button_box)
-        tbutton.clicked.connect(lambda: self.on_outcome_selected(
+        tbutton.clicked.connect(lambda: self.on_button_selected(
             UserInput.TIMEOUT))
         self.button_layout.addWidget(tbutton, 1, 0)
 
@@ -72,19 +72,19 @@ class YesNoUI(QtGui.QWidget):
         ybutton = QtGui.QPushButton("Yes: child will do it", self.button_box)
         ybutton.clicked.connect(lambda: self.on_button_selected(
             UserInput.YES))
-        self.button_layout.addWidget(ybutton, 1, 0)
+        self.button_layout.addWidget(ybutton, 2, 0)
 
         # No / negative response.
         nbutton = QtGui.QPushButton("No: child won't do it", self.button_box)
         nbutton.clicked.connect(lambda: self.on_button_selected(
             UserInput.NO))
-        self.button_layout.addWidget(nbutton, 2, 0)
+        self.button_layout.addWidget(nbutton, 3, 0)
 
         # Label for confirming choice.
         self.confirm_label = QtGui.QLabel(self.button_box)
         self.confirm_label.setText("You'll need to confirm your selection.")
         self.confirm_label.setWordWrap(True)
-        self.button_layout.addWidget(self.confirm_label, 3, 0, 2, 2)
+        self.button_layout.addWidget(self.confirm_label, 4, 0, 2, 2)
 
         # Button for confirming choice.
         self.confirm_button = QtGui.QPushButton("CONFIRM AND SEND",
@@ -92,7 +92,7 @@ class YesNoUI(QtGui.QWidget):
         self.confirm_button.clicked.connect(lambda: self.on_confirm_button(
                                             self.outcome_selected))
         self.confirm_button.setEnabled(False)
-        self.button_layout.addWidget(self.confirm_button, 4, 0)
+        self.button_layout.addWidget(self.confirm_button, 6, 0)
 
     def on_button_selected(self, selected):
         """ When a button is pressed, update the label so the user can check it
