@@ -489,7 +489,7 @@ class RosNode(object):
         if command.islower():
             self.send_speech(command + ".wav")
         else:
-            self.send_tega_command(motion=command)
+            self.send_tega_command(enqueue=True, motion=command)
 
         # Call this function again to randomly backchannel again in a little
         # while, after a random interval of seconds (interval from Park et al.
@@ -532,7 +532,7 @@ class RosNode(object):
         if command.islower():
             self.send_speech(command + ".wav")
         else:
-            self.send_tega_command(motion=command)
+            self.send_tega_command(enqueue=True, motion=command)
 
     def wait_for_response(self, response, timeout):
         """ Wait for particular user or robot responses for the specified
