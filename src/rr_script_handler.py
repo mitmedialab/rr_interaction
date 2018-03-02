@@ -451,7 +451,8 @@ class ScriptHandler(object):
                     try:
                         self._logger.info("Sending lookat {}".format(
                             elements[2]))
-                        self._ros_node.send_tega_command(enqueue=True,
+                        self._ros_node.send_tega_command(
+                            enqueue=True,
                             lookat=rr_commons.LOOKAT[elements[2]])
                     except KeyError as keyerr:
                         self._logger.warning("Told to send lookat {}, but it's"
@@ -460,8 +461,9 @@ class ScriptHandler(object):
                 elif "VOLUME" in elements[1]:
                     self._logger.info("Setting robot volume to {}".format(
                         elements[2]))
-                    self._ros_node.send_tega_command(enqueue=True,
-                         volume=float(elements[2]))
+                    self._ros_node.send_tega_command(
+                        enqueue=True,
+                        volume=float(elements[2]))
                 # Send a fidget command to the robot.
                 elif "FIDGET" in elements[1]:
                     if "EMPTY" in elements[2]:
@@ -726,10 +728,13 @@ class ScriptHandler(object):
         # pylint: disable=unused-variable
         for i in range(0, self._num_prompts + 1):
             # Announce that it's the user's turn to talk or act.
+            # Turn backchanneling on while it's their turn.
             self._ros_node.send_interaction_state(is_user_turn=True)
+            self._ros_node.enable_backchanneling(True)
             # Since it's the user's turn to talk or act, the robot should look
             # at the user.
-            self._ros_node.send_tega_command(enqueue=True,
+            self._ros_node.send_tega_command(
+                enqueue=True,
                 lookat=rr_commons.LOOKAT["USER"])
             if using_asr:
                 # Tell ASR node to listen for a response and send us results.
@@ -744,11 +749,14 @@ class ScriptHandler(object):
                         seconds=int(self._prompt_time)))
 
             # We either got a response or timed out, so send ASR command to
-            # stop listening if we were using ASR.
+            # stop listening if we were using ASR. It is also no longer the
+            # user's turn and we should stop backchanneling.
             self._logger.debug("Done waiting. Timed out or got response"
                                ": {}".format(results))
             if using_asr:
                 self._ros_node.send_asr_command(AsrCommand.STOP_ALL)
+            self._ros_node.send_interaction_state(is_user_turn=False)
+            self._ros_node.enable_backchanneling(False)
 
             # Log the response latency.
             latencies.append(waited.total_seconds())
