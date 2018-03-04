@@ -24,7 +24,7 @@ STATE	end story sr2
 ROBOT	STORY_CLOSING
 QUESTION	liked_story2
 
-# TODO Add in: Robot asks child to make up a story
+# Robot asks child to make up a story
 **NR	ROBOT	DO	HeyNoName
 **RR	ROBOT	DO	Hey
 **RR	ROBOT	DO	<participant_name>
@@ -45,4 +45,3 @@ STATE	end child story create
 **RRLE	ROBOT	DO	ILikedYourStoryLE
 **RR	ROBOT	DO	SMILE
 OPAL	CLEAR
-

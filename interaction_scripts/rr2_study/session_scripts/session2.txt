@@ -24,7 +24,9 @@ STATE	start introduction
 **RR	ROBOT	DO	Hey
 **RR	ROBOT	DO	<participant_name>
 **RR	ROBOT	DO	RememberMeImRed
+**RR	ROBOT	DO	SMILE
 **NR	ROBOT	DO	MyNameIsRed
+**RR	ROBOT	DO	PERKUP
 STATE	end introduction
 
 # Talking about what they did last time.
@@ -48,38 +50,63 @@ STATE	end favorite color
 **RRLE	ROBOT	VOLUME	0.65
 
 # Picture conversation with Third Picture Empathy/Helping task.
-# TODO add RR/NR, ME/LE here
-QUESTION	HelpLookPictures
+**NR	ROBOT	DO	HelpLookPicturesNR
+**RR	ROBOT	DO	HelpLookPicturesRR
 STATE	start picture task picture1
-ROBOT	DO	rr1_picture3_01
+OPAL	LOAD_OBJECT	{ "name": "conversations/park.png", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
+**NR	ROBOT	DO	rr1_picture3_01
+**RRME	ROBOT	DO	rr1_picture3_01ME
+**RRLE	ROBOT	DO	rr1_picture3_01LE
 ROBOT	DO	rr1_picture3_02
 QUESTION	picture3_park
-QUESTION	tellmemore
+**NR	QUESTION	tellmemore
+**RRME	QUESTION	tellmemoreME
+**RRLE	QUESTION	tellmemoreLE
 ROBOT	DO	rr1_picture3_04
-QUESTION	picture3_friends
-QUESTION	tellmemore
+**NR	QUESTION	picture3_friends
+**RRME	QUESTION	picture3_friends
+**RRLE	QUESTION	picture3_friends
+**NR	QUESTION	tellmemore
+**RRME	QUESTION	tellmemoreME
+**RRLE	QUESTION	tellmemoreLE
+OPAL	CLEAR
 STATE	end picture task picture1
 ROBOT	DO	rr1_picturegen_01
 STATE	start picture task picture2
+OPAL	LOAD_OBJECT	{ "name": "conversations/movies.png", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
 ROBOT	DO	rr1_picture4_01
 **RRLE	ROBOT	VOLUME	0.6
 **RRME	ROBOT	VOLUME	0.8
 ROBOT	DO	rr1_picture4_02
 QUESTION	picture4_movie
-QUESTION	tellmemore
-ROBOT	DO	rr1_picture4_04
+**NR	QUESTION	tellmemore
+**RRME	QUESTION	tellmemoreME
+**RRLE	QUESTION	tellmemoreLE
+**NR	ROBOT	DO	rr1_picture4_04
+**RRLE	ROBOT	DO	rr1_picture4_04LE
+**RRME	ROBOT	DO	rr1_picture4_04ME
 QUESTION	picture4_superpower
-QUESTION	tellmemore
+**NR	QUESTION	tellmemore
+**RRME	QUESTION	tellmemoreME
+**RRLE	QUESTION	tellmemoreLE
+OPAL	CLEAR
 STATE	end picture task picture2
 STATE	start optional picture task picture3
+SET	NUM_PROMPTS	1
+SET	PROMPT_TIME	4
 QUESTION	DoFinalPicture
 WAIT	USER_INPUT	YESNO	10
 # If we get a positive reply, do the third picture script.
+SET	PROMPT_TIME	8
+SET	NUM_PROMPTS	2
 SET	MAX_REPEAT_TIME	1
 SET	MAX_REPEATS	1
 IF_RESPONSE	RESPONSE_YES	REPEAT	MAX_REPEATS	third_picture.txt
 STATE	end optional picture task picture3
-ROBOT	DO	ThatsAllPictures
+**RR	ROBOT	DO	ThatsAllPicturesRR
+**NR	ROBOT	DO	ThatsAllPictures
+**RR	ROBOT	DO	SMIL
+OPAL	CLEAR
 
 # Self-disclosure question learning about child.
 STATE	start self-disclosure question
@@ -94,7 +121,7 @@ STATE	end self-disclosure question
 SET	PROMPT_TIME	8
 SET	NUM_PROMPTS	2
 
-# Third activity: Create a story. Includes the Negotiation task.
+# Create a story. Includes the Negotiation task.
 SET	MAX_REPEATS	1
 STATE	start story task
 **RR	ROBOT	DO	SMILE
@@ -104,6 +131,30 @@ ROBOT	LOOKAT	TABLET
 ROBOT	DO	rr1_story_01
 REPEAT	MAX_REPEATS	story.txt
 STATE	end story task
+
+# Ask child to also tell a story about a robot.
+# TODO if too long move to next time in place of other conversation next time.
+OPAL	LOAD_OBJECT	{ "name": "sr2-scenes/RobotStoryScene.png", "tag": "Background"}
+**RRLE	QUESTION	MakeRobotStoryLE
+**RRME	QUESTION	MakeRobotStoryME
+**NR	QUESTION	MakeRobotStory
+ROBOT	LOOKAT	TABLET
+OPAL	ENABLE_TOUCH
+STATE	start child robot story create task
+ROBOT	DO	WhatElseIsHappening1
+**NR	ROBOT	DO	SayTheEnd
+**RRME	ROBOT	DO	SayTheEndME
+**RRLE	ROBOT	DO	SayTheEndLE
+SET	PROMPT_TIME	1200
+SET	BACKCHANNEL	ON STORY
+QUESTION	wait_for_story_end
+SET	BACKCHANNEL	OFF
+STATE	end child robot story create task
+**NR	ROBOT	DO	ILikedYourStory
+**RRME	ROBOT	DO	ILikedYourStoryME
+**RRLE	ROBOT	DO	ILikedYourStoryLE
+**RR	ROBOT	DO	SMILE
+OPAL	CLEAR
 
 # Closing and robot goes back to sleep.
 STATE	start closing

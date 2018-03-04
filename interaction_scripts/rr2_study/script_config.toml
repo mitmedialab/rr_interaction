@@ -16,7 +16,7 @@ child_story_closing = ["ThatWasAGoodStory", "GoodTelling", "ILikedYourStory"]
 negotiation_timeout_prompts = ["negotiation_timeout_1", "negotiation_timeout_2"]
 negotiation_no_response = ["OkayIllPick", "YouDontCare", "IllPickThen"]
 negotiation_refusal = ["negotiation_refusal_1", "negotiation_refusal_2", "negotiation_refusal_3"]
-negotiation_acquiese = ["negotiation_acquiesce_1", "negotiation_acquiesce_2", "negotiation_acquisce_3"]
+negotiation_acquiesce = ["negotiation_acquiesce_1", "negotiation_acquiesce_2", "negotiation_acquisce_3"]
 negotiation_general = ["negotiation_general_1", "negotiation_general_2", "negotiation_general_3"]
 
 extra_picture_yes = ["extra_picture_yes1", "extra_picture_yes2"]
@@ -129,7 +129,7 @@ timeout_prompts = ["WillYouHelp", "ItsJustPlaying"]
     user_responses = ["no", "nah", "nope", "uh"]
     robot_responses = ["ThatsOkay"]
 
-## Story task questions.
+## Retell story task questions.
 [questions.listen_to_story]
 question = "rr1_story_02"
 timeout_prompts = ["PleaseIHaveAGoodIdea", "AwComeOnItllBeFun"]
@@ -182,6 +182,64 @@ question = "HeresFirstPage"
     [[questions.WhatHappenedFirst.user_input]]
     user_responses = ["don't know", "don't remember", "can't remember", "not sure", "don't want"]
     robot_responses = ["WhatsHappeningInPicture"]
+    [[questions.WhatHappenedFirst.user_input]]
+    user_responses = [""]
+    robot_responses = ["SILENT_NOD"]
+
+## Create a story task
+[questions.CreateAStory]
+question = "CreateAStory"
+    [[questions.CreateAStory.user_input]]
+    user_responses = [""]
+    robot_responses = ["StoryCanBeAnything", "SayTheEnd"]
+
+[questions.CreateAStoryME]
+question = "CreateAStory"
+    [[questions.CreateAStoryME.user_input]]
+    user_responses = [""]
+    robot_responses = ["StoryCanBeAnythingLE", "SayTheEndLE"]
+
+[questions.CreateAStoryLE]
+question = "CreateAStory"
+    [[questions.CreateAStoryLE.user_input]]
+    user_responses = [""]
+    robot_responses = ["StoryCanBeAnythingME", "SayTheEndME"]
+
+[questions.WhatCouldBeHappening]
+question = "WhatCouldBeHappening"
+    [[questions.WhatCouldBeHappening.user_input]]
+    user_responses = ["don't know", "not sure", "don't want"]
+    robot_responses = ["WhatsHappeningInPicture"]
+    [[questions.WhatCouldBeHappening.user_input]]
+    user_responses = [""]
+    robot_responses = ["SILENT_NOD"]
+
+[questions.MakeRobotStoryLE]
+question = "MakeRobotStoryLE"
+    [[questions.MakeRobotStoryLE.user_input]]
+    user_responses = ["don't know", "not sure", "don't want"]
+    robot_responses = ["WhatsHappeningInPicture"]
+    [[questions.MakeRobotStoryLE.user_input]]
+    user_responses = [""]
+    robot_responses = ["SILENT_AGREEMENT"]
+
+[questions.MakeRobotStoryME]
+question = "MakeRobotStoryME"
+    [[questions.MakeRobotStoryME.user_input]]
+    user_responses = ["don't know", "not sure", "don't want"]
+    robot_responses = ["WhatsHappeningInPicture"]
+    [[questions.MakeRobotStoryME.user_input]]
+    user_responses = [""]
+    robot_responses = ["SILENT_NOD"]
+
+[questions.MakeRobotStory]
+question = "MakeRobotStory"
+    [[questions.MakeRobotStory.user_input]]
+    user_responses = ["don't know", "not sure", "don't want"]
+    robot_responses = ["WhatsHappeningInPicture"]
+    [[questions.MakeRobotStory.user_input]]
+    user_responses = [""]
+    robot_responses = ["SILENT_INTERESTED"]
 
 [questions.wait_for_story_end]
 question = ""
@@ -217,7 +275,35 @@ question = "TellMeMore"
 timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
     [[questions.tellmemore.user_input]]
     user_responses = [""]
-    robot_responses = ["HmInterested"]
+    robot_responses = ["HmInterested", "PERKUP"]
+
+[questions.tellmemoreME]
+question = "TellMeMoreME"
+timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
+    [[questions.tellmemoreME.user_input]]
+    user_responses = [""]
+    robot_responses = ["HmInterested", "SILENT_NOD"]
+
+[questions.tellmemoreLE]
+question = "TellMeMoreLE"
+timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
+    [[questions.tellmemoreLE.user_input]]
+    user_responses = [""]
+    robot_responses = ["HmInterested", "SMILE"]
+
+[questions.picture3_friendsME]
+question = "rr1_picture3_05_ME"
+timeout_prompts = ["FriendIsGirl", "DoYouPlay"]
+    [[questions.picture3_friendsME.user_input]]
+    user_responses = [""]
+    robot_responses = ["mmhm", "SMILE"]
+
+[questions.picture3_friendsLE]
+question = "rr1_picture3_05_LE"
+timeout_prompts = ["FriendIsGirl", "DoYouPlay"]
+    [[questions.picture3_friendsLE.user_input]]
+    user_responses = [""]
+    robot_responses = ["mmhm", "SMILE"]
 
 [questions.picture3_friends]
 question = "rr1_picture3_05"
@@ -268,14 +354,11 @@ timeout_prompts = ["DidYouDressUp", "WereYouARobot"]
 ## Extra picture
 [questions.DoFinalPicture]
 question = "DoFinalPicture"
-    # TODO finish this one
+timeout_prompts = [""]
+max_attempt = [""]
     [[questions.picture4_movie.user_input]]
-    user_responses = ["no", "nah", "nope", "uh"]
-    robot_responses = ["NotAnyMovies"]
-    [[questions.picture4_movie.user_input]]
-    user_responses = ["yes", "yeah", "lots", "of course", "yeah", "movies" ]
-    robot_responses = ["WhichOnes"]
-
+    user_responses = ["don't know", "not sure", "doesn't matter"]
+    robot_responses = ["WeCanSkip"]
 
 ## Robot is asleep, wait for the user to say "ice cream!"
 [questions.wait_for_wakeup]
@@ -297,7 +380,6 @@ max_attempt = ["OkayIllPick"]
     [[questions.choose_a_scene1.user_input]]
     user_responses = ["you pick", "you choose", "you want", "Red pick"]
     robot_responses = ["OkayIllPick"]
-
     [[questions.choose_a_scene1.tablet_input]]
     user_responses = ["Scene"]
     robot_responses = ["IWantOtherOne"]
@@ -336,24 +418,24 @@ max_attempt = ["WellLetsLookAnyway"]
 [questions.lets_look_at_silly_picturesME]
 question = "LookSillyPicturesME"
 timeout_prompts = ["ItsJustPictures", "AwComeOnItllBeFun"]
-max_attempt = ["WellLetsLookAnyway"]
+max_attempt = ["WellLetsLookAnywayME"]
     [[questions.lets_look_at_silly_picturesME.user_input]]
     user_responses = ["yes", "ok", "okay", "of course", "yeah", "picture", "like"]
-    robot_responses = ["HereWeGo"]
+    robot_responses = ["HereWeGo", "SMILE"]
     [[questions.lets_look_at_silly_picturesME.user_input]]
     user_responses = ["no", "nah", "nope", "uh"]
-    robot_responses = ["NoQuestion", "WellLetsLookAnyway"]
+    robot_responses = ["NoQuestion", "WellLetsLookAnywayME"]
 
 [questions.lets_look_at_silly_picturesLE]
 question = "LookSillyPicturesLE"
 timeout_prompts = ["ItsJustPictures", "AwComeOnItllBeFun"]
-max_attempt = ["WellLetsLookAnyway"]
+max_attempt = ["WellLetsLookAnywayLE"]
     [[questions.lets_look_at_silly_picturesLE.user_input]]
     user_responses = ["yes", "ok", "okay", "of course", "yeah", "picture", "like"]
-    robot_responses = ["HereWeGo"]
+    robot_responses = ["HereWeGo", "SMILE"]
     [[questions.lets_look_at_silly_picturesLE.user_input]]
     user_responses = ["no", "nah", "nope", "uh"]
-    robot_responses = ["NoQuestion", "WellLetsLookAnyway"]
+    robot_responses = ["NoQuestion", "WellLetsLookAnywayLE"]
 
 [questions.AnomalousGeneric1]
 question = ""
@@ -1054,6 +1136,28 @@ animations = [ { time = 0.5, anim = "SIDEPERK" } ]
 name = "TellMeMore"
 animations = [ { time = 0.1, anim = "SIDEPERK" } ]
 
+[audio.TellMeMoreLE]
+name = "TellMeMore"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.TellMeMoreME]
+name = "TellMeMore"
+animations = [ { time = 0.1, anim = "SIDEPERK" } ]
+
+[audio.rr1_picture3_01]
+name = "rr1_picture3_01"
+animations = [ { time = 0.5, anim = "SIDEPERK" } ]
+
+[audio.rr1_picture3_01LE]
+name = "rr1_picture3_01"
+animations = [ { time = 0.1, anim = "LOOKAT_TABLET" },
+               { time = 0.5, anim = "PERKUP" } ]
+
+[audio.rr1_picture3_01ME]
+name = "rr1_picture3_01"
+animations = [ { time = 0.1, anim = "LOOKAT_TABLET" },
+               { time = 0.5, anim = "SILENT_INTERESTED" } ]
+
 [audio.rr1_picture3_02]
 name = "rr1_picture3_02"
 animations = [ { time = 4.0, anim = "SWAY" },
@@ -1067,7 +1171,20 @@ animations = [ { time = 6.0, anim = "SILENT_HAPPY_DANCE" } ]
 name = "rr1_picture4_04"
 animations = [ { time = 3.0, anim = "SILENT_AGREEMENT" },
                { time = 8.0, anim = "PROUD" },
+               { time = 12.0, anim = "SILENT_HAPPY_DANCE" } ]
+
+[audio.rr1_picture4_04LE]
+name = "rr1_picture4_04"
+animations = [ { time = 3.0, anim = "SILENT_AGREEMENT" },
+               { time = 8.0, anim = "PROUD" },
                { time = 12.0, anim = "PERKUP" } ]
+
+[audio.rr1_picture4_04ME]
+name = "rr1_picture4_04"
+animations = [ { time = 0.1, anim = "PERKUP" },
+               { time = 3.0, anim = "SILENT_CONFIRM" },
+               { time = 8.0, anim = "PROUD" },
+               { time = 12.0, anim = "SHIMMY" } ]
 
 [audio.rr1_picture3_04]
 name = "rr1_picture3_04"
@@ -1075,10 +1192,15 @@ animations = [ { time = 2.0, anim = "PERKUP" },
                { time = 7.0, anim = "SILENT_SAD" },
                ( time = 13.0, anim = "SILENT_LAUGH" } ]
 
-[audio.ThatsAllPictures]
+[audio.ThatsAllPicturesRR]
 name = "ThatsAllPictures"
 animations = [ { time = 0.1, anim = "PROUD" },
                { time = 3.0, anim = "SILENT_NOD" } ]
+
+[audio.ThatsAllPictures]
+name = "ThatsAllPictures"
+animations = [ { time = 0.1, anim = "PROUD" },
+               { time = 3.0, anim = "SHIMMY" } ]
 
 [audio.rr1_story_19]
 name = "rr1_story_19"
@@ -1121,7 +1243,7 @@ animations = [ { time = 0.1, anim = "LOOKAT_DOWN" },
 
 [audio.SeeYouLaterHuman]
 name = "SeeYouLaterHuman"
-animations = [ { time = 1, anim = "SILENT_HAPPY_DANCE" } ]
+animations = [ { time = 1.0, anim = "SILENT_HAPPY_DANCE" } ]
 
 ## Audio with animations for the Baby Bird's First Nest story - level 1.
 # TODO May need to adjust the timing with my recorded speech.
@@ -2046,3 +2168,119 @@ animations = [ { time = 0.1, anim = "SILENT_INTERESTED" } ]
 name = "ImNewHereAreYou"
 animations = [ { time = 0.1, anim = "LOOKAT_DOWN" },
                { time = 3.0, anim = "LOOKAT_USER" } ]
+
+[audio.StoryCanBeAnything]
+name = "StoryCanBeAnything"
+animations = [ { time = 2.0, anim = "SHIMMY" },
+               { time = 1.5, anim = "LOOKAT_TABLET" } ]
+
+[audio.StoryCanBeAnythingLE]
+name = "StoryCanBeAnything"
+animations = [ { time = 2.0, anim = "PERKUP" },
+               { time = 2.8, anim = "LOOKAT_TABLET" } ]
+
+[audio.StoryCanBeAnythingME]
+name = "StoryCanBeAnything"
+animations = [ { time = 0.7, anim = "SILENT_NOD" },
+               { time = 2.5, anim = "SIDEPERK" },
+               { time = 2.8, anim = "LOOKAT_TABLET" } ]
+
+[audio.WhatCouldBeHappening]
+animations = [ { time = 0.5, anim = "LOOKAT_TABLET" },
+               { time = 2.5, anim = "LOOKAT_USER" } ]
+
+[audio.ILikedYourStory]
+audio = "ILikedYourStory"
+animations = [ { time = 0.1, anim = "SILENT_EXCITED" } ]
+
+[audio.ILikedYourStoryLE]
+audio = "ILikedYourStory"
+animations = [ { time = 0.1, anim = "SILENT_AGREEMENT" } ]
+
+[audio.ILikedYourStoryME]
+audio = "ILikedYourStory"
+animations = [ { time = 0.1, anim = "SILENT_NOD" } ]
+
+[audio.HelpLookPicturesNR]
+audio = "HelpLookPictures"
+animations = [ { time = 1.5, anim = "SILENT_PUZZLED" },
+               { time = 3.5, anim = "SIDEPERK" },
+               { time = 7.5, anim = "PERKUP" },
+               { time = 9.0, anim = "PERKUP" } ]
+
+[audio.HelpLookPicturesRR]
+audio = "HelpLookPictures"
+animations = [ { time = 1.5, anim = "SILENT_NOD" },
+               { time = 3.5, anim = "SIDEPERK" },
+               { time = 7.0, anim = "SILENT_CONFIRM" },
+               { time = 11.5, anim = "SILENT_AGREEMENT" } ]
+
+[audio.rr1_picture3_05]
+audio = "rr1_picture3_05"
+animations = [ { time = 1.5, anim = "SILENT_INTERESTED" } ]
+
+[audio.rr1_picture3_05_LE]
+audio = "rr1_picture3_05"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.rr1_picture3_05_ME]
+audio = "rr1_picture3_05"
+animations = [ { time = 1.5, anim = "SILENT_INTERESTED" } ]
+
+[audio.WellLetsLookAnywayME]
+audio = "WellLetsLookAnyway"
+animations = [ { time = 0.1, anim = "SIDEPERK" } ]
+
+[audio.WellLetsLookAnywayLE]
+audio = "WellLetsLookAnyway"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.WellLetsLookAnyway]
+audio = "WellLetsLookAnyway"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.holidays_intro2]
+audio = "holidays_intro2"
+animations = [ { time = 1.0, anim = "PROUD" },
+               { time = 6.0, anim = "SILENT_HAPPY_DANCE" } ]
+
+[audio.holidays_intro2LE]
+audio = "holidays_intro2"
+animations = [ { time = 1.0, anim = "PERKUP" },
+               { time = 6.0, anim = "SHIMMY" } ]
+
+[audio.holidays_intro2ME]
+audio = "holidays_intro2"
+animations = [ { time = 1.0, anim = "PROUD" },
+               { time = 6.0, anim = "SILENT_HAPPY_DANCE" } ]
+
+[audio.Holidays_1]
+audio = "Holidays_1"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.Holidays_1LE]
+audio = "Holidays_1"
+animations = [ { time = 0.1, anim = "SILENT_AGREEMENT" } ]
+
+[audio.Holidays_1ME]
+audio = "Holidays_1"
+animations = [ { time = 0.1, anim = "SILENT_NOD" } ]
+
+[audio.MakeRobotStoryME]
+audio = "MakeRobotStory]
+animations = [ { time = 1.0, anim = "SHIMMY" },
+               { time = 5.0, anim = "LOOKAT_TABLET" },
+               { time = 8.0, anim = "SILENT_THINKING" },
+               { time = 9.0, anim = "LOOKAT_USER" } ]
+
+[audio.MakeRobotStoryLE]
+audio = "MakeRobotStory]
+animations = [ { time = 1.0, anim = "PERKUP" },
+               { time = 5.0, anim = "LOOKAT_TABLET" },
+               { time = 9.0, anim = "LOOKAT_USER" } ]
+
+[audio.MakeRobotStory]
+audio = "MakeRobotStory]
+animations = [ { time = 1.0, anim = "PERKUP" },
+               { time = 5.0, anim = "LOOKAT_TABLET" },
+               { time = 8.0, anim = "SILENT_HAPPY_WIGGLE" } ]
