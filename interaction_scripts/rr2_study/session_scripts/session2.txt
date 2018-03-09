@@ -2,11 +2,13 @@ SET	MAX_GAME_TIME	20
 SET	MAX_REPEAT_TIME	20
 SET	PROMPT_TIME	1200
 PAUSE	1
+STATE	<condition>
 OPAL	CLEAR
 ROBOT	VOLUME	0.7
 ROBOT	FIDGET	EMPTY
 
 # Sleep and wait for wakeup.
+STATE	robot sleeping
 ROBOT	DO	POSE_SLEEPING
 QUESTION	wait_for_wakeup
 STATE	start robot wakeup
@@ -30,6 +32,7 @@ STATE	start introduction
 STATE	end introduction
 
 # Talking about what they did last time.
+STATE	start remember session
 **RR	QUESTION	RememberSession1
 **RRSL	ROBOT	DO	YouLikedIt
 **RRSD	ROBOT	DO	YouDidntLikeIt
@@ -38,6 +41,7 @@ STATE	end introduction
 # NR asks a question not relating to past events with the user.
 **NR	QUESTION	WhatDidYouDo
 ROBOT	DO	PERKUP
+STATE	end remember session
 
 # Share the robot's favorite color; ask the child's favorite color.
 STATE	start favorite color
@@ -53,7 +57,7 @@ STATE	end favorite color
 **NR	ROBOT	DO	HelpLookPicturesNR
 **RR	ROBOT	DO	HelpLookPicturesRR
 STATE	start picture task picture1
-OPAL	LOAD_OBJECT	{ "name": "conversations/park.png", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
+OPAL	LOAD_OBJECT	{ "name": "conversations/park.jpg", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
 **NR	ROBOT	DO	rr1_picture3_01
 **RRME	ROBOT	DO	rr1_picture3_01ME
 **RRLE	ROBOT	DO	rr1_picture3_01LE
@@ -73,7 +77,7 @@ OPAL	CLEAR
 STATE	end picture task picture1
 ROBOT	DO	rr1_picturegen_01
 STATE	start picture task picture2
-OPAL	LOAD_OBJECT	{ "name": "conversations/movies.png", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
+OPAL	LOAD_OBJECT	{ "name": "conversations/movies.jpg", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
 ROBOT	DO	rr1_picture4_01
 **RRLE	ROBOT	VOLUME	0.6
 **RRME	ROBOT	VOLUME	0.8
@@ -103,9 +107,10 @@ SET	MAX_REPEAT_TIME	1
 SET	MAX_REPEATS	1
 IF_RESPONSE	RESPONSE_YES	REPEAT	MAX_REPEATS	third_picture.txt
 STATE	end optional picture task picture3
+ROBOT	DO	Booyah
 **RR	ROBOT	DO	ThatsAllPicturesRR
 **NR	ROBOT	DO	ThatsAllPictures
-**RR	ROBOT	DO	SMIL
+**RR	ROBOT	DO	SMILE
 OPAL	CLEAR
 
 # Self-disclosure question learning about child.

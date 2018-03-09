@@ -1,5 +1,5 @@
 STATE	start picture task picture3
-OPAL	LOAD_OBJECT	{ "name": "conversations/holidays.png", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
+OPAL	LOAD_OBJECT	{ "name": "conversations/holidays.jpg", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
 ROBOT	DO	holidays_intro1
 **RRLE	ROBOT	DO	holidays_intro2LE
 **RRME	ROBOT	DO	holidays_intro2ME

@@ -559,10 +559,22 @@ max_attempt = [""]
 question = "DisclosureS2"
 timeout_prompts = ["Well", "HmPrompt"]
 max_attempt = ["srPre_4_1"]
-    [[questions.SelfDisclosure1.user_input]]
+    [[questions.DisclosureS2.user_input]]
     user_responses = ["no", "nothing", "don't know", "not sure", "don't want"]
     robot_responses = ["FeelingShy"]
-    [[questions.SelfDisclosure1.user_input]]
+    [[questions.DisclosureS2.user_input]]
+    user_responses = [""]
+    robot_responses = ["srPre_4_2"]
+
+# TODO in progress
+[questions.DisclosureS3]
+question = "DisclosureS3"
+timeout_prompts = ["Well", "HmPrompt"]
+max_attempt = ["srPre_4_1"]
+    [[questions.DisclosureS3.user_input]]
+    user_responses = ["no", "nothing", "don't know", "not sure", "don't want"]
+    robot_responses = ["FeelingShy"]
+    [[questions.DisclosureS3.user_input]]
     user_responses = [""]
     robot_responses = ["srPre_4_2"]
 
@@ -1024,6 +1036,44 @@ question = "WhatDidYouDo"
     robot_responses = ["SrPre_4_2"]
 
 ## Session 3
+[questions.RememberSession2]
+question = "<last_story>"
+    [[questions.RememberSession1.user_input]]
+    user_responses = ["yes", "yeah", "i remember", "maybe", "of course"]
+    robot_responses = [""]
+    [[questions.RememberSession1.user_input]]
+    user_responses = ["no", "nah", "nope", "uh", "don't know"]
+    robot_responses = ["RememberBabyBird"]
+
+[question.DoYouLikePhoto]
+question = "DoYouLikePhoto"
+    [[questions.DoYouLikePhoto.user_input]]
+    user_responses = [""]
+    robot_responses = ["SayThatAgainShy"]
+
+[question.IsItHardRobotHearingRR]
+question = "IsItHardRobotHearing"
+    [[questions.IsItHardRobotHearingRR.user_input]]
+    user_responses = ["yes", "okay", "ok", "of course", "sure", "yeah", "kind of", "very", "hard"]
+    robot_responses = ["Sorry", "<participant_name>", "ImPracticing"]
+    [[questions.IsItHardRobotHearingRR.user_input]]
+    user_responses = ["no", "it's easy", "not sure", "uh", "don't know", "not really"]
+    robot_responses = ["OhGoodPracticingRR", "SMILE"]
+    [[questions.IsItHardRobotHearingRR.user_input]]
+    user_responses = [""]
+    robot_responses = ["ImPracticing"]
+
+[question.IsItHardRobotHearing]
+question = "IsItHardRobotHearing"
+    [[questions.IsItHardRobotHearing.user_input]]
+    user_responses = ["yes", "okay", "ok", "of course", "sure", "yeah", "kind of", "very", "hard"]
+    robot_responses = ["Sorry", "ImPracticing"]
+    [[questions.IsItHardRobotHearing.user_input]]
+    user_responses = ["no", "it's easy", "not sure", "uh", "don't know", "not really"]
+    robot_responses = ["OhGoodPracticing", "PERKUP"]
+    [[questions.IsItHardRobotHearing.user_input]]
+    user_responses = [""]
+    robot_responses = ["ImPracticing"]
 
 #[questions.questionname2]
 #question = "question_audio"
@@ -1190,7 +1240,7 @@ animations = [ { time = 0.1, anim = "PERKUP" },
 name = "rr1_picture3_04"
 animations = [ { time = 2.0, anim = "PERKUP" },
                { time = 7.0, anim = "SILENT_SAD" },
-               ( time = 13.0, anim = "SILENT_LAUGH" } ]
+               { time = 13.0, anim = "SILENT_LAUGH" } ]
 
 [audio.ThatsAllPicturesRR]
 name = "ThatsAllPictures"
@@ -1872,7 +1922,7 @@ name = "baby_ducks_new_friend_a_3"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 1.0, anim = "SHIFT_WEIGHT1" },
                { time = 6.0, anim = "HEADPOINTBACK" },
-               { time = 8.0, anim = "SILENT_CONFIRM"]
+               { time = 8.0, anim = "SILENT_CONFIRM" } ]
 
 [audio.baby_ducks_new_friend_a_5]
 name = "baby_ducks_new_friend_a_5"
@@ -1891,7 +1941,7 @@ name = "baby_ducks_new_friend_a_8"
 animations = [ { time = 0.1, anim = "SIDEPERK" },
                { time = 1.0, anim = "SILENT_AGREEMENT" },
                { time = 4.0, anim = "CIRCLING" },
-               { time = 7.0, anim = "PERKUP"]
+               { time = 7.0, anim = "PERKUP" } ]
 
 [audio.baby_ducks_new_friend_a_9]
 name = "baby_ducks_new_friend_a_9"
@@ -2186,101 +2236,114 @@ animations = [ { time = 0.7, anim = "SILENT_NOD" },
                { time = 2.8, anim = "LOOKAT_TABLET" } ]
 
 [audio.WhatCouldBeHappening]
+name = "WhatCouldBeHappening"
 animations = [ { time = 0.5, anim = "LOOKAT_TABLET" },
                { time = 2.5, anim = "LOOKAT_USER" } ]
 
 [audio.ILikedYourStory]
-audio = "ILikedYourStory"
+name = "ILikedYourStory"
 animations = [ { time = 0.1, anim = "SILENT_EXCITED" } ]
 
 [audio.ILikedYourStoryLE]
-audio = "ILikedYourStory"
+name = "ILikedYourStory"
 animations = [ { time = 0.1, anim = "SILENT_AGREEMENT" } ]
 
 [audio.ILikedYourStoryME]
-audio = "ILikedYourStory"
+name = "ILikedYourStory"
 animations = [ { time = 0.1, anim = "SILENT_NOD" } ]
 
 [audio.HelpLookPicturesNR]
-audio = "HelpLookPictures"
+name = "HelpLookPictures"
 animations = [ { time = 1.5, anim = "SILENT_PUZZLED" },
                { time = 3.5, anim = "SIDEPERK" },
                { time = 7.5, anim = "PERKUP" },
                { time = 9.0, anim = "PERKUP" } ]
 
 [audio.HelpLookPicturesRR]
-audio = "HelpLookPictures"
+name = "HelpLookPictures"
 animations = [ { time = 1.5, anim = "SILENT_NOD" },
                { time = 3.5, anim = "SIDEPERK" },
                { time = 7.0, anim = "SILENT_CONFIRM" },
                { time = 11.5, anim = "SILENT_AGREEMENT" } ]
 
 [audio.rr1_picture3_05]
-audio = "rr1_picture3_05"
+name = "rr1_picture3_05"
 animations = [ { time = 1.5, anim = "SILENT_INTERESTED" } ]
 
 [audio.rr1_picture3_05_LE]
-audio = "rr1_picture3_05"
+name = "rr1_picture3_05"
 animations = [ { time = 0.1, anim = "PERKUP" } ]
 
 [audio.rr1_picture3_05_ME]
-audio = "rr1_picture3_05"
+name = "rr1_picture3_05"
 animations = [ { time = 1.5, anim = "SILENT_INTERESTED" } ]
 
 [audio.WellLetsLookAnywayME]
-audio = "WellLetsLookAnyway"
+name = "WellLetsLookAnyway"
 animations = [ { time = 0.1, anim = "SIDEPERK" } ]
 
 [audio.WellLetsLookAnywayLE]
-audio = "WellLetsLookAnyway"
+name = "WellLetsLookAnyway"
 animations = [ { time = 0.1, anim = "PERKUP" } ]
 
 [audio.WellLetsLookAnyway]
-audio = "WellLetsLookAnyway"
+name = "WellLetsLookAnyway"
 animations = [ { time = 0.1, anim = "PERKUP" } ]
 
 [audio.holidays_intro2]
-audio = "holidays_intro2"
+name = "holidays_intro2"
 animations = [ { time = 1.0, anim = "PROUD" },
                { time = 6.0, anim = "SILENT_HAPPY_DANCE" } ]
 
 [audio.holidays_intro2LE]
-audio = "holidays_intro2"
+name = "holidays_intro2"
 animations = [ { time = 1.0, anim = "PERKUP" },
                { time = 6.0, anim = "SHIMMY" } ]
 
 [audio.holidays_intro2ME]
-audio = "holidays_intro2"
+name = "holidays_intro2"
 animations = [ { time = 1.0, anim = "PROUD" },
                { time = 6.0, anim = "SILENT_HAPPY_DANCE" } ]
 
 [audio.Holidays_1]
-audio = "Holidays_1"
+name = "Holidays_1"
 animations = [ { time = 0.1, anim = "PERKUP" } ]
 
 [audio.Holidays_1LE]
-audio = "Holidays_1"
+name = "Holidays_1"
 animations = [ { time = 0.1, anim = "SILENT_AGREEMENT" } ]
 
 [audio.Holidays_1ME]
-audio = "Holidays_1"
+name = "Holidays_1"
 animations = [ { time = 0.1, anim = "SILENT_NOD" } ]
 
 [audio.MakeRobotStoryME]
-audio = "MakeRobotStory]
+name = "MakeRobotStory"
 animations = [ { time = 1.0, anim = "SHIMMY" },
                { time = 5.0, anim = "LOOKAT_TABLET" },
                { time = 8.0, anim = "SILENT_THINKING" },
                { time = 9.0, anim = "LOOKAT_USER" } ]
 
 [audio.MakeRobotStoryLE]
-audio = "MakeRobotStory]
+name = "MakeRobotStory"
 animations = [ { time = 1.0, anim = "PERKUP" },
                { time = 5.0, anim = "LOOKAT_TABLET" },
                { time = 9.0, anim = "LOOKAT_USER" } ]
 
 [audio.MakeRobotStory]
-audio = "MakeRobotStory]
+name = "MakeRobotStory"
 animations = [ { time = 1.0, anim = "PERKUP" },
                { time = 5.0, anim = "LOOKAT_TABLET" },
                { time = 8.0, anim = "SILENT_HAPPY_WIGGLE" } ]
+
+[audio.ImPracticing]
+name = "ImPracticing"
+animations = [ { time = 1.5, anim = "SILENT_SAD" } ]
+
+[audio.OhGoodPracticingRR]
+name = "OhGoodPracticing"
+animations = [ { time = 1.5, anim = "SILENT_NOD" } ]
+
+[audio.OhGoodPracticing]
+name = "OhGoodPracticing"
+animations = [ { time = 1.5, anim = "SIDEPERK" } ]

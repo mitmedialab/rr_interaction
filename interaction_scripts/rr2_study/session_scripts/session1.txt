@@ -18,6 +18,7 @@ ROBOT	DO	IceCream
 ROBOT	DO	LAUGH
 STATE	end robot wakeup
 SET	PROMPT_TIME	8
+
 # Robot introduction.
 STATE	start introduction
 QUESTION	ImRed
