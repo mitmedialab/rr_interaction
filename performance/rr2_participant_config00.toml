@@ -1,35 +1,388 @@
-[p000]
+## Participants for testing purposes.
+[p999]
 story_retell_level = 1
 story_create_level = 0
 personalized = true
 condition = "RR"
 name = "jackie"
 
-[p001]
-story_retell_level = 2
-story_create_level = 0
-personalized = false
-condition = "NR"
-name = "jackie"
-
-[p002]
-story_retell_level = 2
-story_create_level = 1
-personalized = true
-condition = "RR"
-name = "jackie"
-
-[p003]
+[p998]
 story_retell_level = 3
 story_create_level = 1
 personalized = false
 condition = "NR"
 name = "jackie"
 
-[p000.1]
+[p997]
+story_retell_level = 2
+story_create_level = 0
+personalized = true
+condition = "RR"
+name = "jackie"
+
+## Lynch
+[p001]
+story_retell_level = 1
+story_create_level = 0
+personalized = true
+condition = "RR"
+name = "kyle"
+
+[p002]
+story_retell_level = 1
+story_create_level = 0
+personalized = false
+condition = "NR"
+name = "pearl"
+
+[p003]
+story_retell_level = 1
+story_create_level = 0
+personalized = true
+condition = "RR"
+name = "sadie"
+
+[p004]
+story_retell_level = 1
+story_create_level = 0
+personalized = false
+condition = "NR"
+name = "jadon"
+
+[p005]
+story_retell_level = 1
+story_create_level = 0
+personalized = true
+condition = "RR"
+name = "laurel"
+
+[p006]
+story_retell_level = 1
+story_create_level = 0
+personalized = false
+condition = "NR"
+name = "nandha"
+
+[p007]
+story_retell_level = 1
+story_create_level = 0
+personalized = true
+condition = "RR"
+name = "austin"
+
+[p008]
+story_retell_level = 1
+story_create_level = 0
+personalized = false
+condition = "NR"
+name = "asa"
+
+[p009]
+story_retell_level = 1
+story_create_level = 0
+personalized = true
+condition = "RR"
+name = "zariah"
+
+[p010]
+story_retell_level = 1
+story_create_level = 0
+personalized = false
+condition = "NR"
+name = "vivaan"
+
+[p011]
+story_retell_level = 1
+story_create_level = 0
+personalized = true
+condition = "RR"
+name = "jack"
+
+[p012]
+story_retell_level = 1
+story_create_level = 0
+personalized = false
+condition = "NR"
+name = "madison"
+
+[p013]
+story_retell_level = 1
+story_create_level = 0
+personalized = true
+condition = "RR"
+name = "lily"
+
+[p014]
+story_retell_level = 1
+story_create_level = 0
+personalized = false
+condition = "NR"
+name = "ellison"
+
+[p015]
+story_retell_level = 1
+story_create_level = 0
+personalized = true
+condition = "RR"
+name = "oliver"
+
+[p016]
+story_retell_level = 1
+story_create_level = 0
+personalized = false
+condition = "NR"
+name = "calliope"
+
+[p017]
+story_retell_level = 1
+story_create_level = 0
+personalized = true
+condition = "RR"
+name = "andrew"
+
+[p018]
+story_retell_level = 1
+story_create_level = 0
+personalized = false
+condition = "NR"
+name = "fiona"
+
+[p019]
+story_retell_level = 1
+story_create_level = 0
+personalized = true
+condition = "RR"
+name = "nassim"
+
+[p020]
+story_retell_level = 1
+story_create_level = 0
+personalized = false
+condition = "NR"
+name = "mary"
+
+[p021]
+story_retell_level = 1
+story_create_level = 0
+personalized = true
+condition = "RR"
+name = "aaron"
+
+[p022]
+story_retell_level = 1
+story_create_level = 0
+personalized = false
+condition = "NR"
+name = "sriyan"
+
+[p023]
+story_retell_level = 1
+story_create_level = 0
+personalized = true
+condition = "RR"
+name = "celia"
+
+[p024]
+story_retell_level = 1
+story_create_level = 0
+personalized = false
+condition = "NR"
+name = "connor"
+
+[p025]
+story_retell_level = 1
+story_create_level = 0
+personalized = true
+condition = "RR"
+name = "aditri"
+
+[p026]
+story_retell_level = 1
+story_create_level = 0
+personalized = false
+condition = "NR"
+name = "stephanie"
+
+[p027]
+story_retell_level = 1
+story_create_level = 0
+personalized = true
+condition = "RR"
+name = "sebastian"
+
+[p028]
+story_retell_level = 1
+story_create_level = 0
+personalized = false
+condition = "NR"
+name = "rohit"
+
+[p029]
+story_retell_level = 1
+story_create_level = 0
+personalized = true
+condition = "RR"
+name = "peter"
+
+[p030]
+story_retell_level = 1
+story_create_level = 0
+personalized = false
+condition = "NR"
+name = "kurumi"
+
+[p031]
+story_retell_level = 1
+story_create_level = 0
+personalized = true
+condition = "RR"
+name = "clara"
+
+[p032]
+story_retell_level = 1
+story_create_level = 0
+personalized = false
+condition = "NR"
+name = "bennett"
+
+## McGlynn
+[p101]
+story_retell_level = 3
+story_create_level = 1
+personalized = false
+condition = "NR"
+name = "olivia"
+
+[p102]
+story_retell_level = 3
+story_create_level = 1
+personalized = true
+condition = "RR"
+name = "zoe"
+
+[p103]
+story_retell_level = 3
+story_create_level = 1
+personalized = false
+condition = "NR"
+name = "david"
+
+[p104]
+story_retell_level = 3
+story_create_level = 1
+personalized = true
+condition = "RR"
+name = "habiba"
+
+[p105]
+story_retell_level = 2
+story_create_level = 1
+personalized = false
+condition = "NR"
+name = "amanda"
+
+## Graceworks
+[p201]
+story_retell_level = 1
+story_create_level = 0
+personalized = true
+condition = "RR"
+name = "fabien"
+
+[p202]
+story_retell_level = 3
+story_create_level = 1
+personalized = false
+condition = "NR"
+name = "niall"
+
+[p203]
+story_retell_level = 3
+story_create_level = 1
+personalized = true
+condition = "RR"
+name = "juniper"
+
+[p204]
+story_retell_level = 2
+story_create_level = 1
+personalized = false
+condition = "NR"
+name = "nathan"
+
+[p205]
+story_retell_level = 2
+story_create_level = 1
+personalized = true
+condition = "RR"
+name = "benjamin"
+
+
+## Make Way For Kids
+[p301]
+story_retell_level = 1
+story_create_level = 0
+personalized = false
+condition = "NR"
+name = "domenic"
+
+[p302]
+story_retell_level = 1
+story_create_level = 0
+personalized = true
+condition = "RR"
+name = "vivian"
+
+[p303]
+story_retell_level = 1
+story_create_level = 0
+personalized = true
+condition = "RR"
+name = "raymond"
+
+[p304]
+story_retell_level = 1
+story_create_level = 0
+personalized = false
+condition = "NR"
+name = "ghangden"
+
+[p305]
+story_retell_level = 2
+story_create_level = 1
+personalized = true
+condition = "RR"
+name = "mia"
+
+[p306]
+story_retell_level = 1
+story_create_level = 0
+personalized = false
+condition = "NR"
+name = "alexa"
+
+[p307]
+story_retell_level = 1
+story_create_level = 0
+personalized = true
+condition = "RR"
+name = "karl"
+
+## Session 1
+## Test participants
+[p997.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
+[p998.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p999.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+## Lynch
 [p001.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
@@ -41,3 +394,192 @@ story_name = "baby_birds_first_nest"
 [p003.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
+
+[p004.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p005.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p006.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p007.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p008.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p009.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p010.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p011.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p012.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p013.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p014.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p015.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p016.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p017.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p018.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p019.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p020.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p021.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p022.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p023.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p024.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p025.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p026.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p027.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p028.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p029.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p030.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p031.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p032.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+## McGlynn
+[p101.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p102.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p103.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p104.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p105.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+## Graceworks
+[p201.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p202.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p203.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p204.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p205.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+## MWFK
+[p301.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p302.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p303.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p304.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p305.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p306.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p307.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+## Session 2 - some will be generated, some we will need to add!

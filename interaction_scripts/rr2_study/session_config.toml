@@ -85,6 +85,11 @@ story_name = "possum_and_the_peeper"
 negotiation = false
 
 [sessions.5]
+story_type = "retell"
+story_name = "henrys_happy_birthday"
+negotiation = false
+
+[sessions.6]
 story_type = "create"
 negotiation = true
 corpus = "SR2_robot"
@@ -100,7 +105,7 @@ default_scenes = ["Castle"]
     [sessions.5.default_stories.Castle]
     story = "EvilKing"
 
-[sessions.6]
+[sessions.7]
 story_type = "create"
 negotiation = false
 corpus = "SR2_child"
@@ -118,12 +123,12 @@ default_scenes = ["Pineforest"]
     [sessions.6.default_stories.Pineforest]
     story = "Pineforest-sr2-session2-p009-story1"
 
-[sessions.7]
+[sessions.8]
 story_type = "retell"
-story_name = "henrys_happy_birthday"
+story_name = "baby_ducks_new_friend"
 negotiation = false
 
-[sessions.8]
+[sessions.9]
 story_type = "create"
 negotiation = true
 corpus = "SR2_robot"
@@ -143,14 +148,13 @@ default_scenes = ["Dinoville"]
     [sessions.8.default_stories.Dinoville]
     story = "DinoEater"
 
-[sessions.9]
+[sessions.10]
 story_type = "create"
 negotiation = false
 corpus = "SR2_child"
 num_scenes = 2
 similar = true
 default_scenes = ["Mars"]
-
     [sessions.9.default_stories.Iceberg]
     story = "Iceberg-sr2-session8-p006-story1"
     [sessions.9.default_stories.Treemeadow]
@@ -166,10 +170,6 @@ default_scenes = ["Mars"]
     [sessions.9.default_stories.Mars]
     story = "Mars-sr2-session3-p009-story2"
 
-[sessions.10]
-story_type = "retell"
-story_name = "baby_ducks_new_friend"
-negotiation = false
 
 #######################################################################
 # Lists of stories that the robot could tell. Each list should contain the
