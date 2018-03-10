@@ -40,12 +40,10 @@ from std_msgs.msg import Header  # Standard ROS msg header.
 
 
 POSITIVE_ANIMS = [TegaAction.MOTION_AGREEMENT, TegaAction.MOTION_LAUGH,
-                  TegaAction.MOTION_INTERESTED, TegaAction.MOTION_THINK3,
-                  TegaAction.MOTION_SMILE, TegaAction.MOTION_SHIMMY,
-                  TegaAction.MOTION_YES]
+                  TegaAction.MOTION_INTERESTED, TegaAction.MOTION_SMILE,
+                  TegaAction.MOTION_SHIMMY, TegaAction.MOTION_YES]
 NEGATIVE_ANIMS = [TegaAction.MOTION_PUZZLED, TegaAction.MOTION_THINKING,
-                  TegaAction.MOTION_THINK1, TegaAction.MOTION_THINK2,
-                  TegaAction.MOTION_SIDEPERK, TegaAction.MOTION_THINK3]
+                  TegaAction.MOTION_SIDEPERK]
 THINKING_ANIMS = [TegaAction.MOTION_PUZZLED, TegaAction.MOTION_THINKING,
                   TegaAction.MOTION_THINK1, TegaAction.MOTION_THINK2,
                   TegaAction.MOTION_THINK3]
@@ -61,14 +59,15 @@ def on_state_msg(data):
     as appropriate.
     """
     LOGGER.debug("Got state message: {}".format(data.state))
-    global USER_STORY
-    global USER_TURN
-    global RELATIONAL
+    global USER_STORY, USER_TURN, RELATIONAL, ROBOT_SLEEPING
 
     # If the state message tells us about the condition, save it so we know
     # whether to respond or not.
     if "RR" in data.state:
         RELATIONAL = True
+
+    if "robot sleeping" in data.state:
+        ROBOT_SLEEPING = True
 
     # If it is the user's turn to speak or act, we should mostly look at them.
     # Elsewhere, the robot is told to look at the user when it is the user's
@@ -201,9 +200,9 @@ def on_affdex_msg(data):
 
     # The non-relational robot gets some random animations to play.
     if not RELATIONAL and COUNTER >= 90:
-        # About a quarter of the time, send an animation. Randomly pick between
+        # A small amount of the time send an animation. Randomly pick between
         # sending positive and negative ones.
-        if random.random() < 0.25:
+        if random.random() < 0.10:
             motion = POSITIVE_ANIMS[random.randint(
                     0, len(POSITIVE_ANIMS) - 1)] if random.random() < 0.5 \
                 else NEGATIVE_ANIMS[random.randint(
@@ -230,11 +229,11 @@ def on_affdex_msg(data):
     SURPRISE.append((data.emotions[7], data.expressions[2]))
 
     # User stories have backchanneling so let's not add more stuff during them.
-    # If we are not in a user story, respond! If we have 90+ values in our
-    # array (~3s of data at 30fps), we can process it and see what to do. This
-    # is the number the storyteller study used so we're using the same value
-    # here.
-    if not USER_STORY and COUNTER >= 90:
+    # If we are not in a user story and the robot is not supposed to be
+    # sleeping, respond! If we have 90+ values in our array (~3s of data at
+    # 30fps), we can process it and see what to do.  This is the number the
+    # storyteller study used so we're using the same value here.
+    if not USER_STORY and not ROBOT_SLEEPING and COUNTER >= 90:
         react_to_affect()
 
 
@@ -243,17 +242,6 @@ def react_to_affect():
     global FACE_DETECTED, VALENCE, SMILES, ATTENTION, THINKING, SAD, COUNTER, \
         DISTANCE, HAPPY, SURPRISE
     LOGGER.info("Checking to see if we should react to affect...")
-    # If the user is not attending, play an animation to regain attention. Play
-    # different animations if the user is showing positive vs. negative
-    # valence.
-    if not user_is_attending():
-        LOGGER.info("Not attending! Sending action...")
-        motion = POSITIVE_ANIMS[random.randint(
-                0, len(POSITIVE_ANIMS) - 1)] if valence_is_positive() \
-            else NEGATIVE_ANIMS[random.randint(
-                0, len(NEGATIVE_ANIMS) - 1)]
-        send_tega_command(motion=motion)
-        return
 
     # If the user suddenly leaned in or leaned out, have the robot mirror that
     # change in distance.
@@ -265,23 +253,34 @@ def react_to_affect():
         LOGGER.info("Leaned out! Sending action...")
         send_tega_command(motion=TegaAction.MOTION_SILENT_SCARED)
 
-    # If the user smiled positively (as opposed to a frustrated/negative
-    # smile), have the robot smile two thirds of the time, and otherwise either
-    # nod or laugh.
-    if user_is_smiling() and valence_is_positive():
-        LOGGER.info("Smiling! Sending action...")
-        if random.randint(1, 6) > 4:
-            send_tega_command(motion=TegaAction.MOTION_SMILE)
-        elif random.random() < 0.5:
-            send_tega_command(motion=TegaAction.MOTION_SILENT_NOD)
-        else:
-            send_tega_command(motion=TegaAction.MOTION_LAUGH)
+    # Everything else should only happen on the user's turn.
+    if USER_TURN:
+        # If the user smiled positively (as opposed to a frustrated/negative
+        # smile), have the robot smile two thirds of the time, and otherwise
+        # nod or laugh.
+        if user_is_smiling() and valence_is_positive():
+            LOGGER.info("Smiling! Sending action...")
+            if random.randint(1, 6) > 4:
+                send_tega_command(motion=TegaAction.MOTION_SMILE)
+            elif random.random() < 0.5:
+                send_tega_command(motion=TegaAction.MOTION_SILENT_NOD)
+            else:
+                send_tega_command(motion=TegaAction.MOTION_LAUGH)
 
-    # If we didn't send a smile-related animation, and it is the user's turn,
-    # see if there is other affect we can mirror while the user is speaking.
-    elif USER_TURN:
+        # If the user is not attending, play an animation to regain attention.
+        # Play different animations if the user shows positive vs. negative
+        # valence.
+        elif not user_is_attending():
+            LOGGER.info("Not attending! Sending action...")
+            motion = POSITIVE_ANIMS[random.randint(
+                    0, len(POSITIVE_ANIMS) - 1)] if valence_is_positive() \
+                else NEGATIVE_ANIMS[random.randint(
+                    0, len(NEGATIVE_ANIMS) - 1)]
+            send_tega_command(motion=motion)
+
+        # See if there is other affect we can mirror while the user is speaking.
         # Thinking, puzzled (lid tighten)
-        if user_is_thinking():
+        elif user_is_thinking():
             send_tega_command(motion=THINKING_ANIMS[
                 random.randint(0, len(THINKING_ANIMS) - 1)])
         # Sad
@@ -333,11 +332,12 @@ def user_is_attending():
     """ Check the array of collected attention measurements to see if the user
     is generally attentive or not.
     """
+    face_count = sum(i is True for i in FACE_DETECTED)
     atten_count = sum(i is True for i in ATTENTION)
     # Count the user as attentive if they are displaying attention in 60% of
-    # the recent frames or more.
-    LOGGER.debug("attention count: {}".format(atten_count))
-    return atten_count >= 0.6 * len(ATTENTION)
+    # the recent frames with faces in them or more.
+    LOGGER.debug("faces: {}, attention: {}".format(face_count, atten_count))
+    return atten_count >= 0.6 * face_count
 
 
 def user_is_smiling():
@@ -484,6 +484,9 @@ if __name__ == "__main__":
         # We do not start in a user story or on the user's turn to speak.
         USER_STORY = False
         USER_TURN = False
+        # We need to track if the robot is supposed to be sleeping so that we
+        # don't respond if it is.
+        ROBOT_SLEEPING = False
 
         # We do not start by responding to affect data. We will only respond if
         # the user is in the correct (relational) condition.

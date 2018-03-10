@@ -128,9 +128,12 @@ class ScriptHandler(object):
         self._selected_scene = None
 
         # When we start, we are not currently telling a story or repeating a
-        # script.
+        # script, and the robot is not sleeping. We need to track when the
+        # robot is sleeping so we can make sure it doesn't do anything else
+        # while asleep.
         self._doing_story = False
         self._repeating = False
+        self._robot_sleeping = False
 
         # Track whether we just played an exuberance line. Each time the script
         # parser finds a line tagged for exuberance (i.e., ME or LE), it checks
@@ -728,14 +731,16 @@ class ScriptHandler(object):
         # pylint: disable=unused-variable
         for i in range(0, self._num_prompts + 1):
             # Announce that it's the user's turn to talk or act.
-            # Turn backchanneling on while it's their turn.
-            self._ros_node.send_interaction_state(is_user_turn=True)
-            self._ros_node.enable_backchanneling(True)
-            # Since it's the user's turn to talk or act, the robot should look
-            # at the user.
-            self._ros_node.send_tega_command(
-                enqueue=True,
-                lookat=rr_commons.LOOKAT["USER"])
+            # If the robot is not sleeping, do actions...
+            if not self._robot_sleeping:
+                # Turn backchanneling on while it's their turn.
+                self._ros_node.send_interaction_state(is_user_turn=True)
+                self._ros_node.enable_backchanneling(True)
+                # Since it's the user's turn to talk or act, the robot should
+                # look at the user.
+                self._ros_node.send_tega_command(
+                    enqueue=True,
+                    lookat=rr_commons.LOOKAT["USER"])
             if using_asr:
                 # Tell ASR node to listen for a response and send us results.
                 self._ros_node.send_asr_command(AsrCommand.START_FINAL)
@@ -970,6 +975,10 @@ class ScriptHandler(object):
         # robot to play, so just play it and return.
         if command.isupper():
             self._logger.info("DO animation: {}".format(command))
+            if "SLEEPING" in command:
+                self._robot_sleeping = True
+            else:
+                self._robot_sleeping = False
             self._ros_node.send_tega_command(motion=command, enqueue=True)
             self._ros_node.wait_for_response(self._ros_node.ROBOT_NOT_MOVING,
                                              timeout=datetime.timedelta(
@@ -1010,6 +1019,12 @@ class ScriptHandler(object):
             self._logger.debug("No audio present in script config!")
 
         if command in self._script_config["audio"]:
+            if "name" not in self._script_config["audio"][command] or \
+                    "animations" not in self._script_config["audio"][command]:
+                self._logger.warning("Told to play \"{}\", but it is not "
+                                     "configured properly in script config!")
+                return
+
             self._logger.info("Going to play ".format(command))
             audio_to_play = self._script_config["audio"][command]["name"] \
                 + ".wav"
@@ -1020,6 +1035,7 @@ class ScriptHandler(object):
         # Otherwise, send the audio command, and tell the ROS node to send the
         # list of animations. Turn on speech fidgets in case it takes a while
         # for the robot to start speaking!
+        self._robot_sleeping = False
         self._ros_node.send_tega_command(fidgets=TegaAction.FIDGETS_SPEECH)
         self._ros_node.send_speech(audio_to_play)
 
