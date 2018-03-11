@@ -38,7 +38,7 @@ class PerformanceLogger(object):
     """
 
     # Threshold for determining whether a user's exuberance score counts as
-    # more or less exuberant.
+    # more or less exuberant. Scores range from 0-9.
     EXUBERANCE_THRESHOLD = 5
 
     def __init__(self, participant, session, directory):
@@ -344,9 +344,11 @@ class PerformanceLogger(object):
         # latency is due to the ASR and network, in general this can give us a
         # sense of how quickly the user responded to the robot. Because this is
         # reverse-scored, we set the default to the max value (15) if there
-        # isn't anything to calculate.
+        # isn't anything to calculate. We skip the latency for the first
+        # question, since it was the wakeup.
         mean_latency = 15 if len(self._response_latencies) == 0 else sum(
-            self._response_latencies) / float(len(self._response_latencies))
+            self._response_latencies[1:]) / float(len(
+                self._response_latencies[1:]))
 
         self._logger.info("Computing exuberance! Total prompts ratio: {}\n"
                           "Total max attempts ratio: {}\nCurrent mean "
@@ -373,7 +375,7 @@ class PerformanceLogger(object):
         # Compute an exuberance score:
         # We convert all values to (approximately) a 0-1 scale.
         # We add 6 values together, and weight some more than others. The final
-        # score should be in the range 0-8. Higher value means more exuberant;
+        # score should be in the range 0-9. Higher value means more exuberant;
         # lower means less exuberant.
         self._exuberance = (
             # Prompt ratio: 0-1. Lower number is fewer prompts needed, so we
@@ -382,10 +384,11 @@ class PerformanceLogger(object):
             # Max attempt ratio: 0-1. Lower number is fewer max attempts hit,
             # so we reverse score.
             3 * (1 - max_attempt_ratio) + \
-            # Intensity: around 40-80. Background noise around 50. Robot often
-            # is around 75. Person speaking normally around 65. Convert to a
-            # 0-1 scale. Higher number is louder.
-            2 * ((mean_mean_intensity - 40) / 50.0) + \
+            # Intensity: around 40-80. Background noise around 50 in a quiet
+            # room. Robot often is around 75. Person speaking normally in a
+            # quiet room around 65. Convert to a 0-1 scale. Higher number is
+            # louder.
+            ((mean_mean_intensity - 40) / 50.0) + \
             # Speaking rate: around 1.5-5. Robot often around 4. Higher number
             # is faster speech. Convert to a 0-1 scale.
             (mean_speaking_rate / 5.0) + \
