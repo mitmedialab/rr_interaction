@@ -38,7 +38,8 @@ class PerformanceLogger(object):
     """
 
     # Threshold for determining whether a user's exuberance score counts as
-    # more or less exuberant. Scores range from 0-9.
+    # more or less exuberant. Scores range from 0-9. Higher score means more
+    # exuberant.
     EXUBERANCE_THRESHOLD = 5
 
     def __init__(self, participant, session, directory):
@@ -295,8 +296,7 @@ class PerformanceLogger(object):
         """ Return whether the user is currently more or less exuberant. """
         # Based on the score, threshold and determine if the user is more or
         # less exuberant, and return the appropriate tag.
-        # TODO adjust exuberance threshold and score calculation.
-        return "ME" if self._exuberance < self.EXUBERANCE_THRESHOLD else "LE"
+        return "ME" if self._exuberance >= self.EXUBERANCE_THRESHOLD else "LE"
 
     def _compute_exuberance(self):
         """ Update our estimate of the user's exuberance. """
