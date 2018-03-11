@@ -58,7 +58,7 @@ def on_state_msg(data):
     """ When we receive an interaction state message, perform lookat behaviors
     as appropriate.
     """
-    LOGGER.debug("Got state message: {}".format(data.state))
+    LOGGER.info("Got state message: {}".format(data.state))
     global USER_STORY, USER_TURN, RELATIONAL, ROBOT_SLEEPING
 
     # If the state message tells us about the condition, save it so we know
@@ -96,7 +96,7 @@ def on_state_msg(data):
 
 def on_opal_msg(data):
     """ Use OpalCommand messages to know whether to look at the tablet. """
-    LOGGER.debug("Got opal command message: {}".format(data.command))
+    LOGGER.info("Got opal command message: {}".format(data.command))
     # If the tablet page is told to change or something new is loaded on the
     # tablet, look at the tablet for a few seconds, then back at the child.
     if (data.command == OpalCommand.NEXT_PAGE or
@@ -109,7 +109,7 @@ def on_opal_msg(data):
         # The non-relational robot will look around randomly, at approximately
         # the same intervals as the relational robot.
         if not RELATIONAL:
-            LOGGER.debug("NR: Sending random lookat")
+            LOGGER.info("NR: Sending random lookat")
             send_tega_command(lookat=rr_commons.LOOKAT[rr_commons.LOOKAT_ARR[
                               random.randint(
                                   0, len(rr_commons.LOOKAT_ARR) - 1)]])
@@ -123,7 +123,7 @@ def on_opal_msg(data):
                                     0,
                                     len(rr_commons.LOOKAT_ARR) - 1)]])).start()
         else:
-            LOGGER.debug("RR: Sending lookat tablet then user")
+            LOGGER.info("RR: Sending lookat tablet then user")
             # The relational robot will look at the tablet.
             send_tega_command(lookat=rr_commons.LOOKAT["TABLET"])
             # Wait for a few seconds, then look back at the child.
@@ -141,7 +141,7 @@ def do_story_lookat(looking_at_user):
     # The non-relational robot will look around randomly, at approximately the
     # same intervals as the relational robot.
     if not RELATIONAL:
-        LOGGER.debug("NR: Sending random lookat")
+        LOGGER.info("NR: Sending random lookat")
         send_tega_command(lookat=rr_commons.LOOKAT[rr_commons.LOOKAT_ARR[
             random.randint(0, len(rr_commons.LOOKAT_ARR) - 1)]])
         # Call this function again in a little while to look back at the user.
@@ -155,13 +155,13 @@ def do_story_lookat(looking_at_user):
     # every 5s, for about 2.5s. Then look back at the tablet. These intervals
     # are what were used in the SR2 story study during child stories.
     if looking_at_user:
-        LOGGER.debug("RR: Sending lookat tablet")
+        LOGGER.info("RR: Sending lookat tablet")
         send_tega_command(lookat=rr_commons.LOOKAT["TABLET"])
         # Call this function again in a little while to look back at the user.
         threading.Timer(5 + random.uniform(-0.5, 0.5),
                         do_story_lookat(False)).start()
     else:
-        LOGGER.debug("RR: Sending lookat user")
+        LOGGER.info("RR: Sending lookat user")
         send_tega_command(lookat=rr_commons.LOOKAT["USER"])
         # Call this function again in a little while to look back at the
         # tablet.
@@ -192,7 +192,7 @@ def send_tega_command(lookat=None, motion=None):
     msg.enqueue = True
     # Send message.
     TEGA_PUB.publish(msg)
-    LOGGER.debug(msg)
+    LOGGER.info(msg)
 
 
 def on_affdex_msg(data):
@@ -207,18 +207,18 @@ def on_affdex_msg(data):
     # sleeping.
     if not RELATIONAL and USER_TURN and not USER_STORY and not ROBOT_SLEEPING \
             and COUNTER >= 90:
-        LOGGER.debug("NR: Checking to see if we do random affect anim yet...")
+        LOGGER.info("NR: Checking to see if we do random affect anim yet...")
         # A small amount of the time send an animation. Randomly pick between
         # sending positive and negative ones.
         if random.random() < 0.1:
-            LOGGER.debug("NR: Doing random affect anim!")
+            LOGGER.info("NR: Doing random affect anim!")
             motion = POSITIVE_ANIMS[random.randint(
                     0, len(POSITIVE_ANIMS) - 1)] if random.random() < 0.5 \
                 else NEGATIVE_ANIMS[random.randint(
                     0, len(NEGATIVE_ANIMS) - 1)]
             send_tega_command(motion=motion)
         else:
-            LOGGER.debug("NR: Nope, not doing random affect anim!")
+            LOGGER.info("NR: Nope, not doing random affect anim!")
         COUNTER = 0
         return
 
@@ -245,7 +245,7 @@ def on_affdex_msg(data):
     # 30fps), we can process it and see what to do.  This is the number the
     # storyteller study used so we're using the same value here.
     if not USER_STORY and not ROBOT_SLEEPING and COUNTER >= 90:
-        LOGGER.debug("RR: Time to react to affect!")
+        LOGGER.info("RR: Time to react to affect!")
         react_to_affect()
 
 
@@ -332,7 +332,7 @@ def valence_is_positive():
     face_count = sum(i is True for i in FACE_DETECTED)
     pos_count = sum(i > 0 for i in VALENCE)
     neg_count = sum(i < 0 for i in VALENCE)
-    LOGGER.debug("faces: {}, pos: {}, neg: {}".format(face_count, pos_count,
+    LOGGER.info("faces: {}, pos: {}, neg: {}".format(face_count, pos_count,
                                                       neg_count))
     # If positive valence was detected in more that 65% of the faces detected
     # in recent frames, say we are overall positive.
@@ -352,7 +352,7 @@ def user_is_attending():
     atten_count = sum(i is True for i in ATTENTION)
     # Count the user as attentive if they are displaying attention in 60% of
     # the recent frames with faces in them or more.
-    LOGGER.debug("faces: {}, attention: {}".format(face_count, atten_count))
+    LOGGER.info("faces: {}, attention: {}".format(face_count, atten_count))
     return atten_count >= 0.4 * face_count
 
 
@@ -364,7 +364,7 @@ def user_is_smiling():
     # count it as a smile.
     face_count = sum(i is True for i in FACE_DETECTED)
     smile_count = sum(i > 30 for i in SMILES)
-    LOGGER.debug("faces: {}, smiles: {}".format(face_count, smile_count))
+    LOGGER.info("faces: {}, smiles: {}".format(face_count, smile_count))
     return smile_count >= 0.02 * face_count
 
 
@@ -376,7 +376,7 @@ def user_is_thinking():
     # expression, count it as thinking.
     face_count = sum(i is True for i in FACE_DETECTED)
     think_count = sum(i > 30 for i in THINKING)
-    LOGGER.debug("faces: {}, thinks: {}".format(face_count, think_count))
+    LOGGER.info("faces: {}, thinks: {}".format(face_count, think_count))
     return think_count >= 0.1 * face_count
 
 
@@ -388,7 +388,7 @@ def user_is_sad():
     # count it as sad.
     face_count = sum(i is True for i in FACE_DETECTED)
     sad_count = sum(i > 10 for i in SAD)
-    LOGGER.debug("faces: {}, sad: {}".format(face_count, sad_count))
+    LOGGER.info("faces: {}, sad: {}".format(face_count, sad_count))
     return sad_count >= 0.1 * face_count
 
 
@@ -400,7 +400,7 @@ def user_is_happy():
     # count it as happy.
     face_count = sum(i is True for i in FACE_DETECTED)
     happy_count = sum(i >= 40 for i in HAPPY)
-    LOGGER.debug("faces: {}, happy: {}".format(face_count, happy_count))
+    LOGGER.info("faces: {}, happy: {}".format(face_count, happy_count))
     return happy_count >= 0.1 * face_count
 
 
@@ -413,7 +413,7 @@ def user_is_surprised():
     # (surprise, brow raise) because both are relevant.
     face_count = sum(i is True for i in FACE_DETECTED)
     surprise_count = sum(i[0] >= 25 or i[1] >= 50 for i in SURPRISE)
-    LOGGER.debug("faces: {}, surprise: {}".format(face_count, surprise_count))
+    LOGGER.info("faces: {}, surprise: {}".format(face_count, surprise_count))
     return surprise_count >= 0.05 * face_count
 
 
@@ -434,17 +434,17 @@ def user_leaned():
     for i in range(1, len(DISTANCE)):
         delta = DISTANCE[i] - DISTANCE[i - 1]
         if delta < 0:
-            LOGGER.debug("leaned in: {}".format(delta))
+            LOGGER.info("leaned in: {}".format(delta))
             delta_in += delta
         if delta > 0:
-            LOGGER.debug("leaned out: {}".format(delta))
+            LOGGER.info("leaned out: {}".format(delta))
             delta_out += delta
         else:
-            LOGGER.debug("no change: {}".format(delta))
+            LOGGER.info("no change: {}".format(delta))
 
     # Return "IN" if the user leaned in; "OUT" if the user leaned out, nothing
     # if there was no big change in lean.
-    LOGGER.debug("total delta in: {}, total delta out: {}".format(
+    LOGGER.info("total delta in: {}, total delta out: {}".format(
         delta_in, delta_out))
     if delta_in < -5:
         return "IN"

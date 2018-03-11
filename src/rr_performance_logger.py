@@ -346,7 +346,7 @@ class PerformanceLogger(object):
         # reverse-scored, we set the default to the max value (15) if there
         # isn't anything to calculate. We skip the latency for the first
         # question, since it was the wakeup.
-        mean_latency = 15 if len(self._response_latencies) == 0 else sum(
+        mean_latency = 15 if len(self._response_latencies) <= 1 else sum(
             self._response_latencies[1:]) / float(len(
                 self._response_latencies[1:]))
 
