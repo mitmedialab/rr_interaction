@@ -78,6 +78,7 @@ QUESTION	DisclosureS3
 SET	NUM_PROMPTS	0
 IF_RESPONSE	QUESTION	SelfDisclosureGeneric2
 IF_RESPONSE	QUESTION	SelfDisclosureGeneric
+**RR	ROBOT	DO	RobotDisclosureS3
 STATE	end self-disclosure question
 SET	PROMPT_TIME	8
 SET	NUM_PROMPTS	2

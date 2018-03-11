@@ -1043,7 +1043,7 @@ question = "<last_story>"
     robot_responses = [""]
     [[questions.RememberSession1.user_input]]
     user_responses = ["no", "nah", "nope", "uh", "don't know"]
-    robot_responses = ["RememberBabyBird"]
+    robot_responses = ["Remember2", "<last_story>"]
 
 [question.DoYouLikePhoto]
 question = "DoYouLikePhoto"
