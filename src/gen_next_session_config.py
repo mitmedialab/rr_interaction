@@ -397,6 +397,13 @@ def update_performance(log, performance):
         # that it was logged for!
         performance[log["pid"]]["session"][str(log["session"])][key] = log[key]
 
+    # Each session, we want to know whether the participant told a story and
+    # liked the story the robot told. This information is manually recorded, so
+    # we add the fields, but the experimenter will have to manually fill them
+    # in later.
+    performance[log["pid"]]["session"][str(log["session"])]["liked_story"] = ""
+    performance[log["pid"]]["session"][str(log["session"])]["told_story"] = ""
+
     # Also add stories told list overall list of story scenes used for ease
     # of reference later.
     performance[log["pid"]]["overall"]["scenes_used"] += log["scenes_used"]

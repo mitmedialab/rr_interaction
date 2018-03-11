@@ -118,6 +118,10 @@ class ScriptHandler(object):
         # Save the session number as a string for later use in checking the
         # participant config file.
         self._session = str(session)
+        # Save the session number as an int, too, since we may need to check
+        # the config file for other session information, and that's easier to
+        # increment or decrement using an int.
+        self._sessionint = session
 
         # Initialize flags and counters:
         # Set up counter for how many stories have been told this session.
@@ -322,6 +326,92 @@ class ScriptHandler(object):
             self._logger.exception("Unexpected exception! {}".format(exc))
             raise
 
+    def _parse_line_tags(self, tags):
+        """ Based on the line tags and the information provided in the
+        participant config file, determine whether or not to play this line.
+        """
+        if "condition" not in self._pconfig:
+            self._logger.warning("No condition listed for participant! Can't "
+                                 "check tags without this. Skipping line.")
+            return False
+
+        if self._pconfig["condition"] not in tags:
+            self._logger.info("Wrong condition. Skipping line.")
+            return False
+
+        self._logger.info("Right condition. Parsing line...")
+
+        # Check if this is an exuberance line. In general, we only do
+        # exuberance if this is a personalized/relational robot, but this is
+        # specified in the tag.
+        if "ME" in tags or "LE" in tags:
+            # If we did not just play an exuberance line, then we
+            # can play this one, assuming the user has the
+            # appropriate exuberance level.
+            if ((self._exuberance_line_hit and
+                    not self._exuberance_line_played) or
+                    (not self._exuberance_line_hit and
+                        not self._exuberance_line_played)) and \
+                    self._performance_log.get_exuberance() in tags:
+                self._logger.debug("Right exuberance! Doing line.")
+                # Remove the tag and parse the line as usual.
+                self._exuberance_line_played = True
+                self._exuberance_line_hit = not self._exuberance_line_hit
+                return True
+            # Otherwise, we already played an exuberance line, or
+            # we didn't, but this is the wrong exuberance level.
+            else:
+                self._logger.debug("Wrong exuberance, or we just played an "
+                                   "exuberance line. Skipping line.")
+                # If we had hit a line before that we played, reset
+                # so we can hit the next pair even if it's the next
+                # thing.
+                self._exuberance_line_played = False
+                self._exuberance_line_hit = not self._exuberance_line_hit
+                return False
+
+        # Not an exuberance tag; set flags accordingly.
+        self._exuberance_line_hit = False
+        self._exuberance_line_played = False
+
+        # Check for other tags.
+        # Line can be tagged "SL" or "SD" to indicate that the participant
+        # either liked or didn't like the robot's story last time.
+        if "SL" in tags or "SD in tags":
+            if "liked_story" not in self._pconfig[str(self._sessionint - 1)]:
+                self._logger.warning("No liked_story listed for participant "
+                                     "for session {}! Can't check tags without"
+                                     "this. Skipping line.".format(
+                                         self._sessionint - 1))
+                return False
+
+            if self._pconfig["liked_story"] not in tags:
+                self._logger.debug("Wrong liked_story tag. Skipping line.")
+                return False
+            else:
+                self._logger.debug("Right liked_story tag. Doing line.")
+                return True
+
+        if "TY" in tags or "TN" in tags:
+            if "told_story" not in self._pconfig[str(self._sessionint - 1)]:
+                self._logger.warning("No told_story listed for participant "
+                                     "for session {}! Can't check tags without"
+                                     "this. Skipping line.".format(
+                                         self._sessionint - 1))
+                return False
+
+            if self._pconfig["told_story"] not in tags:
+                self._logger.debug("Wrong told_story tag. Skipping line.")
+                return False
+            else:
+                self._logger.debug("Right told_story tag. Doing line.")
+                return True
+
+        # If we get here, it means we already checked all the other tags that
+        # may also be on this line, but there aren't any, so it's just a
+        # condition tag, so we do the line since it's the right condition.
+        return True
+
     def _parse_line(self, line):
         """ Parse a script line and take action. """
         # Pylint seems to think we have too many branches and statements here.
@@ -351,52 +441,14 @@ class ScriptHandler(object):
         # condition, and/or is more/less exuberant).
         if line.startswith("**") and len(elements) > 1:
             self._logger.info("Line is tagged. Checking to see if we do it...")
-            if "condition" in self._pconfig:
-                if self._pconfig["condition"] in elements[0]:
-                    self._logger.info("Right condition. Parsing line...")
-                    # Check if this is an exuberance line. In general, we only
-                    # do exuberance if this is a personalized/relational robot,
-                    # but this is specified in the tag.
-                    if "ME" in elements[0] or "LE" in elements[0]:
-                        # If we did not just play an exuberance line, then we
-                        # can play this one, assuming the user has the
-                        # appropriate exuberance level.
-                        if ((self._exuberance_line_hit and
-                                not self._exuberance_line_played) or
-                                (not self._exuberance_line_hit and
-                                    not self._exuberance_line_played)) and \
-                                self._performance_log.get_exuberance() in \
-                                elements[0]:
-                            self._logger.info("Right exuberance! Parsing.")
-                            # Remove the tag and parse the line as usual.
-                            del elements[0]
-                            self._exuberance_line_played = True
-                            self._exuberance_line_hit = \
-                                not self._exuberance_line_hit
-                        # Otherwise, we already played an exuberance line, or
-                        # we didn't, but this is the wrong exuberance level.
-                        else:
-                            self._logger.info("Wrong exuberance, or we just "
-                                              "played an exuberance line. "
-                                              "Skipping line.")
-                            # If we had hit a line before that we played, reset
-                            # so we can hit the next pair even if it's the next
-                            # thing.
-                            self._exuberance_line_played = False
-                            self._exuberance_line_hit = \
-                                not self._exuberance_line_hit
-                            return
-                    else:
-                        # Not an exuberance tag; set flags accordingly.
-                        self._exuberance_line_hit = False
-                        self._exuberance_line_played = False
-                        # Remove the tag and parse the line as usual.
-                        del elements[0]
-                else:
-                    self._logger.info("Wrong condition. Skipping line.")
-                    return
+            if self._parse_line_tags(elements[0]):
+                # Remove the tag and parse the line as usual.
+                self._logger.info("Right tags - doing line!")
+                del elements[0]
             else:
-                self._logger.warning("No condition listed for participant!")
+                self._logger.info("Wrong tags - skipping line!")
+                return
+
         else:
             # There was no tag on this, so we can clear the exuberance flag.
             self._exuberance_line_hit = False
