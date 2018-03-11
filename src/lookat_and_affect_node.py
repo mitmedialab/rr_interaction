@@ -106,9 +106,10 @@ def on_opal_msg(data):
             data.command == OpalCommand.LOAD_OBJECT or
             data.command == OpalCommand.STORY_GO_TO_PAGE):
 
-        # The non-reational robot will look around randomly, at approximately
+        # The non-relational robot will look around randomly, at approximately
         # the same intervals as the relational robot.
         if not RELATIONAL:
+            LOGGER.debug("NR: Sending random lookat")
             send_tega_command(lookat=rr_commons.LOOKAT[rr_commons.LOOKAT_ARR[
                               random.randint(
                                   0, len(rr_commons.LOOKAT_ARR) - 1)]])
@@ -122,6 +123,7 @@ def on_opal_msg(data):
                                     0,
                                     len(rr_commons.LOOKAT_ARR) - 1)]])).start()
         else:
+            LOGGER.debug("RR: Sending lookat tablet then user")
             # The relational robot will look at the tablet.
             send_tega_command(lookat=rr_commons.LOOKAT["TABLET"])
             # Wait for a few seconds, then look back at the child.
@@ -136,12 +138,12 @@ def do_story_lookat(looking_at_user):
     if not USER_STORY:
         return
 
-    # The non-reational robot will look around randomly, at approximately the
+    # The non-relational robot will look around randomly, at approximately the
     # same intervals as the relational robot.
     if not RELATIONAL:
+        LOGGER.debug("NR: Sending random lookat")
         send_tega_command(lookat=rr_commons.LOOKAT[rr_commons.LOOKAT_ARR[
-            random.randint(
-                0, len(rr_commons.LOOKAT_ARR) - 1)]])
+            random.randint(0, len(rr_commons.LOOKAT_ARR) - 1)]])
         # Call this function again in a little while to look back at the user.
         # Use a random distribution that means the robot will look somewhere
         # again with approximately the same frequency as the relational robot.
@@ -153,11 +155,13 @@ def do_story_lookat(looking_at_user):
     # every 5s, for about 2.5s. Then look back at the tablet. These intervals
     # are what were used in the SR2 story study during child stories.
     if looking_at_user:
+        LOGGER.debug("RR: Sending lookat tablet")
         send_tega_command(lookat=rr_commons.LOOKAT["TABLET"])
         # Call this function again in a little while to look back at the user.
         threading.Timer(5 + random.uniform(-0.5, 0.5),
                         do_story_lookat(False)).start()
     else:
+        LOGGER.debug("RR: Sending lookat user")
         send_tega_command(lookat=rr_commons.LOOKAT["USER"])
         # Call this function again in a little while to look back at the
         # tablet.
@@ -200,14 +204,18 @@ def on_affdex_msg(data):
 
     # The non-relational robot gets some random animations to play.
     if not RELATIONAL and COUNTER >= 90:
+        LOGGER.debug("NR: Checking to see if we do random affect anim yet...")
         # A small amount of the time send an animation. Randomly pick between
         # sending positive and negative ones.
         if random.random() < 0.1:
+            LOGGER.debug("NR: Doing random affect anim!")
             motion = POSITIVE_ANIMS[random.randint(
                     0, len(POSITIVE_ANIMS) - 1)] if random.random() < 0.5 \
                 else NEGATIVE_ANIMS[random.randint(
                     0, len(NEGATIVE_ANIMS) - 1)]
             send_tega_command(motion=motion)
+        else:
+            LOGGER.debug("NR: Nope, not doing random affect anim!")
         COUNTER = 0
         return
 
@@ -234,6 +242,7 @@ def on_affdex_msg(data):
     # 30fps), we can process it and see what to do.  This is the number the
     # storyteller study used so we're using the same value here.
     if not USER_STORY and not ROBOT_SLEEPING and COUNTER >= 90:
+        LOGGER.debug("RR: Time to react to affect!")
         react_to_affect()
 
 
@@ -281,18 +290,22 @@ def react_to_affect():
         # See if there is other affect to mirror while the user is speaking.
         # Thinking, puzzled (lid tighten)
         elif user_is_thinking():
+            LOGGER.info("Thinking! Sending action...")
             send_tega_command(motion=THINKING_ANIMS[
                 random.randint(0, len(THINKING_ANIMS) - 1)])
         # Sad
         elif user_is_sad():
+            LOGGER.info("Sad! Sending action...")
             send_tega_command(motion=TegaAction.MOTION_SAD)
 
         # Surprise, brow raise
         elif user_is_surprised():
+            LOGGER.info("Surprised! Sending action...")
             send_tega_command(motion=TegaAction.MOTION_SILENT_SCARED)
 
         # Happy/joy
         elif user_is_happy():
+            LOGGER.info("Happy! Sending action...")
             send_tega_command(motion=HAPPY_ANIMS[
                 random.randint(0, len(HAPPY_ANIMS) - 1)])
 
