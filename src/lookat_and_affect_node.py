@@ -202,8 +202,11 @@ def on_affdex_msg(data):
     global COUNTER
     COUNTER += 1
 
-    # The non-relational robot gets some random animations to play.
-    if not RELATIONAL and COUNTER >= 90:
+    # The non-relational robot gets some random animations to play, but only
+    # when it is the user's turn, not during a user story, the robot is not
+    # sleeping.
+    if not RELATIONAL and USER_TURN and not USER_STORY and not ROBOT_SLEEPING \
+            and COUNTER >= 90:
         LOGGER.debug("NR: Checking to see if we do random affect anim yet...")
         # A small amount of the time send an animation. Randomly pick between
         # sending positive and negative ones.
