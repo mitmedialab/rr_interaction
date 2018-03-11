@@ -5,46 +5,42 @@ SET	PROMPT_TIME	5
 SET	NUM_PROMPTS	1
 QUESTION	baby_birds_first_nest_q_l_1
 ROBOT	DO	CanYouSay
-SET	NUM_PROMPTS	0
-QUESTION	prostrate
+ROBOT	DO	prostrate
+PAUSE	2
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv2-02
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv2-03
-SET	NUM_PROMPTS	1
 QUESTION	baby_birds_first_nest_q_l_2
 ROBOT	DO	YourTurnCanYouSay
-SET	NUM_PROMPTS	0
-QUESTION	slumber
+ROBOT	DO	slumber
+PAUSE	2
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv2-04
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv2-05
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv2-06
-SET	NUM_PROMPTS	1
 QUESTION	baby_birds_first_nest_q_l_4
 ROBOT	DO	CanYouSay
-SET	NUM_PROMPTS	0
-QUESTION	montage
+ROBOT	DO	montage
+PAUSE	2
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv2-07
-SET	NUM_PROMPTS	1
 QUESTION	baby_birds_first_nest_q_l_5
 ROBOT	DO	CanYouSay
-SET	NUM_PROMPTS	0
-QUESTION	tuft
+ROBOT	DO	tuft
+PAUSE	2
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv2-08
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv2-09
 OPAL	NEXT_PAGE
-SET	NUM_PROMPTS	1
 ROBOT	DO	baby_birds_first_nest_lv2-10
 QUESTION	baby_birds_first_nest_q_l_7
 ROBOT	DO	CanYouSay
-SET	NUM_PROMPTS	0
-QUESTION	dove
+ROBOT	DO	dove
+PAUSE	2
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv2-11
 OPAL	NEXT_PAGE
@@ -52,23 +48,21 @@ ROBOT	DO	baby_birds_first_nest_lv2-12
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv2-13
 OPAL	NEXT_PAGE
-SET	NUM_PROMPTS	1
 ROBOT	DO	baby_birds_first_nest_lv2-14
 QUESTION	baby_birds_first_nest_q_l_8
 ROBOT	DO	YourTurnCanYouSay
-SET	NUM_PROMPTS	0
-QUESTION	hind
+ROBOT	DO	hind
+PAUSE	2
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv2-15
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv2-16
 OPAL	NEXT_PAGE
-SET	NUM_PROMPTS	1
 ROBOT	DO	baby_birds_first_nest_lv2-17
 QUESTION	baby_birds_first_nest_q_l_9
 ROBOT	DO	YourTurnCanYouSay
-SET	NUM_PROMPTS	0
-QUESTION	perched
+ROBOT	DO	perched
+PAUSE	2
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv2-18
 OPAL	NEXT_PAGE
@@ -78,12 +72,11 @@ ROBOT	DO	baby_birds_first_nest_lv2-20
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv2-21
 OPAL	NEXT_PAGE
-SET	NUM_PROMPTS	1
 ROBOT	DO	baby_birds_first_nest_lv2-22
 QUESTION	baby_birds_first_nest_q_l_11
 ROBOT	DO	CanYouSay
-SET	NUM_PROMPTS	0
-QUESTION	mauve
+ROBOT	DO	mauve
+PAUSE	2
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv2-23
 OPAL	NEXT_PAGE
