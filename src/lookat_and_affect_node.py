@@ -202,7 +202,7 @@ def on_affdex_msg(data):
     if not RELATIONAL and COUNTER >= 90:
         # A small amount of the time send an animation. Randomly pick between
         # sending positive and negative ones.
-        if random.random() < 0.10:
+        if random.random() < 0.1:
             motion = POSITIVE_ANIMS[random.randint(
                     0, len(POSITIVE_ANIMS) - 1)] if random.random() < 0.5 \
                 else NEGATIVE_ANIMS[random.randint(
@@ -278,7 +278,7 @@ def react_to_affect():
                     0, len(NEGATIVE_ANIMS) - 1)]
             send_tega_command(motion=motion)
 
-        # See if there is other affect we can mirror while the user is speaking.
+        # See if there is other affect to mirror while the user is speaking.
         # Thinking, puzzled (lid tighten)
         elif user_is_thinking():
             send_tega_command(motion=THINKING_ANIMS[
@@ -320,11 +320,11 @@ def valence_is_positive():
                                                       neg_count))
     # If positive valence was detected in more that 65% of the faces detected
     # in recent frames, say we are overall positive.
-    if pos_count >= 0.65 * face_count:
+    if pos_count >= 0.55 * face_count:
         return True
     # If negative valence was detected in more than 25% of the faces detected
     # in recent frames, say we are overall negative.
-    if neg_count >= 0.25 * face_count:
+    if neg_count >= 0.15 * face_count:
         return False
 
 
@@ -337,7 +337,7 @@ def user_is_attending():
     # Count the user as attentive if they are displaying attention in 60% of
     # the recent frames with faces in them or more.
     LOGGER.debug("faces: {}, attention: {}".format(face_count, atten_count))
-    return atten_count >= 0.6 * face_count
+    return atten_count >= 0.4 * face_count
 
 
 def user_is_smiling():
@@ -349,7 +349,7 @@ def user_is_smiling():
     face_count = sum(i is True for i in FACE_DETECTED)
     smile_count = sum(i > 30 for i in SMILES)
     LOGGER.debug("faces: {}, smiles: {}".format(face_count, smile_count))
-    return smile_count >= 0.05 * face_count
+    return smile_count >= 0.02 * face_count
 
 
 def user_is_thinking():
@@ -361,7 +361,7 @@ def user_is_thinking():
     face_count = sum(i is True for i in FACE_DETECTED)
     think_count = sum(i > 30 for i in THINKING)
     LOGGER.debug("faces: {}, thinks: {}".format(face_count, think_count))
-    return think_count >= 0.2 * face_count
+    return think_count >= 0.1 * face_count
 
 
 def user_is_sad():
@@ -385,7 +385,7 @@ def user_is_happy():
     face_count = sum(i is True for i in FACE_DETECTED)
     happy_count = sum(i >= 40 for i in HAPPY)
     LOGGER.debug("faces: {}, happy: {}".format(face_count, happy_count))
-    return happy_count >= 0.2 * face_count
+    return happy_count >= 0.1 * face_count
 
 
 def user_is_surprised():
@@ -398,7 +398,7 @@ def user_is_surprised():
     face_count = sum(i is True for i in FACE_DETECTED)
     surprise_count = sum(i[0] >= 25 or i[1] >= 50 for i in SURPRISE)
     LOGGER.debug("faces: {}, surprise: {}".format(face_count, surprise_count))
-    return surprise_count >= 0.1 * face_count
+    return surprise_count >= 0.05 * face_count
 
 
 def user_leaned():
@@ -430,9 +430,9 @@ def user_leaned():
     # if there was no big change in lean.
     LOGGER.debug("total delta in: {}, total delta out: {}".format(
         delta_in, delta_out))
-    if delta_in < -10:
+    if delta_in < -5:
         return "IN"
-    if delta_out > 10:
+    if delta_out > 5:
         return "OUT"
     return ""
 
