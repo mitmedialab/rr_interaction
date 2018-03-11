@@ -1760,7 +1760,7 @@ animations = [ { time = 0.1, anim = "IDLESTILL" },
 name = "baby_birds_first_nest_a_11"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 1.0, anim = "PERKUP" },
-               { time = 3.0, anim = "SILENT_BOUNCINGTILT "} ]
+               { time = 3.0, anim = "SILENT_BOUNCINGTILT" } ]
 
 [audio.baby_birds_first_nest_a_2]
 name = "baby_birds_first_nest_a_2"
@@ -2099,8 +2099,8 @@ animations = [ { time = 2.5, anim = "PERKUP" },
 [audio.self_disclosure_2]
 name = "self_disclosure_2"
 animations = [ { time = 2.5, anim = "SILENT_NO" },
-               { time = 8.0, anim = "SILENT_SAD" },
-               { time = 14.5, anim = "SILENT_INTERESTED" } ]
+               { time = 6.0, anim = "SILENT_SAD" },
+               { time = 12.5, anim = "SILENT_INTERESTED" } ]
 
 [audio.srPre_7_2]
 name = "srPre_7_2"
