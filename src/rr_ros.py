@@ -158,7 +158,10 @@ class RosNode(object):
                                           queue_size=10)
         # Publish commands to tell the ASR node to start or stop processing,
         # as well as what results to publish.
-        self._asr_command_pub = rospy.Publisher('/asr_command', AsrCommand,
+        # TODO HACK Using offline ASR.
+        #self._asr_command_pub = rospy.Publisher('/asr_command', AsrCommand,
+        #                                        queue_size=10)
+        self._asr_command_pub = rospy.Publisher('/asr_request', String,
                                                 queue_size=10)
 
         # Set up rostopics we subscribe to:
@@ -357,9 +360,16 @@ class RosNode(object):
         msg = AsrCommand()
         msg.header = Header()
         msg.header.stamp = rospy.Time.now()
-        # TODO could use some validation to make sure we send a valid command.
         msg.command = command
         # Send message.
+        self._asr_command_pub.publish(msg)
+        self._logger.debug(msg)
+
+    def send_offline_asr_command(self, command):
+        """ Publish an ASR offline command message to start or stop ASR
+        processing. TODO HACK for using offline ASR.
+        """
+        msg = command
         self._asr_command_pub.publish(msg)
         self._logger.debug(msg)
 
@@ -435,6 +445,12 @@ class RosNode(object):
     def on_asr_result_msg(self, data):
         """ Called when we receive AsrResult messages from the ASR node. """
         self._logger.info("Received ASR message: {}".format(data))
+        # If the message starts with "ERROR" we ignore it since it's not a real
+        # transcription (it is probably from offline ASR giving us an annoying
+        # error in the transcription slot in the message).
+        if data.transcription.startswith("ERROR"):
+            self._logger.info("Error; skipping")
+            return
         # Set the response received flag and save the contents of the message
         # so we can return them later.
         self._asr_response_received = True

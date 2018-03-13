@@ -102,6 +102,16 @@ Tega robot from its external camera to the "/USBCam_images/compressed" topic,
 and thus, will not send data or process affect without a physical robot. If you
 are testing on a virtual robot, you will not get any affect data this way.
 
+**Note about ASR**: The online ASR does not work all that well with a mobile
+hotspot at some schools. Thus, there are currently several hacks in place that
+allow the use of an [offline ASR
+app](https://github.com/mitmedialab/android_asr_offline_ros). Because this
+offline ASR app is built with java, gradle, rosjava, and some other annoying
+stuff, it is kind of difficult to recompile it yourself... but if you use the
+"release" apk that is available, you can't change the rostopic it listens on or
+the kinds of commands it listens for -- which are both different than what we
+use for online ASR. Thus the hacks.
+
 ### Launch RR2 study
 
 You will need to run two scripts to launch the RR2 experiment study sessions.
@@ -331,7 +341,8 @@ messages on the ROS topic "/rr/state".
 
 The interaction node publishes
 [asr_google_cloud](https://github.com/mitmedialab/asr_google_cloud/)/AsrCommand
-messages on the ROS topic "/asr_command".
+messages on the ROS topic "/asr_command". OR if you are using offline ASR, it
+will publish std_msgs/String on the topic "/asr_request".
 
 The interaction node publishes
 [sar_opal_msgs](https://github.com/mitmedialab/sar_opal_msgs)/OpalCommand on

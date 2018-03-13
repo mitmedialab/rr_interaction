@@ -797,7 +797,9 @@ class ScriptHandler(object):
                     lookat=rr_commons.LOOKAT["USER"])
             if using_asr:
                 # Tell ASR node to listen for a response and send us results.
-                self._ros_node.send_asr_command(AsrCommand.START_FINAL)
+                #self._ros_node.send_asr_command(AsrCommand.START_FINAL)
+                # TODO HACK Using offline ASR.
+                self._ros_node.send_offline_asr_command("start continuous")
             # Wait for a response and get results! The first part of the tuple
             # is the response, the second part is optionally information about
             # the response type (e.g. ASR or tablet response), and the third is
@@ -810,12 +812,14 @@ class ScriptHandler(object):
             # We either got a response or timed out, so send ASR command to
             # stop listening if we were using ASR. It is also no longer the
             # user's turn and we should stop backchanneling.
-            self._logger.debug("Done waiting. Timed out or got response"
-                               ": {}".format(results))
             if using_asr:
-                self._ros_node.send_asr_command(AsrCommand.STOP_ALL)
+                # TODO HACK Using offline ASR.
+                #self._ros_node.send_asr_command(AsrCommand.STOP_ALL)
+                self._ros_node.send_offline_asr_command("stop")
             self._ros_node.send_interaction_state(is_user_turn=False)
             self._ros_node.enable_backchanneling(False)
+            self._logger.debug("Done waiting. Timed out or got response"
+                               ": {}".format(results))
 
             # Log the response latency.
             latencies.append(waited.total_seconds())

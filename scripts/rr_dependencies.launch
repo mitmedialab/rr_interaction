@@ -1,9 +1,9 @@
 <launch>
     <!-- Google ASR (for speech recognition). Needs to be run with the prefix
          "pipenv" but that doesn't work with the launch-prefix tag. -->
-    <node name="google_asr_node"
+    <!-- <node name="google_asr_node"
           pkg="asr_google_cloud"
-          type="run_ros_asr.sh" />
+          type="run_ros_asr.sh" /> -->
 
     <!-- Audio entrainer. Has special setup so we run a script that does
          the setup and then starts the node. -->
