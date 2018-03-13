@@ -4,7 +4,7 @@ SET	PROMPT_TIME	1200
 PAUSE	1
 STATE	<condition>
 OPAL	CLEAR
-ROBOT	VOLUME	0.7
+ROBOT	VOLUME	0.8
 ROBOT	FIDGET	EMPTY
 
 # Sleep and wait for wakeup.
@@ -12,12 +12,12 @@ STATE	robot sleeping
 ROBOT	DO	POSE_SLEEPING
 QUESTION	wait_for_wakeup
 STATE	start robot wakeup
-ROBOT	VOLUME	0.7
+ROBOT	VOLUME	0.8
 ROBOT	DO	YAWN
 ROBOT	DO	IceCream
 ROBOT	DO	LAUGH
 STATE	end robot wakeup
-SET	PROMPT_TIME	8
+SET	PROMPT_TIME	5
 
 # Robot introduction.
 STATE	start introduction
@@ -39,8 +39,8 @@ ROBOT	DO	ImNotGoodAtHearing
 **RR	QUESTION	help_practiceRR
 **RRME	ROBOT	DO	LAUGH
 **RRLE	ROBOT	DO	SMILE
-**RRME	ROBOT	VOLUME	0.75
-**RRLE	ROBOT	VOLUME	0.65
+**RRME	ROBOT	VOLUME	0.85
+**RRLE	ROBOT	VOLUME	0.75
 STATE	end backstory
 
 # First activity: Anomalous Pictures.
@@ -70,7 +70,7 @@ ROBOT	DO	LetsLookAtAnotherPicture
 ROBOT	LOOKAT	TABLET
 OPAL	CLEAR
 STATE	start anomalous picture 2
-OPAL	LOAD_OBJECT	{ "name": "anomalous/anomalouscat.png", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
+OPAL	LOAD_OBJECT	{ "name": "anomalous/anomaloussquirrel.png", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
 SET	PROMPT_TIME	15
 SET	NUM_PROMPTS	0
 QUESTION	AnomalousPicture2
@@ -88,9 +88,9 @@ STATE	end anomalous task
 # and then we have two opportunities for the child to say something else before
 # the robot moves on to the next thing.
 STATE	start self disclosure task
-**RRLE	ROBOT	VOLUME	0.6
-**RRME	ROBOT	VOLUME	0.8
-SET	PROMPT_TIME	8
+**RRLE	ROBOT	VOLUME	0.7
+**RRME	ROBOT	VOLUME	0.9
+SET	PROMPT_TIME	5
 SET	NUM_PROMPTS	1
 STATE	start disclosure 1
 QUESTION	SelfDisclosure1
@@ -107,15 +107,15 @@ IF_RESPONSE	QUESTION	SelfDisclosureGeneric
 STATE	end disclosure 2
 STATE	end self disclosure task
 # Reset prompt time and number of prompts to the usual for this interaction.
-SET	PROMPT_TIME	8
+SET	PROMPT_TIME	5
 SET	NUM_PROMPTS	2
 
 # Third activity: Story retell.
 SET	MAX_REPEATS	1
 STATE	start story task
 **RR	ROBOT	DO	SMILE
-**RRLE	ROBOT	VOLUME	0.7
-**RRME	ROBOT	VOLUME	0.9
+**RRLE	ROBOT	VOLUME	0.8
+**RRME	ROBOT	VOLUME	0.99
 ROBOT	LOOKAT	TABLET
 ROBOT	DO	rr1_story_01
 REPEAT	MAX_REPEATS	story-retell.txt
@@ -123,7 +123,7 @@ STATE	end story task
 
 # Photo with robot.
 STATE	start photo task
-**RRLE	ROBOT	VOLUME	0.75
+**RRLE	ROBOT	VOLUME	0.85
 QUESTION	WantAPhoto
 SET	PROMPT_TIME	300
 ROBOT	DO	Booyah
