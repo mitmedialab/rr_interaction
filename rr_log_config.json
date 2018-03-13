@@ -84,11 +84,11 @@
         "src.user_input_tega_ui": {
             "level": "DEBUG",
             "handlers": ["rosout"]
-        }
+        },
         "src.user_input_yesno_ui": {
             "level": "DEBUG",
             "handlers": ["rosout"]
-        }
+        },
         "src.lookat_and_affect_node": {
             "level": "DEBUG",
             "handlers": ["rosout", "info_file_handler", "console"]
