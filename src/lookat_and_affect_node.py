@@ -68,6 +68,8 @@ def on_state_msg(data):
 
     if "robot sleeping" in data.state:
         ROBOT_SLEEPING = True
+    elif "start robot wakeup" in data.state:
+        ROBOT_SLEEPING = False
 
     # If it is the user's turn to speak or act, we should mostly look at them.
     # Elsewhere, the robot is told to look at the user when it is the user's
@@ -193,6 +195,18 @@ def send_tega_command(lookat=None, motion=None):
     # Send message.
     TEGA_PUB.publish(msg)
     LOGGER.info(msg)
+
+
+def on_tega_action_msg(data):
+    """ When we receive Tega action messages, check if the robot was told to
+    sleep, set a flag that we can use to know whether or not to send more
+    commands to the robot.
+    """
+    global ROBOT_SLEEPING
+    if "SLEEPING" in data.motion:
+        ROBOT_SLEEPING = True
+    elif data.motion != "":
+        ROBOT_SLEEPING = False
 
 
 def on_affdex_msg(data):
@@ -333,7 +347,7 @@ def valence_is_positive():
     pos_count = sum(i > 0 for i in VALENCE)
     neg_count = sum(i < 0 for i in VALENCE)
     LOGGER.info("faces: {}, pos: {}, neg: {}".format(face_count, pos_count,
-                                                      neg_count))
+                                                     neg_count))
     # If positive valence was detected in more that 65% of the faces detected
     # in recent frames, say we are overall positive.
     if pos_count >= 0.55 * face_count:
@@ -462,6 +476,8 @@ def cleanup():
         OPAL_SUB.unregister()
     if AFFDEX_SUB:
         AFFDEX_SUB.unregister()
+    if TEGA_SUB:
+        TEGA_SUB.unregister()
 
 
 if __name__ == "__main__":
@@ -492,6 +508,14 @@ if __name__ == "__main__":
         # Opal Command messages, so we can see when the tablet page changes.
         OPAL_SUB = rospy.Subscriber('/rr/opal_command', OpalCommand,
                                     on_opal_msg)
+
+        # Tega Command messages, so we can see when the robot is sleeping and
+        # not rely on the interaction state messages that are supposed to tell
+        # us when the robot is sleeping to be accurate, since sometimes the
+        # user may send a sleep command manually. The robot is also told to
+        # sleep when the interaction pauses or is ended early, in which case
+        # a state message may not be send.
+        TEGA_SUB = rospy. Subscriber('/tega', TegaAction, on_tega_action_msg)
 
         # Affdex data messages.
         AFFDEX_SUB = rospy.Subscriber('/affdex_data', AffdexFrameInfo,
