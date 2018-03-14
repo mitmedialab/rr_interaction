@@ -8,7 +8,7 @@ ROBOT	DO	CanYouSay
 ROBOT	DO	prostrate
 PAUSE	2
 OPAL	NEXT_PAGE
-ROBOT	DO	baby_birds_first_nest_lv3-02
+#ROBOT	DO	baby_birds_first_nest_lv3-02
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv3-03
 QUESTION	baby_birds_first_nest_q_l_2
@@ -32,7 +32,7 @@ ROBOT	DO	CanYouSay
 ROBOT	DO	tuft
 PAUSE	2
 OPAL	NEXT_PAGE
-ROBOT	DO	baby_birds_first_nest_lv3-08
+#ROBOT	DO	baby_birds_first_nest_lv3-08
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv3-09
 OPAL	NEXT_PAGE
@@ -44,7 +44,7 @@ PAUSE	2
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv3-11
 OPAL	NEXT_PAGE
-ROBOT	DO	baby_birds_first_nest_lv3-12
+#ROBOT	DO	baby_birds_first_nest_lv3-12
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv3-13
 OPAL	NEXT_PAGE
@@ -68,7 +68,7 @@ ROBOT	DO	baby_birds_first_nest_lv3-18
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv3-19
 OPAL	NEXT_PAGE
-ROBOT	DO	baby_birds_first_nest_lv3-20
+#ROBOT	DO	baby_birds_first_nest_lv3-20
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv3-21
 OPAL	NEXT_PAGE
@@ -78,8 +78,8 @@ ROBOT	DO	CanYouSay
 ROBOT	DO	mauve
 PAUSE	2
 OPAL	NEXT_PAGE
-ROBOT	DO	baby_birds_first_nest_lv3-23
+#ROBOT	DO	baby_birds_first_nest_lv3-23
 OPAL	NEXT_PAGE
-ROBOT	DO	baby_birds_first_nest_lv3-24
+#ROBOT	DO	baby_birds_first_nest_lv3-24
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv3-25
