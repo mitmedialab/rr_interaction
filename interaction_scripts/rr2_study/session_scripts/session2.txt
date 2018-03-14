@@ -4,7 +4,7 @@ SET	PROMPT_TIME	1200
 PAUSE	1
 STATE	<condition>
 OPAL	CLEAR
-ROBOT	VOLUME	0.7
+ROBOT	VOLUME	0.8
 ROBOT	FIDGET	EMPTY
 
 # Sleep and wait for wakeup.
@@ -12,7 +12,7 @@ STATE	robot sleeping
 ROBOT	DO	POSE_SLEEPING
 QUESTION	wait_for_wakeup
 STATE	start robot wakeup
-ROBOT	VOLUME	0.7
+ROBOT	VOLUME	0.8
 ROBOT	DO	YAWN
 ROBOT	DO	IceCream
 ROBOT	DO	LAUGH
@@ -50,8 +50,8 @@ ROBOT	DO	rr1_intro_02
 STATE	end favorite color
 **RRME	ROBOT	DO	LAUGH
 **RRLE	ROBOT	DO	SMILE
-**RRME	ROBOT	VOLUME	0.75
-**RRLE	ROBOT	VOLUME	0.65
+**RRME	ROBOT	VOLUME	0.85
+**RRLE	ROBOT	VOLUME	0.75
 
 # Picture conversation with Third Picture Empathy/Helping task.
 **NR	ROBOT	DO	HelpLookPicturesNR
@@ -79,8 +79,8 @@ ROBOT	DO	rr1_picturegen_01
 STATE	start picture task picture2
 OPAL	LOAD_OBJECT	{ "name": "conversations/movies.jpg", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
 ROBOT	DO	rr1_picture4_01
-**RRLE	ROBOT	VOLUME	0.6
-**RRME	ROBOT	VOLUME	0.8
+**RRLE	ROBOT	VOLUME	0.7
+**RRME	ROBOT	VOLUME	0.9
 ROBOT	DO	rr1_picture4_02
 QUESTION	picture4_movie
 **NR	QUESTION	tellmemore
@@ -115,6 +115,8 @@ OPAL	CLEAR
 
 # Self-disclosure question learning about child.
 STATE	start self-disclosure question
+**RRLE	ROBOT	VOLUME	0.75
+**RRME	ROBOT	VOLUME	0.95
 **RR	ROBOT	DO	LearnMoreAboutYou
 **NR	ROBOT	DO	LearnAboutYou
 SET	NUM_PROMPTS	1
@@ -131,8 +133,8 @@ SET	NUM_PROMPTS	2
 SET	MAX_REPEATS	1
 STATE	start story task
 **RR	ROBOT	DO	SMILE
-**RRLE	ROBOT	VOLUME	0.7
-**RRME	ROBOT	VOLUME	0.9
+**RRLE	ROBOT	VOLUME	0.8
+**RRME	ROBOT	VOLUME	0.99
 ROBOT	LOOKAT	TABLET
 ROBOT	DO	rr1_story_01
 REPEAT	MAX_REPEATS	story.txt
@@ -156,6 +158,7 @@ SET	BACKCHANNEL	ON STORY
 QUESTION	wait_for_story_end
 SET	BACKCHANNEL	OFF
 STATE	end child robot story create task
+**RRLE	ROBOT	VOLUME	0.85
 **NR	ROBOT	DO	ILikedYourStory
 **RRME	ROBOT	DO	ILikedYourStoryME
 **RRLE	ROBOT	DO	ILikedYourStoryLE
