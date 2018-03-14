@@ -294,7 +294,7 @@ class InteractionHandler(object):
             return None
 
     def launch_interaction(self, session, participant, use_entrainer,
-                           experimenter):
+                           experimenter, restart):
         """ Launch interaction based on the current session and participant.
         """
         # Log session and participant ID.
@@ -374,7 +374,7 @@ class InteractionHandler(object):
             script_handler = ScriptHandler(
                     self._ros_handler, session, experimenter, study_path,
                     script_config, story_script_path, session_script_path,
-                    pconfig, performance_logger)
+                    pconfig, performance_logger, restart)
         except IOError as ioe:
             self._logger.exception("Did not load the session script... exiting"
                                    " because we need the session script to "
@@ -487,7 +487,7 @@ if __name__ == '__main__':
         (SESSION, PARTICIPANT, ENTRAIN, EXPERIMENTER) = \
             INTERACTION_HANDLER.parse_arguments()
         INTERACTION_HANDLER.launch_interaction(SESSION, PARTICIPANT, ENTRAIN,
-                                               EXPERIMENTER)
+                                               EXPERIMENTER, None)
 
     # If roscore isn't running or shuts down unexpectedly...
     except rospy.ROSInterruptException:

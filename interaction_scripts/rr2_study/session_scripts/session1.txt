@@ -20,6 +20,7 @@ STATE	end robot wakeup
 SET	PROMPT_TIME	5
 
 # Robot introduction.
+RESTART	intro
 STATE	start introduction
 QUESTION	ImRed
 **RR	ROBOT	DO	SMILE
@@ -44,6 +45,7 @@ ROBOT	DO	ImNotGoodAtHearing
 STATE	end backstory
 
 # First activity: Anomalous Pictures.
+RESTART	apt
 STATE	start anomalous task
 ROBOT	DO	PERKUP
 **NR	QUESTION	lets_look_at_silly_pictures
@@ -87,6 +89,7 @@ STATE	end anomalous task
 # Disclosure, wait for reply. If child says something, the robot will respond,
 # and then we have two opportunities for the child to say something else before
 # the robot moves on to the next thing.
+RESTART	sdt
 STATE	start self disclosure task
 **RRLE	ROBOT	VOLUME	0.7
 **RRME	ROBOT	VOLUME	0.9
@@ -112,6 +115,7 @@ SET	NUM_PROMPTS	2
 
 # Third activity: Story retell.
 SET	MAX_REPEATS	1
+RESTART	rs1
 STATE	start story task
 **RR	ROBOT	DO	SMILE
 **RRLE	ROBOT	VOLUME	0.8
@@ -122,6 +126,7 @@ REPEAT	MAX_REPEATS	story-retell.txt
 STATE	end story task
 
 # Photo with robot.
+RESTART	photo
 STATE	start photo task
 **RRLE	ROBOT	VOLUME	0.85
 QUESTION	WantAPhoto
@@ -136,6 +141,7 @@ ROBOT	DO	ThanksShy
 STATE	end photo task
 
 # Closing and robot goes back to sleep.
+RESTART	close
 STATE	start closing
 **NR	ROBOT	DO	rr1_story_19
 **RR	ROBOT	DO	LikedPlaying

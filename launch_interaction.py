@@ -26,6 +26,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import argparse  # For getting optional restart-related arguments.
 import os  # For checking if files and directories exist.
 import os.path  # For checking if files and directories exist.
 import errno  # Used when checking error codes when trying to make a directory.
@@ -172,6 +173,23 @@ if __name__ == '__main__':
     restarted. So, instead, we get arguments from the user, try starting the
     rosbag recording, and try launching the interaction.
     """
+    PARSER = argparse.ArgumentParser(
+        description="Run the interaction. Optionally, restart at a later point"
+                    "in the script.")
+    PARSER.add_argument(
+        "-r", "--restart", choices=["intro", "apt", "sdt", "rs1", "rs2",
+                                    "photo", "close"],
+        type=str, dest="restart", help="Restart interaction at"
+        "a designated restart point: intro, apt (anomalous picture task), sdt "
+        "(self-disclosure task), rs1 (robot's first story), rs2 (robot's "
+        "second story), photo (take photo with robot), close (the"
+        " interaction closing).")
+    ARGS = PARSER.parse_args()
+    if ARGS.restart:
+        RESTART = ARGS.restart
+    else:
+        RESTART = None
+
     try:
         # Get input from the user.
         (EXPERIMENTER, PARTICIPANT, SESSION) = get_args()
@@ -179,10 +197,11 @@ if __name__ == '__main__':
         BAG_PROCESS = None
         start_rosbag(PARTICIPANT, SESSION)
         # Start the interaction with the provided session number, participant
-        # ID, entrainment set to true, and experimenter name.
+        # ID, entrainment set to true, experimenter name, and the restart
+        # point (if any).
         INTERACTION_HANDLER = InteractionHandler()
         INTERACTION_HANDLER.launch_interaction(SESSION, PARTICIPANT, True,
-                                               EXPERIMENTER)
+                                               EXPERIMENTER, RESTART)
 
     except Exception as exc:
         print "Uh oh, something went wrong! {}".format(exc)

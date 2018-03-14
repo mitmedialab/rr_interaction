@@ -62,7 +62,7 @@ class ScriptHandler(object):
 
     def __init__(self, ros_node, session, experimenter,
                  study_path, script_config, story_script_path,
-                 session_script_path, pconfig, performance_logger):
+                 session_script_path, pconfig, performance_logger, restart):
         """ Save references to ROS connection and logger, get scripts and
         set up to read script lines.
         """
@@ -92,6 +92,10 @@ class ScriptHandler(object):
         # Save the performance logger for tracking participant performance this
         # session.
         self._performance_log = performance_logger
+
+        # Are we restarting at a certain point in the script?
+        self._restart_point = restart
+        self._looking_for_restart = True if restart else False
 
         # Set up script parser.
         self._script_parser = ScriptParser()
@@ -436,6 +440,28 @@ class ScriptHandler(object):
         elements = line.rstrip().split('\t')
         self._logger.debug("... {} elements: {}".format(
             len(elements), elements))
+
+        # If we are looking for a RESTART point, then skip all lines except for
+        # RESTART lines and SET lines.
+        if self._looking_for_restart and len(elements) > 0:
+            # Check all RESTART lines to see if this is our restart point.
+            if "RESTART" in elements[0] and len(elements) > 1:
+                # If this is our restart point, stop looking at return to
+                # parsing and executing lines normally.
+                if self._restart_point in elements[1]:
+                    self._logger.info("Found restart point!")
+                    self._looking_for_restart = False
+                return
+            # We should execute all SET lines, untagged ROBOT VOLUME lines, and
+            # any STATE lines that mention the <condition>. Skip all others.
+            elif "SET" in elements[0] or \
+                    ("VOLUME" in line and not line.startswith("**")) or \
+                    "<condition>" in line:
+                self._logger.debug("... looking for restart, but should do "
+                                   "this line!")
+            else:
+                self._logger.debug("... looking for restart; skipping!")
+                return
 
         # If this line is tagged with a phrase (e.g., "RR" or "NR" for
         # condition, or "ME" or "LE" for more/less exuberant) do the line only

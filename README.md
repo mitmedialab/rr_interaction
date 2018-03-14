@@ -382,6 +382,7 @@ include the following, which are described in more detail below:
 - QUESTION
 - IF\_RESPONSE
 - STATE
+- RESTART
 
 You can put comments in scripts. Comments must start with a `#`.
 
@@ -572,6 +573,30 @@ The state you record can be any kind of string, for example:
 
 `STATE    start interaction`
 `STATE    end negotiation task`
+
+#### RESTART
+
+`RESTART` is used to restart a script at a particular point. This cna be useful
+if the interaction is interrupted or stopped unexpectedly, and you would like
+to continue from a particular point in the script. Theoretically, the tags here
+could be anything; for the RR2 study, the restart tags should match what are in
+the `launch_interaction.py` script:
+
+- intro (the interaction opening, after the robot wakes up)
+- apt (anomalous picture task)
+- sdt (self-disclosure task)
+- rs1 (robot's first story)
+- rs2 (robot's second story)
+- photo (take photo with robot)
+- close (the interaction closing)
+
+All `SET` lines up until that point will be executed, since they set relevant
+things about how the interaction will go. `STATE` lines that mention the study
+condition will be executed, since they are used by other nodes to setup their
+behavior properly. `ROBOT VOLUME` lines will be executed if they are not
+tagged. All other lines will be skipped. This may result some unexpected
+behavior, such as the robot's volume being incorrect for a participant's
+exuberance level, or the robot not sleeping at the start of the interaction.
 
 ### Checking the scripts
 
