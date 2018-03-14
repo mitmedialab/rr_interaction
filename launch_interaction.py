@@ -37,6 +37,14 @@ import signal  # Sending SIGINT signal to rosbag.
 from src.rr_interaction_node import InteractionHandler  # Start interaction.
 
 
+PIDS = ["p001", "p002", "p003", "p004", "p005", "p006", "p007", "p008", "p009",
+        "p010", "p011", "p012", "p013", "p014", "p015", "p016", "p017", "p018",
+        "p019", "p020", "p021", "p022", "p023", "p024", "p025", "p026", "p027",
+        "p028", "p029", "p030", "p031", "p032", "p101", "p102", "p103", "p104",
+        "p105", "p201", "p202", "p203", "p204", "p205", "p301", "p302", "p303",
+        "p304", "p305", "p306", "p307", "p999", "p998", "p997"]
+
+
 def get_args():
     """ Prompt the user to provide the three needed arguments (experimenter
     name, participant ID, and session number) and validate the inputs.
@@ -65,9 +73,7 @@ def get_args():
     #    pattern "p000", "p001", etc.
     while True:
         pid = raw_input("Enter participant ID: ")
-        # TODO may want to have a list of valid PIDs that we check against,
-        # beyond just checking that the pattern is right.
-        if pid.startswith("p") and len(pid) == 4:
+        if pid in PIDS:
             print "\tGreat. Running participant {}.".format(pid)
             break
         else:
@@ -142,7 +148,7 @@ def start_rosbag(pid, session):
         global BAG_PROCESS
         BAG_PROCESS = subprocess.Popen(["rosbag", "record", "-a", "-O", bag],
                                        shell=False)
-    except:
+    except Exception:
         print "Uh oh, something went wrong with rosbag recording!"
         raise
 
