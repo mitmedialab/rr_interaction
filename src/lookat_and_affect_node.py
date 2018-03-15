@@ -150,7 +150,7 @@ def do_story_lookat(looking_at_user):
         # Use a random distribution that means the robot will look somewhere
         # again with approximately the same frequency as the relational robot.
         threading.Timer(3.5 + random.uniform(-1.0, 2.0),
-                        do_story_lookat(False)).start()
+                        do_story_lookat, args=(False)).start()
 
     # When the child is telling or retelling a story, look at the tablet most
     # of the time, but glance at the child sometimes. Look at the child about
@@ -161,14 +161,14 @@ def do_story_lookat(looking_at_user):
         send_tega_command(lookat=rr_commons.LOOKAT["TABLET"])
         # Call this function again in a little while to look back at the user.
         threading.Timer(5 + random.uniform(-0.5, 0.5),
-                        do_story_lookat(False)).start()
+                        do_story_lookat, args=(False)).start()
     else:
         LOGGER.info("RR: Sending lookat user")
         send_tega_command(lookat=rr_commons.LOOKAT["USER"])
         # Call this function again in a little while to look back at the
         # tablet.
         threading.Timer(2.5 + random.uniform(-0.5, 0.5),
-                        do_story_lookat(True)).start()
+                        do_story_lookat, args=(True)).start()
 
 
 def send_tega_command(lookat=None, motion=None):
