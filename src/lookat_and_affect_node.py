@@ -59,7 +59,7 @@ def on_state_msg(data):
     as appropriate.
     """
     LOGGER.info("Got state message: {}".format(data.state))
-    global USER_STORY, USER_TURN, RELATIONAL, ROBOT_SLEEPING
+    global USER_STORY, USER_TURN, RELATIONAL, ROBOT_BUSY
 
     # If the state message tells us about the condition, save it so we know
     # whether to respond or not.
@@ -67,9 +67,9 @@ def on_state_msg(data):
         RELATIONAL = True
 
     if "robot sleeping" in data.state:
-        ROBOT_SLEEPING = True
+        ROBOT_BUSY = True
     elif "start robot wakeup" in data.state:
-        ROBOT_SLEEPING = False
+        ROBOT_BUSY = False
 
     # If it is the user's turn to speak or act, we should mostly look at them.
     # Elsewhere, the robot is told to look at the user when it is the user's
@@ -202,11 +202,11 @@ def on_tega_action_msg(data):
     sleep, set a flag that we can use to know whether or not to send more
     commands to the robot.
     """
-    global ROBOT_SLEEPING
-    if "SLEEPING" in data.motion:
-        ROBOT_SLEEPING = True
+    global ROBOT_BUSY
+    if "SLEEPING" in data.motion or "POSE" in data.motion:
+        ROBOT_BUSY = True
     elif data.motion != "":
-        ROBOT_SLEEPING = False
+        ROBOT_BUSY = False
 
 
 def on_affdex_msg(data):
@@ -219,7 +219,7 @@ def on_affdex_msg(data):
     # The non-relational robot gets some random animations to play, but only
     # when it is the user's turn, not during a user story, the robot is not
     # sleeping.
-    if not RELATIONAL and USER_TURN and not USER_STORY and not ROBOT_SLEEPING \
+    if not RELATIONAL and USER_TURN and not USER_STORY and not ROBOT_BUSY \
             and COUNTER >= 90:
         LOGGER.info("NR: Checking to see if we do random affect anim yet...")
         # A small amount of the time send an animation. Randomly pick between
@@ -258,7 +258,7 @@ def on_affdex_msg(data):
     # sleeping, respond! If we have 90+ values in our array (~3s of data at
     # 30fps), we can process it and see what to do.  This is the number the
     # storyteller study used so we're using the same value here.
-    if not USER_STORY and not ROBOT_SLEEPING and COUNTER >= 90:
+    if not USER_STORY and not ROBOT_BUSY and COUNTER >= 90:
         LOGGER.info("RR: Time to react to affect!")
         react_to_affect()
 
@@ -274,7 +274,7 @@ def react_to_affect():
     lean = user_leaned()
     if "IN" in lean:
         LOGGER.info("Leaned in! Sending action...")
-        send_tega_command(motion=TegaAction.MOTION_POSE_LEAN_FORWARD)
+        send_tega_command(motion=TegaAction.MOTION_SILENT_INTERESTED)
     elif "OUT" in lean:
         LOGGER.info("Leaned out! Sending action...")
         send_tega_command(motion=TegaAction.MOTION_SILENT_SCARED)
@@ -525,8 +525,9 @@ if __name__ == "__main__":
         USER_STORY = False
         USER_TURN = False
         # We need to track if the robot is supposed to be sleeping so that we
-        # don't respond if it is.
-        ROBOT_SLEEPING = False
+        # don't respond if it is, or if the robot is otherwise occupied (e.g.,
+        # in a pose animation that it should stay in).
+        ROBOT_BUSY = False
 
         # We do not start by responding to affect data. We will only respond if
         # the user is in the correct (relational) condition.

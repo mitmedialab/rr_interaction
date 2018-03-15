@@ -137,11 +137,11 @@ class ScriptHandler(object):
 
         # When we start, we are not currently telling a story or repeating a
         # script, and the robot is not sleeping. We need to track when the
-        # robot is sleeping so we can make sure it doesn't do anything else
-        # while asleep.
+        # robot is sleeping or doing other things that shouldn't be interrupted
+        # so we can make sure it doesn't do anything else during these times.
         self._doing_story = False
         self._repeating = False
-        self._robot_sleeping = False
+        self._robot_busy = False
 
         # Track whether we just played an exuberance line. Each time the script
         # parser finds a line tagged for exuberance (i.e., ME or LE), it checks
@@ -812,7 +812,7 @@ class ScriptHandler(object):
         for i in range(0, self._num_prompts + 1):
             # Announce that it's the user's turn to talk or act.
             # If the robot is not sleeping, do actions...
-            if not self._robot_sleeping:
+            if not self._robot_busy:
                 # Turn backchanneling on while it's their turn.
                 self._ros_node.send_interaction_state(is_user_turn=True)
                 self._ros_node.enable_backchanneling(True)
@@ -1059,10 +1059,10 @@ class ScriptHandler(object):
         # robot to play, so just play it and return.
         if command.isupper():
             self._logger.info("DO animation: {}".format(command))
-            if "SLEEPING" in command:
-                self._robot_sleeping = True
+            if "SLEEPING" in command or "POSE" in command:
+                self._robot_busy = True
             else:
-                self._robot_sleeping = False
+                self._robot_busy = False
             self._ros_node.send_tega_command(motion=command, enqueue=True)
             self._ros_node.wait_for_response(self._ros_node.ROBOT_NOT_MOVING,
                                              timeout=datetime.timedelta(
@@ -1119,7 +1119,7 @@ class ScriptHandler(object):
         # Otherwise, send the audio command, and tell the ROS node to send the
         # list of animations. Turn on speech fidgets in case it takes a while
         # for the robot to start speaking!
-        self._robot_sleeping = False
+        self._robot_busy = False
         self._ros_node.send_tega_command(fidgets=TegaAction.FIDGETS_SPEECH)
         self._ros_node.send_speech(audio_to_play)
 
