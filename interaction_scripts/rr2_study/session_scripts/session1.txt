@@ -1,6 +1,7 @@
 SET	MAX_GAME_TIME	20
 SET	MAX_REPEAT_TIME	20
 SET	PROMPT_TIME	1200
+SET	NUM_PROMPTS	1
 PAUSE	1
 STATE	<condition>
 OPAL	CLEAR
@@ -17,7 +18,8 @@ ROBOT	DO	YAWN
 ROBOT	DO	IceCream
 ROBOT	DO	LAUGH
 STATE	end robot wakeup
-SET	PROMPT_TIME	5
+SET	PROMPT_TIME	6
+SET	NUM_PROMPTS	2
 
 # Robot introduction.
 RESTART	intro
@@ -53,7 +55,6 @@ ROBOT	DO	PERKUP
 **RRME	QUESTION	lets_look_at_silly_picturesME
 ROBOT	LOOKAT	TABLET
 OPAL	CLEAR
-OPAL	DISABLE_TOUCH
 STATE	start anomalous picture 1
 OPAL	LOAD_OBJECT	{ "name": "anomalous/anomalousgiraffe.png", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
 SET	PROMPT_TIME	15
@@ -93,7 +94,7 @@ RESTART	sdt
 STATE	start self disclosure task
 **RRLE	ROBOT	VOLUME	0.7
 **RRME	ROBOT	VOLUME	0.9
-SET	PROMPT_TIME	5
+SET	PROMPT_TIME	6
 SET	NUM_PROMPTS	1
 STATE	start disclosure 1
 QUESTION	SelfDisclosure1
@@ -110,7 +111,7 @@ IF_RESPONSE	QUESTION	SelfDisclosureGeneric
 STATE	end disclosure 2
 STATE	end self disclosure task
 # Reset prompt time and number of prompts to the usual for this interaction.
-SET	PROMPT_TIME	5
+SET	PROMPT_TIME	6
 SET	NUM_PROMPTS	2
 
 # Third activity: Story retell.
@@ -127,6 +128,8 @@ STATE	end story task
 
 # Photo with robot.
 RESTART	photo
+SET	NUM_PROMPTS	2
+SET	PROMPT_TIME	6
 STATE	start photo task
 **RRLE	ROBOT	VOLUME	0.85
 QUESTION	WantAPhoto
@@ -134,6 +137,7 @@ SET	PROMPT_TIME	300
 ROBOT	DO	Booyah
 ROBOT	DO	POSE_SMILE2
 QUESTION	TakePhoto
+SET	PROMPT_TIME	6
 ROBOT	DO	ThanksShy
 **RRME	ROBOT	DO	PictureIllRememberME
 **RRLE	ROBOT	DO	PictureIllRememberLE
@@ -153,6 +157,7 @@ ROBOT	DO	SeeYouLaterHuman
 **RR	ROBOT	DO	LAUGH
 ROBOT	FIDGET	EMPTY
 ROBOT	DO	YAWN
+ROBOT	DO	POSE_SLEEPING
 STATE	robot sleeping
 ROBOT	DO	POSE_SLEEPING
 STATE	end closing

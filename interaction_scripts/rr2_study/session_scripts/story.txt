@@ -8,7 +8,6 @@ STATE	end negotiation task
 OPAL	CLEAR
 OPAL	LOAD_STORY
 OPAL	STORY_HIDE_BUTTONS
-OPAL	DISABLE_TOUCH
 
 # Robot tell a story.
 QUESTION	listen_to_story
