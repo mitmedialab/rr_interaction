@@ -127,22 +127,22 @@ condition = "RR"
 name = "p015"
 
 [p016]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 2
+story_create_level = 1
 personalized = false
 condition = "NR"
 name = "p016"
 
 [p017]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 3
+story_create_level = 1
 personalized = true
 condition = "RR"
 name = "p017"
 
 [p018]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 2
+story_create_level = 1
 personalized = false
 condition = "NR"
 name = "p018"
