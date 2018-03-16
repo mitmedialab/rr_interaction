@@ -120,18 +120,19 @@ def on_opal_msg(data):
             # again with approximately the same frequency as the relational
             # robot.
             threading.Timer(2.5 + random.uniform(-0.5, 0.5),
-                            send_tega_command(lookat=rr_commons.LOOKAT[
+                            send_tega_command, [],
+                            {"lookat": rr_commons.LOOKAT[
                                 rr_commons.LOOKAT_ARR[random.randint(
                                     0,
-                                    len(rr_commons.LOOKAT_ARR) - 1)]])).start()
+                                    len(rr_commons.LOOKAT_ARR) - 1)]]}).start()
         else:
             LOGGER.info("RR: Sending lookat tablet then user")
             # The relational robot will look at the tablet.
             send_tega_command(lookat=rr_commons.LOOKAT["TABLET"])
             # Wait for a few seconds, then look back at the child.
             threading.Timer(2.5 + random.uniform(-0.5, 0.5),
-                            send_tega_command(
-                                lookat=rr_commons.LOOKAT["USER"])).start()
+                            send_tega_command, [],
+                            {"lookat": rr_commons.LOOKAT["USER"]}).start()
 
 
 def do_story_lookat(looking_at_user):
