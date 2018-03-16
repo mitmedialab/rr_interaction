@@ -1,7 +1,7 @@
 SET	MAX_GAME_TIME	20
 SET	MAX_REPEAT_TIME	20
 SET	PROMPT_TIME	1200
-SET	NUM_PROMPTS	1
+SET	NUM_PROMPTS	10
 PAUSE	1
 STATE	<condition>
 OPAL	CLEAR
@@ -57,6 +57,7 @@ ROBOT	LOOKAT	TABLET
 OPAL	CLEAR
 STATE	start anomalous picture 1
 OPAL	LOAD_OBJECT	{ "name": "anomalous/anomalousgiraffe.png", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
+ROBOT	DO	POSE1
 SET	PROMPT_TIME	15
 SET	NUM_PROMPTS	0
 # If the child says nothing, the robot will say the max attempt speech after
@@ -69,8 +70,10 @@ SET	MAX_REPEATS	1
 IF_RESPONSE	REPEAT	MAX_REPEATS	anomalous.txt
 STATE	end anomalous picture 1
 # Do the next picture - same format.
+ROBOT	DO	PERKUP
 ROBOT	DO	LetsLookAtAnotherPicture
 ROBOT	LOOKAT	TABLET
+ROBOT	DO	POSE2
 OPAL	CLEAR
 STATE	start anomalous picture 2
 OPAL	LOAD_OBJECT	{ "name": "anomalous/anomaloussquirrel.png", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
