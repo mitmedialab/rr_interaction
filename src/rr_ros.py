@@ -239,8 +239,6 @@ class RosNode(object):
                 "SIDEKICK_DO" in command
                 # Properties: a string with the name of audio file to play.
                 or "SIDEKICK_SAY" in command
-                # Properties: optional string indicating what to clear.
-                or "CLEAR" in command
                 # Properties: JSON defining what object to load.
                 or "LOAD_OBJECT" in command
                 # Properties: JSON defining what object to move where.
@@ -255,7 +253,7 @@ class RosNode(object):
                 # Properties: string name of the story to load next.
                 or "STORY_SELECTION" in command
                 # Properties: int number of the page to go to.
-                or "STORY_GO_TO_PAGE"):
+                or "STORY_GO_TO_PAGE" in command):
                 # Add properties if we got them. We assume any properties
                 # provided are in the correct format for the command.
             if properties:
