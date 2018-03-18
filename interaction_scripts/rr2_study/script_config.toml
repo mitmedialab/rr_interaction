@@ -156,7 +156,7 @@ question = "rr1_story_06"
     user_responses = ["yes", "okay", "ok", "of course", "yeah", "story", "like"]
     robot_responses = ["Yay"]
     [[questions.liked_story.user_input]]
-    user_responses = ["no", "didn't", "not, "know""]
+    user_responses = ["no", "didn't", "not", "know"]
     robot_responses = ["YouDidntSorry", "AwIllHaveToPracticeMore"]
 
 [questions.RetellStoryToMe]
@@ -1118,29 +1118,6 @@ animations = [ { time = 0.1, anim = "SILENT_SAD" } ]
 name = "rr1_intro_01"
 animations = [ { time = 0.1, anim = "SILENT_HAPPY_DANCE" } ]
 
-## Iceberg: PenguinSlide story
-[audio.Penguins]
-name = "Penguins"
-animations = [ { time = 0.1, anim = "PERKUP" } ]
-
-[audio.GeorgeLikedMassiveIce0]
-name = "GeorgeLikedMassiveIce0"
-animations = [ { time = 1.5, anim = "PROUD" } ]
-
-[audio.UpUpUpIceberg0]
-name = "UpUpUpIceberg0"
-animations = [ { time = 0.1, anim = "PERKUP" },
-               { time = 2.0, anim = "SIDEPERK" } ]
-
-[audio.SlidingWasFunToo0]
-name = "SlidingWasFunToo0"
-animations = [ { time = 0.2, anim = "SILENT_HAPPY_WIGGLE" } ]
-
-[audio.SoTheyTookTurnsSliding0]
-name = "SoTheyTookTurnsSliding0"
-animations = [ { time = 0.7, anim = "SILENT_SHIMMY" } ]
-## end story
-
 [audio.rr1_backstory_02]
 name = "rr1_backstory_02"
 animations = [ { time = 5.0, anim = "SILENT_SAD" },
@@ -1294,6 +1271,130 @@ animations = [ { time = 0.1, anim = "LOOKAT_DOWN" },
 [audio.SeeYouLaterHuman]
 name = "SeeYouLaterHuman"
 animations = [ { time = 1.0, anim = "SILENT_HAPPY_DANCE" } ]
+
+## Iceberg: PenguinSlide story - level 0.
+[audio.Penguins]
+name = "Penguins"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.OnceUponTimeGeorge0]
+name = "OnceUponTimeGeorge0"
+animations = [ { time = 0.4, anim = "SILENT_FART" } ]
+
+[audio.GeorgeLikedMassiveIce0]
+name = "GeorgeLikedMassiveIce0"
+animations = [ { time = 1.5, anim = "PROUD" },
+               { time = 4.0, anim = "SILENT_EXCITED" } ]
+
+[audio.UpUpUpIceberg0]
+name = "UpUpUpIceberg0"
+animations = [ { time = 0.1, anim = "PERKUP" },
+               { time = 2.0, anim = "SILENT_HAPPY_WIGGLE" },
+               { time = 8.0, anim = "SILENT_SAD" } ]
+
+[audio.OkaySlideWithYou0]
+audio = "OkaySlideWithYou0"
+animations = [ { time = 1.0, anim = "SIDEPERK" },
+               { time = 6.0, anim = "SILENT_SCARED" },
+               { time = 10.0, anim = "SILENT_SHIMMY" } ]
+
+[audio.SlidDownTogether0]
+name = "SlidDownTogether0"
+animations = [ { time = 2.5, anim = "SILENT_EXCITED" } ]
+
+[audio.SlidingWasFunToo0]
+name = "SlidingWasFunToo0"
+animations = [ { time = 0.2, anim = "SILENT_HAPPY_WIGGLE" } ]
+
+[audio.SoTheyTookTurnsSliding0]
+name = "SoTheyTookTurnsSliding0"
+animations = [ { time = 0.7, anim = "SILENT_SHIMMY" } ]
+## end story
+
+## Iceberg: PenguinSlide story - level 1.
+[audio.OnceUponTimeGeorge1]
+name = "OnceUponTimeGeorge1"
+animations = [ { time = 0.4, anim = "SILENT_FART" } ]
+
+[audio.GeorgeLikedSliding1]
+name = "GeorgeLikedSliding1"
+animations = [ { time = 1.5, anim = "PROUD" },
+               { time = 5.0, anim = "SILENT_EXCITED" } ]
+
+[audio.TogetherTheyClimbed1]
+name = "TogetherTheyClimbed1"
+animations = [ { time = 0.1, anim = "PERKUP" },
+               { time = 2.0, anim = "SILENT_HAPPY_WIGGLE" },
+               { time = 8.0, anim = "SILENT_SAD" } ]
+
+[audio.OkayIllSlideToo1]
+audio = "OkayIllSlideToo1"
+animations = [ { time = 4.0, anim = "SIDEPERK" },
+               { time = 8.0, anim = "SILENT_SCARED" },
+               { time = 12.0, anim = "SILENT_SHIMMY" } ]
+
+[audio.GeorgeGabbySlideDown1]
+name = "GeorgeGabbySlideDown1"
+animations = [ { time = 2.5, anim = "SILENT_EXCITED" } ]
+
+[audio.GabbyHadFunAgain1]
+name = "GabbyHadFunAgain1"
+animations = [ { time = 3.2, anim = "SILENT_HAPPY_WIGGLE" } ]
+
+[audio.ThreeClimbedUp1]
+name = "ThreeClimbedUp1"
+animations = [ { time = 0.7, anim = "SILENT_SHIMMY" } ]
+## end story
+
+## Iceberg Snowman Hat - level 0. TODO
+
+## Castle Reshma Party - level 0. TODO
+
+## Castle Reshma Party - level 1. TODO
+
+## Castle Evil King - Level 0. TODO
+
+## Castle Evil King - Level 1. TODO
+
+## Dinoville Dino Eater - level 0. TODO
+
+## Dinoville Dino Eater - level 1. TODO
+
+## Dinoville Scary Dino - level 0. TODO
+
+## Dinoville Scary Dino - level 1. TODO
+
+## House Magic Show - level 0. TODO
+
+## House Magic Show - level 1. TODO
+
+## House Sofa Pirates - level 0. TODO
+
+## House Sofa Pirates - level 1. TODO
+
+## Mars Alien Family - level 0. TODO
+## Mars Alien Family - level 1. TODO
+
+## Mars Explore New - level 0. TODO
+## Mars Explore New - level 1. TODO
+
+## Pineforest Floppy Hide Seek - level 0. TODO
+## Pineforest Floppy Hide Seek - level 1. TODO
+
+## Pineforest Tinna Fortune - level 0. TODO
+## Pineforest Tinna Fortune - level 1. TODO
+
+## Playground Play Ball - level 0. TODO
+## Playground Play Ball - level 1. TODO
+
+## Playground Play Pretend - level 0. TODO
+## Playground Play Pretend - level 1. TODO
+
+## Treemeadow Bird Butterfly- level 0. TODO
+## Treemeadow Bird Butterfly - level 1. TODO
+
+## Treemeadow  Clumsy Dragon - level 0. TODO
+## Treemeadow  Clumsy Dragon - level 1. TODO
 
 ## Audio with animations for the Baby Bird's First Nest story - level 1.
 [audio.baby_birds_first_nest_lv1-01]

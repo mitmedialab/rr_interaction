@@ -583,3 +583,23 @@ story_type = "retell"
 story_name = "baby_birds_first_nest"
 
 ## Session 2 - some will be generated, some we will need to add!
+[p999.2]
+story_type = "create"
+scenes = [ "Playground", "Treemeadow",]
+[p999.2.stories]
+Treemeadow = "interaction_scripts/rr2_study/stories/SR2_child/Treemeadow-sr2-session7-p006-story1"
+Playground = "interaction_scripts/rr2_study/stories/SR2_child/Playground-sr2-session1-p015-story2"
+
+[p998.2]
+story_type = "create"
+scenes = [ "Castle", "Dinoville",]
+[p998.2.stories]
+Dinoville = "interaction_scripts/rr2_study/stories/SR2_robot/Dinoville-DinoEater-H"
+Castle = "interaction_scripts/rr2_study/stories/SR2_robot/Castle-ReshmaParty-H"
+
+[p997.2]
+story_type = "create"
+scenes = [ "Playground", "Iceberg",]
+[p997.2.stories]
+Iceberg = "interaction_scripts/rr2_study/stories/SR2_child/Iceberg-sr2-session1-p015-story1"
+Playground = "interaction_scripts/rr2_study/stories/SR2_child/Playground-sr2-session4-p013-story2"

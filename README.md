@@ -583,6 +583,7 @@ could be anything; for the RR2 study, the restart tags should match what are in
 the `launch_interaction.py` script:
 
 - intro (the interaction opening, after the robot wakes up)
+- pc (picture conversation)
 - apt (anomalous picture task)
 - sdt (self-disclosure task)
 - rs1 (robot's first story)
@@ -692,9 +693,9 @@ The personalization depends on several things:
    any other participant-specific information that will need to be in future
    participant config files (such as name). See
    `performance/rr2_participant_config00.toml` for an example.
-3. **Any performance log files so far,**  which generated for each interaction
-   session run from `src/rr_interaction_node.py` and put in the output
-   directory specified in the main `config.toml` file.
+3. **Any performance log files so far,**  which are generated for each
+   interaction session run from `src/rr_interaction_node.py` and put in the
+   output directory specified in the main `config.toml` file.
 4. **A directory of stories** that the robot can tell. Could have
    sub-directories for particular story corpuses. Since this interaction
    involves a lot of storytelling, the story corpuses are used to select
@@ -713,6 +714,13 @@ script to create a master performance log file with the log files from all
 interaction sessions, as well as the next participant config file. The log
 files are used to track performance and to generate later participant config
 files, since they have a record of what each participant has done so far.
+
+That said! **Story transcripts are not automatically placed in the performance
+logs.** You will need to get the transcripts of children's stories from
+somewhere (e.g., from transcribing audio recordings of the interactions
+sessions) and add these to the latest performance logs manually or create new
+performance logs from them that can be fed into the
+`gen_next_session_config.py` script alongside the auto-generated logs.
 
 Usage: `gen_next_session_config.py [-h] -d, --storydir STORY_DIR -o, --outdir
 OUTDIR -s, --sconfig STUDY_CONF [-p, --performance [PERFORMANCE]] -c, --pconfig

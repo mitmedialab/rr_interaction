@@ -20,6 +20,7 @@ STATE	end robot wakeup
 SET	PROMPT_TIME	8
 
 # Robot introduction.
+RESTART	intro
 STATE	start introduction
 **RR	ROBOT	DO	SMILE
 **NR	ROBOT	DO	HeyNoName
@@ -54,6 +55,7 @@ STATE	end favorite color
 **RRLE	ROBOT	VOLUME	0.75
 
 # Picture conversation with Third Picture Empathy/Helping task.
+RESTART	pc
 **NR	ROBOT	DO	HelpLookPicturesNR
 **RR	ROBOT	DO	HelpLookPicturesRR
 STATE	start picture task picture1
@@ -114,6 +116,7 @@ ROBOT	DO	Booyah
 OPAL	CLEAR
 
 # Self-disclosure question learning about child.
+RESTART	sdt
 STATE	start self-disclosure question
 **RRLE	ROBOT	VOLUME	0.75
 **RRME	ROBOT	VOLUME	0.95
@@ -131,6 +134,7 @@ SET	NUM_PROMPTS	2
 
 # Create a story. Includes the Negotiation task.
 SET	MAX_REPEATS	1
+RESTART	rs1
 STATE	start story task
 **RR	ROBOT	DO	SMILE
 **RRLE	ROBOT	VOLUME	0.8
@@ -142,6 +146,7 @@ STATE	end story task
 
 # Ask child to also tell a story about a robot.
 # TODO if too long move to next time in place of other conversation next time.
+RESTART	cs2
 OPAL	LOAD_OBJECT	{ "name": "sr2-scenes/RobotStoryScene.png", "tag": "Background"}
 **RRLE	QUESTION	MakeRobotStoryLE
 **RRME	QUESTION	MakeRobotStoryME
@@ -166,6 +171,7 @@ STATE	end child robot story create task
 OPAL	CLEAR
 
 # Closing and robot goes back to sleep.
+RESTART	close
 STATE	start closing
 **NR	ROBOT	DO	rr1_story_19
 **RR	ROBOT	DO	LikedPlaying
