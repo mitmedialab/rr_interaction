@@ -89,9 +89,13 @@ def on_state_msg(data):
         send_tega_command(lookat=rr_commons.LOOKAT["TABLET"])
         USER_STORY = True
         do_story_lookat(False)
+    # At the end of a story or picture task, or at the start of the interaction
+    # (in case something happened such that these end states were never sent),
+    # ensure that the flag is false.
     elif ("end child story retell" in data.state or
             "end child story create" in data.state or
-            "end picture task" in data.state):
+            "end picture task" in data.state or
+            "sleeping" in data.state):
         # At the end of the user's story, stop glancing at the tablet.
         USER_STORY = False
 
@@ -119,7 +123,7 @@ def on_opal_msg(data):
             # random distribution that means the robot will look somewhere
             # again with approximately the same frequency as the relational
             # robot.
-            threading.Timer(2.5 + random.uniform(-0.5, 0.5),
+            threading.Timer(3.5 + random.uniform(-0.5, 0.5),
                             send_tega_command, [],
                             {"lookat": rr_commons.LOOKAT[
                                 rr_commons.LOOKAT_ARR[random.randint(
@@ -130,7 +134,7 @@ def on_opal_msg(data):
             # The relational robot will look at the tablet.
             send_tega_command(lookat=rr_commons.LOOKAT["TABLET"])
             # Wait for a few seconds, then look back at the child.
-            threading.Timer(2.5 + random.uniform(-0.5, 0.5),
+            threading.Timer(3.5 + random.uniform(-0.5, 0.5),
                             send_tega_command, [],
                             {"lookat": rr_commons.LOOKAT["USER"]}).start()
 
@@ -275,10 +279,10 @@ def react_to_affect():
     lean = user_leaned()
     if "IN" in lean:
         LOGGER.info("Leaned in! Sending action...")
-        send_tega_command(motion=TegaAction.MOTION_SILENT_INTERESTED)
+        #send_tega_command(motion=TegaAction.MOTION_SILENT_INTERESTED)
     elif "OUT" in lean:
         LOGGER.info("Leaned out! Sending action...")
-        send_tega_command(motion=TegaAction.MOTION_SILENT_SCARED)
+        #send_tega_command(motion=TegaAction.MOTION_SILENT_SCARED)
 
     # Everything else should only happen on the user's turn.
     if USER_TURN:
