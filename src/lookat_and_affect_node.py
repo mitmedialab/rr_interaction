@@ -279,10 +279,10 @@ def react_to_affect():
     lean = user_leaned()
     if "IN" in lean:
         LOGGER.info("Leaned in! Sending action...")
-        #send_tega_command(motion=TegaAction.MOTION_SILENT_INTERESTED)
+        send_tega_command(motion=TegaAction.MOTION_SILENT_INTERESTED)
     elif "OUT" in lean:
         LOGGER.info("Leaned out! Sending action...")
-        #send_tega_command(motion=TegaAction.MOTION_SILENT_SCARED)
+        send_tega_command(motion=TegaAction.MOTION_SILENT_SCARED)
 
     # Everything else should only happen on the user's turn.
     if USER_TURN:
@@ -448,26 +448,33 @@ def user_leaned():
     # out; negative means the distance is shrinking, i.e., leaning in). We can
     # add up the deltas to get the overall change in distance. We can look at
     # the size of the deltas to see if there was a big change or not.
-    delta_in = 0
-    delta_out = 0
+    #
+    # However, we need to be careful of 0s. The distance value in the affdex
+    # ros message is a float, which means it'll be 0 if it isn't set. So we may
+    # have a bunch of 0s in the distance list if the face wasn't detected,
+    # which will throw everything off in these delta calculations.
+    total_delta = 0
     for i in range(1, len(DISTANCE)):
-        delta = DISTANCE[i] - DISTANCE[i - 1]
-        if delta < 0:
-            LOGGER.info("leaned in: {}".format(delta))
-            delta_in += delta
-        if delta > 0:
-            LOGGER.info("leaned out: {}".format(delta))
-            delta_out += delta
-        else:
-            LOGGER.info("no change: {}".format(delta))
+        # We only check if both distances are not 0, since 0 means no face was
+        # detected.
+        if DISTANCE[i] > 0.0 and DISTANCE[i - 1] > 0.0:
+            delta = DISTANCE[i] - DISTANCE[i - 1]
+            total_delta += delta
+            # For now, we want to log leans so we can check that the behavior
+            # is reasonable.
+            if delta < 0:
+                LOGGER.info("leaned in: {}".format(delta))
+            if delta > 0:
+                LOGGER.info("leaned out: {}".format(delta))
+            else:
+                LOGGER.info("no change: {}".format(delta))
 
     # Return "IN" if the user leaned in; "OUT" if the user leaned out, nothing
     # if there was no big change in lean.
-    LOGGER.info("total delta in: {}, total delta out: {}".format(
-        delta_in, delta_out))
-    if delta_in < -5:
+    LOGGER.info("total delta: {}".format(total_delta))
+    if total_delta < -15:
         return "IN"
-    if delta_out > 5:
+    if total_delta > 15:
         return "OUT"
     return ""
 
