@@ -383,15 +383,15 @@ class PerformanceLogger(object):
             (1 - prompt_ratio) + \
             # Max attempt ratio: 0-1. Lower number is fewer max attempts hit,
             # so we reverse score.
-            3 * (1 - max_attempt_ratio) + \
+            (1 - max_attempt_ratio) + \
             # Intensity: around 40-80. Background noise around 50 in a quiet
             # room. Robot often is around 75. Person speaking normally in a
             # quiet room around 65. Convert to a 0-1 scale. Higher number is
             # louder.
-            ((mean_mean_intensity - 40) / 50.0) + \
+            2 * ((mean_mean_intensity - 40) / 50.0) + \
             # Speaking rate: around 1.5-5. Robot often around 4. Higher number
             # is faster speech. Convert to a 0-1 scale.
-            (mean_speaking_rate / 5.0) + \
+            2 * (mean_speaking_rate / 5.0) + \
             # Duration factor: -1.30 - 1.30. Capped at those values. Higher
             # number means the user spoke slower than the robot. Convert to a
             # 0-1 scale. Reverse scored.
