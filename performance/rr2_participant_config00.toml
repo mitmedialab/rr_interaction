@@ -7,7 +7,7 @@ condition = "RR"
 name = "jackie"
 
 [p998]
-story_retell_level = 3
+story_retell_level = 2
 story_create_level = 1
 personalized = false
 condition = "NR"
@@ -155,15 +155,15 @@ condition = "RR"
 name = "p019"
 
 [p020]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 2
+story_create_level = 1
 personalized = false
 condition = "NR"
 name = "p020"
 
 [p021]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 3
+story_create_level = 1
 personalized = true
 condition = "RR"
 name = "p021"
@@ -183,15 +183,15 @@ condition = "RR"
 name = "p023"
 
 [p024]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 3
+story_create_level = 1
 personalized = false
 condition = "NR"
 name = "p024"
 
 [p025]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 3
+story_create_level = 1
 personalized = true
 condition = "RR"
 name = "p025"
@@ -204,15 +204,15 @@ condition = "NR"
 name = "p026"
 
 [p027]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 2
+story_create_level = 1
 personalized = true
 condition = "RR"
 name = "p027"
 
 [p028]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 2
+story_create_level = 1
 personalized = false
 condition = "NR"
 name = "p028"
