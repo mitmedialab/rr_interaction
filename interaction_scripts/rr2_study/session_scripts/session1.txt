@@ -18,8 +18,8 @@ ROBOT	DO	YAWN
 ROBOT	DO	IceCream
 ROBOT	DO	LAUGH
 STATE	end robot wakeup
-SET	PROMPT_TIME	6
-SET	NUM_PROMPTS	2
+SET	PROMPT_TIME	7
+SET	NUM_PROMPTS	1
 
 # Robot introduction.
 RESTART	intro
@@ -97,7 +97,7 @@ RESTART	sdt
 STATE	start self disclosure task
 **RRLE	ROBOT	VOLUME	0.7
 **RRME	ROBOT	VOLUME	0.9
-SET	PROMPT_TIME	6
+SET	PROMPT_TIME	7
 SET	NUM_PROMPTS	1
 STATE	start disclosure 1
 QUESTION	SelfDisclosure1
@@ -114,8 +114,8 @@ IF_RESPONSE	QUESTION	SelfDisclosureGeneric
 STATE	end disclosure 2
 STATE	end self disclosure task
 # Reset prompt time and number of prompts to the usual for this interaction.
-SET	PROMPT_TIME	6
-SET	NUM_PROMPTS	2
+SET	PROMPT_TIME	7
+SET	NUM_PROMPTS	1
 
 # Third activity: Story retell.
 SET	MAX_REPEATS	1
@@ -128,24 +128,6 @@ ROBOT	LOOKAT	TABLET
 ROBOT	DO	rr1_story_01
 REPEAT	MAX_REPEATS	story-retell.txt
 STATE	end story task
-
-# Photo with robot.
-RESTART	photo
-SET	NUM_PROMPTS	2
-SET	PROMPT_TIME	6
-STATE	start photo task
-**RRLE	ROBOT	VOLUME	0.85
-QUESTION	WantAPhoto
-SET	PROMPT_TIME	300
-ROBOT	DO	Booyah
-ROBOT	DO	POSE_SMILE2
-QUESTION	TakePhoto
-SET	PROMPT_TIME	6
-ROBOT	DO	ThanksShy
-**RRME	ROBOT	DO	PictureIllRememberME
-**RRLE	ROBOT	DO	PictureIllRememberLE
-**RR	ROBOT	DO	SMILE
-STATE	end photo task
 
 # Closing and robot goes back to sleep.
 RESTART	close
