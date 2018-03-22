@@ -5,7 +5,7 @@
 # attempts for a question. One of the responses listed in the array will be
 # chosen randomly. These can be overridden for individual questions below in
 # the question configuration.
-max_attempt = ["ThatsOkay", "FeelingShy", "ShareWhatYouThink"]
+max_attempt = ["ThatsOkay", "OhHuhOkay", "OhHuhOkay", "HmNeutral", "HmInterested", "HmInterested", "HmNeutral", "FeelingShy", "ShareWhatYouThink"]
 timeout_prompts = ["Well", "Well2", "Well3", "WhatDoYouThink2", "WhatDoYouThink", "WhatDoYouThink3", "HmPrompt", "HmPrompt2", "HmPrompt3"]
 backchannel_prompts = ["mmhm", "uhuhh", "mmm", "hmm"]
 

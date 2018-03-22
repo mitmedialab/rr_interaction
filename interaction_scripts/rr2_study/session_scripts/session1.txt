@@ -26,7 +26,7 @@ RESTART	intro
 STATE	start introduction
 QUESTION	ImRed
 **RR	ROBOT	DO	SMILE
-PAUSE	3
+PAUSE	2
 ROBOT	LOOKAT	DOWN
 ROBOT	DO	ItsNiceToMeetYou
 ROBOT	LOOKAT	USER
@@ -34,8 +34,9 @@ ROBOT	LOOKAT	USER
 **RR	ROBOT	DO	LAUGH
 STATE	end introduction
 # Robot backstory.
+SET	NUM_PROMPTS	1
 STATE	start backstory
-QUESTION	ImNewHereAreYou
+# QUESTION	ImNewHereAreYou
 ROBOT	DO	SIDEPERK
 ROBOT	DO	ImNotGoodAtHearing
 **NR	QUESTION	help_practiceNR
@@ -57,12 +58,12 @@ ROBOT	LOOKAT	TABLET
 OPAL	CLEAR
 STATE	start anomalous picture 1
 OPAL	LOAD_OBJECT	{ "name": "anomalous/anomalousgiraffe.png", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
-ROBOT	DO	POSE1
-SET	PROMPT_TIME	15
-SET	NUM_PROMPTS	0
+ROBOT	DO	POSE_FORWARD
 # If the child says nothing, the robot will say the max attempt speech after
 # 15s and move on. If the child does speak, the robot will use an appropriately
 # generic response.
+SET	PROMPT_TIME	10
+SET	NUM_PROMPTS	0
 QUESTION	AnomalousPicture1
 # If we get a reply, repeat the generic questions until timeout.
 SET	MAX_REPEAT_TIME	1
@@ -73,11 +74,11 @@ STATE	end anomalous picture 1
 ROBOT	DO	PERKUP
 ROBOT	DO	LetsLookAtAnotherPicture
 ROBOT	LOOKAT	TABLET
-ROBOT	DO	POSE2
 OPAL	CLEAR
+ROBOT	DO	POSE_FORWARD
 STATE	start anomalous picture 2
 OPAL	LOAD_OBJECT	{ "name": "anomalous/anomaloussquirrel.png", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
-SET	PROMPT_TIME	15
+SET	PROMPT_TIME	10
 SET	NUM_PROMPTS	0
 QUESTION	AnomalousPicture2
 SET	MAX_REPEAT_TIME	1

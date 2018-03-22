@@ -21,13 +21,13 @@ QUESTION	liked_story
 **RR	ROBOT	DO	Hey
 **RR	ROBOT	DO	<participant_name>
 OPAL	ENABLE_TOUCH
+STATE	start child story retell
 **NR	QUESTION	RetellStoryToMe
 **RRME	QUESTION	RetellStoryToMeME
 **RRLE	QUESTION	RetellStoryToMeLE
 ROBOT	LOOKAT	TABLET
 OPAL	STORY_SHOW_BUTTONS
 OPAL	STORY_GO_TO_PAGE	1
-STATE	start child story retell
 QUESTION	WhatHappenedFirst
 SET	PROMPT_TIME	1200
 SET	NUM_PROMPTS	100

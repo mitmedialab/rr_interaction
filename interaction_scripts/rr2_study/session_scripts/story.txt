@@ -29,12 +29,12 @@ QUESTION	liked_story2
 **NR	ROBOT	DO	HeyNoName
 **RR	ROBOT	DO	Hey
 **RR	ROBOT	DO	<participant_name>
+STATE	start child story create
 **NR	QUESTION	CreateAStory
 **RRME	QUESTION	CreateAStoryME
 **RRLE	QUESTION	CreateAStoryLE
 ROBOT	LOOKAT	TABLET
 OPAL	ENABLE_TOUCH
-STATE	start child story create
 QUESTION	WhatCouldBeHappening
 SET	PROMPT_TIME	1200
 SET	BACKCHANNEL	ON STORY
