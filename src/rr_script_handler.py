@@ -343,7 +343,7 @@ class ScriptHandler(object):
             self._logger.info("Wrong condition. Skipping line.")
             return False
 
-        self._logger.info("Right condition. Parsing line...")
+        self._logger.info("Right condition...")
 
         # Check if this is an exuberance line. In general, we only do
         # exuberance if this is a personalized/relational robot, but this is
@@ -379,10 +379,10 @@ class ScriptHandler(object):
         self._exuberance_line_played = False
 
         # Check for other tags.
+        prev_session = str(self._sessionint - 1)
         # Line can be tagged "SL" or "SD" to indicate that the participant
         # either liked or didn't like the robot's story last time.
-        if "SL" in tags or "SD in tags" and \
-                str(self._sessionint - 1) in self._pconfig:
+        if ("SL" in tags or "SD" in tags) and prev_session in self._pconfig:
             if "liked_story" not in self._pconfig[str(self._sessionint - 1)]:
                 self._logger.warning("No liked_story listed for participant "
                                      "for session {}! Can't check tags without"
@@ -390,23 +390,22 @@ class ScriptHandler(object):
                                          self._sessionint - 1))
                 return False
 
-            if self._pconfig["liked_story"] not in tags:
+            if self._pconfig[prev_session]["liked_story"] not in tags:
                 self._logger.debug("Wrong liked_story tag. Skipping line.")
                 return False
             else:
                 self._logger.debug("Right liked_story tag. Doing line.")
                 return True
 
-        if "TY" in tags or "TN" in tags and \
-                str(self._sessionint - 1) in self._pconfig:
-            if "told_story" not in self._pconfig[str(self._sessionint - 1)]:
+        if ("TY" in tags or "TN" in tags) and prev_session in self._pconfig:
+            if "told_story" not in self._pconfig[prev_session]:
                 self._logger.warning("No told_story listed for participant "
                                      "for session {}! Can't check tags without"
                                      "this. Skipping line.".format(
                                          self._sessionint - 1))
                 return False
 
-            if self._pconfig["told_story"] not in tags:
+            if self._pconfig[prev_session]["told_story"] not in tags:
                 self._logger.debug("Wrong told_story tag. Skipping line.")
                 return False
             else:
@@ -964,6 +963,11 @@ class ScriptHandler(object):
                             self._performance_log.log_question(
                                     self._num_prompts, prompts_played,
                                     max_attempt_hit, latencies)
+                            # If we were picking a story and got here, it means
+                            # the child said some expected ASR thing that means
+                            # the robot should pick the scene.
+                            if self._picking_scene:
+                                self._robot_pick_story_scene()
                             # Return so we don't give the user a chance to
                             # respond again, since we already got their
                             # response and dealt with it.
@@ -1001,29 +1005,10 @@ class ScriptHandler(object):
         # something and move on instead of waiting more.
 
         # If we were trying to get the user to pick a scene, if we get here, we
-        # did not get the user to pick one. So we need to selecte a scene
-        # ourselves... pick one randomly:
+        # did not get the user to pick one. So we need to select a scene
+        # ourselves... pick one randomly.
         if self._picking_scene:
-            if self._session in self._pconfig:
-                if "scenes" in self._pconfig[self._session]:
-                    self._selected_scene = self._pconfig[self._session][
-                            "scenes"][random.randint(
-                                0, len(self._pconfig[self._session][
-                                    "scenes"]) - 1)]
-                    self._logger.info("No user scene selection made! Selecting"
-                                      " a scene... {}".format(
-                                          self._selected_scene))
-                else:
-                    self._logger.error("We were supposed to pick a scene to "
-                                       "play, but there are none in the"
-                                       "participant config file for this "
-                                       "session!")
-                self._picking_scene = False
-            else:
-                self._logger.error("We were supposed to pick a scene to play, "
-                                   "but there is no session {} in the "
-                                   "participant config file!".format(
-                                    self._session))
+            self._robot_pick_story_scene()
 
         # Play the "max attempts reached" robot response, since we used up
         # all the prompts and didn't get an expected user response. Either
@@ -1050,6 +1035,33 @@ class ScriptHandler(object):
         # Log the data from this question and update the exuberance score.
         self._performance_log.log_question(self._num_prompts, prompts_played,
                                            max_attempt_hit, latencies)
+
+    def _robot_pick_story_scene(self):
+        """ If we were trying to get the user to pick a scene, if we get here,
+        we did not get the user to pick one. So we need to select a scene
+        ourselves... pick one randomly.
+        """
+        if self._picking_scene:
+            if self._session in self._pconfig:
+                if "scenes" in self._pconfig[self._session]:
+                    self._selected_scene = self._pconfig[self._session][
+                            "scenes"][random.randint(
+                                0, len(self._pconfig[self._session][
+                                    "scenes"]) - 1)]
+                    self._logger.info("No user scene selection made! Selecting"
+                                      " a scene... {}".format(
+                                          self._selected_scene))
+                else:
+                    self._logger.error("We were supposed to pick a scene to "
+                                       "play, but there are none in the"
+                                       "participant config file for this "
+                                       "session!")
+                self._picking_scene = False
+            else:
+                self._logger.error("We were supposed to pick a scene to play, "
+                                   "but there is no session {} in the "
+                                   "participant config file!".format(
+                                    self._session))
 
     def _send_robot_do(self, command):
         """ Given a command for the robot to do, get any details from the
