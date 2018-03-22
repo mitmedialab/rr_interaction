@@ -373,14 +373,20 @@ name = "p307"
 [p997.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
+liked_story = "SD"
+told_story = "TY"
 
 [p998.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
+liked_story = "SD"
+told_story = "TY"
 
 [p999.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
+liked_story = "SL"
+told_story = "TN"
 
 ## Lynch
 [p001.1]
