@@ -156,6 +156,7 @@ def do_story_lookat(looking_at_user):
         # again with approximately the same frequency as the relational robot.
         threading.Timer(3.5 + random.uniform(-1.0, 2.0),
                         do_story_lookat, args=[False]).start()
+        return
 
     # When the child is telling or retelling a story, look at the tablet most
     # of the time, but glance at the child sometimes. Look at the child about
