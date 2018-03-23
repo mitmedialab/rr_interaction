@@ -1,7 +1,7 @@
 ROBOT	DO	baby_birds_first_nest
 OPAL	NEXT_PAGE
 ROBOT	DO	baby_birds_first_nest_lv1-01
-SET	PROMPT_TIME	5
+SET	PROMPT_TIME	4
 SET	NUM_PROMPTS	0
 QUESTION	baby_birds_first_nest_q_l_1
 ROBOT	DO	CanYouSay
