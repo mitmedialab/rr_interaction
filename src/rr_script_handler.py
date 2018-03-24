@@ -171,8 +171,10 @@ class ScriptHandler(object):
         self._exuberance_line_hit = False
         self._exuberance_line_played = False
 
-        # We are also not actively trying to pick a scene to play for a story.
+        # We are also not actively trying to pick a scene to play for a story,
+        # and the robot didn't pick it.
         self._picking_scene = False
+        self._robot_picked_scene = False
 
         # For counting repetitions of a repeating script.
         self._repetitions = 0
@@ -934,6 +936,7 @@ class ScriptHandler(object):
                             if self._picking_scene:
                                 self._selected_scene = results[0]
                                 self._picking_scene = False
+                                self._robot_picked_scene = False
                             # Play the robot's responses in sequence.
                             for resp in resp_option["robot_responses"]:
                                 self._send_robot_do(resp)
@@ -1057,6 +1060,7 @@ class ScriptHandler(object):
                                        "participant config file for this "
                                        "session!")
                 self._picking_scene = False
+                self._robot_picked_scene = True
             else:
                 self._logger.error("We were supposed to pick a scene to play, "
                                    "but there is no session {} in the "
@@ -1335,6 +1339,10 @@ class ScriptHandler(object):
                 self._logger.debug("Negotiation outcome: REFUSAL - do child's "
                                    "choice!")
                 resp = self._get_response_from_config("negotiation_refusal")
+                # If the robot had picked a scene but the child wants the other
+                # one, a refusal means we switch to the child's choice.
+                if self._robot_picked_scene:
+                    self._switch_selected_scene()
                 # Break so we don't give the user a chance to respond again,
                 # since we already got a response and dealt with it.
                 break
@@ -1342,10 +1350,13 @@ class ScriptHandler(object):
             # Case (3): Acquiescence.
             if UserInput.ACQUIESCENCE in response:
                 # Play one of the posssible negotiation acquiescence responses.
-                self._logger.debug("Negotiation outcome: ACQUIESENCE - do"
+                self._logger.debug("Negotiation outcome: ACQUIESENCE - do "
                                    "robot's choice!")
-                # Change selected scene to be the other one available.
-                self._switch_selected_scene()
+                # Change selected scene to be the other one available, but only
+                # if the child actually picked something (otherwise the child
+                # is allowing the robot's choice, which was already selected).
+                if not self._robot_picked_scene:
+                    self._switch_selected_scene()
                 resp = self._get_response_from_config("negotiation_acquiese")
                 # Break so we don't give the user a chance to respond again,
                 # since we already got a response and dealt with it.
@@ -1363,8 +1374,10 @@ class ScriptHandler(object):
             if UserInput.COMPROMISE_ROBOT in response:
                 self._logger.info("Negotiation outcome: ROBOT COMPROMISE - "
                                   "do robot's choice!")
-                # Change selected scene to be the other one available.
-                self._switch_selected_scene()
+                # Change selected scene to be the other one available, if the
+                # child had initially picked a scene.
+                if not self._robot_picked_scene:
+                    self._switch_selected_scene()
                 resp = self._get_response_from_config("negotiation_general")
                 # Break so we don't give the user a chance to respond again,
                 # since we already got a response and dealt with it.
@@ -1374,6 +1387,10 @@ class ScriptHandler(object):
                 self._logger.info("Negotiation outcome: CHILD COMPROMISE - "
                                   "do child's choice!")
                 resp = self._get_response_from_config("negotiation_general")
+                # If the robot had picked the scene and the child wants the
+                # other one, switch scenes.
+                if self._robot_picked_scene:
+                    self._switch_selected_scene()
                 # Break so we don't give the user a chance to respond again,
                 # since we already got a response and dealt with it.
                 break
@@ -1391,7 +1408,7 @@ class ScriptHandler(object):
         """
         if self._session in self._pconfig:
             if "scenes" in self._pconfig[self._session]:
-                for scene in self._pconfig["scenes"][self._session]:
+                for scene in self._pconfig[self._session]["scenes"]:
                     if scene != self._selected_scene:
                         self._logger.info("Changing selected scene to "
                                           "{}".format(scene))
