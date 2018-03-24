@@ -55,15 +55,15 @@ negotiation = false
 [sessions.2]
 story_type = "create"
 negotiation = true
-scenes = ["Iceberg", "Treemeadow"]
+scenes = ["Iceberg", "Playground"]
 corpus = "SR2_robot"
 num_scenes = 2
 similar = true
-default_scenes = ["Iceberg", "Treemeadow"]
+default_scenes = ["Iceberg", "Castle"]
     [sessions.2.default_stories.Iceberg]
     story = "PenguinSlide"
-    [sessions.2.default_stories.Treemeadow]
-    story = "DragonClumsy"
+    [sessions.2.default_stories.Castle]
+    story = "EvilKing"
 
 [sessions.3]
 story_type = "create"
@@ -74,10 +74,10 @@ similar = false
 default_scenes = ["Playground"]
     [sessions.3.default_stories.Iceberg]
     story = "Iceberg-sr2-session8-p006-story1"
-    [sessions.3.default_stories.Treemeadow]
-    story = "Treemeadow-sr2-session8-p013-story1"
     [sessions.3.default_stories.Playground]
     story = "Playground-sr2-session1-p006-story2"
+    [sessions.6.default_stories.Castle]
+    story = "Castle-sr2-session2-p015-story2"
 
 [sessions.4]
 story_type = "retell"
@@ -95,7 +95,7 @@ negotiation = true
 corpus = "SR2_robot"
 num_scenes = 2
 similar = true
-default_scenes = ["Castle"]
+default_scenes = ["Treemeadow"]
     [sessions.5.default_stories.Iceberg]
     story = "PenguinSlide"
     [sessions.5.default_stories.Treemeadow]
