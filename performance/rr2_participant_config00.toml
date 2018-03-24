@@ -22,22 +22,22 @@ name = "jackie"
 
 ## Lynch
 [p001]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 2
+story_create_level = 1
 personalized = true
 condition = "RR"
 name = "p001"
 
 [p002]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 2
+story_create_level = 1
 personalized = false
 condition = "NR"
 name = "p002"
 
 [p003]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 3
+story_create_level = 1
 personalized = true
 condition = "RR"
 name = "p003"
@@ -50,8 +50,8 @@ condition = "NR"
 name = "p004"
 
 [p005]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 2
+story_create_level = 1
 personalized = true
 condition = "RR"
 name = "p005"
@@ -64,36 +64,36 @@ condition = "NR"
 name = "p006"
 
 [p007]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 2
+story_create_level = 1
 personalized = true
 condition = "RR"
 name = "p007"
 
 [p008]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 3
+story_create_level = 1
 personalized = false
 condition = "NR"
 name = "p008"
 
 [p009]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 3
+story_create_level = 1
 personalized = true
 condition = "RR"
 name = "p009"
 
 [p010]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 2
+story_create_level = 1
 personalized = false
 condition = "NR"
 name = "p010"
 
 [p011]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 3
+story_create_level = 1
 personalized = true
 condition = "RR"
 name = "p011"
@@ -106,22 +106,22 @@ condition = "NR"
 name = "p012"
 
 [p013]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 3
+story_create_level = 1
 personalized = true
 condition = "RR"
 name = "p013"
 
 [p014]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 3
+story_create_level = 1
 personalized = false
 condition = "NR"
 name = "p014"
 
 [p015]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 3
+story_create_level = 1
 personalized = true
 condition = "RR"
 name = "p015"
@@ -218,29 +218,29 @@ condition = "NR"
 name = "p028"
 
 [p029]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 2
+story_create_level = 1
 personalized = true
 condition = "RR"
 name = "p029"
 
 [p030]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 2
+story_create_level = 1
 personalized = false
 condition = "NR"
 name = "p030"
 
 [p031]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 2
+story_create_level = 1
 personalized = true
 condition = "RR"
 name = "p031"
 
 [p032]
-story_retell_level = 1
-story_create_level = 0
+story_retell_level = 2
+story_create_level = 1
 personalized = false
 condition = "NR"
 name = "p032"
