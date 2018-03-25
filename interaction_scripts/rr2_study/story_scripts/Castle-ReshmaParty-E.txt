@@ -1,0 +1,13 @@
+ROBOT	DO	OnceUponATimePrincessReshma0
+ROBOT	DO	LeoLivedInCastle0
+ROBOT	DO	SoSheWalkedToBridge0
+ROBOT	DO	OhNoACroc0
+ROBOT	DO	ReshmaDidntKnowCroc0
+ROBOT	DO	ThenSheHadThought0
+ROBOT	DO	OkayAndIPromiseNoEating0
+ROBOT	DO	SoReshmaCrossed0
+ROBOT	DO	HiReshmaYoureEarly0
+ROBOT	DO	OkayICanHelpButtercups0
+ROBOT	DO	ThenShePickedButtercups0
+ROBOT	DO	ThenReshmaWentBack0
+ROBOT	DO	ThenThePartyStarted0

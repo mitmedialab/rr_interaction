@@ -1,0 +1,9 @@
+ROBOT	DO OnceUponATimeGeorge1
+ROBOT	DO GeorgeLikedSliding1
+ROBOT	DO GeorgeGabbyIceberg1
+ROBOT	DO TogetherTheyClimbed1
+ROBOT	DO OkayIllSlideToo1
+ROBOT	DO GeorgeGabbySlideDown1
+ROBOT	DO GabbyHadFunAgain1
+ROBOT	DO TheyShouldBringSally1
+ROBOT	DO ThreeClimbedUp1

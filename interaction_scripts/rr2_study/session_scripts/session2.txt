@@ -61,7 +61,7 @@ RESTART	pc
 **NR	ROBOT	DO	HelpLookPicturesNR
 **RR	ROBOT	DO	HelpLookPicturesRR
 STATE	start picture task picture1
-OPAL	LOAD_OBJECT	{ "name": "conversations/park.jpg", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
+OPAL	LOAD_OBJECT	{ "name": "conversations/rr1_picture_park.jpg", "tag": "PlayObject", "draggable": "false", "scale": ["40","40","40"]}
 **NR	ROBOT	DO	rr1_picture3_01
 **RRME	ROBOT	DO	rr1_picture3_01ME
 **RRLE	ROBOT	DO	rr1_picture3_01LE
@@ -81,7 +81,7 @@ OPAL	CLEAR
 STATE	end picture task picture1
 ROBOT	DO	rr1_picturegen_01
 STATE	start picture task picture2
-OPAL	LOAD_OBJECT	{ "name": "conversations/movies.jpg", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
+OPAL	LOAD_OBJECT	{ "name": "conversations/rr1_picture_movies.jpg", "tag": "PlayObject", "draggable": "false", "scale": ["30","30","30"]}
 ROBOT	DO	rr1_picture4_01
 **RRLE	ROBOT	VOLUME	0.7
 **RRME	ROBOT	VOLUME	0.9

@@ -19,7 +19,7 @@ negotiation_refusal = ["negotiation_refusal_1", "negotiation_refusal_2", "negoti
 negotiation_acquiesce = ["negotiation_acquiesce_1", "negotiation_acquiesce_2", "negotiation_acquisce_3"]
 negotiation_general = ["negotiation_general_1", "negotiation_general_2", "negotiation_general_3"]
 
-extra_picture_yes = ["extra_picture_yes1", "extra_picture_yes2"]
+extra_picture_yes = ["extra_pictures_yes1", "extra_pictures_yes2"]
 extra_picture_no = ["extra_picture_no1", "extra_picture_no2"]
 extra_picture_timeout = ["extra_picture_timeout1", "extra_picture_timeout2"]
 extra_picture_no_response = ["extra_picture_noresp1", "extra_picture_noresp2"]
@@ -1296,7 +1296,7 @@ animations = [ { time = 0.1, anim = "PERKUP" },
 audio = "OkaySlideWithYou0"
 animations = [ { time = 1.0, anim = "SIDEPERK" },
                { time = 6.0, anim = "SILENT_SCARED" },
-               { time = 10.0, anim = "SILENT_SHIMMY" } ]
+               { time = 10.0, anim = "SHIMMY" } ]
 
 [audio.SlidDownTogether0]
 name = "SlidDownTogether0"
@@ -1308,7 +1308,7 @@ animations = [ { time = 0.2, anim = "SILENT_HAPPY_WIGGLE" } ]
 
 [audio.SoTheyTookTurnsSliding0]
 name = "SoTheyTookTurnsSliding0"
-animations = [ { time = 0.7, anim = "SILENT_SHIMMY" } ]
+animations = [ { time = 0.7, anim = "SHIMMY" } ]
 ## end story
 
 ## Iceberg: PenguinSlide story - level 1.
@@ -1331,7 +1331,7 @@ animations = [ { time = 0.1, anim = "PERKUP" },
 audio = "OkayIllSlideToo1"
 animations = [ { time = 4.0, anim = "SIDEPERK" },
                { time = 8.0, anim = "SILENT_SCARED" },
-               { time = 12.0, anim = "SILENT_SHIMMY" } ]
+               { time = 12.0, anim = "SHIMMY" } ]
 
 [audio.GeorgeGabbySlideDown1]
 name = "GeorgeGabbySlideDown1"
@@ -1343,14 +1343,101 @@ animations = [ { time = 3.2, anim = "SILENT_HAPPY_WIGGLE" } ]
 
 [audio.ThreeClimbedUp1]
 name = "ThreeClimbedUp1"
-animations = [ { time = 0.7, anim = "SILENT_SHIMMY" } ]
+animations = [ { time = 0.7, anim = "SHIMMY" } ]
 ## end story
 
 ## Iceberg Snowman Hat - level 0. TODO
 
-## Castle Reshma Party - level 0. TODO
+## Castle Reshma Party - level 0.
+[audio.OnceUponATimePrincessReshma0]
+name = "OnceUponATimePrincessReshma0"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
 
-## Castle Reshma Party - level 1. TODO
+[audio.SoSheWalkedToBridge0]
+name = "SoSheWalkedToBridge0"
+animations = [ { time = 0.5, anim = "SHIMMY" },
+               { time = 2.5, anim = "PROUD" } ]
+
+[audio.OhNoACroc0]
+name = "OhNoACroc0"
+animations = [ { time = 0.1, anim = "SILENT_SCARED" } ]
+
+[audio.ReshmaDidntKnowCroc0]
+name = "ReshmaDidntKnowCroc0"
+animations = [ { time = 0.1, anim = "SILENT_NO" } ]
+
+[audio.ThenSheHadThought0]
+name = "ThenSheHadThought0"
+animations = [ { time = 3.5, anim = "SILENT_CONFIRM" } ]
+
+[audio.OkayAndIPromiseNoEating0]
+name = "OkayAndIPromiseNoEating0"
+animations = [ { time = 0.1, anim = "SILENT_NOD" } ]
+
+[audio.SoReshmaCrossed0]
+name = "SoReshmaCrossed0"
+animations = [ { time = 0.1, anim = "PROUD" } ]
+
+[audio.HiReshmaYoureEarly0]
+name = "HiReshmaYoureEarly0"
+animations = [ { time = 0.1, anim = "PERKUP" },
+               { time = 2.7, anim = "SIDEPERK" } ]
+
+[audio.OkayICanHelpButtercups0]
+name = "OkayICanHelpButtercups0"
+animations = [ { time = 3.0, anim = "SHIMMY" } ]
+
+[audio.ThenReshmaWentBack0]
+name = "ThenReshmaWentBack0"
+animations = [ { time = 1.0, anim = "SHIMMY" } ]
+
+[audio.ThenThePartyStarted0]
+name = "ThenThePartyStarted0"
+animations = [ { time = 1.0, anim = "CIRCLING" } ]
+
+## Castle Reshma Party - level 1.
+[audio.OnceUponATimePrincessReshma1]
+name = "OnceUponATimePrincessReshma1"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.SoToHisKingdom1]
+name = "SoToHisKingdom1"
+animations = [ { time = 0.5, anim = "SHIMMY" },
+               { time = 6.0, anim = "SILENT_SCARED"]
+
+[audio.OhNoReshmaDidntKnow1]
+name = "OhNoReshmaDidntKnow1"
+animations = [ { time = 0.1, anim = "SILENT_NO" } ]
+
+[audio.CrocLetMeCross1]
+name = "CrocLetMeCross1"
+animations = [ { time = 3.0, anim = "SILENT_CONFIRM" } ]
+
+[audio.OkayHeAgreedWontEat1]
+name = "OkayHeAgreedWontEat1"
+animations = [ { time = 0.1, anim = "SILENT_NOD" } ]
+
+[audio.AcrossTheBridgeSheWent1]
+name = "AcrossTheBridgeSheWent1"
+animations = [ { time = 0.1, anim = "PROUD" } ]
+
+[audio.HiReshmaYoureEarly1]
+name = "HiReshmaYoureEarly1"
+animations = [ { time = 0.1, anim = "PERKUP" },
+               { time = 2.7, anim = "SIDEPERK" } ]
+
+[audio.SheCrossedBackBridge1]
+name = "SheCrossedBackBridge1"
+animations = [ { time = 0.1, anim = "SHIMMY" } ]
+
+[audio.SheGaveOneToCroc1]
+name = "SheGaveOneToCroc1"
+animations = [ { time = 1.5, anim = "SIDEPERK" } ]
+
+[audio.ThenItWasPartyTime1]
+name = "ThenItWasPartyTime1"
+animations = [ { time = 1.0, anim = "CIRCLING" } ]
+
 
 ## Castle Evil King - Level 0. TODO
 

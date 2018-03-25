@@ -1,0 +1,14 @@
+ROBOT	DO	APrincess
+ROBOT	DO	OnceUponATimePrincessReshma1
+ROBOT	DO	HisPartyWouldBeFun1
+ROBOT	DO	SoToHisKingdom1
+ROBOT	DO	OhNoReshmaDidntKnow1
+ROBOT	DO	CrocLetMeCross1
+ROBOT	DO	OkayHeAgreedWontEat1
+ROBOT	DO	AcrossTheBridgeSheWent1
+ROBOT	DO	HiReshmaYoureEarly1
+ROBOT	DO	OkayICanAssistButtercups1
+ROBOT	DO	SheCrossedBackBridge1
+ROBOT	DO	SheGaveOneToCroc1
+ROBOT	DO	ReshmaLeoArrangedFlowers1
+ROBOT	DO	ThenItWasPartyTime1

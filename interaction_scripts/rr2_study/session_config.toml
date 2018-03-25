@@ -63,7 +63,7 @@ default_scenes = ["Iceberg", "Castle"]
     [sessions.2.default_stories.Iceberg]
     story = "PenguinSlide"
     [sessions.2.default_stories.Castle]
-    story = "EvilKing"
+    story = "ReshmaParty"
 
 [sessions.3]
 story_type = "create"

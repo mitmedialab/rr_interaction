@@ -1,5 +1,5 @@
 STATE	start picture task picture3
-OPAL	LOAD_OBJECT	{ "name": "conversations/holidays.jpg", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
+OPAL	LOAD_OBJECT	{ "name": "conversations/rr1_picture_holidays.jpg", "tag": "PlayObject", "draggable": "false", "scale": ["30","30","30"]}
 ROBOT	DO	holidays_intro1
 **RRLE	ROBOT	DO	holidays_intro2LE
 **RRME	ROBOT	DO	holidays_intro2ME
@@ -8,12 +8,12 @@ QUESTION	picture_holidays
 **NR	QUESTION	tellmemore
 **RRME	QUESTION	tellmemoreME
 **RRLE	QUESTION	tellmemoreLE
-**NR	ROBOT	DO	Holidays_1
-**RRME	ROBOT	DO	Holidays_1ME
-**RRLE	ROBOT	DO	Holidays_1LE
-QUESTION	picture_holidays_q2
-**NR	QUESTION	tellmemore
-**RRME	QUESTION	tellmemoreME
-**RRLE	QUESTION	tellmemoreLE
+# **NR	ROBOT	DO	Holidays_1
+# **RRME	ROBOT	DO	Holidays_1ME
+# **RRLE	ROBOT	DO	Holidays_1LE
+# QUESTION	picture_holidays_q2
+# **NR	QUESTION	tellmemore
+# **RRME	QUESTION	tellmemoreME
+# **RRLE	QUESTION	tellmemoreLE
 STATE	end picture task picture3
 
