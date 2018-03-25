@@ -125,11 +125,11 @@ class PerformanceLogger(object):
         negotiation/choice portion.
         """
         self._logger.info("Logging that scenes were shown: {}".format(scenes))
-        if "scenes_shown" in self._log:
-            for scene in scenes:
+        if "scenes_shonw" not in self._log:
+            self._log["scenes_shown"] = []
+        for scene in scenes:
+            if scene:
                 self._log["scenes_shown"].append(scene)
-        else:
-            self._log["scenes_shown"] = scenes
         self._write_log_to_file()
 
     def log_played_story(self, story_name, scene, story_level):
