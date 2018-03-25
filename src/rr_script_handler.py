@@ -934,7 +934,7 @@ class ScriptHandler(object):
                             # of the touched object from the tablet as the
                             # selected scene.
                             if self._picking_scene:
-                                self._selected_scene = results[0]
+                                self._selected_scene = results[0].replace("Scene", "")
                                 self._picking_scene = False
                                 self._robot_picked_scene = False
                             # Play the robot's responses in sequence.
@@ -1054,6 +1054,13 @@ class ScriptHandler(object):
                     self._logger.info("No user scene selection made! Selecting"
                                       " a scene... {}".format(
                                           self._selected_scene))
+                    # Play back speech for the robot picking a scene so the
+                    # child knows which was picked. This way the negotiation
+                    # can happen normally.
+                    # "Let's do the... playground"
+                    self._send_robot_do("LetsDoThe")
+                    self._send_robot_do(self._selected_scene)
+
                 else:
                     self._logger.error("We were supposed to pick a scene to "
                                        "play, but there are none in the"
@@ -1247,14 +1254,13 @@ class ScriptHandler(object):
                 # Wait for the next user response.
                 continue
 
-            # Log the outcome of the negotiation so it can be referenced later.
+            # Log the outcome of the extra pic so it can be referenced later.
             self._performance_log.log_extra_picture_outcome(response)
 
             # Case (2): Positive.
             if UserInput.YES in response:
                 self._logger.debug("Outcome: YES - do picture!")
                 self._user_input_response = "YES"
-                # Play one of the posssible acquiescence responses.
                 resp = self._get_response_from_config("extra_picture_yes")
                 # Break so we don't give the user a chance to respond again,
                 # since we already got a response and dealt with it.
@@ -1271,6 +1277,7 @@ class ScriptHandler(object):
         # If we get here, we got a response, found the thing the robot should
         # say in reply, logged relevant information about the outcome of the
         # activity, and just need the robot to actually do something!
+        self._got_a_response = True
         if resp:
             # Play the selected prompt.
             self._send_robot_do(resp)
@@ -1357,7 +1364,7 @@ class ScriptHandler(object):
                 # is allowing the robot's choice, which was already selected).
                 if not self._robot_picked_scene:
                     self._switch_selected_scene()
-                resp = self._get_response_from_config("negotiation_acquiese")
+                resp = self._get_response_from_config("negotiation_acquiesce")
                 # Break so we don't give the user a chance to respond again,
                 # since we already got a response and dealt with it.
                 break
@@ -1398,6 +1405,7 @@ class ScriptHandler(object):
         # If we get here, we got a response, found the thing the robot should
         # say in reply, logged relevant information about the outcome of the
         # negotiation, and just need the robot to actually do something!
+        self._got_a_response = True
         if resp:
             # Play the selected prompt.
             self._send_robot_do(resp)
@@ -1435,7 +1443,8 @@ class ScriptHandler(object):
             return resp
         else:
             self._logger.warning("No {} found in the script config, so we "
-                                 "cannot pick one to play!")
+                                 "cannot pick one to play!".format(
+                                     response_to_get))
 
     def set_end_interaction(self):
         """ End the game now -- make the robot fall asleep and say we're done.
@@ -1534,15 +1543,21 @@ class ScriptHandler(object):
                 "scenes" in self._pconfig[self._session]:
             self._logger.info("Scenes to pick from are: {}".format(
                 self._pconfig[self._session]["scenes"]))
+            first = True
             for scene in self._pconfig[self._session]["scenes"]:
                 self._logger.info("Loading scene {}...".format(scene))
-                # TODO Display on the tablet with LOAD OBJECT - what position??
                 toload = {}
-                toload["name"] = "sr2-scenes/" + scene
+                toload["name"] = "sr2-scenes/" + scene + "Scene"
                 toload["tag"] = "PlayObject"
                 toload["draggable"] = False
+                if first:
+                    toload["position"] = [-240, 180, 0]
+                else:
+                    toload["position"] = [240, -180, 0]
+                toload["scale"] = [35, 35, 35]
                 self._ros_node.send_opal_command("LOAD_OBJECT", json.dumps(
                     toload))
+                first = False
             # Log that the scenes were shown.
             self._performance_log.log_scenes_shown(
                     self._pconfig[self._session]["scenes"])
@@ -1571,6 +1586,7 @@ class ScriptHandler(object):
         try:
             # Try loading the story script. This will either be for the
             # selected scene for a CREATE story or the storybook for a RETELL.
+            #
             # CREATE story:
             # The levels of these stories are determined when putting the name
             # of the story to load into the participant config file, since some
@@ -1612,7 +1628,7 @@ class ScriptHandler(object):
                         self._pconfig[self._session]["stories"][
                             self._selected_scene],
                         self._selected_scene,
-                        self._pconfig[self._session]["story_create_level"])
+                        self._pconfig["story_create_level"])
 
             # RETELL story:
             # The levels of these stories are determined by the number listed
@@ -1717,8 +1733,11 @@ class ScriptHandler(object):
                 return
 
             toload = {}
-            toload["name"] = "sr2-scenes/" + self._selected_scene
-            toload["tag"] = "Background"
+            toload["name"] = "sr2-scenes/" + self._selected_scene + "Scene"
+            toload["tag"] = "PlayObject"
+            toload["draggable"] = False
+            toload["position"] = [0, 0, 0]
+            toload["scale"] = [80, 80, 80]
             self._ros_node.send_opal_command("LOAD_OBJECT", json.dumps(toload))
 
         # RETELL story:
