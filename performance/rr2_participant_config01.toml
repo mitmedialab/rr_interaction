@@ -1,427 +1,368 @@
-## Participants for testing purposes.
-[p999]
-story_retell_level = 1
-story_create_level = 0
-personalized = true
-condition = "RR"
-name = "jackie"
-
-[p998]
-story_retell_level = 2
-story_create_level = 1
-personalized = false
-condition = "NR"
-name = "jackie"
-
-[p997]
-story_retell_level = 2
-story_create_level = 0
-personalized = true
-condition = "RR"
-name = "jackie"
-
-## Lynch
-[p001]
-story_retell_level = 2
-story_create_level = 1
-personalized = true
-condition = "RR"
-name = "p001"
-
-[p002]
-story_retell_level = 2
-story_create_level = 1
-personalized = false
-condition = "NR"
-name = "p002"
-
-[p003]
-story_retell_level = 3
-story_create_level = 1
-personalized = true
-condition = "RR"
-name = "p003"
-
 [p004]
-story_retell_level = 1
+name = "p004"
 story_create_level = 0
+story_retell_level = 1
 personalized = false
 condition = "NR"
-name = "p004"
 
 [p005]
-story_retell_level = 2
+name = "p005"
 story_create_level = 1
+story_retell_level = 2
 personalized = true
 condition = "RR"
-name = "p005"
 
 [p006]
-story_retell_level = 1
+name = "p006"
 story_create_level = 0
+story_retell_level = 1
 personalized = false
 condition = "NR"
-name = "p006"
 
 [p007]
-story_retell_level = 2
-story_create_level = 1
-personalized = true
-condition = "RR"
 name = "p007"
-
-[p008]
-story_retell_level = 3
 story_create_level = 1
-personalized = false
-condition = "NR"
-name = "p008"
-
-[p009]
-story_retell_level = 3
-story_create_level = 1
-personalized = true
-condition = "RR"
-name = "p009"
-
-[p010]
 story_retell_level = 2
-story_create_level = 1
-personalized = false
-condition = "NR"
-name = "p010"
-
-[p011]
-story_retell_level = 3
-story_create_level = 1
 personalized = true
 condition = "RR"
-name = "p011"
-
-[p012]
-story_retell_level = 1
-story_create_level = 0
-personalized = false
-condition = "NR"
-name = "p012"
-
-[p013]
-story_retell_level = 3
-story_create_level = 1
-personalized = true
-condition = "RR"
-name = "p013"
-
-[p014]
-story_retell_level = 3
-story_create_level = 1
-personalized = false
-condition = "NR"
-name = "p014"
-
-[p015]
-story_retell_level = 3
-story_create_level = 1
-personalized = true
-condition = "RR"
-name = "p015"
-
-[p016]
-story_retell_level = 2
-story_create_level = 1
-personalized = false
-condition = "NR"
-name = "p016"
-
-[p017]
-story_retell_level = 3
-story_create_level = 1
-personalized = true
-condition = "RR"
-name = "p017"
-
-[p018]
-story_retell_level = 2
-story_create_level = 1
-personalized = false
-condition = "NR"
-name = "p018"
-
-[p019]
-story_retell_level = 1
-story_create_level = 0
-personalized = true
-condition = "RR"
-name = "p019"
-
-[p020]
-story_retell_level = 2
-story_create_level = 1
-personalized = false
-condition = "NR"
-name = "p020"
-
-[p021]
-story_retell_level = 3
-story_create_level = 1
-personalized = true
-condition = "RR"
-name = "p021"
-
-[p022]
-story_retell_level = 1
-story_create_level = 0
-personalized = false
-condition = "NR"
-name = "p022"
-
-[p023]
-story_retell_level = 1
-story_create_level = 0
-personalized = true
-condition = "RR"
-name = "p023"
-
-[p024]
-story_retell_level = 3
-story_create_level = 1
-personalized = false
-condition = "NR"
-name = "p024"
-
-[p025]
-story_retell_level = 3
-story_create_level = 1
-personalized = true
-condition = "RR"
-name = "p025"
 
 [p026]
-story_retell_level = 1
-story_create_level = 0
-personalized = false
-condition = "NR"
 name = "p026"
-
-[p027]
-story_retell_level = 2
-story_create_level = 1
-personalized = true
-condition = "RR"
-name = "p027"
-
-[p028]
-story_retell_level = 2
-story_create_level = 1
+story_create_level = 0
+story_retell_level = 1
 personalized = false
 condition = "NR"
-name = "p028"
 
-[p029]
-story_retell_level = 2
+[p001]
+name = "p001"
 story_create_level = 1
+story_retell_level = 2
 personalized = true
 condition = "RR"
-name = "p029"
 
-[p030]
-story_retell_level = 2
+[p002]
+name = "p002"
 story_create_level = 1
+story_retell_level = 2
 personalized = false
 condition = "NR"
-name = "p030"
 
-[p031]
-story_retell_level = 2
+[p003]
+name = "p003"
 story_create_level = 1
-personalized = true
-condition = "RR"
-name = "p031"
-
-[p032]
-story_retell_level = 2
-story_create_level = 1
-personalized = false
-condition = "NR"
-name = "p032"
-
-## McGlynn
-[p101]
 story_retell_level = 3
-story_create_level = 1
-personalized = false
-condition = "NR"
-name = "p101"
-
-[p102]
-story_retell_level = 3
-story_create_level = 1
 personalized = true
 condition = "RR"
-name = "p102"
-
-[p103]
-story_retell_level = 3
-story_create_level = 1
-personalized = false
-condition = "NR"
-name = "p103"
-
-[p104]
-story_retell_level = 3
-story_create_level = 1
-personalized = true
-condition = "RR"
-name = "p104"
 
 [p105]
-story_retell_level = 2
-story_create_level = 1
-personalized = false
-condition = "NR"
 name = "p105"
-
-## Graceworks
-[p201]
-story_retell_level = 1
-story_create_level = 0
-personalized = true
-condition = "RR"
-name = "p201"
-
-[p202]
-story_retell_level = 3
 story_create_level = 1
+story_retell_level = 2
 personalized = false
 condition = "NR"
-name = "p202"
 
-[p203]
-story_retell_level = 3
+[p104]
+name = "p104"
 story_create_level = 1
+story_retell_level = 3
 personalized = true
 condition = "RR"
-name = "p203"
+
+[p022]
+name = "p022"
+story_create_level = 0
+story_retell_level = 1
+personalized = false
+condition = "NR"
+
+[p029]
+name = "p029"
+story_create_level = 1
+story_retell_level = 2
+personalized = true
+condition = "RR"
+
+[p008]
+name = "p008"
+story_create_level = 1
+story_retell_level = 3
+personalized = false
+condition = "NR"
+
+[p009]
+name = "p009"
+story_create_level = 1
+story_retell_level = 3
+personalized = true
+condition = "RR"
+
+[p103]
+name = "p103"
+story_create_level = 1
+story_retell_level = 3
+personalized = false
+condition = "NR"
+
+[p102]
+name = "p102"
+story_create_level = 1
+story_retell_level = 3
+personalized = true
+condition = "RR"
+
+[p021]
+name = "p021"
+story_create_level = 1
+story_retell_level = 3
+personalized = true
+condition = "RR"
+
+[p027]
+name = "p027"
+story_create_level = 1
+story_retell_level = 2
+personalized = true
+condition = "RR"
+
+[p024]
+name = "p024"
+story_create_level = 1
+story_retell_level = 3
+personalized = false
+condition = "NR"
+
+[p023]
+name = "p023"
+story_create_level = 0
+story_retell_level = 1
+personalized = true
+condition = "RR"
+
+[p025]
+name = "p025"
+story_create_level = 1
+story_retell_level = 3
+personalized = true
+condition = "RR"
+
+[p028]
+name = "p028"
+story_create_level = 1
+story_retell_level = 2
+personalized = false
+condition = "NR"
+
+[p997]
+name = "jackie"
+story_create_level = 0
+story_retell_level = 2
+personalized = true
+condition = "RR"
+
+[p017]
+name = "p017"
+story_create_level = 1
+story_retell_level = 3
+personalized = true
+condition = "RR"
+
+[p016]
+name = "p016"
+story_create_level = 1
+story_retell_level = 2
+personalized = false
+condition = "NR"
+
+[p015]
+name = "p015"
+story_create_level = 1
+story_retell_level = 3
+personalized = true
+condition = "RR"
+
+[p014]
+name = "p014"
+story_create_level = 1
+story_retell_level = 3
+personalized = false
+condition = "NR"
+
+[p013]
+name = "p013"
+story_create_level = 1
+story_retell_level = 3
+personalized = true
+condition = "RR"
+
+[p012]
+name = "p012"
+story_create_level = 0
+story_retell_level = 1
+personalized = false
+condition = "NR"
+
+[p011]
+name = "p011"
+story_create_level = 1
+story_retell_level = 3
+personalized = true
+condition = "RR"
+
+[p010]
+name = "p010"
+story_create_level = 1
+story_retell_level = 2
+personalized = false
+condition = "NR"
+
+[p101]
+name = "p101"
+story_create_level = 1
+story_retell_level = 3
+personalized = false
+condition = "NR"
+
+[p031]
+name = "p031"
+story_create_level = 1
+story_retell_level = 2
+personalized = true
+condition = "RR"
+
+[p030]
+name = "p030"
+story_create_level = 1
+story_retell_level = 2
+personalized = false
+condition = "NR"
+
+[p019]
+name = "p019"
+story_create_level = 0
+story_retell_level = 1
+personalized = true
+condition = "RR"
+
+[p018]
+name = "p018"
+story_create_level = 1
+story_retell_level = 2
+personalized = false
+condition = "NR"
+
+[p020]
+name = "p020"
+story_create_level = 1
+story_retell_level = 2
+personalized = false
+condition = "NR"
+
+[p032]
+name = "p032"
+story_create_level = 1
+story_retell_level = 2
+personalized = false
+condition = "NR"
+
+[p998]
+name = "jackie"
+story_create_level = 1
+story_retell_level = 2
+personalized = false
+condition = "NR"
+
+[p999]
+name = "jackie"
+story_create_level = 0
+story_retell_level = 1
+personalized = true
+condition = "RR"
 
 [p204]
-story_retell_level = 2
+name = "p204"
 story_create_level = 1
+story_retell_level = 2
 personalized = false
 condition = "NR"
-name = "p204"
 
 [p205]
-story_retell_level = 2
-story_create_level = 1
-personalized = true
-condition = "RR"
 name = "p205"
-
-
-## Make Way For Kids
-[p301]
-story_retell_level = 1
-story_create_level = 0
-personalized = false
-condition = "NR"
-name = "p301"
-
-[p302]
-story_retell_level = 1
-story_create_level = 0
-personalized = true
-condition = "RR"
-name = "p302"
-
-[p303]
-story_retell_level = 1
-story_create_level = 0
-personalized = true
-condition = "RR"
-name = "p303"
-
-[p304]
-story_retell_level = 1
-story_create_level = 0
-personalized = false
-condition = "NR"
-name = "p304"
-
-[p305]
-story_retell_level = 2
 story_create_level = 1
+story_retell_level = 2
 personalized = true
 condition = "RR"
-name = "p305"
 
-[p306]
-story_retell_level = 1
-story_create_level = 0
+[p202]
+name = "p202"
+story_create_level = 1
+story_retell_level = 3
 personalized = false
 condition = "NR"
-name = "p306"
+
+[p203]
+name = "p203"
+story_create_level = 1
+story_retell_level = 3
+personalized = true
+condition = "RR"
+
+[p201]
+name = "p201"
+story_create_level = 0
+story_retell_level = 1
+personalized = true
+condition = "RR"
 
 [p307]
-story_retell_level = 1
+name = "p307"
 story_create_level = 0
+story_retell_level = 1
 personalized = true
 condition = "RR"
-name = "p307"
 
-## Session 1
-## Test participants
-[p997.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-liked_story = "SD"
-told_story = "TY"
+[p306]
+name = "p306"
+story_create_level = 0
+story_retell_level = 1
+personalized = false
+condition = "NR"
 
-[p998.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-liked_story = "SD"
-told_story = "TY"
+[p305]
+name = "p305"
+story_create_level = 1
+story_retell_level = 2
+personalized = true
+condition = "RR"
 
-[p999.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-liked_story = "SL"
-told_story = "TN"
+[p304]
+name = "p304"
+story_create_level = 0
+story_retell_level = 1
+personalized = false
+condition = "NR"
 
-## Lynch
-[p001.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
+[p303]
+name = "p303"
+story_create_level = 0
+story_retell_level = 1
+personalized = true
+condition = "RR"
 
-[p002.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
+[p302]
+name = "p302"
+story_create_level = 0
+story_retell_level = 1
+personalized = true
+condition = "RR"
 
-[p003.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
+[p301]
+name = "p301"
+story_create_level = 0
+story_retell_level = 1
+personalized = false
+condition = "NR"
 
-[p004.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-
-[p005.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-
-[p006.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-
-[p007.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-
-[p008.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-
-[p009.1]
+[p203.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
@@ -429,39 +370,7 @@ story_name = "baby_birds_first_nest"
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
-[p011.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-
-[p012.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-
-[p013.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-
-[p014.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-
-[p015.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-
-[p016.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-
-[p017.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-
-[p018.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-
-[p019.1]
+[p006.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
@@ -473,52 +382,32 @@ story_name = "baby_birds_first_nest"
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
-[p022.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-
-[p023.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-
-[p024.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-
 [p025.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
-[p026.1]
+[p304.2]
+story_type = "create"
+scenes = [ "Iceberg", "Castle",]
+story_level = 0
+
+[p011.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
-[p027.1]
+[p017.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
-[p028.1]
+[p015.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
-[p029.1]
+[p016.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
-[p030.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-
-[p031.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-
-[p032.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-
-## McGlynn
-[p101.1]
+[p008.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
@@ -526,20 +415,11 @@ story_name = "baby_birds_first_nest"
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
-[p103.1]
+[p032.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
-[p104.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-
-[p105.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-
-## Graceworks
-[p201.1]
+[p001.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
@@ -547,7 +427,122 @@ story_name = "baby_birds_first_nest"
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
-[p203.1]
+[p007.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p103.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p009.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p105.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p104.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p305.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+liked_story = ""
+told_story = ""
+
+[p027.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p305.2]
+story_type = "create"
+scenes = [ "Iceberg", "Castle",]
+story_level = 1
+
+[p307.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+liked_story = "SD"
+told_story = "TN"
+
+[p307.2]
+story_type = "create"
+scenes = [ "Iceberg", "Castle",]
+story_level = 0
+
+[p028.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p306.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+liked_story = "SL"
+told_story = "TN"
+
+[p026.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p029.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p306.2]
+story_type = "create"
+scenes = [ "Iceberg", "Castle",]
+story_level = 0
+
+[p997.1]
+story_type = "retell"
+liked_story = "SD"
+story_name = "baby_birds_first_nest"
+told_story = "TY"
+
+[p003.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p997.2]
+story_type = "create"
+scenes = [ "Castle", "Iceberg",]
+
+[p014.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p998.2]
+story_type = "create"
+scenes = [ "Castle", "Iceberg",]
+
+[p998.1]
+story_type = "retell"
+liked_story = "SD"
+story_name = "baby_birds_first_nest"
+told_story = "TY"
+
+[p999.2]
+story_type = "create"
+scenes = [ "Castle", "Iceberg",]
+
+[p999.1]
+story_type = "retell"
+liked_story = "SL"
+story_name = "baby_birds_first_nest"
+told_story = "TN"
+
+[p002.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p022.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p201.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
@@ -555,57 +550,120 @@ story_name = "baby_birds_first_nest"
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
+[p005.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p031.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
 [p205.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
-## MWFK
-[p301.1]
+[p018.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
-[p302.1]
-story_type = "retell"
-story_name = "baby_birds_first_nest"
-
-[p303.1]
+[p024.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
 [p304.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
+liked_story = "SL"
+told_story = "TY"
 
-[p305.1]
+[p303.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+liked_story = ""
+told_story = ""
+
+[p004.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
-[p306.1]
+[p030.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
-[p307.1]
+[p019.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
-## Session 2 - some will be generated, some we will need to add!
-[p999.2]
+[p012.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p301.2]
 story_type = "create"
-scenes = [ "Castle", "Iceberg",]
+scenes = [ "Iceberg", "Castle",]
+story_level = 0
+
+[p301.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+liked_story = ""
+told_story = ""
+
+[p302.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+liked_story = "SL"
+told_story = "TN"
+
+[p023.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p302.2]
+story_type = "create"
+scenes = [ "Iceberg", "Castle",]
+story_level = 0
+
+[p013.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p101.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p304.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
 [p999.2.stories]
-Iceberg = "Iceberg-PenguinSlide-H"
 Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
 
-[p998.2]
-story_type = "create"
-scenes = [ "Castle", "Iceberg",]
+[p307.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
+[p302.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
+[p301.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
+[p306.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
 [p998.2.stories]
-Iceberg = "Iceberg-PenguinSlide-H"
 Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
 
-[p997.2]
-story_type = "create"
-scenes = [ "Castle", "Iceberg",]
-[p997.2.stories]
-Iceberg = "Iceberg-PenguinSlide-H"
+[p305.2.stories]
 Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p997.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"

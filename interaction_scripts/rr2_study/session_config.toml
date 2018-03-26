@@ -76,7 +76,7 @@ default_scenes = ["Playground"]
     story = "Iceberg-sr2-session8-p006-story1"
     [sessions.3.default_stories.Playground]
     story = "Playground-sr2-session1-p006-story2"
-    [sessions.6.default_stories.Castle]
+    [sessions.3.default_stories.Castle]
     story = "Castle-sr2-session2-p015-story2"
 
 [sessions.4]
