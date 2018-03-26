@@ -92,7 +92,7 @@ def generate_next_session_config(pid, performance, pconfig, story_dir,
     ##########################################################################
     # PERSONALIZATION: STORIES.
     ##########################################################################
-    print "Selecting stories for this participant..."
+    print "Selecting stories for participant {}...".format(pid)
     new_pconfig = personalize_stories(pid, performance, pconfig[pid],
                                       story_dir, study_config, new_pconfig,
                                       session)
@@ -150,6 +150,15 @@ def personalize_stories(pid, performance, pconfig, story_dir, study_config,
         print "Story type: Create\nLooking for story scenes to use..."
         new_pconfig[session]["story_level"] = pconfig["story_create_level"]
 
+        # Check whether we have any story text from the participant. This is
+        # relevant because if we have no text, then even if the participant is
+        # in the personalized condition, we should use the default scenes and
+        # the default stories.
+        use_defaults = False
+        if concat_participant_stories(performance) == "":
+            print "No story text! Will use default stories."
+            use_defaults = True
+
         # We need two story scenes for the participant to pick from next.
         # 1. We take any scenes listed in the config. There may only be scenes
         #    listed for one session, since after that we base our scene picks
@@ -157,7 +166,7 @@ def personalize_stories(pid, performance, pconfig, story_dir, study_config,
         #    and that then determines the scenes used. THAT IS unless this
         #    participant does not get personalized stories, in which case we
         #    use the list of default scenes.
-        if pconfig["personalized"]:
+        if pconfig["personalized"] and not use_defaults:
             if "scenes" in study_config["sessions"][session]:
                 new_pconfig[session]["scenes"] = study_config["sessions"][
                         session]["scenes"]
@@ -217,7 +226,7 @@ def personalize_stories(pid, performance, pconfig, story_dir, study_config,
             print "Checking corpus {} for stories in these scenes...".format(
                     corpus_name)
 
-        if pconfig["personalized"]:
+        if pconfig["personalized"] and not use_defaults:
             # Otherwise, the participant gets personalized stories:
             # Pick a story for each scene that might be used this session from
             # the stories available for the selected scenes for that corpus.
@@ -247,9 +256,18 @@ def personalize_stories(pid, performance, pconfig, story_dir, study_config,
             new_pconfig[session]["stories"] = {}
             print study_config["sessions"][session]["default_stories"]
             for scene in new_pconfig[session]["scenes"]:
-                new_pconfig[session]["stories"][scene] = corpus_name + "/" + \
-                    study_config["sessions"][session]["default_stories"][
-                            scene]["story"]
+                story_name = scene + story_corpus["delimiter"] + study_config[
+                        "sessions"][session]["default_stories"][scene]["story"]
+                # If there are levels of the stories in this corpus available,
+                # we check what level to use for this participant. The level we
+                # should use will be listed in their participant dictionary.
+                # TODO fix this
+                if "level_names" in story_corpus and \
+                        story_corpus["level_names"][0] != "":
+                    story_name += story_corpus["delimiter"] + \
+                            story_corpus["level_names"][story_corpus["levels"][
+                                pconfig["story_create_level"]]]
+                new_pconfig[session]["stories"][scene] = story_name
 
     # Return the new updated participant config information.
     return new_pconfig
@@ -261,8 +279,11 @@ def concat_participant_stories(pid):
     """
     pstory = ""
     for session in pid["session"]:
-        for story in pid["session"][session]["story_text"]:
-            pstory += story + " "
+        if "story_text" not in pid["session"][session]:
+            print "No story text for session {}...".format(session)
+        else:
+            for story in pid["session"][session]["story_text"]:
+                pstory += story + " "
     return pstory
 
 
@@ -307,8 +328,7 @@ def pick_story(story_corpus, corpus_name, pid, story_dir, story_create_level,
             continue
         for story in story_corpus["scenes"][scene]["stories"]:
             # Get the robot story text from a text file.
-            story_name = corpus_name + "/" + scene + \
-                story_corpus["delimiter"] + story
+            story_name = scene + story_corpus["delimiter"] + story
             # If there are levels of the stories in this corpus available, we
             # check what level to use for this participant. The level we should
             # use will be listed in their participant dictionary.
@@ -316,10 +336,11 @@ def pick_story(story_corpus, corpus_name, pid, story_dir, story_create_level,
                     story_corpus["level_names"][0] != "":
                 story_name += story_corpus["delimiter"] + \
                         story_corpus["level_names"][story_corpus["levels"][
-                            "story_create_level"]]
+                            story_create_level]]
             print "Checking {}...".format(story_name)
             short_name = story_name
-            story_name = story_dir + story_name
+            print short_name
+            story_name = story_dir + corpus_name + "/" + story_name
             story_text = get_story_from_file(story_name + ".txt")
             # Compute the cosine similarity score between the participant's
             # stories and this story.
@@ -406,10 +427,14 @@ def update_performance(log, performance):
 
     # Also add stories told list overall list of story scenes used for ease
     # of reference later.
-    performance[log["pid"]]["overall"]["scenes_used"] += log["scenes_used"]
-    performance[log["pid"]]["overall"]["stories_heard"] += log["stories_heard"]
-    performance[log["pid"]]["overall"]["stories_heard_levels"] += \
-        log["stories_heard_levels"]
+    if "scenes_used" in log:
+        performance[log["pid"]]["overall"]["scenes_used"] += log["scenes_used"]
+    if "stories_heard" in log:
+        performance[log["pid"]]["overall"]["stories_heard"] += \
+            log["stories_heard"]
+    if "stories_heard_levels" in log:
+        performance[log["pid"]]["overall"]["stories_heard_levels"] += \
+            log["stories_heard_levels"]
 
     return performance
 
