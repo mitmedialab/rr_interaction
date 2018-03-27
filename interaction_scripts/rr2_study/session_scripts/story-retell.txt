@@ -7,7 +7,7 @@ QUESTION	listen_to_story_retell
 STATE	start story retell
 ROBOT	LOOKAT	TABLET
 ROBOT	DO	ThisStoryIs
-# STORY
+STORY
 **NR	ROBOT	DO	TheEnd
 **RRME	ROBOT	DO	TheEndME
 **RRLE	ROBOT	DO	TheEndLE
