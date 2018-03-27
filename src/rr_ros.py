@@ -513,7 +513,7 @@ class RosNode(object):
         # while, after a random interval of seconds (interval from Park et al.
         # 2017 backchanneling HRI paper).
         threading.Timer(5.53 + random.uniform(-1.5, 1.5),
-                        self.randomly_backchannel).start()
+                        self.randomly_backchannel, []).start()
 
     def on_bc_msg_received(self, data):
         """ When we receive output from the backchannel module, if
