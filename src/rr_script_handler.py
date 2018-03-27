@@ -392,7 +392,8 @@ class ScriptHandler(object):
                                          self._sessionint - 1))
                 return False
 
-            if self._pconfig[prev_session]["liked_story"] not in tags:
+            if self._pconfig[prev_session]["liked_story"] not in tags or \
+                    self._pconfig[prev_session]["liked_story"] == "":
                 self._logger.debug("Wrong liked_story tag. Skipping line.")
                 return False
             else:
@@ -407,7 +408,8 @@ class ScriptHandler(object):
                                          self._sessionint - 1))
                 return False
 
-            if self._pconfig[prev_session]["told_story"] not in tags:
+            if self._pconfig[prev_session]["told_story"] not in tags or \
+                    self._pconfig[prev_session]["told_story"] == "":
                 self._logger.debug("Wrong told_story tag. Skipping line.")
                 return False
             else:
@@ -934,7 +936,8 @@ class ScriptHandler(object):
                             # of the touched object from the tablet as the
                             # selected scene.
                             if self._picking_scene:
-                                self._selected_scene = results[0].replace("Scene", "")
+                                self._selected_scene = results[0].replace(
+                                        "Scene", "")
                                 self._picking_scene = False
                                 self._robot_picked_scene = False
                             # Play the robot's responses in sequence.
