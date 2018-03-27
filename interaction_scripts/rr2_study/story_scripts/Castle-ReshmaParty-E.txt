@@ -1,3 +1,4 @@
+ROBOT	DO	APrincess
 ROBOT	DO	OnceUponATimePrincessReshma0
 ROBOT	DO	LeoLivedInCastle0
 ROBOT	DO	SoSheWalkedToBridge0

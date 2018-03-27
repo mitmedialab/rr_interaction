@@ -2399,8 +2399,8 @@ animations = [ { time = 0.1, anim = "LOOKAT_DOWN" },
 
 [audio.StoryCanBeAnything]
 name = "StoryCanBeAnything"
-animations = [ { time = 2.0, anim = "SHIMMY" },
-               { time = 1.5, anim = "LOOKAT_TABLET" } ]
+animations = [ { time = 1.0, anim = "SHIMMY" },
+               { time = 2.5, anim = "LOOKAT_TABLET" } ]
 
 [audio.StoryCanBeAnythingLE]
 name = "StoryCanBeAnything"
@@ -2411,7 +2411,7 @@ animations = [ { time = 2.0, anim = "PERKUP" },
 name = "StoryCanBeAnything"
 animations = [ { time = 0.7, anim = "SILENT_NOD" },
                { time = 2.5, anim = "SIDEPERK" },
-               { time = 2.8, anim = "LOOKAT_TABLET" } ]
+               { time = 3.0, anim = "LOOKAT_TABLET" } ]
 
 [audio.WhatCouldBeHappening]
 name = "WhatCouldBeHappening"
@@ -2525,3 +2525,12 @@ animations = [ { time = 1.5, anim = "SILENT_NOD" } ]
 [audio.OhGoodPracticing]
 name = "OhGoodPracticing"
 animations = [ { time = 1.5, anim = "SIDEPERK" } ]
+
+[audio.RetellStoryToMeLE]
+name = "RetellStoryToMe"
+animations = [ { time = 1.5, anim = "SIDEPERK" } ]
+
+[audio.RetellStoryToMeME]
+name = "RetellStoryToMe"
+animations = [ { time = 1.5, anim = "SHIMMY" },
+               { time = 3.0, anim = "PERKUP" } ]

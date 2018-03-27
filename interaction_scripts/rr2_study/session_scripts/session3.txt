@@ -22,6 +22,7 @@ SET	PROMPT_TIME	7
 SET	NUM_PROMPTS	1
 
 # Robot introduction.
+RESTART	intro
 STATE	start introduction
 **RR	ROBOT	DO	SMILE
 **NR	ROBOT	DO	HeyNoName
@@ -45,6 +46,7 @@ ROBOT	DO	PERKUP
 STATE	end remember session
 
 # Reference photo taking from session 1 and favorite color.
+RESTART	pc
 STATE	start remember photo color
 # TODO how to load the right picture for RR?
 **RRME	ROBOT	VOLUME	0.85
@@ -72,6 +74,7 @@ STATE	start robot relationship question
 **NR	QUESTION	IsItHardRobotHearing
 
 # Self-disclosure question learning about child.
+RESTART	sdt
 STATE	start self-disclosure question
 **RRLE	ROBOT	VOLUME	0.7
 **RRME	ROBOT	VOLUME	0.9
@@ -87,21 +90,8 @@ STATE	end self-disclosure question
 SET	PROMPT_TIME	8
 SET	NUM_PROMPTS	2
 
-# Create a story. Includes the Negotiation task. Do twice.
-SET	MAX_REPEATS	1
-STATE	start story task
-**RR	ROBOT	DO	SMILE
-**RRLE	ROBOT	VOLUME	0.8
-**RRME	ROBOT	VOLUME	0.99
-ROBOT	LOOKAT	TABLET
-ROBOT	DO	rr1_story_01
-# TODO reference previous negotiation
-REPEAT	MAX_REPEATS	story.txt
-STATE	end story task
-
 # Ask child to also tell a story about a robot.
-# TODO if too long move to next time in place of other conversation next time.
-RESTART	cs2
+RESTART	cs1
 OPAL	LOAD_OBJECT	{ "name": "sr2-scenes/RobotStoryScene.png", "tag": "Background"}
 **RRLE	QUESTION	MakeRobotStoryLE
 **RRME	QUESTION	MakeRobotStoryME
@@ -125,7 +115,21 @@ STATE	end child robot story create task
 **RR	ROBOT	DO	SMILE
 OPAL	CLEAR
 
+# Create a story. Includes the Negotiation task.
+RESTART	rs1
+SET	MAX_REPEATS	1
+STATE	start story task
+**RR	ROBOT	DO	SMILE
+**RRLE	ROBOT	VOLUME	0.8
+**RRME	ROBOT	VOLUME	0.99
+ROBOT	LOOKAT	TABLET
+ROBOT	DO	rr1_story_01
+# TODO reference previous negotiation
+REPEAT	MAX_REPEATS	story.txt
+STATE	end story task
+
 # Closing and robot goes back to sleep.
+RESTART	close
 **RRLE	ROBOT	VOLUME	0.85
 STATE	start closing
 **NR	ROBOT	DO	rr1_story_19
