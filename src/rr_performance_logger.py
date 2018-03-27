@@ -40,7 +40,7 @@ class PerformanceLogger(object):
     # Threshold for determining whether a user's exuberance score counts as
     # more or less exuberant. Scores range from 0-9. Higher score means more
     # exuberant.
-    EXUBERANCE_THRESHOLD = 5
+    EXUBERANCE_THRESHOLD = 2.8
 
     def __init__(self, participant, session, directory):
         """ Initialize performance logger. """
