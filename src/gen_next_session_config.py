@@ -108,6 +108,15 @@ def generate_next_session_config(pid, performance, pconfig, story_dir,
     # TODO Add any participant-specific personalization of phrases?
     if pconfig[pid]["condition"] == "RR":
         print "TODO: relational personalization"
+    new_pconfig[session]["liked_last_story"] = ""
+    new_pconfig[session]["told_last_story"] = ""
+    new_pconfig["fav_color"] = ""
+    # Get the last scene used for a create story from the performance log so we
+    # can reference it next time.
+    if "scenes_used" in performance and performance["scenes_used"] != []:
+        new_pconfig[session]["last_story"] = performance["scenes_used"][-1]
+    else:
+        new_pconfig[session]["last_story"] = ""
 
     ##########################################################################
     # PERSONALIZATION: RELATIONSHIP.
@@ -116,7 +125,6 @@ def generate_next_session_config(pid, performance, pconfig, story_dir,
     if pconfig[pid]["condition"] == "RR":
         print "TODO: relational personalization"
 
-    # TODO do something with new_pconfig
     return new_pconfig
 
 
