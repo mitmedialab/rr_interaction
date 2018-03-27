@@ -1107,11 +1107,25 @@ class ScriptHandler(object):
         # If the command contains the keyword "participant_name", replace the
         # command with the name of the current participant, which may be in the
         # participant config file.
-        if "<participant_name>" in command:
+        elif "<participant_name>" in command:
             if "name" in self._pconfig:
                 command = self._pconfig["name"]
             self._logger.info("Told to play participant name: {}".format(
                 command))
+
+        # If the command contains the keyword "last_story", replace with that
+        # value from the participant config file.
+        elif "<last_story>" in command:
+            if "last_story" in self._pconfig:
+                command = self._pconfig["last_story"]
+            self._logger.info("Told to play last story: {}".format(command))
+
+        # If the command contains the keyword "fav_color", replace with that
+        # value from the participant config file.
+        elif "<fav_color>" in command:
+            if "fav_color" in self._pconfig:
+                command = self._pconfig["fav_color"]
+            self._logger.info("Told to play fav color: {}".format(command))
 
         # Don't play if there was nothing given to play.
         if command == "":
