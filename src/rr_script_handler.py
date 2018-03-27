@@ -1165,7 +1165,11 @@ class ScriptHandler(object):
                 if i == 0:
                     time.sleep(animations[i]["time"])
                 else:
-                    time.sleep(animations[i]["time"] - animations[i-1]["time"])
+                    tim = animations[i]["time"] - animations[i-1]["time"]
+                    if tim > 0:
+                        time.sleep(tim)
+                    else:
+                        self._logger.warning("Told to sleep {}!".format(tim))
 
                 # Play the next animation!
                 # If it starts with "LOOKAT" then it's actually a lookat
