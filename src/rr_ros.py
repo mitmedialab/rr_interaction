@@ -29,7 +29,7 @@ import rospy  # ROS
 import datetime  # For header times and timeouts.
 import random  # For choosing backchannel actions.
 import time  # For sleep.
-import threading  # Timer for randomly backchanneling.
+from threading import Thread, Event  # Timer for randomly backchanneling.
 import logging  # For log messages.
 from r1d1_msgs.msg import TegaAction  # Send commands to Tega.
 from r1d1_msgs.msg import TegaState  # ROS msgs to get info from Tega.
@@ -107,6 +107,9 @@ class RosNode(object):
         self._backchanneling_enabled = False
         self._story_backchanneling_enabled = False
         self._backchannel_random = backchannel_random
+        self._random_bc_stopflag = Event()
+        self._random_bc_thread = RandomBackchannel(
+                self._random_bc_stopflag, self, backchannel_actions)
         # Do we send audio through the entrainer or not? Does the entrainer
         # actually entrain that audio, or merely stream it?
         self._use_entrainer = use_entrainer
@@ -482,44 +485,16 @@ class RosNode(object):
         # in our backchannel action set.
         self._story_backchanneling_enabled = story
         if enabled and self._backchannel_random:
-            self.randomly_backchannel()
-
-    def randomly_backchannel(self):
-        """ Randomly play backchannel actions every so often until
-        backchanneling is disabled.
-        """
-        # While backchanneling is enabled, send random backchannel actions.
-        while self._backchanneling_enabled:
-            if "random" not in self._backchannel_actions:
-                self._logger.warning("No random backchannel actions listed in "
-                                     "the script config!")
-                return
-
             # Randomly pick a backchannel action and send it to the robot.
-            self._logger.info("Choosing a random backchannel action...")
-            command = self._backchannel_actions["random"]["actions"][
-                        random.randint(0, len(self._backchannel_actions[
-                            "random"]["actions"]) - 1)]
-            # If the command is lowercase, it's speech; otherwise, it's an
-            # animation/motion command that we should send directly to the
-            # robot.
-            if command.islower():
-                self.send_speech(command + ".wav")
-            else:
-                self.send_tega_command(enqueue=True, motion=command)
-
-            # Sleep until we should do another action.
-            start_time = datetime.datetime.now()
-            timeout = datetime.timedelta(
-                seconds=(5.53 + random.uniform(-1.5, 1.5)))
-            while datetime.datetime.now() - start_time < timeout:
-                time.sleep(0.05)
-
-        # Call this function again to randomly backchannel again in a little
-        # while, after a random interval of seconds (interval from Park et al.
-        # 2017 backchanneling HRI paper).
-        # threading.Timer(5.53 + random.uniform(-1.5, 1.5),
-                        # self.randomly_backchannel, []).start()
+            if not self._random_bc_thread.is_alive():
+                self._random_bc_stopflag = Event()
+                self._random_bc_thread = RandomBackchannel(
+                        self._random_bc_stopflag, self,
+                        self._backchannel_actions)
+                self._random_bc_thread.start()
+        # If backchanneling has been disabled, stop sending.
+        elif not enabled and self._backchannel_random:
+            self._random_bc_stopflag.set()
 
     def on_bc_msg_received(self, data):
         """ When we receive output from the backchannel module, if
@@ -705,3 +680,36 @@ class RosNode(object):
             self._logger.warning("Warning: timed out waiting for robot to "
                                  "start doing motion! timeout: {} "
                                  "Moving on...".format(timeout))
+
+
+class RandomBackchannel(Thread):
+    def __init__(self, event, ros_node, backchannel_actions):
+        Thread.__init__(self)
+        self._logger = logging.getLogger(__name__)
+        self.stopped = event
+        self.ros_node = ros_node
+        self._backchannel_actions = backchannel_actions
+
+    def run(self):
+        # Randomly backchannel again in a little while, after a random interval
+        # of seconds (interval from Park et al. 2017 backchanneling HRI paper).
+        while not self.stopped.wait(5.53 + random.uniform(-1.5, 1.5)):
+            self.randomly_backchannel()
+
+    def randomly_backchannel(self):
+        self._logger.info("Choosing a random backchannel action...")
+        if "random" not in self._backchannel_actions:
+            self._logger.warning("No random backchannel actions listed in "
+                                 "the script config!")
+            return
+
+        command = self._backchannel_actions["random"]["actions"][
+                    random.randint(0, len(self._backchannel_actions[
+                        "random"]["actions"]) - 1)]
+        # If the command is lowercase, it's speech; otherwise, it's an
+        # animation/motion command that we should send directly to the
+        # robot.
+        if command.islower():
+            self.ros_node.send_speech(command + ".wav")
+        else:
+            self.ros_node.send_tega_command(enqueue=True, motion=command)
