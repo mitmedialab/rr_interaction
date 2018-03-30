@@ -384,6 +384,20 @@ max_attempt = ["OkayIllPick"]
     user_responses = ["Scene"]
     robot_responses = ["IWantOtherOne"]
 
+[questions.choose_sceneRR]
+question = "CanWeDoNow"
+timeout_prompts = ["touchOneSoIKnow", "touchOneYouWant"]
+max_attempt = ["OkayIllPick"]
+    [[questions.choose_sceneRR.user_input]]
+    user_responses = ["I don't care", "doesn't matter", "either", "any", "neither", "don't know", "don't no"]
+    robot_responses = ["YouDontCare"]
+    [[questions.choose_sceneRR.user_input]]
+    user_responses = ["you pick", "you choose", "you want", "Red pick"]
+    robot_responses = ["OkayIllPick"]
+    [[questions.choose_sceneRR.tablet_input]]
+    user_responses = ["Scene"]
+    robot_responses = ["Hm"]
+
 [questions.ImRed]
 question = "ImRed"
 timeout_prompts = ["ImRedWhatsYourName", "CanYouTellName"]

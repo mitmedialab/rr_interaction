@@ -51,7 +51,7 @@ STATE	start remember photo color
 # TODO how to load the right picture for RR?
 **RRME	ROBOT	VOLUME	0.85
 **RRLE	ROBOT	VOLUME	0.75
-**RR	OPAL	LOAD_OBJECT	{ "name": "robot_photos/<participant_id>.jpg", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
+**RR	OPAL	PARTICIPANT	<participant_photo>
 **NR	OPAL	LOAD_OBJECT	{ "name": "robot_photos/four-bots2.png", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
 **RR	ROBOT	DO	ShareS1Photo_1
 **NR	ROBOT	DO	ShareRandomPhoto_1
@@ -124,8 +124,7 @@ STATE	start story task
 **RRME	ROBOT	VOLUME	0.99
 ROBOT	LOOKAT	TABLET
 ROBOT	DO	rr1_story_01
-# TODO reference previous negotiation
-REPEAT	MAX_REPEATS	story.txt
+REPEAT	MAX_REPEATS	story-followup.txt
 STATE	end story task
 
 # Closing and robot goes back to sleep.
