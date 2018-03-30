@@ -38,8 +38,8 @@ name = "p002"
 [p003]
 story_retell_level = 3
 story_create_level = 1
-personalized = true
-condition = "RR"
+personalized = false
+condition = "NR"
 name = "p003"
 
 [p004]

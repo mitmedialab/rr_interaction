@@ -51,8 +51,8 @@ condition = "NR"
 name = "p003"
 story_create_level = 1
 story_retell_level = 3
-personalized = true
-condition = "RR"
+personalized = false
+condition = "NR"
 
 [p105]
 name = "p105"
