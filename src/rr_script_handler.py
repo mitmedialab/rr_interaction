@@ -381,39 +381,39 @@ class ScriptHandler(object):
         self._exuberance_line_played = False
 
         # Check for other tags.
-        prev_session = str(self._sessionint - 1)
         # Line can be tagged "SL" or "SD" to indicate that the participant
         # either liked or didn't like the robot's story last time.
-        if ("SL" in tags or "SD" in tags) and prev_session in self._pconfig:
-            if "liked_story" not in self._pconfig[str(self._sessionint - 1)]:
-                self._logger.warning("No liked_story listed for participant "
+        if ("SL" in tags or "SD" in tags) and self._session in self._pconfig:
+            if "liked_last_story" not in self._pconfig[self._session]:
+                self._logger.warning("No liked_last_story for participant "
                                      "for session {}! Can't check tags without"
                                      "this. Skipping line.".format(
-                                         self._sessionint - 1))
+                                         self._session))
                 return False
 
-            if self._pconfig[prev_session]["liked_story"] not in tags or \
-                    self._pconfig[prev_session]["liked_story"] == "":
-                self._logger.debug("Wrong liked_story tag. Skipping line.")
+            if self._pconfig[self._session]["liked_last_story"] not in tags or\
+                    self._pconfig[self._session]["liked_last_story"] == "":
+                self._logger.debug("Wrong liked_last_story tag. Skipping "
+                                   "line.")
                 return False
             else:
-                self._logger.debug("Right liked_story tag. Doing line.")
+                self._logger.debug("Right liked_last_story tag. Doing line.")
                 return True
 
-        if ("TY" in tags or "TN" in tags) and prev_session in self._pconfig:
-            if "told_story" not in self._pconfig[prev_session]:
-                self._logger.warning("No told_story listed for participant "
+        if ("TY" in tags or "TN" in tags) and self._session in self._pconfig:
+            if "told_last_story" not in self._pconfig[self._session]:
+                self._logger.warning("No told_last_story for participant "
                                      "for session {}! Can't check tags without"
                                      "this. Skipping line.".format(
-                                         self._sessionint - 1))
+                                         self._session))
                 return False
 
-            if self._pconfig[prev_session]["told_story"] not in tags or \
-                    self._pconfig[prev_session]["told_story"] == "":
-                self._logger.debug("Wrong told_story tag. Skipping line.")
+            if self._pconfig[self._session]["told_last_story"] not in tags or \
+                    self._pconfig[self._session]["told_last_story"] == "":
+                self._logger.debug("Wrong told_last_story tag. Skipping line.")
                 return False
             else:
-                self._logger.debug("Right told_story tag. Doing line.")
+                self._logger.debug("Right told_last_story tag. Doing line.")
                 return True
 
         # If we get here, it means we already checked all the other tags that
