@@ -1,0 +1,6 @@
+ROBOT	DO	Iceberg-sr2-session8-p006-story1-01
+ROBOT	DO	Iceberg-sr2-session8-p006-story1-02
+ROBOT	DO	Iceberg-sr2-session8-p006-story1-03
+ROBOT	DO	Iceberg-sr2-session8-p006-story1-04
+ROBOT	DO	Iceberg-sr2-session8-p006-story1-05
+ROBOT	DO	Iceberg-sr2-session8-p006-story1-06
