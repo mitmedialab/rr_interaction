@@ -125,7 +125,7 @@ class PerformanceLogger(object):
         negotiation/choice portion.
         """
         self._logger.info("Logging that scenes were shown: {}".format(scenes))
-        if "scenes_shonw" not in self._log:
+        if "scenes_shown" not in self._log:
             self._log["scenes_shown"] = []
         for scene in scenes:
             if scene:
