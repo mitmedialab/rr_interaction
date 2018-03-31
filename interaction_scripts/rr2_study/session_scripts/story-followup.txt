@@ -19,9 +19,9 @@ OPAL	DISABLE_TOUCH
 # Robot tell a story.
 # QUESTION	listen_to_story
 ROBOT	LOOKAT	TABLET
-ROBOT	STORY_INTRO
+# ROBOT	STORY_INTRO
 STATE	start story sr2
-ROBOT	DO	IllTellAStoryAbout
+ROBOT	DO	IllTellKidStory
 STORY
 **NR	ROBOT	DO	TheEnd
 **RRME	ROBOT	DO	TheEndME

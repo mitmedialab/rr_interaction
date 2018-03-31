@@ -73,11 +73,11 @@ num_scenes = 2
 similar = false
 default_scenes = ["Playground"]
     [sessions.3.default_stories.Iceberg]
-    story = "Iceberg-sr2-session8-p006-story1"
+    story = "sr2-session8-p006-story1"
     [sessions.3.default_stories.Playground]
-    story = "Playground-sr2-session1-p006-story2"
+    story = "sr2-session1-p007-story2"
     [sessions.3.default_stories.Castle]
-    story = "Castle-sr2-session2-p015-story2"
+    story = "sr2-session2-p009-story2"
 
 [sessions.4]
 story_type = "retell"
@@ -96,13 +96,13 @@ corpus = "SR2_robot"
 num_scenes = 2
 similar = true
 default_scenes = ["Treemeadow"]
-    [sessions.5.default_stories.Iceberg]
+    [sessions.6.default_stories.Iceberg]
     story = "PenguinSlide"
-    [sessions.5.default_stories.Treemeadow]
+    [sessions.6.default_stories.Treemeadow]
     story = "DragonClumsy"
-    [sessions.5.default_stories.Playground]
+    [sessions.6.default_stories.Playground]
     story = "PlayBall"
-    [sessions.5.default_stories.Castle]
+    [sessions.6.default_stories.Castle]
     story = "EvilKing"
 
 [sessions.7]
@@ -112,16 +112,16 @@ corpus = "SR2_child"
 num_scenes = 2
 similar = true
 default_scenes = ["Pineforest"]
-    [sessions.6.default_stories.Iceberg]
-    story = "Iceberg-sr2-session8-p006-story1"
-    [sessions.6.default_stories.Treemeadow]
-    story = "Treemeadow-sr2-session8-p013-story1"
-    [sessions.6.default_stories.Playground]
-    story = "Playground-sr2-session1-p006-story2"
-    [sessions.6.default_stories.Castle]
-    story = "Castle-sr2-session2-p015-story2"
-    [sessions.6.default_stories.Pineforest]
-    story = "Pineforest-sr2-session2-p009-story1"
+    [sessions.7.default_stories.Iceberg]
+    story = "sr2-session8-p006-story1"
+    [sessions.7.default_stories.Treemeadow]
+    story = "sr2-session8-p013-story1"
+    [sessions.7.default_stories.Playground]
+    story = "sr2-session1-p007-story2"
+    [sessions.7.default_stories.Castle]
+    story = "sr2-session2-p009-story2"
+    [sessions.7.default_stories.Pineforest]
+    story = "sr2-session2-p015-story1"
 
 [sessions.8]
 story_type = "retell"
@@ -135,17 +135,17 @@ corpus = "SR2_robot"
 num_scenes = 2
 similar = true
 default_scenes = ["Dinoville"]
-    [sessions.8.default_stories.Iceberg]
+    [sessions.9.default_stories.Iceberg]
     story = "PenguinSlide"
-    [sessions.8.default_stories.Treemeadow]
+    [sessions.9.default_stories.Treemeadow]
     story = "DragonClumsy"
-    [sessions.8.default_stories.Playground]
+    [sessions.9.default_stories.Playground]
     story = "PlayBall"
-    [sessions.8.default_stories.Castle]
+    [sessions.9.default_stories.Castle]
     story = "EvilKing"
-    [sessions.8.default_stories.Pineforest]
+    [sessions.9.default_stories.Pineforest]
     story = "FloppyHideSeek"
-    [sessions.8.default_stories.Dinoville]
+    [sessions.9.default_stories.Dinoville]
     story = "DinoEater"
 
 [sessions.10]
@@ -155,20 +155,20 @@ corpus = "SR2_child"
 num_scenes = 2
 similar = true
 default_scenes = ["Mars"]
-    [sessions.9.default_stories.Iceberg]
-    story = "Iceberg-sr2-session8-p006-story1"
-    [sessions.9.default_stories.Treemeadow]
-    story = "Treemeadow-sr2-session8-p013-story1"
-    [sessions.9.default_stories.Playground]
-    story = "Playground-sr2-session1-p007-story2"
-    [sessions.9.default_stories.Castle]
-    story = "Castle-sr2-session2-p015-story2"
-    [sessions.9.default_stories.Pineforest]
-    story = "Pineforest-sr2-session2-p009-story1"
-    [sessions.9.default_stories.Dinoville]
-    story = "Dinoville-sr2-session4-p004-1-story1"
-    [sessions.9.default_stories.Mars]
-    story = "Mars-sr2-session3-p009-story2"
+    [sessions.10.default_stories.Iceberg]
+    story = "sr2-session8-p006-story1"
+    [sessions.10.default_stories.Treemeadow]
+    story = "sr2-session8-p013-story1"
+    [sessions.10.default_stories.Playground]
+    story = "sr2-session1-p007-story2"
+    [sessions.10.default_stories.Castle]
+    story = "sr2-session2-p009-story2"
+    [sessions.10.default_stories.Pineforest]
+    story = "sr2-session2-p015-story1"
+    [sessions.10.default_stories.Dinoville]
+    story = "sr2-session4-p004-1-story1"
+    [sessions.10.default_stories.Mars]
+    story = "sr2-session3-p010-story2"
 
 
 #######################################################################
