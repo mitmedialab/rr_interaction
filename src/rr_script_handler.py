@@ -597,7 +597,7 @@ class ScriptHandler(object):
         # For OPAL lines, send command to Opal game.
         elif "OPAL" in elements[0]:
             self._logger.debug("OPAL")
-            if "LOAD_ALL" in elements[1] and len(elements) >= 3:
+            if "LOAD_ALL" in elements[1] and len(elements) > 2:
                 # Load all objects listed in file -- the file is assumed to
                 # have properties for one object on each line.
                 to_load = self._read_list_from_file(
@@ -606,6 +606,7 @@ class ScriptHandler(object):
                 for obj in to_load:
                     self._ros_node.send_opal_command("LOAD_OBJECT", obj)
 
+            # Load two scenes so the user can select one.
             elif "PICK_STORY" in elements[1]:
                 self._picking_scene = True
                 self._load_scenes_to_pick()
@@ -614,6 +615,10 @@ class ScriptHandler(object):
             elif "LOAD_STORY" in elements[1]:
                 if not self._done_telling_stories():
                     self._load_next_story_graphics()
+
+            # Load a participant-specific image.
+            elif "PARTICIPANT" in elements[1] and len(elements) > 2:
+                self._load_participant_image(elements[2])
 
             # Send an opal command, with properties.
             elif len(elements) > 2:
@@ -1103,29 +1108,26 @@ class ScriptHandler(object):
             command = self._experimenter_name
             self._logger.info("Told to play experimenter name: {}".format(
                 self._experimenter_name))
-
         # If the command contains the keyword "participant_name", replace the
         # command with the name of the current participant, which may be in the
         # participant config file.
         elif "<participant_name>" in command:
             if "name" in self._pconfig:
                 command = self._pconfig["name"]
-            self._logger.info("Told to play participant name: {}".format(
-                command))
-
-        # If the command contains the keyword "last_story", replace with that
-        # value from the participant config file.
-        elif "<last_story>" in command:
-            if "last_story" in self._pconfig:
-                command = self._pconfig["last_story"]
-            self._logger.info("Told to play last story: {}".format(command))
-
-        # If the command contains the keyword "fav_color", replace with that
-        # value from the participant config file.
-        elif "<fav_color>" in command:
-            if "fav_color" in self._pconfig:
-                command = self._pconfig["fav_color"]
-            self._logger.info("Told to play fav color: {}".format(command))
+                self._logger.info("Told to play participant name: {}".format(
+                    command))
+        # If the command starts with a "<", it is a special keyword that means
+        # we should replace the command with a value from the participant
+        # config file. E.g., <fav_color>, <last_story>, <negotiation_outcome>.
+        elif command.startswith("<"):
+            cmd = command.replace("<", "").replace(">", "")
+            if cmd in self._pconfig:
+                command = self._pconfig[cmd]
+                self._logger.info("Told to play value from pconfig: {}".format(
+                    command))
+            else:
+                self._logger.warning("Told to play {} from pconfig but it was"
+                                     " not there!".format(cmd))
 
         # Don't play if there was nothing given to play.
         if command == "":
@@ -1771,3 +1773,32 @@ class ScriptHandler(object):
             # turn first. When loaded, stories start on the first page by
             # default.
             self._ros_node.send_opal_command("STORY_HIDE_BUTTONS")
+
+    def _load_participant_image(self, image):
+        """ Load a participant-specific image. We look these up in the config
+        file to see what the actual filename to load is, then tell Opal to load
+        the appropriate image.
+        """
+        if "<participant_photo>" in image:
+            if "fav_color" in self._pconfig:
+                color = {}
+                color["name"] = "colors/" + self._pconfig["fav_color"]
+                color["tag"] = "PlayObject"
+                color["draggable"] = False
+                color["position"] = [0, 0, -1]
+                color["scale"] = [100, 100, 100]
+                self._ros_node.send_opal_command("LOAD_OBJECT",
+                                                 json.dumps(color))
+            if "name" in self._pconfig:
+                img = {}
+                img["name"] = "robot_photos/" + self._pconfig["name"]
+                img["tag"] = "PlayObject"
+                img["draggable"] = False
+                img["position"] = [0, 0, 0]
+                img["scale"] = [30, 30, 30]
+                self._logger.info("Loading image: {}".format(img["name"]))
+                self._ros_node.send_opal_command("LOAD_OBJECT",
+                                                 json.dumps(img))
+            else:
+                self._logger.warning("Told to load participant image but name "
+                                     "is not in pconfig!")
