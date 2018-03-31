@@ -98,14 +98,8 @@ def generate_next_session_config(pid, performance, pconfig, story_dir,
                                       session)
 
     ##########################################################################
-    # PERSONALIZATION: CATCHPHRASES.
+    # PERSONALIZATION: SHARED NARRATIVE AND RELATIONSHIP.
     ##########################################################################
-    # TODO Add places where we manually add robot catchphrase entrainment?
-
-    ##########################################################################
-    # PERSONALIZATION: SHARED NARRATIVE.
-    ##########################################################################
-    # TODO Add any participant-specific personalization of phrases?
     if pconfig[pid]["condition"] == "RR":
         print "TODO: relational personalization"
     new_pconfig[session]["liked_last_story"] = ""
@@ -113,19 +107,55 @@ def generate_next_session_config(pid, performance, pconfig, story_dir,
     new_pconfig["fav_color"] = ""
     # Get the last scene used for a create story from the performance log so we
     # can reference it next time.
-    if "scenes_used" in performance and performance["scenes_used"] != []:
-        new_pconfig[session]["last_story"] = performance["scenes_used"][-1]
+    prev_session = str(int(session) - 1)
+    if "scenes_used" in performance["session"][prev_session] and \
+            performance["session"][prev_session]["scenes_used"] != []:
+        new_pconfig[session]["last_story"] = performance["session"][
+                prev_session]["scenes_used"][-1]
     else:
         new_pconfig[session]["last_story"] = ""
-
-    ##########################################################################
-    # PERSONALIZATION: RELATIONSHIP.
-    ##########################################################################
-    # TODO Add any relationship-related personalization?
-    if pconfig[pid]["condition"] == "RR":
-        print "TODO: relational personalization"
+    # Get which scene wasn't used last time, so we can refer to it next time.
+    new_pconfig[session]["leftover_scene"] = get_leftover_scene(
+        performance, prev_session)
+    # Get the negotiation outcome, if there was one.
+    new_pconfig[session]["negotiation_outcome"] = \
+        get_negotiation_outcome(performance, prev_session)
 
     return new_pconfig
+
+
+def get_negotiation_outcome(performance, prev_session):
+    if "negotiation_outcome" in performance["session"][prev_session]:
+        outcome = performance["session"][prev_session]["negotiation_outcome"]
+        # Compromises where we do the child's choice first, or refusals where
+        # child sticks to their choice mean we did "your choice", i.e., the
+        # child's choice.
+        if "COMPROMISE CHILD" in outcome or "COMPROMISE GENERAL" in outcome \
+                or "REFUSAL" in outcome:
+            return "YourChoice"
+        # Otherwise, we do "my choice", i.e., the robot's choice. This would be
+        # if the child acquiesces to allow the robot's choice, suggests a
+        # compromise where the robot goes first, or times out with the robot
+        # picking a scene.
+        else:
+            return "MyChoice"
+
+
+def get_leftover_scene(performance, prev_session):
+    """ Given a participant's past performance, determine which scene was shown
+    but not used last time.
+    """
+    if "scenes_shown" not in performance["session"][prev_session] or \
+            performance["session"][prev_session]["scenes_shown"] == [] or \
+            "scenes_used" not in performance["session"][prev_session] or \
+            performance["session"][prev_session]["scenes_used"] == []:
+        print "Either scenes_shown or scenes_used is not in pconfig! Can't " \
+              "determine leftover scene."
+        return ""
+    # Find a scene that was not used last time.
+    for scene in performance["session"][prev_session]["scenes_shown"]:
+        if scene not in performance["session"][prev_session]["scenes_used"]:
+            return scene
 
 
 def personalize_stories(pid, performance, pconfig, story_dir, study_config,
