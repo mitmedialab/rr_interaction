@@ -389,20 +389,20 @@ condition = "NR"
 
 [p020.2]
 story_type = "create"
-told_last_story = ""
+told_last_story = "TY"
 leftover_scene = ""
 scenes = [ "Iceberg", "Castle",]
 last_story = ""
-liked_last_story = ""
+liked_last_story = "SL"
 story_level = 1
 
 [p015.2]
 story_type = "create"
-told_last_story = ""
+told_last_story = "TN"
 leftover_scene = ""
 scenes = [ "Iceberg", "Castle",]
 last_story = ""
-liked_last_story = ""
+liked_last_story = "SD"
 story_level = 1
 
 [p010.1]
@@ -419,7 +419,7 @@ story_name = "baby_birds_first_nest"
 
 [p021.2]
 story_type = "create"
-told_last_story = ""
+told_last_story = "TN"
 leftover_scene = ""
 scenes = [ "Iceberg", "Castle",]
 last_story = ""
@@ -475,29 +475,29 @@ story_name = "baby_birds_first_nest"
 
 [p101.2]
 story_type = "create"
-told_last_story = ""
+told_last_story = "TY"
 leftover_scene = ""
 scenes = [ "Iceberg", "Castle",]
 last_story = ""
-liked_last_story = ""
+liked_last_story = "SL"
 story_level = 1
 
 [p016.2]
 story_type = "create"
-told_last_story = ""
+told_last_story = "TY"
 leftover_scene = ""
 scenes = [ "Iceberg", "Castle",]
 last_story = ""
-liked_last_story = ""
+liked_last_story = "SL"
 story_level = 1
 
 [p102.2]
 story_type = "create"
-told_last_story = ""
+told_last_story = "TY"
 leftover_scene = ""
 scenes = [ "Iceberg", "Castle",]
 last_story = ""
-liked_last_story = ""
+liked_last_story = "SL"
 story_level = 1
 
 [p102.1]
@@ -518,11 +518,11 @@ story_name = "baby_birds_first_nest"
 
 [p103.2]
 story_type = "create"
-told_last_story = ""
+told_last_story = "TY"
 leftover_scene = ""
 scenes = [ "Iceberg", "Castle",]
 last_story = ""
-liked_last_story = ""
+liked_last_story = "SD"
 story_level = 1
 
 [p007.1]
@@ -543,11 +543,11 @@ story_name = "baby_birds_first_nest"
 
 [p105.2]
 story_type = "create"
-told_last_story = ""
+told_last_story = "TY"
 leftover_scene = ""
 scenes = [ "Iceberg", "Castle",]
 last_story = ""
-liked_last_story = ""
+liked_last_story = "SL"
 story_level = 1
 
 [p104.1]
@@ -571,20 +571,20 @@ story_level = 1
 
 [p027.2]
 story_type = "create"
-told_last_story = ""
+told_last_story = "TY"
 leftover_scene = ""
 scenes = [ "Iceberg", "Castle",]
 last_story = ""
-liked_last_story = ""
+liked_last_story = "SL"
 story_level = 1
 
 [p028.2]
 story_type = "create"
-told_last_story = ""
+told_last_story = "TY"
 leftover_scene = ""
 scenes = [ "Iceberg", "Castle",]
 last_story = ""
-liked_last_story = ""
+liked_last_story = "SL"
 story_level = 1
 
 [p307.1]
@@ -629,11 +629,11 @@ told_story = "TY"
 
 [p025.2]
 story_type = "create"
-told_last_story = ""
+told_last_story = "TY"
 leftover_scene = ""
 scenes = [ "Iceberg", "Castle",]
 last_story = ""
-liked_last_story = ""
+liked_last_story = "SL"
 story_level = 1
 
 [p003.1]
@@ -646,11 +646,11 @@ scenes = [ "Castle", "Iceberg",]
 
 [p014.2]
 story_type = "create"
-told_last_story = ""
+told_last_story = "TY"
 leftover_scene = ""
 scenes = [ "Iceberg", "Castle",]
 last_story = ""
-liked_last_story = ""
+liked_last_story = "SL"
 story_level = 1
 
 [p014.1]
@@ -727,11 +727,11 @@ story_name = "baby_birds_first_nest"
 
 [p022.2]
 story_type = "create"
-told_last_story = ""
+told_last_story = "TY"
 leftover_scene = ""
 scenes = [ "Iceberg", "Castle",]
 last_story = ""
-liked_last_story = ""
+liked_last_story = "SL"
 story_level = 0
 
 [p204.1]
@@ -748,20 +748,20 @@ story_name = "baby_birds_first_nest"
 
 [p031.2]
 story_type = "create"
-told_last_story = ""
+told_last_story = "TY"
 leftover_scene = ""
 scenes = [ "Iceberg", "Castle",]
 last_story = ""
-liked_last_story = ""
+liked_last_story = "SL"
 story_level = 1
 
 [p023.2]
 story_type = "create"
-told_last_story = ""
+told_last_story = "TY"
 leftover_scene = ""
 scenes = [ "Iceberg", "Castle",]
 last_story = ""
-liked_last_story = ""
+liked_last_story = "SL"
 story_level = 1
 
 [p018.1]
@@ -834,11 +834,11 @@ story_level = 0
 
 [p026.2]
 story_type = "create"
-told_last_story = ""
+told_last_story = "TY"
 leftover_scene = ""
 scenes = [ "Iceberg", "Castle",]
 last_story = ""
-liked_last_story = ""
+liked_last_story = "SL"
 story_level = 1
 
 [p301.1]
@@ -882,11 +882,11 @@ story_name = "baby_birds_first_nest"
 
 [p013.2]
 story_type = "create"
-told_last_story = ""
+told_last_story = "TN"
 leftover_scene = ""
 scenes = [ "Iceberg", "Castle",]
 last_story = ""
-liked_last_story = ""
+liked_last_story = "SL"
 story_level = 1
 
 [p101.1]
