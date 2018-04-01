@@ -1120,9 +1120,15 @@ class ScriptHandler(object):
         # we should replace the command with a value from the participant
         # config file. E.g., <fav_color>, <last_story>, <negotiation_outcome>.
         elif command.startswith("<"):
+            self._logger.debug("Found <special keyword> speech... looking up!")
             cmd = command.replace("<", "").replace(">", "")
             if cmd in self._pconfig:
                 command = self._pconfig[cmd]
+                self._logger.info("Told to play value from pconfig: {}".format(
+                    command))
+            elif self._session in self._pconfig and \
+                    cmd in self._pconfig[self._session]:
+                command = self._pconfig[self._session][cmd]
                 self._logger.info("Told to play value from pconfig: {}".format(
                     command))
             else:
@@ -1785,8 +1791,8 @@ class ScriptHandler(object):
                 color["name"] = "colors/" + self._pconfig["fav_color"]
                 color["tag"] = "PlayObject"
                 color["draggable"] = False
-                color["position"] = [0, 0, -1]
-                color["scale"] = [100, 100, 100]
+                color["position"] = [0, 0, 1]
+                color["scale"] = [180, 180, 180]
                 self._ros_node.send_opal_command("LOAD_OBJECT",
                                                  json.dumps(color))
             if "name" in self._pconfig:
@@ -1795,7 +1801,7 @@ class ScriptHandler(object):
                 img["tag"] = "PlayObject"
                 img["draggable"] = False
                 img["position"] = [0, 0, 0]
-                img["scale"] = [30, 30, 30]
+                img["scale"] = [15, 15, 15]
                 self._logger.info("Loading image: {}".format(img["name"]))
                 self._ros_node.send_opal_command("LOAD_OBJECT",
                                                  json.dumps(img))
