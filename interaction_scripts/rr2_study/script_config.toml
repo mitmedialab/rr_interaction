@@ -1059,13 +1059,13 @@ question = "<last_story>"
     user_responses = ["know", "no", "nah", "nope", "uh", "don't know"]
     robot_responses = ["Remember2", "<last_story>"]
 
-[question.DoYouLikePhoto]
+[questions.DoYouLikePhoto]
 question = "DoYouLikePhoto"
     [[questions.DoYouLikePhoto.user_input]]
     user_responses = [""]
     robot_responses = ["SayThatAgainShy"]
 
-[question.IsItHardRobotHearingRR]
+[questions.IsItHardRobotHearingRR]
 question = "IsItHardRobotHearing"
     [[questions.IsItHardRobotHearingRR.user_input]]
     user_responses = ["yes", "okay", "ok", "of course", "sure", "yeah", "kind of", "very", "hard"]
@@ -1077,7 +1077,7 @@ question = "IsItHardRobotHearing"
     user_responses = [""]
     robot_responses = ["ImPracticing"]
 
-[question.IsItHardRobotHearing]
+[questions.IsItHardRobotHearing]
 question = "IsItHardRobotHearing"
     [[questions.IsItHardRobotHearing.user_input]]
     user_responses = ["yes", "okay", "ok", "of course", "sure", "yeah", "kind of", "very", "hard"]

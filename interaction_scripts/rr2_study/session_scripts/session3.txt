@@ -52,7 +52,7 @@ STATE	start remember photo color
 **RRME	ROBOT	VOLUME	0.85
 **RRLE	ROBOT	VOLUME	0.75
 **RR	OPAL	PARTICIPANT	<participant_photo>
-**NR	OPAL	LOAD_OBJECT	{ "name": "robot_photos/four-bots2.png", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
+**NR	OPAL	LOAD_OBJECT	{ "name": "robot_photos/four-bots2.png", "tag": "PlayObject", "draggable": "false", "scale": ["60","60","60"]}
 **RR	ROBOT	DO	ShareS1Photo_1
 **NR	ROBOT	DO	ShareRandomPhoto_1
 ROBOT	DO	<experimenter_name>
@@ -72,6 +72,7 @@ STATE	end remember photo color
 STATE	start robot relationship question
 **RR	QUESTION	IsItHardRobotHearingRR
 **NR	QUESTION	IsItHardRobotHearing
+OPAL	CLEAR
 
 # Self-disclosure question learning about child.
 RESTART	sdt
@@ -92,7 +93,7 @@ SET	NUM_PROMPTS	2
 
 # Ask child to also tell a story about a robot.
 RESTART	cs1
-OPAL	LOAD_OBJECT	{ "name": "sr2-scenes/RobotStoryScene.png", "tag": "Background"}
+OPAL	LOAD_OBJECT	{ "name": "sr2-scenes/RobotStoryScene", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
 **RRLE	QUESTION	MakeRobotStoryLE
 **RRME	QUESTION	MakeRobotStoryME
 **NR	QUESTION	MakeRobotStory
