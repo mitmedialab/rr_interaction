@@ -67,10 +67,10 @@ default_scenes = ["Iceberg", "Castle"]
 
 [sessions.3]
 story_type = "create"
-negotiation = false
+negotiation = true
 corpus = "SR2_child"
 num_scenes = 2
-similar = false
+similar = true
 default_scenes = ["Playground"]
     [sessions.3.default_stories.Iceberg]
     story = "sr2-session8-p006-story1"
@@ -95,7 +95,7 @@ negotiation = true
 corpus = "SR2_robot"
 num_scenes = 2
 similar = true
-default_scenes = ["Treemeadow"]
+default_scenes = ["Treemeadow", "Dinoville"]
     [sessions.6.default_stories.Iceberg]
     story = "PenguinSlide"
     [sessions.6.default_stories.Treemeadow]
@@ -104,10 +104,12 @@ default_scenes = ["Treemeadow"]
     story = "PlayBall"
     [sessions.6.default_stories.Castle]
     story = "EvilKing"
+    [sessions.6.default_stories.Dinoville]
+    story = "DinoEater"
 
 [sessions.7]
 story_type = "create"
-negotiation = false
+negotiation = true
 corpus = "SR2_child"
 num_scenes = 2
 similar = true
@@ -122,54 +124,15 @@ default_scenes = ["Pineforest"]
     story = "sr2-session2-p009-story2"
     [sessions.7.default_stories.Pineforest]
     story = "sr2-session2-p015-story1"
-
-[sessions.8]
-story_type = "retell"
-story_name = "baby_ducks_new_friend"
-negotiation = false
-
-[sessions.9]
-story_type = "create"
-negotiation = true
-corpus = "SR2_robot"
-num_scenes = 2
-similar = true
-default_scenes = ["Dinoville"]
-    [sessions.9.default_stories.Iceberg]
-    story = "PenguinSlide"
-    [sessions.9.default_stories.Treemeadow]
-    story = "DragonClumsy"
-    [sessions.9.default_stories.Playground]
-    story = "PlayBall"
-    [sessions.9.default_stories.Castle]
-    story = "EvilKing"
-    [sessions.9.default_stories.Pineforest]
-    story = "FloppyHideSeek"
-    [sessions.9.default_stories.Dinoville]
-    story = "DinoEater"
-
-[sessions.10]
-story_type = "create"
-negotiation = false
-corpus = "SR2_child"
-num_scenes = 2
-similar = true
-default_scenes = ["Mars"]
-    [sessions.10.default_stories.Iceberg]
-    story = "sr2-session8-p006-story1"
-    [sessions.10.default_stories.Treemeadow]
-    story = "sr2-session8-p013-story1"
-    [sessions.10.default_stories.Playground]
-    story = "sr2-session1-p007-story2"
-    [sessions.10.default_stories.Castle]
-    story = "sr2-session2-p009-story2"
-    [sessions.10.default_stories.Pineforest]
-    story = "sr2-session2-p015-story1"
     [sessions.10.default_stories.Dinoville]
     story = "sr2-session4-p004-1-story1"
     [sessions.10.default_stories.Mars]
     story = "sr2-session3-p010-story2"
 
+[sessions.8]
+story_type = "retell"
+story_name = "baby_ducks_new_friend"
+negotiation = false
 
 #######################################################################
 # Lists of stories that the robot could tell. Each list should contain the

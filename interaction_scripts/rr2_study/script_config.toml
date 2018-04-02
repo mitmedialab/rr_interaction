@@ -580,7 +580,6 @@ max_attempt = ["srPre_4_1"]
     user_responses = [""]
     robot_responses = ["srPre_4_2"]
 
-# TODO in progress
 [questions.DisclosureS3]
 question = "DisclosureS3"
 timeout_prompts = ["Well", "HmPrompt"]
@@ -591,6 +590,8 @@ max_attempt = ["srPre_4_1"]
     [[questions.DisclosureS3.user_input]]
     user_responses = [""]
     robot_responses = ["srPre_4_2"]
+
+# TODO in progress: add S4-7
 
 ## Baby bird's first nest - dialogic questions.
 [questions.baby_birds_first_nest_q_l_1]
@@ -982,10 +983,75 @@ max_attempt = ["aloft"]
     user_responses = [""]
     robot_responses = ["aloft"]
 
+## TODO Possum and the peeper - dialogic questions. - s4
+[questions.possum_and_the_peeper_q_l_1]
+question = "possum_and_the_peeper_q_l_1"
+timeout_prompts = ["possum_and_the_peeper_h_1"]
+max_attempt = ["possum_and_the_peeper_a_1"]
+    [[questions.possum_and_the_peeper_q_l_1.user_input]]
+    user_responses = [""]
+    robot_responses = ["possum_and_the_peeper_a_1"]
 
-## TODO Baby duck's new friend - dialogic questions.
-## TODO Henry's happy birthday - dialogic questions.
-## TODO Possum and the peeper - dialogic questions.
+[questions.possum_and_the_peeper_q_l_2]
+question = "possum_and_the_peeper_q_l_2"
+timeout_prompts = ["possum_and_the_peeper_h_2"]
+max_attempt = ["possum_and_the_peeper_a_2"]
+    [[questions.possum_and_the_peeper_q_l_2.user_input]]
+    user_responses = [""]
+    robot_responses = ["possum_and_the_peeper_a_2"]
+
+[questions.possum_and_the_peeper_q_l_3]
+question = "possum_and_the_peeper_q_l_3"
+timeout_prompts = ["possum_and_the_peeper_h_3"]
+max_attempt = ["possum_and_the_peeper_a_3"]
+    [[questions.possum_and_the_peeper_q_l_3.user_input]]
+    user_responses = [""]
+    robot_responses = ["possum_and_the_peeper_a_3"]
+
+[questions.possum_and_the_peeper_q_f_4]
+question = "possum_and_the_peeper_q_f_4"
+timeout_prompts = ["possum_and_the_peeper_h_4"]
+max_attempt = ["possum_and_the_peeper_a_4"]
+    [[questions.possum_and_the_peeper_q_f_4.user_input]]
+    user_responses = [""]
+    robot_responses = ["possum_and_the_peeper_a_4"]
+
+[questions.possum_and_the_peeper_q_l_5]
+question = "possum_and_the_peeper_q_l_5"
+timeout_prompts = ["possum_and_the_peeper_h_5"]
+max_attempt = ["possum_and_the_peeper_a_5"]
+    [[questions.possum_and_the_peeper_q_l_5.user_input]]
+    user_responses = [""]
+    robot_responses = ["possum_and_the_peeper_a_5"]
+
+[questions.possum_and_the_peeper_q_l_6]
+question = "possum_and_the_peeper_q_l_6"
+timeout_prompts = ["possum_and_the_peeper_h_6"]
+max_attempt = ["possum_and_the_peeper_a_6"]
+    [[questions.possum_and_the_peeper_q_l_6.user_input]]
+    user_responses = [""]
+    robot_responses = ["possum_and_the_peeper_a_6"]
+
+[questions.possum_and_the_peeper_q_l_7]
+question = "possum_and_the_peeper_q_l_7"
+timeout_prompts = ["possum_and_the_peeper_h_7"]
+max_attempt = ["possum_and_the_peeper_a_7"]
+    [[questions.possum_and_the_peeper_q_l_7.user_input]]
+    user_responses = [""]
+    robot_responses = ["possum_and_the_peeper_a_7"]
+
+[questions.possum_and_the_peeper_q_e_8]
+question = "possum_and_the_peeper_q_e_8"
+timeout_prompts = ["possum_and_the_peeper_h_8"]
+max_attempt = ["possum_and_the_peeper_a_8"]
+    [[questions.possum_and_the_peeper_q_e_8.user_input]]
+    user_responses = [""]
+    robot_responses = ["possum_and_the_peeper_a_8"]
+
+## TODO Henry's happy birthday - dialogic questions. - s5
+
+
+## TODO Baby duck's new friend - dialogic questions. - s8
 
 ## Take a photo with the robot.
 [questions.WantAPhoto]
@@ -1647,7 +1713,6 @@ animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 15.0, anim = "SILENT_SWIPE_STAGERIGHT" } ]
 
 ## Audio with animations for the Baby Bird's First Nest story - level 2.
-# TODO May need to adjust the timing with my recorded speech.
 [audio.baby_birds_first_nest_lv2-01]
 name = "baby_birds_first_nest_lv2-01"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
@@ -1790,7 +1855,6 @@ animations = [ { time = 0.1, anim = "IDLESTILL" },
                { time = 14.0, anim = "HAPPY_UP" } ]
 
 ## Audio with animations for the Baby Bird's First Nest story - level 3.
-# TODO May need to adjust the timing with my recorded speech.
 [audio.baby_birds_first_nest_lv3-01]
 name = "baby_birds_first_nest_lv3-01"
 animations = [ { time = 0.1, anim = "IDLESTILL" },
@@ -2232,13 +2296,263 @@ name = "baby_ducks_new_friend_q_l_9"
 animations = [ { time = 0.2, anim = "SIDEPERK" } ]
 
 ## Audio with animations for the Possum and the Peeper story - level 1.
-## TODO
+[audio.possum_and_the_peeper_lv1-01]
+name = "possum_and_the_peeper_lv1-01"
+animations = [ { time = 0.1, anim = "PERKUP" },
+               { time = 5.0, anim = "SIDEPERK" },
+               { time = 9.0, anim = "SHIMMY" } ]
+
+[audio.possum_and_the_peeper_lv1-02]
+name = "possum_and_the_peeper_lv1-02"
+animations = [ { time = 0.2, anim = "PERKUP" } ]
+
+[audio.possum_and_the_peeper_lv1-03]
+name = "possum_and_the_peeper_lv1-03"
+animations = [ { time = 0.1, anim = "PERKUP" },
+               { time = 2.0, anim = "HAPPY_UP" },
+               { time = 9.0, anim = "SILENT_INTERESTED" },
+               { time = 12.0, anim = "SILENT_NO" } ]
+
+[audio.possum_and_the_peeper_lv1-04]
+name = "possum_and_the_peeper_lv1-04"
+animations = [ { time = 0.1, anim = "SILENT_YES" },
+               { time = 9.0, anim = "PERKUP" } ]
+
+[audio.possum_and_the_peeper_lv1-05]
+name = "possum_and_the_peeper_lv1-05"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 9.0, anim = "PERKUP" } ]
+
+[audio.possum_and_the_peeper_lv1-06]
+name = "possum_and_the_peeper_lv1-06"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 12.0, anim = "SILENT_INTERESTED" },
+               { time = 16.5, anim = "SILENT_NO" } ]
+
+[audio.possum_and_the_peeper_lv1-07]
+name = "possum_and_the_peeper_lv1-07"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "HAPPY_UP" },
+               { time = 5.0, anim = "SWAY" },
+               { time = 13.0, anim = "PERKUP" } ]
+
+[audio.possum_and_the_peeper_lv1-08]
+name = "possum_and_the_peeper_lv1-08"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 9.0, anim = "SILENT_INTERESTED" } ]
+
+[audio.possum_and_the_peeper_lv1-09]
+name = "possum_and_the_peeper_lv1-09"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 3.5, anim = "SIDEPERK" } ]
+
+[audio.possum_and_the_peeper_lv1-10]
+name = "possum_and_the_peeper_lv1-10"
+animations = [ { time = 0.1, anim = "IDLESTILL" } ]
+
+[audio.possum_and_the_peeper_lv1-11]
+name = "possum_and_the_peeper_lv1-11"
+animations = [ { time = 0.1, anim = "PERKUP" },
+               { time = 6.0, anim = "POSE1" },
+               { time = 12.0, anim = "IDLESTLL" },
+               { time = 20.0, anim = "SILENT_CONFIRM" } ]
+
+[audio.possum_and_the_peeper_lv1-12]
+name = "possum_and_the_peeper_lv1-12"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.5, anim = "CIRCLING" },
+               { time = 5.0, anim = "HAPPY_UP" },
+               { time = 17.0, anim = "SILENT_NO" } ]
+
+[audio.possum_and_the_peeper_lv1-13]
+name = "possum_and_the_peeper_lv1-13"
+animations = [ { time = 0.1, anim = "HAPPY_UP" },
+               { time = 12.0, anim = "SIDEPERK" },
+               { time = 15.0, anim = "SILENT_PUZZLED" },
+               { time = 20.0, anim = "SILENT_YES" } ]
+
+[audio.possum_and_the_peeper_lv1-14]
+name = "possum_and_the_peeper_lv1-14"
+animations = [ { time = 0.1, anim = "POSE2" },
+               { time = 6.0, anim = "IDLESTILL" },
+               { time = 15.0, anim = "PERKUP" } ]
+
+[audio.possum_and_the_peeper_lv1-15]
+name = "possum_and_the_peeper_lv1-15"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
 
 ## Audio with animations for the Possum and the Peeper story - level 2.
-## TODO
+[audio.possum_and_the_peeper_lv2-01]
+name = "possum_and_the_peeper_lv2-01"
+animations = [ { time = 0.1, anim = "PERKUP" },
+               { time = 5.0, anim = "SIDEPERK" },
+               { time = 9.0, anim = "SHIMMY" } ]
+
+[audio.possum_and_the_peeper_lv2-02]
+name = "possum_and_the_peeper_lv2-02"
+animations = [ { time = 0.2, anim = "PERKUP" } ]
+
+[audio.possum_and_the_peeper_lv2-03]
+name = "possum_and_the_peeper_lv2-03"
+animations = [ { time = 0.1, anim = "PERKUP" },
+               { time = 2.0, anim = "HAPPY_UP" },
+               { time = 9.0, anim = "SILENT_INTERESTED" },
+               { time = 12.0, anim = "SILENT_NO" } ]
+
+[audio.possum_and_the_peeper_lv2-04]
+name = "possum_and_the_peeper_lv2-04"
+animations = [ { time = 0.1, anim = "SILENT_YES" },
+               { time = 9.0, anim = "PERKUP" } ]
+
+[audio.possum_and_the_peeper_lv2-05]
+name = "possum_and_the_peeper_lv2-05"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 9.0, anim = "PERKUP" } ]
+
+[audio.possum_and_the_peeper_lv2-06]
+name = "possum_and_the_peeper_lv2-06"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 12.0, anim = "SILENT_INTERESTED" },
+               { time = 16.5, anim = "SILENT_NO" } ]
+
+[audio.possum_and_the_peeper_lv2-07]
+name = "possum_and_the_peeper_lv2-07"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "HAPPY_UP" },
+               { time = 5.0, anim = "SWAY" },
+               { time = 13.0, anim = "PERKUP" } ]
+
+[audio.possum_and_the_peeper_lv2-08]
+name = "possum_and_the_peeper_lv2-08"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 9.0, anim = "SILENT_INTERESTED" } ]
+
+[audio.possum_and_the_peeper_lv2-09]
+name = "possum_and_the_peeper_lv2-09"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 3.5, anim = "SIDEPERK" } ]
+
+[audio.possum_and_the_peeper_lv2-10]
+name = "possum_and_the_peeper_lv2-10"
+animations = [ { time = 0.1, anim = "IDLESTILL" } ]
+
+[audio.possum_and_the_peeper_lv2-11]
+name = "possum_and_the_peeper_lv2-11"
+animations = [ { time = 0.1, anim = "PERKUP" },
+               { time = 6.0, anim = "POSE1" },
+               { time = 12.0, anim = "IDLESTLL" },
+               { time = 20.0, anim = "SILENT_CONFIRM" } ]
+
+[audio.possum_and_the_peeper_lv2-12]
+name = "possum_and_the_peeper_lv2-12"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.5, anim = "CIRCLING" },
+               { time = 5.0, anim = "HAPPY_UP" },
+               { time = 17.0, anim = "SILENT_NO" } ]
+
+[audio.possum_and_the_peeper_lv2-13]
+name = "possum_and_the_peeper_lv2-13"
+animations = [ { time = 0.1, anim = "HAPPY_UP" },
+               { time = 12.0, anim = "SIDEPERK" },
+               { time = 15.0, anim = "SILENT_PUZZLED" },
+               { time = 20.0, anim = "SILENT_YES" } ]
+
+[audio.possum_and_the_peeper_lv2-14]
+name = "possum_and_the_peeper_lv2-14"
+animations = [ { time = 0.1, anim = "POSE2" },
+               { time = 6.0, anim = "IDLESTILL" },
+               { time = 15.0, anim = "PERKUP" } ]
+
+[audio.possum_and_the_peeper_lv2-15]
+name = "possum_and_the_peeper_lv2-15"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
 
 ## Audio with animations for the Possum and the Peeper story - level 3.
-## TODO
+[audio.possum_and_the_peeper_lv3-01]
+name = "possum_and_the_peeper_lv3-01"
+animations = [ { time = 0.1, anim = "PERKUP" },
+               { time = 5.0, anim = "SIDEPERK" },
+               { time = 9.0, anim = "SHIMMY" } ]
+
+[audio.possum_and_the_peeper_lv3-02]
+name = "possum_and_the_peeper_lv3-02"
+animations = [ { time = 0.2, anim = "PERKUP" } ]
+
+[audio.possum_and_the_peeper_lv3-03]
+name = "possum_and_the_peeper_lv3-03"
+animations = [ { time = 0.1, anim = "PERKUP" },
+               { time = 2.0, anim = "HAPPY_UP" },
+               { time = 9.0, anim = "SILENT_INTERESTED" },
+               { time = 12.0, anim = "SILENT_NO" } ]
+
+[audio.possum_and_the_peeper_lv3-04]
+name = "possum_and_the_peeper_lv3-04"
+animations = [ { time = 0.1, anim = "SILENT_YES" },
+               { time = 9.0, anim = "PERKUP" } ]
+
+[audio.possum_and_the_peeper_lv3-05]
+name = "possum_and_the_peeper_lv3-05"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 9.0, anim = "PERKUP" } ]
+
+[audio.possum_and_the_peeper_lv3-06]
+name = "possum_and_the_peeper_lv3-06"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 12.0, anim = "SILENT_INTERESTED" },
+               { time = 16.5, anim = "SILENT_NO" } ]
+
+[audio.possum_and_the_peeper_lv3-07]
+name = "possum_and_the_peeper_lv3-07"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "HAPPY_UP" },
+               { time = 5.0, anim = "SWAY" },
+               { time = 13.0, anim = "PERKUP" } ]
+
+[audio.possum_and_the_peeper_lv3-08]
+name = "possum_and_the_peeper_lv3-08"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 9.0, anim = "SILENT_INTERESTED" } ]
+
+[audio.possum_and_the_peeper_lv3-09]
+name = "possum_and_the_peeper_lv3-09"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 3.5, anim = "SIDEPERK" } ]
+
+[audio.possum_and_the_peeper_lv3-10]
+name = "possum_and_the_peeper_lv3-10"
+animations = [ { time = 0.1, anim = "IDLESTILL" } ]
+
+[audio.possum_and_the_peeper_lv3-11]
+name = "possum_and_the_peeper_lv3-11"
+animations = [ { time = 0.1, anim = "PERKUP" },
+               { time = 6.0, anim = "POSE1" },
+               { time = 12.0, anim = "IDLESTLL" },
+               { time = 20.0, anim = "SILENT_CONFIRM" } ]
+
+[audio.possum_and_the_peeper_lv3-12]
+name = "possum_and_the_peeper_lv3-12"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.5, anim = "CIRCLING" },
+               { time = 5.0, anim = "HAPPY_UP" },
+               { time = 17.0, anim = "SILENT_NO" } ]
+
+[audio.possum_and_the_peeper_lv3-13]
+name = "possum_and_the_peeper_lv3-13"
+animations = [ { time = 0.1, anim = "HAPPY_UP" },
+               { time = 12.0, anim = "SIDEPERK" },
+               { time = 15.0, anim = "SILENT_PUZZLED" },
+               { time = 20.0, anim = "SILENT_YES" } ]
+
+[audio.possum_and_the_peeper_lv3-14]
+name = "possum_and_the_peeper_lv3-14"
+animations = [ { time = 0.1, anim = "POSE2" },
+               { time = 6.0, anim = "IDLESTILL" },
+               { time = 15.0, anim = "PERKUP" } ]
+
+[audio.possum_and_the_peeper_lv3-15]
+name = "possum_and_the_peeper_lv3-15"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
 
 ## Audio with animations for the Possum and the Peeper story dialogic
 # questions.
