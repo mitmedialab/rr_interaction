@@ -983,7 +983,7 @@ max_attempt = ["aloft"]
     user_responses = [""]
     robot_responses = ["aloft"]
 
-## TODO Possum and the peeper - dialogic questions. - s4
+## Possum and the peeper - dialogic questions. - s4
 [questions.possum_and_the_peeper_q_l_1]
 question = "possum_and_the_peeper_q_l_1"
 timeout_prompts = ["possum_and_the_peeper_h_1"]
@@ -2156,15 +2156,6 @@ animations = [ { time = 0.2, anim = "SILENT_BOUNCINGTILT" } ]
 name = "baby_birds_first_nest_q_l_9"
 animations = [ { time = 0.2, anim = "PERKUP" } ]
 
-## Audio with animations for the Baby Duck's New Friend story - level 1.
-## TODO
-
-## Audio with animations for the Baby Duck's New Friend story - level 2.
-## TODO
-
-## Audio with animations for the Baby Duck's New Friend story - level 3.
-## TODO
-
 ## Audio with animations for the Baby Duck's New Friend story dialogic
 # questions.
 [audio.baby_ducks_new_friend_a_1]
@@ -2556,20 +2547,1016 @@ animations = [ { time = 0.1, anim = "PERKUP" } ]
 
 ## Audio with animations for the Possum and the Peeper story dialogic
 # questions.
-## TODO
+[audio.possum_and_the_peeper_a_1]
+name = "possum_and_the_peeper_a_1"
+animations = [ { time = 0.1, anim = "PERKUP" },
+               { time = 3.0, anim = "HAPPY_UP" },
+               { time = 6.5, anim = "SILENT_NOD" } ]
 
-## Audio with animations for the Henry's Happy Birthday story - level 1.
-## TODO
+[audio.possum_and_the_peeper_a_2]
+name = "possum_and_the_peeper_a_2"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "SILENT_HAPPY_WIGGLE" },
+               { time = 4.7, anim = "PERKUP" },
+               { time = 6.3, anim = "SILENT_YES" },
+               { time = 9.0, anim = "SWAY" } ]
 
-## Audio with animations for the Henry's Happy Birthday story - level 2.
-## TODO
+[audio.possum_and_the_peeper_a_3]
+name = "possum_and_the_peeper_a_3"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.5, anim = "HAPPY_UP" },
+               { time = 3.5, anim = "SILENT_YES" } ]
 
-## Audio with animations for the Henry's Happy Birthday story - level 3.
-## TODO
+[audio.possum_and_the_peeper_a_5]
+name = "possum_and_the_peeper_a_5"
+animations = [ { time = 0.1, anim = "PERKUP" },
+               { time = 1.0, anim = "SILENT_LAUGH" },
+               { time = 6.0, anim = "SILENT_BOUNCINGTILT" } ]
 
-## Audio with animations for the Henry's Happy Birthday story dialogic
-# questions.
-## TODO
+[audio.possum_and_the_peeper_a_6]
+name = "possum_and_the_peeper_a_6"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.0, anim = "CIRCLING" },
+               { time = 3.5, anim = "SILENT_INTERESTED" } ]
+
+[audio.possum_and_the_peeper_a_7]
+name = "possum_and_the_peeper_a_7"
+animations = [ { time = 0.1, anim = "PERKUP" },
+               { time = 3.0, anim = "HAPPY_UP" } ]
+
+[audio.possum_and_the_peeper_h_1]
+name = "possum_and_the_peeper_h_1"
+animations = [ { time = 0.1, anim = "SIDEPERK" } ]
+
+[audio.possum_and_the_peeper_h_2]
+name = "possum_and_the_peeper_h_2"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.possum_and_the_peeper_h_3]
+name = "possum_and_the_peeper_h_3"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.possum_and_the_peeper_h_4]
+name = "possum_and_the_peeper_h_4"
+animations = [ { time = 0.1, anim = "SIDEPERK" } ]
+
+[audio.possum_and_the_peeper_h_5]
+name = "possum_and_the_peeper_h_5"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.possum_and_the_peeper_h_6]
+name = "possum_and_the_peeper_h_6"
+animations = [ { time = 0.1, anim = "SIDEPERK" } ]
+
+[audio.possum_and_the_peeper_h_7]
+name = "possum_and_the_peeper_h_7"
+animations = [ { time = 0.1, anim = "SILENT_BOUNCINGTILT" } ]
+
+[audio.possum_and_the_peeper_h_8]
+name = "possum_and_the_peeper_h_8"
+animations = [ { time = 0.1, anim = "SILENT_BOUNCINGTILT" } ]
+
+[audio.possum_and_the_peeper_q_e_8]
+name = "possum_and_the_peeper_q_e_8"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.possum_and_the_peeper_q_f_4]
+name = "possum_and_the_peeper_q_f_4"
+animations = [ { time = 0.1, anim = "SILENT_BOUNCINGTILT" } ]
+
+[audio.possum_and_the_peeper_q_l_1]
+name = "possum_and_the_peeper_q_l_1"
+animations = [ { time = 0.1, anim = "SIDEPERK" } ]
+
+[audio.possum_and_the_peeper_q_l_2]
+name = "possum_and_the_peeper_q_l_2"
+animations = [ { time = 0.1, anim = "SILENT_BOUNCINGTILT" } ]
+
+[audio.possum_and_the_peeper_q_l_3]
+name = "possum_and_the_peeper_q_l_3"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.possum_and_the_peeper_q_l_5]
+name = "possum_and_the_peeper_q_l_5"
+animations = [ { time = 0.1, anim = "SIDEPERK" } ]
+
+[audio.possum_and_the_peeper_q_l_6]
+name = "possum_and_the_peeper_q_l_6"
+animations = [ { time = 0.1, anim = "SILENT_BOUNCINGTILT" } ]
+
+[audio.possum_and_the_peeper_q_l_7]
+name = "possum_and_the_peeper_q_l_7"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+## Henry's happy birthday story - level 1
+[audio.henrys_happy_birthday_lv1-01]
+name = "henrys_happy_birthday_lv1-01"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.henrys_happy_birthday_lv1-02]
+name = "henrys_happy_birthday_lv1-02"
+animations = [ { time = 0.1, anim = "HAPPY_UP" },
+               { time = 7.5, anim = "SHIMMY" } ]
+
+[audio.henrys_happy_birthday_lv1-03]
+name = "henrys_happy_birthday_lv1-03"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.0, anim = "SILENT_INTERESTED" },
+               { time = 12.0, anim = "POSE2" } ]
+
+[audio.henrys_happy_birthday_lv1-04]
+name = "henrys_happy_birthday_lv1-04"
+animations = [ { time = 0.1, anim = "SILENT_YES" },
+               { time = 8.1, anim = "SILENT_FRUSTRATED" } ]
+
+[audio.henrys_happy_birthday_lv1-05]
+name = "henrys_happy_birthday_lv1-05"
+animations = [ { time = 0.1, anim = "SILENT_NO" } ]
+
+[audio.henrys_happy_birthday_lv1-06]
+name = "henrys_happy_birthday_lv1-06"
+animations = [ { time = 4.1, anim = "SILENT_SAD" } ]
+
+[audio.henrys_happy_birthday_lv1-07]
+name = "henrys_happy_birthday_lv1-07"
+animations = [ { time = 6.1, anim = "POSE1" } ]
+
+[audio.henrys_happy_birthday_lv1-08]
+name = "henrys_happy_birthday_lv1-08"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 13.0, anim = "HAPPY_UP" } ]
+
+[audio.henrys_happy_birthday_lv1-09]
+name = "henrys_happy_birthday_lv1-09"
+animations = [ { time = 0.1, anim = "SILENT_NO" } ]
+
+[audio.henrys_happy_birthday_lv1-10]
+name = "henrys_happy_birthday_lv1-10"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.0, anim = "PERKUP" } ]
+
+[audio.henrys_happy_birthday_lv1-11]
+name = "henrys_happy_birthday_lv1-11"
+animations = [ { time = 0.1, anim = "SILENT_SAD" } ]
+
+[audio.henrys_happy_birthday_lv1-12]
+name = "henrys_happy_birthday_lv1-12"
+animations = [ { time = 0.1, anim = "IDLESTILL" } ]
+
+[audio.henrys_happy_birthday_lv1-13]
+name = "henrys_happy_birthday_lv1-13"
+animations = [ { time = 0.1, anim = "IDLESTILL" } ]
+
+[audio.henrys_happy_birthday_lv1-14]
+name = "henrys_happy_birthday_lv1-14"
+animations = [ { time = 0.1, anim = "SILENT_NO" } ]
+
+[audio.henrys_happy_birthday_lv1-15]
+name = "henrys_happy_birthday_lv1-15"
+animations = [ { time = 7.0, anim = "POSE2" } ]
+
+[audio.henrys_happy_birthday_lv1-16]
+name = "henrys_happy_birthday_lv1-16"
+animations = [ { time = 0.1, anim = "POSE1" } ]
+
+[audio.henrys_happy_birthday_lv1-17]
+name = "henrys_happy_birthday_lv1-17"
+animations = [ { time = 0.1, anim = "IDLESTILL" } ]
+
+[audio.henrys_happy_birthday_lv1-18]
+name = "henrys_happy_birthday_lv1-18"
+animations = [ { time = 0.1, anim = "IDLESTILL" } ]
+
+[audio.henrys_happy_birthday_lv1-19]
+name = "henrys_happy_birthday_lv1-19"
+animations = [ { time = 0.1, anim = "SILENT_SAD" },
+               { time = 6.0, anim = "SILENT_LEFTRIGHTLOOKING" },
+               { time = 14.0, anim = "SILENT_SAD" } ]
+
+[audio.henrys_happy_birthday_lv1-20]
+name = "henrys_happy_birthday_lv1-20"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 14.0, anim = "HAPPY_UP" } ]
+
+[audio.henrys_happy_birthday_lv1-21]
+name = "henrys_happy_birthday_lv1-21"
+animations = [ { time = 0.1, anim = "POSE_SLEEPING" },
+               { time = 9.0, anim = "IDLESTILL" } ]
+
+[audio.henrys_happy_birthday_lv1-22]
+name = "henrys_happy_birthday_lv1-22"
+animations = [ { time = 0.1, anim = "POSE1" } ]
+
+[audio.henrys_happy_birthday_lv1-23]
+name = "henrys_happy_birthday_lv1-23"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 4.0, anim = "PERKUP" },
+               { time = 7.0, anim = "SILENT_CONFIRM" },
+               { time = 12.0, anim = "HAPPY_UP" },
+               { time = 17.0, anim = "SILENT_NO" } ]
+
+[audio.henrys_happy_birthday_lv1-24]
+name = "henrys_happy_birthday_lv1-24"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.henrys_happy_birthday_lv1-25]
+name = "henrys_happy_birthday_lv1-25"
+animations = [ { time = 0.1, anim = "SILENT_YES" } ]
+
+[audio.henrys_happy_birthday_lv1-26]
+name = "henrys_happy_birthday_lv1-26"
+animations = [ { time = 0.1, anim = "IDLESTILL" } ]
+
+[audio.henrys_happy_birthday_lv1-27]
+name = "henrys_happy_birthday_lv1-27"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 4.0, anim = "POSE2" },
+               { time = 8.0, anim = "SILENT_YES" } ]
+
+[audio.henrys_happy_birthday_lv1-28]
+name = "henrys_happy_birthday_lv1-28"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 7.0, anim = "SILENT_EXCITED" } ]
+
+
+## Henry's happy birthday story - level 2
+[audio.henrys_happy_birthday_lv2-01]
+name = "henrys_happy_birthday_lv2-01"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.henrys_happy_birthday_lv2-02]
+name = "henrys_happy_birthday_lv2-02"
+animations = [ { time = 0.1, anim = "HAPPY_UP" },
+               { time = 7.5, anim = "SHIMMY" } ]
+
+[audio.henrys_happy_birthday_lv2-03]
+name = "henrys_happy_birthday_lv2-03"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.0, anim = "SILENT_INTERESTED" },
+               { time = 12.0, anim = "POSE2" } ]
+
+[audio.henrys_happy_birthday_lv2-04]
+name = "henrys_happy_birthday_lv2-04"
+animations = [ { time = 0.1, anim = "SILENT_YES" },
+               { time = 8.1, anim = "SILENT_FRUSTRATED" } ]
+
+[audio.henrys_happy_birthday_lv2-05]
+name = "henrys_happy_birthday_lv2-05"
+animations = [ { time = 0.1, anim = "SILENT_NO" } ]
+
+[audio.henrys_happy_birthday_lv2-06]
+name = "henrys_happy_birthday_lv2-06"
+animations = [ { time = 4.1, anim = "SILENT_SAD" } ]
+
+[audio.henrys_happy_birthday_lv2-07]
+name = "henrys_happy_birthday_lv2-07"
+animations = [ { time = 6.1, anim = "POSE1" } ]
+
+[audio.henrys_happy_birthday_lv2-08]
+name = "henrys_happy_birthday_lv2-08"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 13.0, anim = "HAPPY_UP" } ]
+
+[audio.henrys_happy_birthday_lv2-09]
+name = "henrys_happy_birthday_lv2-09"
+animations = [ { time = 0.1, anim = "SILENT_NO" } ]
+
+[audio.henrys_happy_birthday_lv2-10]
+name = "henrys_happy_birthday_lv2-10"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.0, anim = "PERKUP" } ]
+
+[audio.henrys_happy_birthday_lv2-11]
+name = "henrys_happy_birthday_lv2-11"
+animations = [ { time = 0.1, anim = "SILENT_SAD" } ]
+
+[audio.henrys_happy_birthday_lv2-12]
+name = "henrys_happy_birthday_lv2-12"
+animations = [ { time = 0.1, anim = "IDLESTILL" } ]
+
+[audio.henrys_happy_birthday_lv2-13]
+name = "henrys_happy_birthday_lv2-13"
+animations = [ { time = 0.1, anim = "IDLESTILL" } ]
+
+[audio.henrys_happy_birthday_lv2-14]
+name = "henrys_happy_birthday_lv2-14"
+animations = [ { time = 0.1, anim = "SILENT_NO" } ]
+
+[audio.henrys_happy_birthday_lv2-15]
+name = "henrys_happy_birthday_lv2-15"
+animations = [ { time = 7.0, anim = "POSE2" } ]
+
+[audio.henrys_happy_birthday_lv2-16]
+name = "henrys_happy_birthday_lv2-16"
+animations = [ { time = 0.1, anim = "POSE1" } ]
+
+[audio.henrys_happy_birthday_lv2-17]
+name = "henrys_happy_birthday_lv2-17"
+animations = [ { time = 0.1, anim = "IDLESTILL" } ]
+
+[audio.henrys_happy_birthday_lv2-18]
+name = "henrys_happy_birthday_lv2-18"
+animations = [ { time = 0.1, anim = "IDLESTILL" } ]
+
+[audio.henrys_happy_birthday_lv2-19]
+name = "henrys_happy_birthday_lv2-19"
+animations = [ { time = 0.1, anim = "SILENT_SAD" },
+               { time = 6.0, anim = "SILENT_LEFTRIGHTLOOKING" },
+               { time = 14.0, anim = "SILENT_SAD" } ]
+
+[audio.henrys_happy_birthday_lv2-20]
+name = "henrys_happy_birthday_lv2-20"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 14.0, anim = "HAPPY_UP" } ]
+
+[audio.henrys_happy_birthday_lv2-21]
+name = "henrys_happy_birthday_lv2-21"
+animations = [ { time = 0.1, anim = "POSE_SLEEPING" },
+               { time = 9.0, anim = "IDLESTILL" } ]
+
+[audio.henrys_happy_birthday_lv2-22]
+name = "henrys_happy_birthday_lv2-22"
+animations = [ { time = 0.1, anim = "POSE1" } ]
+
+[audio.henrys_happy_birthday_lv2-23]
+name = "henrys_happy_birthday_lv2-23"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 4.0, anim = "PERKUP" },
+               { time = 7.0, anim = "SILENT_CONFIRM" },
+               { time = 12.0, anim = "HAPPY_UP" },
+               { time = 17.0, anim = "SILENT_NO" } ]
+
+[audio.henrys_happy_birthday_lv2-24]
+name = "henrys_happy_birthday_lv2-24"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.henrys_happy_birthday_lv2-25]
+name = "henrys_happy_birthday_lv2-25"
+animations = [ { time = 0.1, anim = "SILENT_YES" } ]
+
+[audio.henrys_happy_birthday_lv2-26]
+name = "henrys_happy_birthday_lv2-26"
+animations = [ { time = 0.1, anim = "IDLESTILL" } ]
+
+[audio.henrys_happy_birthday_lv2-27]
+name = "henrys_happy_birthday_lv2-27"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 4.0, anim = "POSE2" },
+               { time = 8.0, anim = "SILENT_YES" } ]
+
+[audio.henrys_happy_birthday_lv2-28]
+name = "henrys_happy_birthday_lv2-28"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 7.0, anim = "SILENT_EXCITED" } ]
+
+
+## Henry's happy birthday story - level 3
+[audio.henrys_happy_birthday_lv3-01]
+name = "henrys_happy_birthday_lv3-01"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.henrys_happy_birthday_lv3-02]
+name = "henrys_happy_birthday_lv3-02"
+animations = [ { time = 0.1, anim = "HAPPY_UP" },
+               { time = 7.5, anim = "SHIMMY" } ]
+
+[audio.henrys_happy_birthday_lv3-03]
+name = "henrys_happy_birthday_lv3-03"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.0, anim = "SILENT_INTERESTED" },
+               { time = 12.0, anim = "POSE2" } ]
+
+[audio.henrys_happy_birthday_lv3-04]
+name = "henrys_happy_birthday_lv3-04"
+animations = [ { time = 0.1, anim = "SILENT_YES" },
+               { time = 8.1, anim = "SILENT_FRUSTRATED" } ]
+
+[audio.henrys_happy_birthday_lv3-05]
+name = "henrys_happy_birthday_lv3-05"
+animations = [ { time = 0.1, anim = "SILENT_NO" } ]
+
+[audio.henrys_happy_birthday_lv3-06]
+name = "henrys_happy_birthday_lv3-06"
+animations = [ { time = 4.1, anim = "SILENT_SAD" } ]
+
+[audio.henrys_happy_birthday_lv3-07]
+name = "henrys_happy_birthday_lv3-07"
+animations = [ { time = 6.1, anim = "POSE1" } ]
+
+[audio.henrys_happy_birthday_lv3-08]
+name = "henrys_happy_birthday_lv3-08"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 13.0, anim = "HAPPY_UP" } ]
+
+[audio.henrys_happy_birthday_lv3-09]
+name = "henrys_happy_birthday_lv3-09"
+animations = [ { time = 0.1, anim = "SILENT_NO" } ]
+
+[audio.henrys_happy_birthday_lv3-10]
+name = "henrys_happy_birthday_lv3-10"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.0, anim = "PERKUP" } ]
+
+[audio.henrys_happy_birthday_lv3-11]
+name = "henrys_happy_birthday_lv3-11"
+animations = [ { time = 0.1, anim = "SILENT_SAD" } ]
+
+[audio.henrys_happy_birthday_lv3-12]
+name = "henrys_happy_birthday_lv3-12"
+animations = [ { time = 0.1, anim = "IDLESTILL" } ]
+
+[audio.henrys_happy_birthday_lv3-13]
+name = "henrys_happy_birthday_lv3-13"
+animations = [ { time = 0.1, anim = "IDLESTILL" } ]
+
+[audio.henrys_happy_birthday_lv3-14]
+name = "henrys_happy_birthday_lv3-14"
+animations = [ { time = 0.1, anim = "SILENT_NO" } ]
+
+[audio.henrys_happy_birthday_lv3-15]
+name = "henrys_happy_birthday_lv3-15"
+animations = [ { time = 7.0, anim = "POSE2" } ]
+
+[audio.henrys_happy_birthday_lv3-16]
+name = "henrys_happy_birthday_lv3-16"
+animations = [ { time = 0.1, anim = "POSE1" } ]
+
+[audio.henrys_happy_birthday_lv3-17]
+name = "henrys_happy_birthday_lv3-17"
+animations = [ { time = 0.1, anim = "IDLESTILL" } ]
+
+[audio.henrys_happy_birthday_lv3-18]
+name = "henrys_happy_birthday_lv3-18"
+animations = [ { time = 0.1, anim = "IDLESTILL" } ]
+
+[audio.henrys_happy_birthday_lv3-19]
+name = "henrys_happy_birthday_lv3-19"
+animations = [ { time = 0.1, anim = "SILENT_SAD" },
+               { time = 6.0, anim = "SILENT_LEFTRIGHTLOOKING" },
+               { time = 14.0, anim = "SILENT_SAD" } ]
+
+[audio.henrys_happy_birthday_lv3-20]
+name = "henrys_happy_birthday_lv3-20"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 14.0, anim = "HAPPY_UP" } ]
+
+[audio.henrys_happy_birthday_lv3-21]
+name = "henrys_happy_birthday_lv3-21"
+animations = [ { time = 0.1, anim = "POSE_SLEEPING" },
+               { time = 9.0, anim = "IDLESTILL" } ]
+
+[audio.henrys_happy_birthday_lv3-22]
+name = "henrys_happy_birthday_lv3-22"
+animations = [ { time = 0.1, anim = "POSE1" } ]
+
+[audio.henrys_happy_birthday_lv3-23]
+name = "henrys_happy_birthday_lv3-23"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 4.0, anim = "PERKUP" },
+               { time = 7.0, anim = "SILENT_CONFIRM" },
+               { time = 12.0, anim = "HAPPY_UP" },
+               { time = 17.0, anim = "SILENT_NO" } ]
+
+[audio.henrys_happy_birthday_lv3-24]
+name = "henrys_happy_birthday_lv3-24"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.henrys_happy_birthday_lv3-25]
+name = "henrys_happy_birthday_lv3-25"
+animations = [ { time = 0.1, anim = "SILENT_YES" } ]
+
+[audio.henrys_happy_birthday_lv3-26]
+name = "henrys_happy_birthday_lv3-26"
+animations = [ { time = 0.1, anim = "IDLESTILL" } ]
+
+[audio.henrys_happy_birthday_lv3-27]
+name = "henrys_happy_birthday_lv3-27"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 4.0, anim = "POSE2" },
+               { time = 8.0, anim = "SILENT_YES" } ]
+
+[audio.henrys_happy_birthday_lv3-28]
+name = "henrys_happy_birthday_lv3-28"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 7.0, anim = "SILENT_EXCITED" } ]
+
+## Henry's happy birthday story - dialogic questions.
+[audio.henrys_happy_birthday_a_1]
+name = "henrys_happy_birthday_a_1"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.0, anim = "SILENT_YES" },
+               { time = 4.0, anim = "SWAY" },
+               { time = 8.0, anim = "SILENT_HAPPY_WIGGLE" },
+               { time = 11.0, anim = "SILENT_LAUGH" } ]
+
+[audio.henrys_happy_birthday_a_3]
+name = "henrys_happy_birthday_a_3"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.0, anim = "SILENT_BOUNCINGTILT" },
+               { time = 4.0, anim = "SILENT_HAPPY_DANCE" } ]
+
+[audio.henrys_happy_birthday_a_4]
+name = "henrys_happy_birthday_a_4"
+animations = [ { time = 0.1, anim = "PERKUP" },
+               { time = 2.0, anim = "SILENT_LEFTRIGHTLOOKING" } ]
+
+[audio.henrys_happy_birthday_a_5]
+name = "henrys_happy_birthday_a_5"
+animations = [ { time = 0.1, anim = "SIDEPERK" } ]
+
+[audio.henrys_happy_birthday_a_6]
+name = "henrys_happy_birthday_a_6"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.0, anim = "SILENT_NO" } ]
+
+[audio.henrys_happy_birthday_h_1]
+name = "henrys_happy_birthday_h_1"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.henrys_happy_birthday_h_2]
+name = "henrys_happy_birthday_h_2"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.henrys_happy_birthday_h_3]
+name = "henrys_happy_birthday_h_3"
+animations = [ { time = 0.1, anim = "HAPPY_UP" } ]
+
+[audio.henrys_happy_birthday_h_4]
+name = "henrys_happy_birthday_h_4"
+animations = [ { time = 0.1, anim = "SILENT_LEFTRIGHTLOOKING" } ]
+
+[audio.henrys_happy_birthday_h_5]
+name = "henrys_happy_birthday_h_5"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.henrys_happy_birthday_h_6]
+name = "henrys_happy_birthday_h_6"
+animations = [ { time = 0.1, anim = "PERKUP" },
+               { time = 1.0, anim = "SILENT_NO" } ]
+
+[audio.henrys_happy_birthday_h_7]
+name = "henrys_happy_birthday_h_7"
+animations = [ { time = 0.1, anim = "SIDEPERK" } ]
+
+[audio.henrys_happy_birthday_h_8]
+name = "henrys_happy_birthday_h_8"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.henrys_happy_birthday_q_e_7]
+name = "henrys_happy_birthday_q_e_7"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.henrys_happy_birthday_q_e_8]
+name = "henrys_happy_birthday_q_e_8"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.henrys_happy_birthday_q_f_2]
+name = "henrys_happy_birthday_q_f_2"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.henrys_happy_birthday_q_l_1]
+name = "henrys_happy_birthday_q_l_1"
+animations = [ { time = 0.1, anim = "SIDEPERK" } ]
+
+[audio.henrys_happy_birthday_q_l_3]
+name = "henrys_happy_birthday_q_l_3"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.henrys_happy_birthday_q_l_4]
+name = "henrys_happy_birthday_q_l_4"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.henrys_happy_birthday_q_l_5]
+name = "henrys_happy_birthday_q_l_5"
+animations = [ { time = 0.1, anim = "SILENT_BOUNCINGTILT" } ]
+
+[audio.henrys_happy_birthday_q_l_6]
+name = "henrys_happy_birthday_q_l_6"
+animations = [ { time = 0.1, anim = "SILENT_BOUNCINGTILT" } ]
+
+
+## Audio with animations for the Baby Duck's New Friend story - level 1.
+[audio.baby_ducks_new_friend_lv1-01]
+name = "baby_ducks_new_friend_lv1-01"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.5, anim = "SILENT_BOUNCINGTILT" },
+               { time = 6.5, anim = "SILENT_NO" },
+               { time = 17.0, anim = "SILENT_NOD" } ]
+
+[audio.baby_ducks_new_friend_lv1-02]
+name = "baby_ducks_new_friend_lv1-02"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.5, anim = "SILENT_SAD" },
+               { time = 9.5, anim = "SILENT_INTERESTED" } ]
+
+[audio.baby_ducks_new_friend_lv1-03]
+name = "baby_ducks_new_friend_lv1-03"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "CIRCLING" } ]
+
+[audio.baby_ducks_new_friend_lv1-04]
+name = "baby_ducks_new_friend_lv1-04"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "SILENT_YES" },
+               { time = 11.0, anim = "HEADPOINTBACK" } ]
+
+[audio.baby_ducks_new_friend_lv1-05]
+name = "baby_ducks_new_friend_lv1-05"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "SHIMMY" } ]
+
+[audio.baby_ducks_new_friend_lv1-06]
+name = "baby_ducks_new_friend_lv1-06"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.0, anim = "SILENT_LEFTRIGHTLOOKING" },
+               { time = 5.0, anim = "SILENT_LEFTRIGHTLOOKING" },
+               { time = 9.0, anim = "SHIMMY" } ]
+
+[audio.baby_ducks_new_friend_lv1-07]
+name = "baby_ducks_new_friend_lv1-07"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 17.0, anim = "SILENT_INTERESTED" } ]
+
+[audio.baby_ducks_new_friend_lv1-08]
+name = "baby_ducks_new_friend_lv1-08"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.0, anim = "PERKUP" },
+               { time = 6.5, anim = "CIRCLING" } ]
+
+[audio.baby_ducks_new_friend_lv1-09]
+name = "baby_ducks_new_friend_lv1-09"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 3.0, anim = "HAPPY_UP" } ]
+
+[audio.baby_ducks_new_friend_lv1-10]
+name = "baby_ducks_new_friend_lv1-10"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.0, anim = "SHIMMY" } ]
+
+[audio.baby_ducks_new_friend_lv1-11]
+name = "baby_ducks_new_friend_lv1-11"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "SILENT_INTERESTED" },
+               { time = 7.0, anim = "SILENT_SCARED" } ]
+
+[audio.baby_ducks_new_friend_lv1-12]
+name = "baby_ducks_new_friend_lv1-12"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.0, anim = "SHIMMY" } ]
+
+[audio.baby_ducks_new_friend_lv1-13]
+name = "baby_ducks_new_friend_lv1-13"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.0, anim = "SILENT_SAD" } ]
+
+[audio.baby_ducks_new_friend_lv1-14]
+name = "baby_ducks_new_friend_lv1-14"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.5, anim = "HAPPY_UP" } ]
+
+[audio.baby_ducks_new_friend_lv1-15]
+name = "baby_ducks_new_friend_lv1-15"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "SILENT_CONFIRM" } ]
+
+[audio.baby_ducks_new_friend_lv1-16]
+name = "baby_ducks_new_friend_lv1-16"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.5, anim = "PERKUP" },
+               { time = 6.0, anim = "SILENT_AGREEMENT" } ]
+
+[audio.baby_ducks_new_friend_lv1-17]
+name = "baby_ducks_new_friend_lv1-17"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.5, anim = "SILENT_NO" },
+               { time = 12.0, anim = "SILENT_NOD" } ]
+
+[audio.baby_ducks_new_friend_lv1-18]
+name = "baby_ducks_new_friend_lv1-18"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.0, anim = "SILENT_NO" },
+               { time = 4.0, anim = "SILENT_CONFIRM" },
+               { time = 11.0, anim = "PERKUP" } ]
+
+[audio.baby_ducks_new_friend_lv1-19]
+name = "baby_ducks_new_friend_lv1-19"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 11.0, anim = "HAPPY_UP" } ]
+
+[audio.baby_ducks_new_friend_lv1-20]
+name = "baby_ducks_new_friend_lv1-20"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.0, anim = "SHIMMY" },
+               { time = 15.0, anim = "PERKUP" } ]
+
+[audio.baby_ducks_new_friend_lv1-21]
+name = "baby_ducks_new_friend_lv1-21"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "SILENT_FART" } ]
+
+[audio.baby_ducks_new_friend_lv1-22]
+name = "baby_ducks_new_friend_lv1-22"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.0, anim = "PERKUP" } ]
+
+[audio.baby_ducks_new_friend_lv1-23]
+name = "baby_ducks_new_friend_lv1-23"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 0.5, anim = "SIDEPERK" },
+               { time = 4.5, anim = "SILENT_EXCITED" } ]
+
+[audio.baby_ducks_new_friend_lv1-24]
+name = "baby_ducks_new_friend_lv1-24"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "SILENT_HAPPY_DANCE" } ]
+
+[audio.baby_ducks_new_friend_lv1-25]
+name = "baby_ducks_new_friend_lv1-25"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.0, anim = "SILENT_PUZZLED" },
+               { time = 10.0, anim = "PERKUP" } ]
+
+## Audio with animations for the Baby Duck's New Friend story - level 2.
+[audio.baby_ducks_new_friend_lv2-01]
+name = "baby_ducks_new_friend_lv2-01"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.5, anim = "SILENT_BOUNCINGTILT" },
+               { time = 6.5, anim = "SILENT_NO" },
+               { time = 17.0, anim = "SILENT_NOD" } ]
+
+[audio.baby_ducks_new_friend_lv2-02]
+name = "baby_ducks_new_friend_lv2-02"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.5, anim = "SILENT_SAD" },
+               { time = 9.5, anim = "SILENT_INTERESTED" } ]
+
+[audio.baby_ducks_new_friend_lv2-03]
+name = "baby_ducks_new_friend_lv2-03"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "CIRCLING" } ]
+
+[audio.baby_ducks_new_friend_lv2-04]
+name = "baby_ducks_new_friend_lv2-04"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "SILENT_YES" },
+               { time = 11.0, anim = "HEADPOINTBACK" } ]
+
+[audio.baby_ducks_new_friend_lv2-05]
+name = "baby_ducks_new_friend_lv2-05"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "SHIMMY" } ]
+
+[audio.baby_ducks_new_friend_lv2-06]
+name = "baby_ducks_new_friend_lv2-06"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.0, anim = "SILENT_LEFTRIGHTLOOKING" },
+               { time = 5.0, anim = "SILENT_LEFTRIGHTLOOKING" },
+               { time = 9.0, anim = "SHIMMY" } ]
+
+[audio.baby_ducks_new_friend_lv2-07]
+name = "baby_ducks_new_friend_lv2-07"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 17.0, anim = "SILENT_INTERESTED" } ]
+
+[audio.baby_ducks_new_friend_lv2-08]
+name = "baby_ducks_new_friend_lv2-08"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.0, anim = "PERKUP" },
+               { time = 6.5, anim = "CIRCLING" } ]
+
+[audio.baby_ducks_new_friend_lv2-09]
+name = "baby_ducks_new_friend_lv2-09"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 3.0, anim = "HAPPY_UP" } ]
+
+[audio.baby_ducks_new_friend_lv2-10]
+name = "baby_ducks_new_friend_lv2-10"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.0, anim = "SHIMMY" } ]
+
+[audio.baby_ducks_new_friend_lv2-11]
+name = "baby_ducks_new_friend_lv2-11"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "SILENT_INTERESTED" },
+               { time = 7.0, anim = "SILENT_SCARED" } ]
+
+[audio.baby_ducks_new_friend_lv2-12]
+name = "baby_ducks_new_friend_lv2-12"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.0, anim = "SHIMMY" } ]
+
+[audio.baby_ducks_new_friend_lv2-13]
+name = "baby_ducks_new_friend_lv2-13"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.0, anim = "SILENT_SAD" } ]
+
+[audio.baby_ducks_new_friend_lv2-14]
+name = "baby_ducks_new_friend_lv2-14"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.5, anim = "HAPPY_UP" } ]
+
+[audio.baby_ducks_new_friend_lv2-15]
+name = "baby_ducks_new_friend_lv2-15"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "SILENT_CONFIRM" } ]
+
+[audio.baby_ducks_new_friend_lv2-16]
+name = "baby_ducks_new_friend_lv2-16"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.5, anim = "PERKUP" },
+               { time = 6.0, anim = "SILENT_AGREEMENT" } ]
+
+[audio.baby_ducks_new_friend_lv2-17]
+name = "baby_ducks_new_friend_lv2-17"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.5, anim = "SILENT_NO" },
+               { time = 12.0, anim = "SILENT_NOD" } ]
+
+[audio.baby_ducks_new_friend_lv2-18]
+name = "baby_ducks_new_friend_lv2-18"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.0, anim = "SILENT_NO" },
+               { time = 4.0, anim = "SILENT_CONFIRM" },
+               { time = 11.0, anim = "PERKUP" } ]
+
+[audio.baby_ducks_new_friend_lv2-19]
+name = "baby_ducks_new_friend_lv2-19"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 11.0, anim = "HAPPY_UP" } ]
+
+[audio.baby_ducks_new_friend_lv2-20]
+name = "baby_ducks_new_friend_lv2-20"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.0, anim = "SHIMMY" },
+               { time = 15.0, anim = "PERKUP" } ]
+
+[audio.baby_ducks_new_friend_lv2-21]
+name = "baby_ducks_new_friend_lv2-21"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "SILENT_FART" } ]
+
+[audio.baby_ducks_new_friend_lv2-22]
+name = "baby_ducks_new_friend_lv2-22"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.0, anim = "PERKUP" } ]
+
+[audio.baby_ducks_new_friend_lv2-23]
+name = "baby_ducks_new_friend_lv2-23"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 0.5, anim = "SIDEPERK" },
+               { time = 4.5, anim = "SILENT_EXCITED" } ]
+
+[audio.baby_ducks_new_friend_lv2-24]
+name = "baby_ducks_new_friend_lv2-24"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "SILENT_HAPPY_DANCE" } ]
+
+[audio.baby_ducks_new_friend_lv2-25]
+name = "baby_ducks_new_friend_lv2-25"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.0, anim = "SILENT_PUZZLED" },
+               { time = 10.0, anim = "PERKUP" } ]
+
+## Audio with animations for the Baby Duck's New Friend story - level 3.
+[audio.baby_ducks_new_friend_lv3-01]
+name = "baby_ducks_new_friend_lv3-01"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.5, anim = "SILENT_BOUNCINGTILT" },
+               { time = 6.5, anim = "SILENT_NO" },
+               { time = 17.0, anim = "SILENT_NOD" } ]
+
+[audio.baby_ducks_new_friend_lv3-02]
+name = "baby_ducks_new_friend_lv3-02"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.5, anim = "SILENT_SAD" },
+               { time = 9.5, anim = "SILENT_INTERESTED" } ]
+
+[audio.baby_ducks_new_friend_lv3-03]
+name = "baby_ducks_new_friend_lv3-03"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "CIRCLING" } ]
+
+[audio.baby_ducks_new_friend_lv3-04]
+name = "baby_ducks_new_friend_lv3-04"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "SILENT_YES" },
+               { time = 11.0, anim = "HEADPOINTBACK" } ]
+
+[audio.baby_ducks_new_friend_lv3-05]
+name = "baby_ducks_new_friend_lv3-05"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "SHIMMY" } ]
+
+[audio.baby_ducks_new_friend_lv3-06]
+name = "baby_ducks_new_friend_lv3-06"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.0, anim = "SILENT_LEFTRIGHTLOOKING" },
+               { time = 5.0, anim = "SILENT_LEFTRIGHTLOOKING" },
+               { time = 9.0, anim = "SHIMMY" } ]
+
+[audio.baby_ducks_new_friend_lv3-07]
+name = "baby_ducks_new_friend_lv3-07"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 17.0, anim = "SILENT_INTERESTED" } ]
+
+[audio.baby_ducks_new_friend_lv3-08]
+name = "baby_ducks_new_friend_lv3-08"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.0, anim = "PERKUP" },
+               { time = 6.5, anim = "CIRCLING" } ]
+
+[audio.baby_ducks_new_friend_lv3-09]
+name = "baby_ducks_new_friend_lv3-09"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 3.0, anim = "HAPPY_UP" } ]
+
+[audio.baby_ducks_new_friend_lv3-10]
+name = "baby_ducks_new_friend_lv3-10"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.0, anim = "SHIMMY" } ]
+
+[audio.baby_ducks_new_friend_lv3-11]
+name = "baby_ducks_new_friend_lv3-11"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "SILENT_INTERESTED" },
+               { time = 7.0, anim = "SILENT_SCARED" } ]
+
+[audio.baby_ducks_new_friend_lv3-12]
+name = "baby_ducks_new_friend_lv3-12"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.0, anim = "SHIMMY" } ]
+
+[audio.baby_ducks_new_friend_lv3-13]
+name = "baby_ducks_new_friend_lv3-13"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.0, anim = "SILENT_SAD" } ]
+
+[audio.baby_ducks_new_friend_lv3-14]
+name = "baby_ducks_new_friend_lv3-14"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.5, anim = "HAPPY_UP" } ]
+
+[audio.baby_ducks_new_friend_lv3-15]
+name = "baby_ducks_new_friend_lv3-15"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "SILENT_CONFIRM" } ]
+
+[audio.baby_ducks_new_friend_lv3-16]
+name = "baby_ducks_new_friend_lv3-16"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.5, anim = "PERKUP" },
+               { time = 6.0, anim = "SILENT_AGREEMENT" } ]
+
+[audio.baby_ducks_new_friend_lv3-17]
+name = "baby_ducks_new_friend_lv3-17"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.5, anim = "SILENT_NO" },
+               { time = 12.0, anim = "SILENT_NOD" } ]
+
+[audio.baby_ducks_new_friend_lv3-18]
+name = "baby_ducks_new_friend_lv3-18"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.0, anim = "SILENT_NO" },
+               { time = 4.0, anim = "SILENT_CONFIRM" },
+               { time = 11.0, anim = "PERKUP" } ]
+
+[audio.baby_ducks_new_friend_lv3-19]
+name = "baby_ducks_new_friend_lv3-19"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 11.0, anim = "HAPPY_UP" } ]
+
+[audio.baby_ducks_new_friend_lv3-20]
+name = "baby_ducks_new_friend_lv3-20"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.0, anim = "SHIMMY" },
+               { time = 15.0, anim = "PERKUP" } ]
+
+[audio.baby_ducks_new_friend_lv3-21]
+name = "baby_ducks_new_friend_lv3-21"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "SILENT_FART" } ]
+
+[audio.baby_ducks_new_friend_lv3-22]
+name = "baby_ducks_new_friend_lv3-22"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 1.0, anim = "PERKUP" } ]
+
+[audio.baby_ducks_new_friend_lv3-23]
+name = "baby_ducks_new_friend_lv3-23"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 0.5, anim = "SIDEPERK" },
+               { time = 4.5, anim = "SILENT_EXCITED" } ]
+
+[audio.baby_ducks_new_friend_lv3-24]
+name = "baby_ducks_new_friend_lv3-24"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 2.0, anim = "SILENT_HAPPY_DANCE" } ]
+
+[audio.baby_ducks_new_friend_lv3-25]
+name = "baby_ducks_new_friend_lv3-25"
+animations = [ { time = 0.1, anim = "IDLESTILL" },
+               { time = 6.0, anim = "SILENT_PUZZLED" },
+               { time = 10.0, anim = "PERKUP" } ]
 
 
 ## Experimenter names - should have anim PROUD or HEADPOINTBACK

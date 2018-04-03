@@ -1,0 +1,61 @@
+ROBOT	DO	possum_and_the_peeper
+SET	PROMPT_TIME	4
+SET	NUM_PROMPTS	0
+OPAL	NEXT_PAGE
+ROBOT	DO	possum_and_the_peeper_lv1-01
+OPAL	NEXT_PAGE
+ ROBOT	DO	possum_and_the_peeper_lv1-02
+QUESTION	possum_and_the_peeper_q_l_1
+ROBOT	DO	CanYouSay
+ROBOT	DO	emerge
+PAUSE	2
+OPAL	NEXT_PAGE
+ROBOT	DO	possum_and_the_peeper_lv1-03
+QUESTION	possum_and_the_peeper_q_l_2
+ROBOT	DO	YourTurnCanYouSay
+ROBOT	DO	clamor
+PAUSE	2
+OPAL	NEXT_PAGE
+ROBOT	DO	possum_and_the_peeper_lv1-04
+OPAL	NEXT_PAGE
+ROBOT	DO	possum_and_the_peeper_lv1-05
+OPAL	NEXT_PAGE
+ROBOT	DO	possum_and_the_peeper_lv1-06
+QUESTION	possum_and_the_peeper_q_l_3
+ROBOT	DO	CanYouSay
+ROBOT	DO	crest
+PAUSE	2
+OPAL	NEXT_PAGE
+ROBOT	DO	possum_and_the_peeper_lv1-07
+QUESTION	possum_and_the_peeper_q_l_5
+ROBOT	DO	CanYouSay
+ROBOT	DO	tuft
+PAUSE	2
+OPAL	NEXT_PAGE
+ROBOT	DO	possum_and_the_peeper_lv1-08
+OPAL	NEXT_PAGE
+ROBOT	DO	possum_and_the_peeper_lv1-09
+OPAL	NEXT_PAGE
+ROBOT	DO	possum_and_the_peeper_lv1-10
+QUESTION	possum_and_the_peeper_q_l_5
+ROBOT	DO	CanYouSay
+ROBOT	DO	reeds
+PAUSE	2
+OPAL	NEXT_PAGE
+ROBOT	DO	possum_and_the_peeper_lv1-11
+OPAL	NEXT_PAGE
+ROBOT	DO	possum_and_the_peeper_lv1-12
+QUESTION	possum_and_the_peeper_q_l_6
+ROBOT	DO	CanYouSay
+ROBOT	DO	rotund
+PAUSE	2
+OPAL	NEXT_PAGE
+ROBOT	DO	possum_and_the_peeper_lv1-13
+OPAL	NEXT_PAGE
+ROBOT	DO	possum_and_the_peeper_lv1-14
+QUESTION	possum_and_the_peeper_q_l_7
+ROBOT	DO	YourTurnCanYouSay
+ROBOT	DO	inhale
+PAUSE	2
+OPAL	NEXT_PAGE
+ROBOT	DO	possum_and_the_peeper_lv1-15
