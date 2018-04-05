@@ -1,0 +1,1329 @@
+[p004]
+name = "p004"
+story_create_level = 0
+story_retell_level = 1
+personalized = false
+condition = "NR"
+
+[p005]
+name = "p005"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 2
+personalized = true
+condition = "RR"
+
+[p006]
+name = "p006"
+story_create_level = 0
+story_retell_level = 1
+personalized = false
+condition = "NR"
+
+[p007]
+name = "p007"
+story_create_level = 1
+story_retell_level = 2
+personalized = true
+condition = "RR"
+
+[p026]
+name = "p026"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 3
+personalized = false
+condition = "NR"
+
+[p001]
+name = "p001"
+story_create_level = 1
+story_retell_level = 2
+personalized = true
+condition = "RR"
+
+[p002]
+name = "p002"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 2
+personalized = false
+condition = "NR"
+
+[p003]
+name = "p003"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 3
+personalized = false
+condition = "NR"
+
+[p105]
+name = "p105"
+story_create_level = 1
+fav_color = "pinkAndGold"
+story_retell_level = 2
+personalized = false
+condition = "NR"
+
+[p104]
+name = "p104"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 3
+personalized = true
+condition = "RR"
+
+[p022]
+name = "p022"
+story_create_level = 0
+fav_color = ""
+story_retell_level = 1
+personalized = false
+condition = "NR"
+
+[p029]
+name = "p029"
+story_create_level = 1
+story_retell_level = 2
+personalized = true
+condition = "RR"
+
+[p008]
+name = "p008"
+story_create_level = 1
+story_retell_level = 3
+personalized = false
+condition = "NR"
+
+[p009]
+name = "p009"
+story_create_level = 1
+story_retell_level = 3
+personalized = true
+condition = "RR"
+
+[p103]
+name = "p103"
+story_create_level = 1
+fav_color = "blue"
+story_retell_level = 3
+personalized = false
+condition = "NR"
+
+[p102]
+name = "p102"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 3
+personalized = true
+condition = "RR"
+
+[p021]
+name = "p021"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 3
+personalized = true
+condition = "RR"
+
+[p027]
+name = "p027"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 2
+personalized = true
+condition = "RR"
+
+[p024]
+name = "p024"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 3
+personalized = false
+condition = "NR"
+
+[p023]
+name = "p023"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 3
+personalized = true
+condition = "RR"
+
+[p025]
+name = "p025"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 3
+personalized = true
+condition = "RR"
+
+[p028]
+name = "p028"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 2
+personalized = false
+condition = "NR"
+
+[p997]
+name = "jackie"
+story_create_level = 0
+story_retell_level = 2
+personalized = true
+condition = "RR"
+
+[p017]
+name = "p017"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 3
+personalized = true
+condition = "RR"
+
+[p016]
+name = "p016"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 2
+personalized = false
+condition = "NR"
+
+[p015]
+name = "p015"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 3
+personalized = true
+condition = "RR"
+
+[p014]
+name = "p014"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 3
+personalized = false
+condition = "NR"
+
+[p013]
+name = "p013"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 3
+personalized = true
+condition = "RR"
+
+[p012]
+name = "p012"
+story_create_level = 0
+story_retell_level = 1
+personalized = false
+condition = "NR"
+
+[p011]
+name = "p011"
+story_create_level = 1
+story_retell_level = 3
+personalized = true
+condition = "RR"
+
+[p010]
+name = "p010"
+story_create_level = 1
+story_retell_level = 2
+personalized = false
+condition = "NR"
+
+[p101]
+name = "p101"
+story_create_level = 1
+fav_color = "purple"
+story_retell_level = 3
+personalized = false
+condition = "NR"
+
+[p031]
+name = "p031"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 2
+personalized = true
+condition = "RR"
+
+[p030]
+name = "p030"
+story_create_level = 1
+story_retell_level = 3
+personalized = false
+condition = "NR"
+
+[p019]
+name = "p019"
+story_create_level = 0
+fav_color = ""
+story_retell_level = 1
+personalized = true
+condition = "RR"
+
+[p018]
+name = "p018"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 2
+personalized = false
+condition = "NR"
+
+[p020]
+name = "p020"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 2
+personalized = false
+condition = "NR"
+
+[p032]
+name = "p032"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 3
+personalized = false
+condition = "NR"
+
+[p998]
+name = "jackie"
+story_create_level = 1
+story_retell_level = 2
+personalized = false
+condition = "NR"
+
+[p999]
+name = "jackie"
+story_create_level = 0
+fav_color = "red"
+story_retell_level = 1
+personalized = true
+condition = "RR"
+
+[p204]
+name = "p204"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 2
+personalized = false
+condition = "NR"
+
+[p205]
+name = "p205"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 2
+personalized = true
+condition = "RR"
+
+[p202]
+name = "p202"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 3
+personalized = false
+condition = "NR"
+
+[p203]
+name = "p203"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 3
+personalized = true
+condition = "RR"
+
+[p201]
+name = "p201"
+story_create_level = 0
+fav_color = "greyAndBlack"
+story_retell_level = 1
+personalized = true
+condition = "RR"
+
+[p307]
+name = "p307"
+story_create_level = 0
+fav_color = "red"
+story_retell_level = 1
+personalized = true
+condition = "RR"
+
+[p306]
+name = "p306"
+story_create_level = 0
+fav_color = "pink"
+story_retell_level = 1
+personalized = false
+condition = "NR"
+
+[p305]
+name = "p305"
+story_create_level = 1
+fav_color = "red"
+story_retell_level = 2
+personalized = true
+condition = "RR"
+
+[p304]
+name = "p304"
+story_create_level = 0
+fav_color = "blueAndBlack"
+story_retell_level = 1
+personalized = false
+condition = "NR"
+
+[p303]
+name = "p303"
+story_create_level = 0
+fav_color = ""
+story_retell_level = 1
+personalized = true
+condition = "RR"
+
+[p302]
+name = "p302"
+story_create_level = 0
+fav_color = "pink"
+story_retell_level = 1
+personalized = true
+condition = "RR"
+
+[p301]
+name = "p301"
+story_create_level = 0
+fav_color = "blue"
+story_retell_level = 1
+personalized = false
+condition = "NR"
+
+[p006.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p011.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p017.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p017.2]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p008.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p028.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p307.1]
+story_type = "retell"
+liked_story = "SD"
+story_name = "baby_birds_first_nest"
+told_story = "TN"
+
+[p307.2]
+story_type = "create"
+scenes = [ "Iceberg", "Castle",]
+story_level = 0
+
+[p028.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p307.4]
+story_type = "retell"
+story = "possum_and_the_peeper"
+told_last_story = "TY"
+leftover_scene = "Iceberg"
+last_story = "Playground"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p015.2]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SD"
+story_level = 1
+
+[p003.2]
+story_type = "create"
+told_last_story = ""
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = ""
+story_level = 1
+
+[p003.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p015.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p998.2]
+story_type = "create"
+scenes = [ "Castle", "Iceberg",]
+
+[p998.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+last_story = "Iceberg"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SD"
+story_level = 0
+
+[p998.1]
+story_type = "retell"
+liked_story = "SD"
+story_name = "baby_birds_first_nest"
+told_story = "TY"
+
+[p024.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p304.2]
+story_type = "create"
+scenes = [ "Iceberg", "Castle",]
+story_level = 0
+
+[p304.1]
+story_type = "retell"
+liked_story = "SL"
+story_name = "baby_birds_first_nest"
+told_story = "TY"
+
+[p024.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p204.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p022.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p022.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 0
+
+[p204.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p005.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p005.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p018.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p018.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p019.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 0
+
+[p019.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p026.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p302.1]
+story_type = "retell"
+liked_story = "SL"
+story_name = "baby_birds_first_nest"
+told_story = "TN"
+
+[p302.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+last_story = "Iceberg"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 0
+
+[p302.2]
+story_type = "create"
+scenes = [ "Iceberg", "Castle",]
+story_level = 0
+
+[p013.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p013.2]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p020.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p010.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p020.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p007.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p306.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+last_story = "Iceberg"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 0
+
+[p016.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p016.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p009.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p001.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p306.1]
+story_type = "retell"
+liked_story = "SL"
+story_name = "baby_birds_first_nest"
+told_story = "TN"
+
+[p026.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p029.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p306.2]
+story_type = "create"
+scenes = [ "Iceberg", "Castle",]
+story_level = 0
+
+[p025.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p025.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p014.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p014.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p999.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+last_story = "Castle"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 0
+
+[p202.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p202.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p999.2]
+story_type = "create"
+scenes = [ "Castle", "Iceberg",]
+
+[p023.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p999.1]
+story_type = "retell"
+liked_story = "SL"
+story_name = "baby_birds_first_nest"
+told_story = "TN"
+
+[p205.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p023.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p032.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p032.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p031.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p302.4]
+story_type = "retell"
+story = "possum_and_the_peeper"
+told_last_story = ""
+leftover_scene = "Castle"
+last_story = "Playground"
+negotiation_outcome = "MyChoice"
+liked_last_story = ""
+story_level = 1
+
+[p012.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p205.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p031.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p021.2]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = ""
+story_level = 1
+
+[p021.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p105.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p105.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p105.3]
+story_type = "create"
+told_last_story = ""
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+negotiation_outcome = "MyChoice"
+last_story = "Iceberg"
+liked_last_story = ""
+story_level = 1
+
+[p027.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p027.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p997.1]
+story_type = "retell"
+liked_story = "SD"
+story_name = "baby_birds_first_nest"
+told_story = "TY"
+
+[p997.2]
+story_type = "create"
+scenes = [ "Castle", "Iceberg",]
+
+[p201.3]
+story_type = "create"
+told_last_story = ""
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+negotiation_outcome = "MyChoice"
+last_story = "Castle"
+liked_last_story = ""
+story_level = 0
+
+[p201.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p307.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+last_story = "Castle"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 0
+
+[p030.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p304.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+last_story = "Castle"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 0
+
+[p203.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p203.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p101.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p101.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p101.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+negotiation_outcome = "MyChoice"
+last_story = "Castle"
+liked_last_story = "SL"
+story_level = 1
+
+[p102.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p102.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p103.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SD"
+story_level = 1
+
+[p103.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+negotiation_outcome = "MyChoice"
+last_story = "Iceberg"
+liked_last_story = "SD"
+story_level = 1
+
+[p103.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p104.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p104.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p304.4]
+story_type = "retell"
+story = "possum_and_the_peeper"
+told_last_story = "TN"
+leftover_scene = "Playground"
+last_story = "Iceberg"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p305.2]
+story_type = "create"
+scenes = [ "Iceberg", "Castle",]
+story_level = 1
+
+[p305.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+last_story = "Castle"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p305.1]
+story_type = "retell"
+liked_story = ""
+story_name = "baby_birds_first_nest"
+told_story = ""
+
+[p002.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p305.4]
+story_type = "retell"
+story = "possum_and_the_peeper"
+told_last_story = "TY"
+leftover_scene = "Iceberg"
+last_story = "Playground"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 2
+
+[p002.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p004.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p303.1]
+story_type = "retell"
+liked_story = "SL"
+story_name = "baby_birds_first_nest"
+told_story = "TN"
+
+[p303.2]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 0
+
+[p303.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+negotiation_outcome = "MyChoice"
+last_story = "Castle"
+liked_last_story = "SL"
+story_level = 0
+
+[p301.2]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 0
+
+[p301.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+negotiation_outcome = "MyChoice"
+last_story = "Iceberg"
+liked_last_story = "SL"
+story_level = 0
+
+[p301.1]
+story_type = "retell"
+liked_story = "SL"
+story_name = "baby_birds_first_nest"
+told_story = "TN"
+
+[p301.3.stories]
+Castle = "Castle-sr2-session2-p009-story2"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p202.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p018.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p016.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p015.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p101.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p101.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p002.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p105.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p021.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p998.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p997.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p203.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p303.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p303.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
+[p103.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p307.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
+[p302.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
+[p301.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
+[p103.3.stories]
+Castle = "Castle-sr2-session2-p009-story2"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p025.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p013.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p305.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p022.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
+[p999.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p201.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p028.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p027.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p102.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p024.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p005.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p304.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p020.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p031.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p023.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p014.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p032.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p304.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
+[p204.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p105.3.stories]
+Castle = "Castle-sr2-session2-p009-story2"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p306.3.stories]
+Castle = "Castle-sr2-session2-p009-story2"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p019.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
+[p104.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p302.3.stories]
+Castle = "Castle-sr2-session2-p009-story2"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p205.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p307.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p003.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p306.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
+[p305.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p026.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p017.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
