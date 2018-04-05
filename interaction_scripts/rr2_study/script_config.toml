@@ -140,6 +140,26 @@ timeout_prompts = ["PleaseIHaveAGoodIdea", "AwComeOnItllBeFun"]
     user_responses = [""]
     robot_responses = ["AwComeOnItllBeFun"]
 
+[questions.listen_to_story_retellRR2]
+question = "ListenToRetellRR2"
+timeout_prompts = ["ItsAboutAKid"]
+    [[questions.listen_to_story_retellRR2.user_input]]
+    user_responses = ["yes", "ok", "of course", "yeah", "okay", "sure", "story"]
+    robot_responses = ["OkayExcited"]
+    [[questions.listen_to_story_retellRR2.user_input]]
+    user_responses = [""]
+    robot_responses = ["AwComeOnItllBeFun"]
+
+[questions.listen_to_story_retellRR]
+question = "ListenToRetellRR"
+timeout_prompts = ["ItsAboutAnimals"]
+    [[questions.listen_to_story_retellRR.user_input]]
+    user_responses = ["yes", "ok", "of course", "yeah", "okay", "sure", "story"]
+    robot_responses = ["OkayExcited"]
+    [[questions.listen_to_story_retellRR.user_input]]
+    user_responses = [""]
+    robot_responses = ["AwComeOnItllBeFun"]
+
 [questions.listen_to_story_retell]
 question = "ListenToRetell"
 timeout_prompts = ["PleaseYoullLikeIt", "AwComeOnItllBeFun"]

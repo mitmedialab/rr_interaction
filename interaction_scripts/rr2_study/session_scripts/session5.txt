@@ -1,0 +1,104 @@
+############TODO copied from s4!!!
+SET	MAX_GAME_TIME	20
+SET	MAX_REPEAT_TIME	20
+SET	PROMPT_TIME	300
+SET	NUM_PROMPTS	20
+PAUSE	1
+STATE	<condition>
+OPAL	CLEAR
+ROBOT	VOLUME	0.8
+ROBOT	FIDGET	EMPTY
+
+# Sleep and wait for wakeup.
+STATE	robot sleeping
+ROBOT	DO	POSE_SLEEPING
+QUESTION	wait_for_wakeup
+STATE	start robot wakeup
+ROBOT	VOLUME	0.8
+ROBOT	DO	YAWN
+ROBOT	DO	IceCream
+ROBOT	DO	LAUGH
+STATE	end robot wakeup
+SET	PROMPT_TIME	7
+SET	NUM_PROMPTS	1
+
+# Robot introduction.
+RESTART	intro
+STATE	start introduction
+**RR	ROBOT	DO	SMILE
+**NR	ROBOT	DO	HeyNoName
+**RR	ROBOT	DO	Hey
+**RR	ROBOT	DO	<participant_name>
+**RR	ROBOT	DO	SMILE
+**RR	ROBOT	DO	PERKUP
+STATE	end introduction
+
+# Talking about what they did last time. TODO
+STATE	start remember session
+**RR	ROBOT	DO	RememberSession2
+**RR	QUESTION	RememberSession2
+**RRSL	ROBOT	DO	YouLikedIt
+**RRSD	ROBOT	DO	YouDidntLikeIt
+**RRTY	ROBOT	DO	YouMadeUpStory
+**RRTN	ROBOT	DO	YouDidntMakeUpStory
+# NR asks a question not relating to past events with the user.
+**NR	QUESTION	WhatDidYouDo
+ROBOT	DO	PERKUP
+STATE	end remember session
+
+# Ask questions about robots/relationship. TODO
+# Is having a robot friend like having another kid as a friend? Why?
+STATE	start robot relationship question
+**RR	QUESTION	IsItHardRobotHearingRR
+**NR	QUESTION	IsItHardRobotHearing
+OPAL	CLEAR
+
+# Empathy task: Robot's bad day. TODO
+# Share something that went wrong that day. What does child do/say in response?
+# reference what it did that week too
+
+# Self-disclosure question learning about child. TODO
+RESTART	sdt
+STATE	start self-disclosure question
+**RRLE	ROBOT	VOLUME	0.7
+**RRME	ROBOT	VOLUME	0.9
+**RR	ROBOT	DO	LearnMoreAboutYou
+**NR	ROBOT	DO	LearnAboutYou
+SET	NUM_PROMPTS	1
+QUESTION	DisclosureS3
+SET	NUM_PROMPTS	0
+IF_RESPONSE	QUESTION	SelfDisclosureGeneric2
+IF_RESPONSE	QUESTION	SelfDisclosureGeneric
+**RR	ROBOT	DO	RobotDisclosureS3
+STATE	end self-disclosure question
+SET	PROMPT_TIME	8
+SET	NUM_PROMPTS	2
+
+# Third activity: Story retell.
+SET	MAX_REPEATS	1
+RESTART	rs1
+STATE	start story task
+**RR	ROBOT	DO	SMILE
+**RRLE	ROBOT	VOLUME	0.8
+**RRME	ROBOT	VOLUME	0.99
+ROBOT	LOOKAT	TABLET
+ROBOT	DO	rr1_story_01
+REPEAT	MAX_REPEATS	story-retell3.txt
+STATE	end story task
+
+# Closing and robot goes back to sleep.
+RESTART	close
+**RRLE	ROBOT	VOLUME	0.85
+STATE	start closing
+**NR	ROBOT	DO	rr1_story_19
+**RR	ROBOT	DO	LikedPlaying
+**RR	ROBOT	DO	<participant_name>
+**RRME	ROBOT	DO	LAUGH
+**RRLE	ROBOT	DO	SMILE
+ROBOT	DO	PERKUP
+ROBOT	DO	SeeYouLaterHuman
+**RR	ROBOT	DO	LAUGH
+ROBOT	FIDGET	EMPTY
+ROBOT	DO	YAWN
+ROBOT	DO	POSE_SLEEPING
+STATE	end closing
