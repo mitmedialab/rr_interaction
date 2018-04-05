@@ -25,10 +25,10 @@ script_config = "interaction_scripts/rr2_study/script_config.toml"
 # text files in the same directory as your audio files (because currently, we
 # assume that viseme files have the same name as their audio files, and just
 # replace the file extension.
-audio_base_dir = "/home/jakory/rr1_audio/source/"
+audio_base_dir = "/home/robots/rr_audio/source/"
 
 # Where are the phoneme/viseme files that correspond to each audio file located?
-viseme_base_dir = "/home/jakory/rr1_audio/formatted_phonemes/"
+viseme_base_dir = "/home/robots/rr_audio/phonemes/"
 
 # Where should we save any output files or performance files generated during
 # the interaction?

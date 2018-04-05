@@ -1,3 +1,3 @@
 #!/bin/sh
-cd "$HOME/rr1_audio"
+cd "$HOME/rr_audio"
 python -m SimpleHTTPServer

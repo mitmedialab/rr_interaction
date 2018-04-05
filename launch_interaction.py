@@ -130,7 +130,7 @@ def start_rosbag(pid, session):
     """ Start rosbag recording. """
     # Make a directory to save the rosbags in if it doesn't exist yet. If it
     # does exist, move on, unless we get some other error.
-    bagdir = "/home/jakory/rr2_rosbags/"
+    bagdir = "/home/robots/rr2_rosbags/"
     try:
         os.makedirs(bagdir)
     except OSError as exception:
