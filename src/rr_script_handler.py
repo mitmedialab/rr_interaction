@@ -383,7 +383,8 @@ class ScriptHandler(object):
         # Check for other tags.
         # Line can be tagged "SL" or "SD" to indicate that the participant
         # either liked or didn't like the robot's story last time.
-        if ("SL" in tags or "SD" in tags) and self._session in self._pconfig:
+        if ("SL" in tags or "SD" in tags or "NS" in tags) and \
+                self._session in self._pconfig:
             if "liked_last_story" not in self._pconfig[self._session]:
                 self._logger.warning("No liked_last_story for participant "
                                      "for session {}! Can't check tags without"

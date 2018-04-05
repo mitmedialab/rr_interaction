@@ -39,6 +39,7 @@ STATE	start remember session
 **RR	QUESTION	RememberSession1
 **RRSL	ROBOT	DO	YouLikedIt
 **RRSD	ROBOT	DO	YouDidntLikeIt
+**RRNS	ROBOT	DO	NoStoryTold
 **RRTY	ROBOT	DO	YouRetoldStory
 **RRTN	ROBOT	DO	YouDidntRetellStory
 # NR asks a question not relating to past events with the user.
