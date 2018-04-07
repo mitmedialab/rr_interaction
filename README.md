@@ -16,6 +16,14 @@ other nodes.
 
 ## Setup and dependencies
 
+### System
+Copy `scripts/ros.sh` to `/etc/init/`. Copy `scripts/env.sh` to `/home/robots/`.
+This will make ROS (via roslaunch) start the whole system at boot, as an
+Upstart service.
+
+You'll be able to access the web interface to control the interaction on port
+`8080`.
+
 ### Python
 
 You'll need the following libraries. You can `pip install` them; if you do so,
