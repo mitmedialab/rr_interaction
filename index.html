@@ -1,0 +1,292 @@
+<html lang="en_US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=5, width=device-width, height=device-height">
+    <title>RR User Input</title>
+
+    <style>
+        div#content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        div.module {
+            margin: 5px;
+            border: 1px solid #a0a0a0;
+            border-radius: 5px;
+            padding: 5px;
+
+        }
+        div.module button {
+            display: block;
+            margin: 10px 0;
+            width: 100%;
+        }
+        h3 {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        div#banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #aaeeaa;
+            padding: 5px;
+            padding-left: 15px;
+        }
+        body:not([running]) div#banner {
+            visibility: hidden;
+        }
+        body:not([running]) div#content {
+            display: none;
+        }
+        body:not([running]) div#bar-wrapper {
+            display: none;
+        }
+        body[running] div#form {
+            display: none;
+        }
+        div#form {
+            background-color: orange;
+        }
+        input, select {
+            width: 100%;
+        }
+        div#bar-wrapper {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            background-color: #eeeeee;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        div#bar-wrapper[ready] {
+            background-color: #aaeeaa;
+        }
+        div#bar {
+            padding-left: 5px;
+            padding-right: 5px;
+            max-width: 400px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        button#send {
+            margin-left: auto;
+            margin-right: 0;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="banner">
+        <span id="experimenter"></span>
+        is running
+        <span id="participant"></span>
+        in session
+        <span id="session"></span>
+    </div>
+
+    <br>
+
+    <div id="form" class="module">
+        <table>
+            <tr>
+                <td>Experimenter</td>
+                <td>
+                    <select id="experimenter_in">
+                        <option value="jackie">jackie</option>
+                        <option value="alicia">alicia</option>
+                        <option value="olga">olga</option>
+                        <option value="jete">jete</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Participant</td>
+                <td>
+                    <input type="text" id="participant_in"></input>
+                </td>
+            </tr>
+            <tr>
+                <td>Session</td>
+                <td>
+                    <select id="session_in">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Starting Point</td>
+                <td>
+                    <select id="restart_in">
+                        <option value="beginning">beginning</option>
+                        <option value="intro">intro</option>
+                        <option value="apt">apt</option>
+                        <option value="sdt">sdt</option>
+                        <option value="rs1">rs1</option>
+                        <option value="rs2">rs2</option>
+                        <option value="photo">photo</option>
+                        <option value="close">close</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <button id="launch">Launch</button>
+    </div>
+
+    <div id="content">
+
+    <div class="module">
+        <h3>Interaction</h3>
+        <button data-type="INTERACTION" data-cmd="START">Start</button>
+        <button data-type="INTERACTION" data-cmd="PAUSE">Pause</button>
+        <button data-type="INTERACTION" data-cmd="RESUME">Resume</button>
+        <button data-type="INTERACTION" data-cmd="STOP">Stop</button>
+    </div>
+
+    <div class="module">
+        <h3>Yes/No Input</h3>
+        Select senario outcome:
+        <button data-type="YESNO" data-cmd="TIMEOUT">Timeout / No Response</button>
+        <button data-type="YESNO" data-cmd="YES">Yes: Child Will Do It</button>
+        <button data-type="YESNO" data-cmd="NO">No: Child Won't Do It</button>
+    </div>
+
+    <div class="module">
+        <h3>Negotiation</h3>
+        Select negotiation outcome:
+        <button data-type="NEGOTIATION" data-cmd="TIMEOUT">Timeout / No Response</button>
+        <button data-type="NEGOTIATION" data-cmd="REFUSAL">Refusal: Child Wants Their Choice</button>
+        <button data-type="NEGOTIATION" data-cmd="ACQUIESCENCE">Acquiescense: Child Allows Robot's Choice</button>
+        <button data-type="NEGOTIATION" data-cmd="COMPROMISE GENERAL">Compromise: Do Both (Not Specific)</button>
+        <button data-type="NEGOTIATION" data-cmd="COMPROMISE CHILD">Compromise: Do Child's First</button>
+        <button data-type="NEGOTIATION" data-cmd="COMPROMISE ROBOT">Compromise: Do Robot's First</button>
+    </div>
+
+    <div class="module">
+        <h3>Tega Controls</h3>
+        Click to send a command to Tega:
+        <button data-type="TEGA" data-cmd="POSE_SLEEPING">Sleep</button>
+        <button data-type="TEGA" data-cmd="PERKUP">Wake Up</button>
+    </div>
+
+
+    </div>
+
+    <br>
+    <br>
+    <div id="bar-wrapper">
+        <div id="bar">
+            <span id="confirm_text">Select a command to send</span>
+            <button id="send" disabled>CONFIRM AND SEND</button>
+        </div>
+    </div>
+
+</body>
+</html>
+<script>
+(function(){
+    function setMessage(str) {
+        const m = str ? " Send '"+str+"'?" : "&nbsp;";
+        document.getElementById("confirm_text").innerHTML = m;
+    }
+
+    var cmd;
+    let setCmd = e => {
+        cmd = {
+            type: e.target.attributes["data-type"].value,
+            cmd: e.target.attributes["data-cmd"].value,
+        };
+        setMessage(cmd.cmd);
+        document.getElementById("send").removeAttribute("disabled");
+        document.getElementById("bar-wrapper").setAttribute("ready", "");
+    };
+    let clearCmd = () => {
+        msg = undefined;
+        setMessage();
+        document.getElementById("send").setAttribute("disabled", "");
+        document.getElementById("bar-wrapper").removeAttribute("ready");
+    };
+
+    // Attach the command setter to all command buttons.
+    for (let b of document.getElementsByTagName("button")) {
+        if (b.attributes["data-type"]) {
+            b.onclick = setCmd;
+        }
+    }
+
+    document.getElementById("send").onclick = function() {
+        if (!cmd) return;
+        let content = cmd;
+        clearCmd();
+        fetch("/command", {
+            method: "POST",
+            body: JSON.stringify(content),
+            headers: {
+                "Content-Type": "text/plain",
+                "Content-Length": content.length,
+            },
+        }).catch(err => {
+            console.error(err);
+        });
+    };
+
+    document.getElementById("launch").onclick = function() {
+        let content = {
+            experimenter: document.getElementById("experimenter_in").value,
+            participant: document.getElementById("participant_in").value,
+            session: document.getElementById("session_in").value,
+            restart: document.getElementById("restart_in").value,
+        };
+        fetch("/launch", {
+            method: "POST",
+            body: JSON.stringify(content),
+            headers: {
+                "Content-Type": "text/plain",
+                "Content-Length": content.length,
+            },
+            }).then(r => {
+                if (!r.ok)
+                alert("Invalid value. Did you fill out all the boxes?");
+            }).catch(err => {
+                console.error(err);
+                alert("Invalid value. Did you fill out all the boxes?");
+            });
+    };
+
+    // Get status.
+    setInterval(() => {
+        fetch("/status")
+            .then(r => r.json())
+            .then(j => {
+                    console.log(j);
+                    if (j.msg) {
+                        document.getElementById("experimenter").innerHTML = j.msg.experimenter;
+                        document.getElementById("participant").innerHTML = j.msg.participant;
+                        document.getElementById("session").innerHTML = j.msg.session;
+                    }
+
+                    if (j.running) {
+                        document.body.setAttribute("running", "")
+                    } else {
+                        document.body.removeAttribute("running", "")
+                    }
+            })
+            .catch(err => {
+                console.error(err);
+            });
+        }, 500);
+
+})();
+</script>

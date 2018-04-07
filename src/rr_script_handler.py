@@ -95,7 +95,7 @@ class ScriptHandler(object):
 
         # Are we restarting at a certain point in the script?
         self._restart_point = restart
-        self._looking_for_restart = True if restart else False
+        self._looking_for_restart = restart and restart != "beginning"
 
         # Set up script parser.
         self._script_parser = ScriptParser()
