@@ -27,23 +27,7 @@ SOFTWARE.
 """
 
 import argparse  # For getting optional restart-related arguments.
-import os  # For checking if files and directories exist.
-import os.path  # For checking if files and directories exist.
-import errno  # Used when checking error codes when trying to make a directory.
-import datetime  # So we can append the date and time to rosbags.
-import toml  # For reading our config file.
-import subprocess  # For starting rosbag.
-import psutil  # Dealing with closing the rosbag properly.
-import signal  # Sending SIGINT signal to rosbag.
-from src.rr_interaction_node import InteractionHandler  # Start interaction.
-
-
-PIDS = ["p001", "p002", "p003", "p004", "p005", "p006", "p007", "p008", "p009",
-        "p010", "p011", "p012", "p013", "p014", "p015", "p016", "p017", "p018",
-        "p019", "p020", "p021", "p022", "p023", "p024", "p025", "p026", "p027",
-        "p028", "p029", "p030", "p031", "p032", "p101", "p102", "p103", "p104",
-        "p105", "p201", "p202", "p203", "p204", "p205", "p301", "p302", "p303",
-        "p304", "p305", "p306", "p307", "p999", "p998", "p997"]
+import interaction_launcher
 
 
 def get_args():
@@ -61,7 +45,7 @@ def get_args():
     while True:
         name = raw_input("Enter your name, all lowercase: ")
         # If the corresponding audio file exists, this is an acceptable name.
-        if check_name(name):
+        if interaction_launcher.check_name(name):
             print "\tOkay! Hi {}, have fun running the experiment!".format(
                     (name[:1].upper() + name[1:]))
             break
@@ -74,7 +58,7 @@ def get_args():
     #    pattern "p000", "p001", etc.
     while True:
         pid = raw_input("Enter participant ID: ")
-        if pid in PIDS:
+        if interaction_launcher.check_pid(pid):
             print "\tGreat. Running participant {}.".format(pid)
             break
         else:
@@ -87,7 +71,7 @@ def get_args():
         session = raw_input("Enter session number: ")
         try:
             session = int(session)
-            if session > 0 and session < 10:
+            if interaction_launcher.check_session(session):
                 print "\tSession {}. All set.".format(session)
                 break
             else:
@@ -99,68 +83,6 @@ def get_args():
                   "integer between 1-10. Try again. Example: 1".format(session)
 
     return (name, pid, session)
-
-
-def check_name(name):
-    """ Check whether a given name exists as an audio file in the audio files
-    directory.
-    """
-    # Read the audio files directory location from the toml config file.
-    try:
-        with open("config.toml") as tof:
-            toml_data = toml.load(tof)
-        # Directory of audio files.
-        if "audio_base_dir" in toml_data:
-            audio_base_dir = toml_data["audio_base_dir"]
-            return os.path.isfile(audio_base_dir + name + ".wav")
-        else:
-            print "Could not read audio base directory path! Expected option "\
-                  "\"audio_base_dir\" to be in config file. We need to know "\
-                  "where the audio files are since we use them to check "\
-                  "whether experimenter names are valid."
-            exit(1)
-    except Exception as exc:  # pylint: disable=broad-except
-        print "Could not read the config file \"config.toml\". Exiting " \
-              "because we need it to continue, since we use it to check " \
-              "whether experimenter names are valid. {}".format(exc)
-        exit(1)
-
-
-def start_rosbag(pid, session):
-    """ Start rosbag recording. """
-    # Make a directory to save the rosbags in if it doesn't exist yet. If it
-    # does exist, move on, unless we get some other error.
-    bagdir = "/home/robots/rr2_rosbags/"
-    try:
-        os.makedirs(bagdir)
-    except OSError as exception:
-        if exception.errno != errno.EEXIST:
-            raise
-
-    # Save rosbag with date appended (that way if the session has to be
-    # restarted or if the user enters the wrong ID, any previous bags won't be
-    # overwritten).
-    date = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-    bag = bagdir + pid + "-" + str(session) + "-" + date + ".bag"
-    print "Rosbag will be saved to \"{}\"".format(bag)
-
-    # Start rosbag recording.
-    try:
-        global BAG_PROCESS
-        BAG_PROCESS = subprocess.Popen(["rosbag", "record", "-a", "-O", bag],
-                                       shell=False)
-    except Exception:
-        print "Uh oh, something went wrong with rosbag recording!"
-        raise
-
-
-def close_rosbag():
-    """ Close the rosbag and all its child processes. """
-    print "Stopping rosbag recording if it's not stopped already..."
-    process = psutil.Process(BAG_PROCESS.pid)
-    for subp in process.get_children(recursive=True):
-        subp.send_signal(signal.SIGINT)
-    BAG_PROCESS.wait()
 
 
 if __name__ == '__main__':
@@ -177,38 +99,33 @@ if __name__ == '__main__':
         description="Run the interaction. Optionally, restart at a later point"
                     "in the script.")
     PARSER.add_argument(
-        "-r", "--restart", choices=["intro", "apt", "sdt", "rs1", "rs2",
+        "-r", "--restart", choices=["beginning", "intro", "apt", "sdt", "rs1", "rs2",
                                     "photo", "close"],
         type=str, dest="restart", help="Restart interaction at"
         "a designated restart point: intro, apt (anomalous picture task), sdt "
         "(self-disclosure task), rs1 (robot's first story), rs2 (robot's "
         "second story), photo (take photo with robot), close (the"
         " interaction closing).")
+    PARSER.add_argument(
+        "-e", "--experimenter", type=str, dest="experimenter", help="Experimenter name.")
+    PARSER.add_argument(
+        "-p", "--participant", type=str, dest="participant", help="Participant ID.")
+    PARSER.add_argument(
+        "-s", "--session", type=int, dest="session", help="Session name.")
+    PARSER.add_argument(
+        "-n", "--non-interactive", type=bool, action="store_true", dest="non_interactive", help="Don't ask questions.")
     ARGS = PARSER.parse_args()
     if ARGS.restart:
         RESTART = ARGS.restart
     else:
         RESTART = None
 
-    try:
-        # Get input from the user.
-        (EXPERIMENTER, PARTICIPANT, SESSION) = get_args()
-        # Start the rosbag recording.
-        BAG_PROCESS = None
-        start_rosbag(PARTICIPANT, SESSION)
-        # Start the interaction with the provided session number, participant
-        # ID, entrainment set to true, experimenter name, and the restart
-        # point (if any).
-        INTERACTION_HANDLER = InteractionHandler()
-        INTERACTION_HANDLER.launch_interaction(SESSION, PARTICIPANT, True,
-                                               EXPERIMENTER, RESTART)
-
-    except Exception as exc:
-        print "Uh oh, something went wrong! {}".format(exc)
-        if BAG_PROCESS:
-            close_rosbag()
-        raise
-
-    # After the interaction ends, stop rosbag recording.
-    if BAG_PROCESS:
-        close_rosbag()
+    # If we have valid args, don't ask for them.
+    if interaction_launcher.check_name(ARGS.experimenter) \
+            and interaction_launcher.check_pid(ARGS.participant) \
+            and interaction_launcher.check_session(ARGS.session):
+        interaction_launcher.launch(ARGS.experimenter, ARGS.participant, ARGS.session, RESTART)
+    elif ARGS.non_interactive:
+        os.exit(1)
+    else:
+        interaction_launcher.launch(*get_args(), restart=RESTART)
