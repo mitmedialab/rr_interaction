@@ -5,7 +5,7 @@
     <title>RR User Input</title>
 
     <style>
-        div#content {
+        div#content2, div#content1 {
             display: flex;
             flex-wrap: wrap;
         }
@@ -37,13 +37,13 @@
         body:not([running]) div#banner {
             visibility: hidden;
         }
-        body:not([running]) div#content {
+        body:not([running]) div#content2 {
             display: none;
         }
         body:not([running]) div#bar-wrapper {
             display: none;
         }
-        body[running] div#form {
+        body[running] div#content1 {
             display: none;
         }
         div#form {
@@ -92,6 +92,7 @@
 
     <br>
 
+    <div id="content1">
     <div id="form" class="module">
         <table>
             <tr>
@@ -144,8 +145,9 @@
         </table>
         <button id="launch">Launch</button>
     </div>
+    </div>
 
-    <div id="content">
+    <div id="content2">
 
     <div class="module">
         <h3>Interaction</h3>
@@ -270,7 +272,6 @@
         fetch("/status")
             .then(r => r.json())
             .then(j => {
-                    console.log(j);
                     if (j.msg) {
                         document.getElementById("experimenter").innerHTML = j.msg.experimenter;
                         document.getElementById("participant").innerHTML = j.msg.participant;
