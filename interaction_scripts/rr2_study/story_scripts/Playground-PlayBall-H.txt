@@ -1,0 +1,9 @@
+ROBOT	DO	KidsPlaying
+ROBOT	DO	OnceMicahPlayBall0
+ROBOT	DO	SoHePickedUpBall0
+ROBOT	DO	TossTossDaisyPlay0
+ROBOT	DO	DaisyGrabbedBall0
+ROBOT	DO	HeyMyBall0
+ROBOT	DO	PleaseGiveItBack0
+ROBOT	DO	FineWellPlayThisOne0
+ROBOT	DO	DaisyLeftOut0

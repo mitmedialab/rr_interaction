@@ -1,0 +1,11 @@
+ROBOT	DO	Penguins
+ROBOT	DO	TwoPenguinsPlayed1
+ROBOT	DO	MadeSnowballs1
+ROBOT	DO	MassiveCarrotNose1
+ROBOT	DO	SnowmanHatHead1
+ROBOT	DO	LittlePenguinSlipped1
+ROBOT	DO	RightThenSeal1
+ROBOT	DO	ChasedMassiveIceberg1
+ROBOT	DO	TheyWantedHat1
+ROBOT	DO	GiveBackHat1
+ROBOT	DO	SoRescuingHat1
