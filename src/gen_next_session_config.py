@@ -130,8 +130,9 @@ def get_negotiation_outcome(performance, prev_session):
         # Compromises where we do the child's choice first, or refusals where
         # child sticks to their choice mean we did "your choice", i.e., the
         # child's choice.
-        if "COMPROMISE CHILD" in outcome or "COMPROMISE GENERAL" in outcome \
-                or "REFUSAL" in outcome:
+        if "\"COMPROMISE CHILD\"" in outcome \
+                or "\"COMPROMISE GENERAL\"" in outcome \
+                or "\"REFUSAL\"" in outcome:
             return "YourChoice"
         # Otherwise, we do "my choice", i.e., the robot's choice. This would be
         # if the child acquiesces to allow the robot's choice, suggests a
@@ -240,13 +241,17 @@ def personalize_stories(pid, performance, pconfig, story_dir, study_config,
             # Check the participant log to see what scenes were offered last
             # session, and which of them were played. If one wasn't played, we
             # can take it for use this session.
-            for scene in performance["session"][prev_session]["scenes_shown"]:
-                if scene not in performance["session"][prev_session][
-                            "scenes_used"]:
-                    new_pconfig[session]["scenes"].append(scene)
-                    print "Found scene: {} from prior session {}".format(
-                            scene, prev_session)
-                    break
+            if "scenes_shown" not in performance["session"][prev_session]:
+                print "Warning: No scenes shown last time?"
+            else:
+                for scene in performance["session"][prev_session][
+                        "scenes_shown"]:
+                    if scene not in performance["session"][prev_session][
+                                "scenes_used"]:
+                        new_pconfig[session]["scenes"].append(scene)
+                        print "Found scene: {} from prior session {}".format(
+                                scene, prev_session)
+                        break
 
         # 3. If we don't have two stories yet, we will look for stories for the
         #    robot to tell based on story similarity to the child's stories,
