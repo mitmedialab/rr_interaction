@@ -99,21 +99,24 @@ if __name__ == '__main__':
         description="Run the interaction. Optionally, restart at a later point"
                     "in the script.")
     PARSER.add_argument(
-        "-r", "--restart", choices=["beginning", "intro", "apt", "sdt", "rs1", "rs2",
-                                    "photo", "close"],
+        "-r", "--restart", choices=["beginning", "intro", "apt", "sdt", "rs1",
+                                    "rs2", "photo", "close"],
         type=str, dest="restart", help="Restart interaction at"
         "a designated restart point: intro, apt (anomalous picture task), sdt "
         "(self-disclosure task), rs1 (robot's first story), rs2 (robot's "
         "second story), photo (take photo with robot), close (the"
         " interaction closing).")
     PARSER.add_argument(
-        "-e", "--experimenter", type=str, dest="experimenter", help="Experimenter name.")
+        "-e", "--experimenter", type=str, dest="experimenter",
+        help="Experimenter name.")
     PARSER.add_argument(
-        "-p", "--participant", type=str, dest="participant", help="Participant ID.")
+        "-p", "--participant", type=str, dest="participant",
+        help="Participant ID.")
     PARSER.add_argument(
         "-s", "--session", type=int, dest="session", help="Session name.")
     PARSER.add_argument(
-        "-n", "--non-interactive", type=bool, action="store_true", dest="non_interactive", help="Don't ask questions.")
+        "-n", "--non-interactive", action="store_true",
+        dest="non_interactive", help="Don't ask questions.")
     ARGS = PARSER.parse_args()
     if ARGS.restart:
         RESTART = ARGS.restart
@@ -124,8 +127,9 @@ if __name__ == '__main__':
     if interaction_launcher.check_name(ARGS.experimenter) \
             and interaction_launcher.check_pid(ARGS.participant) \
             and interaction_launcher.check_session(ARGS.session):
-        interaction_launcher.launch(ARGS.experimenter, ARGS.participant, ARGS.session, RESTART)
+        interaction_launcher.launch(
+            ARGS.experimenter, ARGS.participant, ARGS.session, RESTART)
     elif ARGS.non_interactive:
-        os.exit(1)
+        exit(1)
     else:
         interaction_launcher.launch(*get_args(), restart=RESTART)

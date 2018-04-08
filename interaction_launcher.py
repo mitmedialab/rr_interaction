@@ -46,20 +46,28 @@ PIDS = ["p001", "p002", "p003", "p004", "p005", "p006", "p007", "p008", "p009",
 
 
 def check_pid(pid):
+    """ Check whether a given id exists in our list of acceptable ids. """
     return pid in PIDS
 
 
 def check_session(session):
+    """ Session numbers go from 1 to 10. """
     return session > 0 and session < 10
 
 
-def check_name(name, config_prefix=""):
+def check_name(name):
     """ Check whether a given name exists as an audio file in the audio files
     directory.
     """
+    # If the name is not None, we should check whether it exists as an audio
+    # file.
+    if not name:
+        print "Experimenter name is not valid!"
+        return False
+
     # Read the audio files directory location from the toml config file.
     try:
-        with open(config_prefix + "config.toml") as tof:
+        with open("config.toml") as tof:
             toml_data = toml.load(tof)
         # Directory of audio files.
         if "audio_base_dir" in toml_data:
@@ -99,7 +107,7 @@ def start_rosbag(pid, session):
     # Start rosbag recording.
     try:
         return subprocess.Popen(["rosbag", "record", "-a", "-O", bag],
-                                       shell=False)
+                                shell=False)
     except Exception:
         print "Uh oh, something went wrong with rosbag recording!"
         raise
@@ -114,7 +122,8 @@ def close_rosbag(bag_process):
     bag_process.wait()
 
 
-def launch(experimenter, participant, session, restart, config_prefix=""):
+def launch(experimenter, participant, session, restart):
+    """ Start the rosbag recording and launch the interaction. """
     try:
         # Start the rosbag recording.
         bag_process = start_rosbag(participant, session)
@@ -122,7 +131,7 @@ def launch(experimenter, participant, session, restart, config_prefix=""):
         # ID, entrainment set to true, experimenter name, and the restart
         # point (if any).
         InteractionHandler().launch_interaction(session, participant, True,
-                                               experimenter, restart)
+                                                experimenter, restart)
 
     except Exception as exc:
         print "Uh oh, something went wrong! {}".format(exc)
