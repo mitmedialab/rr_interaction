@@ -32,10 +32,10 @@ STATE	start introduction
 **RR	ROBOT	DO	PERKUP
 STATE	end introduction
 
-# Talking about what they did last time. TODO
+# Talking about what they did last time.
 STATE	start remember session
-**RR	ROBOT	DO	RememberSession2
-**RR	QUESTION	RememberSession2
+**RR	ROBOT	DO	RememberSession3
+**RR	QUESTION	RememberSession3
 **RRSL	ROBOT	DO	YouLikedIt
 **RRSD	ROBOT	DO	YouDidntLikeIt
 **RRNS	ROBOT	DO	NoStoryTold
@@ -46,18 +46,18 @@ STATE	start remember session
 ROBOT	DO	PERKUP
 STATE	end remember session
 
-# Ask questions about robots/relationship. TODO
+# Ask questions about robots/relationship.
 # Is having a robot friend like having another kid as a friend? Why?
 STATE	start robot relationship question
-**RR	QUESTION	IsItHardRobotHearingRR
-**NR	QUESTION	IsItHardRobotHearing
-OPAL	CLEAR
+**RR	QUESTION	HavingRobotFriendRR
+**NR	QUESTION	HavingRobotFriend
 
-# Empathy task: Robot's bad day. TODO
+# Empathy task: Robot's bad day.
 # Share something that went wrong that day. What does child do/say in response?
-# reference what it did that week too
+**RR	QUESTION	HadBadDayRR
+**NR	QUESTION	HadBadDay
 
-# Self-disclosure question learning about child. TODO
+# Self-disclosure question learning about child.
 RESTART	sdt
 STATE	start self-disclosure question
 **RRLE	ROBOT	VOLUME	0.7
@@ -65,11 +65,15 @@ STATE	start self-disclosure question
 **RR	ROBOT	DO	LearnMoreAboutYou
 **NR	ROBOT	DO	LearnAboutYou
 SET	NUM_PROMPTS	1
-QUESTION	DisclosureS3
+SET	PROMPT_TIME	9
+QUESTION	DisclosureS4
 SET	NUM_PROMPTS	0
-IF_RESPONSE	QUESTION	SelfDisclosureGeneric2
 IF_RESPONSE	QUESTION	SelfDisclosureGeneric
-**RR	ROBOT	DO	RobotDisclosureS3
+IF_RESPONSE	QUESTION	SelfDisclosureGeneric2
+**RR	ROBOT	DO	RobotDisclosureS4
+**RRME	ROBOT	DO	LAUGH
+**RRLE	ROBOT	DO	SMILE
+PAUSE	1
 STATE	end self-disclosure question
 SET	PROMPT_TIME	8
 SET	NUM_PROMPTS	2

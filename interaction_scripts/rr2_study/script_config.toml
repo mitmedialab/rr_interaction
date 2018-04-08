@@ -611,7 +611,30 @@ max_attempt = ["srPre_4_1"]
     user_responses = [""]
     robot_responses = ["srPre_4_2"]
 
-# TODO in progress: add S4-7
+## TODO in progress: add S4-7
+[questions.DisclosureS4]
+question = "DisclosureS4"
+timeout_prompts = ["Well", "HmPrompt"]
+max_attempt = ["srPre_4_1"]
+    [[questions.DisclosureS4.user_input]]
+    user_responses = ["no", "nothing", "don't know", "know", "not sure", "don't want"]
+    robot_responses = ["FeelingShy"]
+    [[questions.DisclosureS4.user_input]]
+    user_responses = [""]
+    robot_responses = ["srPre_4_2"]
+
+[questions.DisclosureS5]
+question = "DisclosureS5"
+timeout_prompts = ["Well", "HmPrompt"]
+max_attempt = ["srPre_4_1"]
+    [[questions.DisclosureS5.user_input]]
+    user_responses = ["no", "nothing", "don't know", "know", "not sure", "don't want"]
+    robot_responses = ["FeelingShy"]
+    [[questions.DisclosureS5.user_input]]
+    user_responses = [""]
+    robot_responses = ["srPre_4_2"]
+
+
 
 ## Baby bird's first nest - dialogic questions.
 [questions.baby_birds_first_nest_q_l_1]
@@ -1161,7 +1184,7 @@ question = "IsItHardRobotHearing"
     robot_responses = ["OhGoodPracticingRR", "SMILE"]
     [[questions.IsItHardRobotHearingRR.user_input]]
     user_responses = [""]
-    robot_responses = ["ImPracticing"]
+    robot_responses = ["ImPracticing", "SMILE"]
 
 [questions.IsItHardRobotHearing]
 question = "IsItHardRobotHearing"
@@ -1174,6 +1197,34 @@ question = "IsItHardRobotHearing"
     [[questions.IsItHardRobotHearing.user_input]]
     user_responses = [""]
     robot_responses = ["ImPracticing"]
+
+## Session 4 questions
+[questions.HadBadDay]
+question = "HadBadDay"
+    [[questions.HadBadDay.user_input]]
+    user_responses = [""]
+    robot_responses = ["PERKUP"]
+
+[questions.HadBadDayRR]
+question = "HadBadDay"
+    [[questions.HadBadDayRR.user_input]]
+    user_responses = ["okay", "ok", "battery", "play", "really", "aw", "red", "read"]
+    robot_responses = ["SMILE", "ThanksShy"]
+    [[questions.HadBadDayRR.user_input]]
+    user_responses = [""]
+    robot_responses = ["PERKUP"]
+
+[questions.HavingRobotFriend]
+question = "HavingRobotFriend"
+    [[questions.HavingRobotFriend.user_input]]
+    user_responses = [""]
+    robot_responses = ["WhyDoYouThink"]
+
+[questions.HavingRobotFriendRR]
+question = "HavingRobotFriend"
+    [[questions.HavingRobotFriendRR.user_input]]
+    user_responses = [""]
+    robot_responses = ["SMILE", "WhyDoYouThink", "SILENT_NOD"]
 
 #[questions.questionname2]
 #question = "question_audio"
@@ -3944,3 +3995,7 @@ name = "Playground-sr2-session1-p007-story2-06"
 animations = [ { time = 3.5, anim = "SILENT_SAD" },
                { time = 7.5, anim = "SHIMMY" } ]
 
+## Session audio
+[audio.LearnMoreAboutYou]
+name = "LearnMoreAboutYou"
+animations = [ { time = 0.2, anim = "SILENT_NOD" } ]
