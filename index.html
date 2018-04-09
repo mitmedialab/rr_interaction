@@ -321,7 +321,10 @@
     };
 
     // Get status.
+    var updating;
     setInterval(() => {
+        if (updating) return;
+        updating = true;
         fetch("/status")
             .then(r => r.json())
             .then(j => {
@@ -336,9 +339,11 @@
                     } else {
                         document.body.removeAttribute("running", "")
                     }
+                    updating = false;
             })
             .catch(err => {
                 console.error(err);
+                updating = false;
             });
         }, 1000);
 
