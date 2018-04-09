@@ -5,6 +5,7 @@ foo bar
 import json
 import subprocess  # For starting rosbag.
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+from SocketServer import ThreadingMixIn
 from os import curdir, sep
 import rospy  # ROS
 from src.user_input_ros import UserFormROS
@@ -133,6 +134,11 @@ class RRHandler(BaseHTTPRequestHandler):
         return '"' + s + '"'
 
 
+class ThreadedServer(ThreadingMixIn, HTTPServer):
+    """
+    """
+
+
 if __name__ == '__main__':
     # Initialize the ROS node.
     ros_node = UserFormROS(rospy.init_node('rr_user_input_form', anonymous=False))
@@ -141,7 +147,7 @@ if __name__ == '__main__':
     # HTTPServer creates a new instance of RRHandler for every request, bit it
     # needs access to a global ROS node handle. This lambda gives it access
     # via closure.
-    server = HTTPServer(("", PORT),
+    server = ThreadedServer(("", PORT),
             lambda *args, **kwargs: RRHandler(ros_node, shared, *args, **kwargs))
     print "HTTP server running"
     # Because rospy catches signals, we can't use server.serve_forever().
