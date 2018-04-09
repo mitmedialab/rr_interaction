@@ -174,11 +174,11 @@ def personalize_stories(pid, performance, pconfig, story_dir, study_config,
     print "Checking session... do we do a story retell this time?"
     if "retell" in study_config["sessions"][session]["story_type"]:
         # If so: Specify which story the robot should tell and its level.
-        new_pconfig[session]["story"] = study_config["sessions"][session][
+        new_pconfig[session]["story_name"] = study_config["sessions"][session][
                 "story_name"]
         new_pconfig[session]["story_level"] = pconfig["story_retell_level"]
         print "Yes - Story retell: {} at level {}".format(
-                new_pconfig[session]["story"],
+                new_pconfig[session]["story_name"],
                 new_pconfig[session]["story_level"])
 
     # Sometimes the child creates their own story. In this case, we need to

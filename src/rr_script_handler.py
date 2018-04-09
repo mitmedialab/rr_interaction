@@ -1773,9 +1773,14 @@ class ScriptHandler(object):
         # RETELL story:
         elif "retell" in self._pconfig[self._session]["story_type"]:
             self._logger.info("Loading RETELL story on Opal device...")
-            self._ros_node.send_opal_command(
-                "STORY_SELECTION",
-                self._pconfig[self._session]["story_name"])
+            if "story_name" in self._pconfig[self._session]:
+                self._ros_node.send_opal_command(
+                    "STORY_SELECTION",
+                    self._pconfig[self._session]["story_name"])
+            elif "story" in self._pconfig[self._session]:
+                self._ros_node.send_opal_command(
+                    "STORY_SELECTION",
+                    self._pconfig[self._session]["story"])
             # Start out with the arrow buttons hidden since it's the robot's
             # turn first. When loaded, stories start on the first page by
             # default.
