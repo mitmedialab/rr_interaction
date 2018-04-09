@@ -8,6 +8,9 @@
 # Add java home (needs to be set for catkin_make to run).
 export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-i386/
 
+# Export home directory.
+export HOME=/home/robots/
+
 # Add bin to path. Also add directory where python installs pip-env.
 export PATH=/home/robots/.local/bin:/home/robots/bin:$PATH
 
