@@ -390,7 +390,6 @@ class InteractionHandler(object):
         """
         # Flags for interaction control.
         paused = False
-        started = False
         log_timer = datetime.datetime.now()
 
         # Set up signal handler to catch SIGINT (e.g., ctrl-c).
@@ -398,6 +397,8 @@ class InteractionHandler(object):
 
         # Start the interaction!
         self._logger.info("Starting interaction!")
+        self._ros_handler.send_interaction_state(state="start interaction")
+
         # Loop until we reach the end of the script or are told to exit.
         while not self._stop:
             try:
@@ -410,13 +411,6 @@ class InteractionHandler(object):
                     pass
                 else:
                     # Got a message! Parse:
-                    # If we get a START message, start the interaction.
-                    if UserInput.START in msg and not paused:
-                        self._logger.info("Starting interaction!")
-                        self._ros_handler.send_interaction_state(
-                                state="start interaction")
-                        started = True
-
                     # If we get a PAUSE command, pause script iteration.
                     if UserInput.PAUSE in msg and not paused:
                         self._logger.info("Interaction paused!")
@@ -444,20 +438,15 @@ class InteractionHandler(object):
 
                 # If the interaction has started and is not paused, parse and
                 # handle the next script line.
-                if started and not paused:
+                if not paused:
                     script_handler.iterate_once()
 
-                # If the interaction has not started yet or is paused, print a
-                # periodic log message stating that we are waiting for a START
-                # command or a RESUME command.
-                elif (not started or paused) and \
-                        (datetime.datetime.now() - log_timer >
+                # If the interaction is paused, print a periodic log message
+                # stating that we are waiting for a RESUME command.
+                elif paused and (datetime.datetime.now() - log_timer >
                             datetime.timedelta(seconds=int(5))):
-                    if paused:
-                        self._logger.info("Interaction paused... waiting "
-                                          "for command to resume.")
-                    elif not started:
-                        self._logger.info("Waiting for command to start.")
+                    self._logger.info("Interaction paused... waiting for "
+                                      "command to resume.")
                     log_timer = datetime.datetime.now()
 
             except StopIteration:

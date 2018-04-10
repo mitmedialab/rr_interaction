@@ -198,13 +198,19 @@
         </table>
         <button id="launch">Launch</button>
     </div>
+
+    <div class="module">
+        <h3>Tega Controls</h3>
+        Click to send a command to Tega:
+        <button data-type="TEGA" data-cmd="POSE_SLEEPING">Sleep</button>
+        <button data-type="TEGA" data-cmd="PERKUP">Wake Up</button>
+    </div>
     </div>
 
     <div id="content2">
 
     <div class="module">
         <h3>Interaction</h3>
-        <button data-type="INTERACTION" data-cmd="START">Start</button>
         <button data-type="INTERACTION" data-cmd="PAUSE">Pause</button>
         <button data-type="INTERACTION" data-cmd="RESUME">Resume</button>
         <button data-type="INTERACTION" data-cmd="STOP">Stop</button>
@@ -264,8 +270,13 @@
             cmd: e.target.attributes["data-cmd"].value,
         };
         setMessage(cmd.cmd);
-        document.getElementById("send").removeAttribute("disabled");
-        document.getElementById("bar-wrapper").setAttribute("ready", "");
+        if (!document.body.attributes["running"]) {
+            sendCmd();
+        }
+        else {
+            document.getElementById("send").removeAttribute("disabled");
+            document.getElementById("bar-wrapper").setAttribute("ready", "");
+        }
     };
     let clearCmd = () => {
         msg = undefined;
@@ -281,7 +292,7 @@
         }
     }
 
-    document.getElementById("send").onclick = function() {
+    function sendCmd() {
         if (!cmd) return;
         let content = cmd;
         clearCmd();
@@ -296,6 +307,8 @@
             console.error(err);
         });
     };
+
+    document.getElementById("send").onclick = sendCmd;
 
     document.getElementById("launch").onclick = function() {
         let content = {
