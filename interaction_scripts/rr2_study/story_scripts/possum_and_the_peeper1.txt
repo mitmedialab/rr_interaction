@@ -27,9 +27,6 @@ ROBOT	DO	crest
 PAUSE	2
 OPAL	NEXT_PAGE
 ROBOT	DO	possum_and_the_peeper_lv1-07
-QUESTION	possum_and_the_peeper_q_l_5
-ROBOT	DO	CanYouSay
-ROBOT	DO	tuft
 PAUSE	2
 OPAL	NEXT_PAGE
 ROBOT	DO	possum_and_the_peeper_lv1-08
