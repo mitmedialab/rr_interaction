@@ -434,6 +434,7 @@ class InteractionHandler(object):
                     # go directly to the end.
                     elif UserInput.STOP in msg:
                         self._logger.info("Ending interaction!")
+                        paused = True
                         script_handler.set_end_interaction()
 
                 # If the interaction has started and is not paused, parse and
@@ -444,7 +445,7 @@ class InteractionHandler(object):
                 # If the interaction is paused, print a periodic log message
                 # stating that we are waiting for a RESUME command.
                 elif paused and (datetime.datetime.now() - log_timer >
-                            datetime.timedelta(seconds=int(5))):
+                                 datetime.timedelta(seconds=int(5))):
                     self._logger.info("Interaction paused... waiting for "
                                       "command to resume.")
                     log_timer = datetime.datetime.now()

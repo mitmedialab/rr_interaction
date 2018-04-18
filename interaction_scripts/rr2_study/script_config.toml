@@ -4262,7 +4262,6 @@ animations = [ { time = 0.4, anim = "SILENT_INTERESTED" } ]
 name = "Treemeadow-sr2-session4-p004-1-story2-05"
 animations = [ { time = 6.1, anim = "SHIMMY" } ]
 
-
 ##
 [audio.Mars-sr2-session5-p015-story1-01]
 name = "Mars-sr2-session5-p015-story1-01"
@@ -4280,7 +4279,6 @@ animations = [ { time = 4.1, anim = "SILENT_NOD" } ]
 name = "Mars-sr2-session5-p015-story1-04"
 animations = [ { time = 0.1, anim = "SHIMMY" },
                { time = 6.0, anim = "SILENT_EXCITED" } ]
-
 
 ##
 [audio.Treemeadow-sr2-session8-p013-story1-01]
@@ -4375,7 +4373,138 @@ animations = [ { time = 4.1, anim = "PROUD" } ]
 name = "Castle-sr2-session6-p013-story2-08"
 animations = [ { time = 3.1, anim = "SHIMMY" } ]
 
+##
+[audio.Castle-sr2-session2-p015-story2-01]
+name = "Castle-sr2-session2-p015-story2-01"
+animations = [ { time = 4.1, anim = "HAPPY_UP" },
+               { time = 10.0, anim = "SHIMMY" }]
 
+[audio.Castle-sr2-session2-p015-story2-02]
+name = "Castle-sr2-session2-p015-story2-02"
+animations = [ { time = 5.1, anim = "SILENT_NO" } ]
+
+[audio.Castle-sr2-session2-p015-story2-03]
+name = "Castle-sr2-session2-p015-story2-03"
+animations = [ { time = 7.1, anim = "SILENT_INTERESTED" } ]
+
+[audio.Castle-sr2-session2-p015-story2-04]
+name = "Castle-sr2-session2-p015-story2-04"
+animations = [ { time = 4.0, anim = "SILENT_EXCITED" },
+               { time = 13.0, anim = "SHIMMY" } ]
+
+##
+[audio.Iceberg-sr2-session1-p006-story1-01]
+name = "Iceberg-sr2-session1-p006-story1-01"
+animations = [ { time = 3.1, anim = "PERKUP" } ]
+
+[audio.Iceberg-sr2-session1-p006-story1-02]
+name = "Iceberg-sr2-session1-p006-story1-02"
+animations = [ { time = 3.1, anim = "SILENT_EXCITED" } ]
+
+[audio.Iceberg-sr2-session1-p006-story1-03]
+name = "Iceberg-sr2-session1-p006-story1-03"
+animations = [ { time = 7.1, anim = "SILENT_LEFTRIGHTLOOKING" } ]
+
+##
+[audio.Iceberg-sr2-session8-p007-story1-01]
+name = "Iceberg-sr2-session8-p007-story1-01"
+animations = [ { time = 7.1, anim = "SILENT_EXCITED" } ]
+
+[audio.Iceberg-sr2-session8-p007-story1-02]
+name = "Iceberg-sr2-session8-p007-story1-02"
+animations = [ { time = 3.1, anim = "PERKUP" },
+               { time = 9.0, anim = "SIDEPERK" } ]
+
+[audio.Iceberg-sr2-session8-p007-story1-03]
+name = "Iceberg-sr2-session8-p007-story1-03"
+animations = [ { time = 3.1, anim = "HAPPY_UP" } ]
+
+[audio.Iceberg-sr2-session8-p007-story1-04]
+name = "Iceberg-sr2-session8-p007-story1-04"
+animations = [ { time = 1.1, anim = "PERKUP" } ]
+
+##
+[audio.Iceberg-sr2-session1-p004-story1-01]
+name = "Iceberg-sr2-session1-p004-story1-01"
+animations = [ { time = 0.7, anim = "SIDEPERK" } ]
+
+[audio.Iceberg-sr2-session1-p004-story1-02]
+name = "Iceberg-sr2-session1-p004-story1-02"
+animations = [ { time = 4.2, anim = "SHIMMY" } ]
+
+[audio.Iceberg-sr2-session1-p004-story1-03]
+name = "Iceberg-sr2-session1-p004-story1-03"
+animations = [ { time = 4.1, anim = "SHIMMY" } ]
+
+##
+[audio.Playground-sr2-session8-p006-story2-01]
+name = "Playground-sr2-session8-p006-story2-01"
+animations = [ { time = 3.4, anim = "PERKUP" } ]
+
+[audio.Playground-sr2-session8-p006-story2-02]
+name = "Playground-sr2-session8-p006-story2-02"
+animations = [ { time = 8.1, anim = "SILENT_LEFTRIGHTLOOKING" } ]
+
+[audio.Playground-sr2-session8-p006-story2-03]
+name = "Playground-sr2-session8-p006-story2-03"
+animations = [ { time = 10.0, anim = "SILENT_EXCITED" } ]
+
+[audio.Playground-sr2-session8-p006-story2-04]
+name = "Playground-sr2-session8-p006-story2-04"
+animations = [ { time = 4.1, anim = "SILENT_EXCITED" } ]
+
+[audio.Playground-sr2-session8-p006-story2-05]
+name = "Playground-sr2-session8-p006-story2-05"
+animations = [ { time = 5.1, anim = "SHIMMY" },
+               { time = 8.0, anim = "SHIMMY" } ]
+
+[audio.Playground-sr2-session8-p006-story2-06]
+name = "Playground-sr2-session8-p006-story2-06"
+animations = [ { time = 4.1, anim = "PERKUP" } ]
+
+[audio.Playground-sr2-session8-p006-story2-07]
+name = "Playground-sr2-session8-p006-story2-07"
+animations = [ { time = 1.1, anim = "SILENT_THINKING" } ]
+
+[audio.Playground-sr2-session8-p006-story2-08]
+name = "Playground-sr2-session8-p006-story2-08"
+animations = [ { time = 9.1, anim = "HAPPY_UP" } ]
+
+##
+[audio.House-sr2-session7-p006-story2-01]
+name = "House-sr2-session7-p006-story2-01"
+animations = [ { time = 2.1, anim = "PERKUP" },
+               { time = 8.0, anim = "SIDEPERK" }]
+
+[audio.House-sr2-session7-p006-story2-02]
+name = "House-sr2-session7-p006-story2-02"
+animations = [ { time = 3.1, anim = "SIDEPERK" } ]
+
+[audio.House-sr2-session7-p006-story2-03]
+name = "House-sr2-session7-p006-story2-03"
+animations = [ { time = 0.1, anim = "SILENT_THINKING" } ]
+
+
+##
+[audio.PineForest-sr2-session5-p013-story2-01]
+name = "PineForest-sr2-session5-p013-story2-01"
+animations = [ { time = 4.1, anim = "PERKUP" } ]
+
+[audio.PineForest-sr2-session5-p013-story2-02]
+name = "PineForest-sr2-session5-p013-story2-02"
+animations = [ { time = 9.1, anim = "SILENT_SAD" } ]
+
+[audio.PineForest-sr2-session5-p013-story2-03]
+name = "PineForest-sr2-session5-p013-story2-03"
+animations = [ { time = 3.1, anim = "PERKUP" } ]
+
+[audio.PineForest-sr2-session5-p013-story2-04]
+name = "PineForest-sr2-session5-p013-story2-04"
+animations = [ { time = 2.1, anim = "SILENT_NOD" } ]
+
+[audio.PineForest-sr2-session5-p013-story2-05]
+name = "PineForest-sr2-session5-p013-story2-05"
+animations = [ { time = 1.1, anim = "PERKUP" } ]
 
 ## Session audio
 [audio.LearnMoreAboutYou]
