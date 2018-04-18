@@ -764,6 +764,7 @@ class ScriptHandler(object):
         question_audio = ""
         user_input = []
         tablet_input = []
+        button_input = []
         response_to_wait_for = None
         using_asr = False
         if question in self._script_config["questions"]:
@@ -796,6 +797,21 @@ class ScriptHandler(object):
             else:
                 self._logger.warning("No tablet user input set for this "
                                      "question!")
+
+            # Get UserInput button input for this question. This is only if we
+            # need it, for certain questions.
+            if "theend" in self._script_config["questions"][question]:
+                button_input = self._script_config["questions"][question][
+                    "theend"]
+                # If there is not response to wait for yet, then we only need
+                # to wait for the button response. Otherwise, we need to wait
+                # for either the button response or and ASR response.  TODO for
+                # now we assume we won't wait for tablet and button responses
+                # at the same time.
+                if response_to_wait_for:
+                    response_to_wait_for = self._ros_node.ASR_OR_THEEND
+                else:
+                    response_to_wait_for = self._ros_node.USER_INPUT_THEEND
 
         # Tell the robot to play the question.
         self._send_robot_do(question_audio)
@@ -957,6 +973,23 @@ class ScriptHandler(object):
                             # respond again, since we already got their
                             # response and dealt with it.
                             return
+            # If we got a UserInput THE END response:
+            elif self._ros_node.USER_INPUT_THEEND in response_type:
+                self._logger.debug("Got THE END user input response!")
+                self._got_a_response = True
+                self._logger.info("Got expected response!")
+                # Play the robot's responses in sequence.
+                for resp_option in button_input:
+                    for resp in resp_option["robot_responses"]:
+                        self._send_robot_do(resp)
+                # Log the data from this question.
+                self._performance_log.log_question(
+                        self._num_prompts, prompts_played,
+                        max_attempt_hit, latencies)
+                # Return so we don't give the user a chance to
+                # respond again, since we already got their
+                # response and dealt with it.
+                return
             else:
                 # If we got an ASR response:
                 self._logger.debug("Parsing ASR response!")
@@ -1215,7 +1248,7 @@ class ScriptHandler(object):
                                                  animations[i]["anim"][7:],
                                                  keyerr))
 
-            # If we've played all the animatons, wait for the robot to be done
+            # If we've played all the animations, wait for the robot to be done
             # speaking before moving on.
             self._ros_node.wait_for_not_speaking()
 

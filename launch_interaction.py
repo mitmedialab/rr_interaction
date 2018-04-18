@@ -100,7 +100,7 @@ if __name__ == '__main__':
                     "in the script.")
     PARSER.add_argument(
         "-r", "--restart", choices=["beginning", "intro", "apt", "sdt", "rs1",
-                                    "rs2", "photo", "close"],
+                                    "rs2", "cs1", "pc", "photo", "close"],
         type=str, dest="restart", help="Restart interaction at"
         "a designated restart point: intro, apt (anomalous picture task), sdt "
         "(self-disclosure task), rs1 (robot's first story), rs2 (robot's "

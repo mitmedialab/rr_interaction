@@ -64,6 +64,8 @@ class RosNode(object):
     USER_INPUT_NEGOTIATION = UserInput.NEGOTIATION
     USER_INPUT_INTERACTION_CONTROL = UserInput.INTERACTION_CONTROL
     USER_INPUT_YESNO = UserInput.YESNO
+    USER_INPUT_THEEND = UserInput.THEEND
+    ASR_OR_THEEND = "ASR_OR_THEEND"
 
     # We keep a dictionary of the strings used in the script and the actual
     # OpalCommand constants to use for lookup.
@@ -137,6 +139,7 @@ class RosNode(object):
         self._tablet_response_received = None
         self._negotiation_response_received = False
         self._yesno_response_received = False
+        self._theend_response_received = False
 
         # Set up rostopics we publish:
         self._logger.info("We will publish to topics: rr/opal_command, /tega, "
@@ -471,6 +474,8 @@ class RosNode(object):
             self._negotiation_response_received = True
         elif self.USER_INPUT_YESNO in data.response_type:
             self._yesno_response_received = True
+        elif self.USER_INPUT_THEEND in data.response_type:
+            self._theend_response_received = True
         elif self.USER_INPUT_INTERACTION_CONTROL in data.response_type:
             self._control_response_received = True
             # Tell the main thread when we receive this, in case it means we
@@ -554,6 +559,7 @@ class RosNode(object):
         waiting_for_control = False
         waiting_for_tablet = False
         waiting_for_yesno = False
+        waiting_for_theend = False
         if self.START in response:
             self._start_response_received = False
             waiting_for_start = True
@@ -589,6 +595,11 @@ class RosNode(object):
             waiting_for_tablet = True
             self._asr_response_received = False
             waiting_for_asr = True
+        elif self.ASR_OR_THEEND in response:
+            self._theend_response_received = False
+            waiting_for_theend = True
+            self._asr_response_received = False
+            waiting_for_asr = True
         else:
             self._logger.warning("Told to wait for " + str(response)
                                  + " but that isn't one of the allowed"
@@ -610,6 +621,10 @@ class RosNode(object):
             if waiting_for_tablet and self._tablet_response_received:
                 self._logger.info("Got {} response!".format(response))
                 return self._tablet_response_received, self.TABLET_RESPONSE, \
+                    (datetime.datetime.now() - start_time)
+            if waiting_for_theend and self._theend_response_received:
+                self._logger.info("Got {} response!".format(response))
+                return self._response_received, self.USER_INPUT_THEEND, \
                     (datetime.datetime.now() - start_time)
             elif (waiting_for_start and self._start_response_received) \
                     or (waiting_for_asr and self._asr_response_received) \
