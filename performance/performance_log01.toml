@@ -813,7 +813,7 @@ mean_intensity = [ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0
 total_questions_asked = 11
 stories_heard = [ "Playground-sr2-session1-p007-story2",]
 scenes_shown = [ "Playground", "Castle",]
-story_text = [ "I would just go at the pool to seal's.",]
+story_text = [ "Once upon a time I see a named baby. The end. I would just go at the pool to seal's.",]
 
 [p999.session.1]
 liked_story = ""
@@ -1309,7 +1309,7 @@ mean_intensity = [ 0.0, 0.0, 60.41999816894531, 62.68000030517578, 0.0, 0.0, 0.0
 total_questions_asked = 6
 stories_heard = []
 scenes_shown = [ "Iceberg", "Castle",]
-story_text = [ "A wolf ...  Wolf. .  The end.  ",]
+story_text = ["  A wolf ...  Wolf.  the wolf is trying to catch the baby bird, then she runned away. When they  the fish, then he eat them. When the frog come out  and the bird  and the baby bird gets . Then the dog says baby bird, then the mommy cow ... And when the  and the frog. Then when the wolf come to the baby bird, then her mom . Then the frog comes .  The end.  "]
 
 [p025.session.1]
 liked_story = ""
