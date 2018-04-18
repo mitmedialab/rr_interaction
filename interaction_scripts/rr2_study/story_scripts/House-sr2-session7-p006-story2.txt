@@ -1,0 +1,5 @@
+ROBOT	DO	AGirl
+ROBOT	DO	House-sr2-session7-p006-story2-01
+ROBOT	DO	House-sr2-session7-p006-story2-02
+ROBOT	DO	House-sr2-session7-p006-story2-03
+

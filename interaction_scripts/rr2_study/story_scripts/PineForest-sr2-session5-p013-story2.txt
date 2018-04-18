@@ -1,0 +1,6 @@
+ROBOT	DO	AnimalFriends
+ROBOT	DO	PineForest-sr2-session5-p013-story2-01
+ROBOT	DO	PineForest-sr2-session5-p013-story2-02
+ROBOT	DO	PineForest-sr2-session5-p013-story2-03
+ROBOT	DO	PineForest-sr2-session5-p013-story2-04
+ROBOT	DO	PineForest-sr2-session5-p013-story2-05

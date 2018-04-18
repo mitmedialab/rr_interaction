@@ -269,6 +269,22 @@ max_attempt = [""]
     [[questions.wait_for_story_end.user_input]]
     user_responses = ["the end", "end of story", "end of the story", "story end", "thee end"]
     robot_responses = [""]
+    [[questions.wait_for_story_end.theend]]
+    user_responses = ["THEEND"]
+    robot_responses = [""]
+
+[questions.wait_for_story_endRR]
+question = ""
+timeout_prompts = ["AndThenWhatHappened", "WhatHappenedNext", "Andthen", "keepGoing"]
+backchannel_prompts = [""]
+max_attempt = [""]
+    [[questions.wait_for_story_endRR.user_input]]
+    user_responses = ["the end", "end of story", "end of the story", "story end", "thee end"]
+    robot_responses = [""]
+    [[questions.wait_for_story_endRR.theend]]
+    user_responses = ["THEEND"]
+    robot_responses = ["SILENT_NOD"]
+
 
 ## Questions to start the picture conversation task.
 [questions.look_at_pictures]
@@ -4223,6 +4239,142 @@ animations = [ { time = 1.0, anim = "PROUD" } ]
 [audio.Iceberg-sr2-session1-p015-story1-05]
 name = "Iceberg-sr2-session1-p015-story1-05"
 animations = [ { time = 1.0, anim = "SHIMMY" } ]
+
+##
+[audio.Treemeadow-sr2-session4-p004-1-story2-01]
+name = "Treemeadow-sr2-session4-p004-1-story2-01"
+animations = [ { time = 4.0, anim = "SILENT_INTERESTED" } ]
+
+[audio.Treemeadow-sr2-session4-p004-1-story2-02]
+name = "Treemeadow-sr2-session4-p004-1-story2-02"
+animations = [ { time = 1.0, anim = "HAPPY_UP" },
+               { time = 6.0, anim = "SILENT_SCARED" } ]
+
+[audio.Treemeadow-sr2-session4-p004-1-story2-03]
+name = "Treemeadow-sr2-session4-p004-1-story2-03"
+animations = [ { time = 5.1, anim = "SILENT_THINKING" } ]
+
+[audio.Treemeadow-sr2-session4-p004-1-story2-04]
+name = "Treemeadow-sr2-session4-p004-1-story2-04"
+animations = [ { time = 0.4, anim = "SILENT_INTERESTED" } ]
+
+[audio.Treemeadow-sr2-session4-p004-1-story2-05]
+name = "Treemeadow-sr2-session4-p004-1-story2-05"
+animations = [ { time = 6.1, anim = "SHIMMY" } ]
+
+
+##
+[audio.Mars-sr2-session5-p015-story1-01]
+name = "Mars-sr2-session5-p015-story1-01"
+animations = [ { time = 3.1, anim = "SIDEPERK" } ]
+
+[audio.Mars-sr2-session5-p015-story1-02]
+name = "Mars-sr2-session5-p015-story1-02"
+animations = [ { time = 0.7, anim = "SHIMMY" } ]
+
+[audio.Mars-sr2-session5-p015-story1-03]
+name = "Mars-sr2-session5-p015-story1-03"
+animations = [ { time = 4.1, anim = "SILENT_NOD" } ]
+
+[audio.Mars-sr2-session5-p015-story1-04]
+name = "Mars-sr2-session5-p015-story1-04"
+animations = [ { time = 0.1, anim = "SHIMMY" },
+               { time = 6.0, anim = "SILENT_EXCITED" } ]
+
+
+##
+[audio.Treemeadow-sr2-session8-p013-story1-01]
+name = "Treemeadow-sr2-session8-p013-story1-01"
+animations = [ { time = 1.0, anim = "PROUD" } ]
+
+[audio.Treemeadow-sr2-session8-p013-story1-02]
+name = "Treemeadow-sr2-session8-p013-story1-02"
+animations = [ { time = 0.1, anim = "SHIMMY" },
+               { time = 6.0, anim = "SILENT_SCARED" } ]
+
+[audio.Treemeadow-sr2-session8-p013-story1-03]
+name = "Treemeadow-sr2-session8-p013-story1-03"
+animations = [ { time = 2.1, anim = "SILENT_INTERESTED" },
+               { time = 10.0, anim = "SILENT_NO" } ]
+
+[audio.Treemeadow-sr2-session8-p013-story1-04]
+name = "Treemeadow-sr2-session8-p013-story1-04"
+animations = [ { time = 0.4, anim = "PERKUP" } ]
+
+[audio.Treemeadow-sr2-session8-p013-story1-05]
+name = "Treemeadow-sr2-session8-p013-story1-05"
+animations = [ { time = 5.1, anim = "SILENT_SAD" } ]
+
+[audio.Treemeadow-sr2-session8-p013-story1-06]
+name = "Treemeadow-sr2-session8-p013-story1-06"
+animations = [ { time = 3.1, anim = "SILENT_SCARED" },
+               { time = 8.0, anim = "SILENT_NO" } ]
+
+[audio.Treemeadow-sr2-session8-p013-story1-07]
+name = "Treemeadow-sr2-session8-p013-story1-07"
+animations = [ { time = 5.1, anim = "SHIMMY" },
+               { time = 9.0, anim = "SILENT_CONFIRM" } ]
+
+[audio.Treemeadow-sr2-session8-p013-story1-08]
+name = "Treemeadow-sr2-session8-p013-story1-08"
+animations = [ { time = 4.1, anim = "SILENT_CONFIRM" } ]
+
+##
+[audio.Playground-sr2-session8-p015-story2-01]
+name = "Playground-sr2-session8-p015-story2-01"
+animations = [ { time = 1.1, anim = "PERKUP" },
+               { time = 6.0, anim = "SILENT_CONFIRM" }]
+
+[audio.Playground-sr2-session8-p015-story2-02]
+name = "Playground-sr2-session8-p015-story2-02"
+animations = [ { time = 0.1, anim = "SILENT_INTERESTED" } ]
+
+[audio.Playground-sr2-session8-p015-story2-03]
+name = "Playground-sr2-session8-p015-story2-03"
+animations = [ { time = 3.1, anim = "SILENT_NOD" } ]
+
+[audio.Playground-sr2-session8-p015-story2-04]
+name = "Playground-sr2-session8-p015-story2-04"
+animations = [ { time = 4.1, anim = "SILENT_CONFIRM" } ]
+
+[audio.Playground-sr2-session8-p015-story2-05]
+name = "Playground-sr2-session8-p015-story2-05"
+animations = [ { time = 4.1, anim = "SIDEPERK" } ]
+
+
+##
+[audio.Castle-sr2-session6-p013-story2-01]
+name = "Castle-sr2-session6-p013-story2-01"
+animations = [ { time = 2.1, anim = "SILENT_INTERESTED" } ]
+
+[audio.Castle-sr2-session6-p013-story2-02]
+name = "Castle-sr2-session6-p013-story2-02"
+animations = [ { time = 0.1, anim = "SILENT_SCARED" } ]
+
+[audio.Castle-sr2-session6-p013-story2-03]
+name = "Castle-sr2-session6-p013-story2-03"
+animations = [ { time = 1.1, anim = "SILENT_THINKING" } ]
+
+[audio.Castle-sr2-session6-p013-story2-04]
+name = "Castle-sr2-session6-p013-story2-04"
+animations = [ { time = 2.1, anim = "SILENT_NO" } ]
+
+[audio.Castle-sr2-session6-p013-story2-05]
+name = "Castle-sr2-session6-p013-story2-05"
+animations = [ { time = 7.1, anim = "SILENT_SCARED" } ]
+
+[audio.Castle-sr2-session6-p013-story2-06]
+name = "Castle-sr2-session6-p013-story2-06"
+animations = [ { time = 0.7, anim = "SILENT_NOD" } ]
+
+[audio.Castle-sr2-session6-p013-story2-07]
+name = "Castle-sr2-session6-p013-story2-07"
+animations = [ { time = 4.1, anim = "PROUD" } ]
+
+[audio.Castle-sr2-session6-p013-story2-08]
+name = "Castle-sr2-session6-p013-story2-08"
+animations = [ { time = 3.1, anim = "SHIMMY" } ]
+
 
 
 ## Session audio

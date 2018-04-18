@@ -1,0 +1,6 @@
+ROBOT	DO	KidsPlaying
+ROBOT	DO	Playground-sr2-session8-p015-story2-01
+ROBOT	DO	Playground-sr2-session8-p015-story2-02
+ROBOT	DO	Playground-sr2-session8-p015-story2-03
+ROBOT	DO	Playground-sr2-session8-p015-story2-04
+ROBOT	DO	Playground-sr2-session8-p015-story2-05
