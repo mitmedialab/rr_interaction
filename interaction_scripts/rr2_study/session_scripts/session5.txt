@@ -1,4 +1,3 @@
-############TODO copied from s4!!!
 SET	MAX_GAME_TIME	20
 SET	MAX_REPEAT_TIME	20
 SET	PROMPT_TIME	300
@@ -42,14 +41,11 @@ STATE	start remember session
 **RRNS	ROBOT	DO	NoStoryTold
 **RRTY	ROBOT	DO	YouRetoldStory
 **RRTN	ROBOT	DO	YouDidntRetellStory
+**RR	QUESTION	LastWeekS5
 # NR asks a question not relating to past events with the user.
 **NR	QUESTION	WhatDidYouDo
 ROBOT	DO	PERKUP
 STATE	end remember session
-
-# Empathy task: Robot's bad day. TODO
-# Share something that went wrong that day. What does child do/say in response?
-# reference what it did that week too
 
 # Self-disclosure question learning about child.
 RESTART	sdt
@@ -91,6 +87,7 @@ STATE	start closing
 **RR	ROBOT	DO	<participant_name>
 **RRME	ROBOT	DO	LAUGH
 **RRLE	ROBOT	DO	SMILE
+**RR	ROBOT	DO	ILikeHavingFriends
 ROBOT	DO	PERKUP
 ROBOT	DO	SeeYouLaterHuman
 **RR	ROBOT	DO	LAUGH

@@ -1242,6 +1242,13 @@ question = "HavingRobotFriend"
     user_responses = [""]
     robot_responses = ["SMILE", "WhyDoYouThink", "SILENT_NOD"]
 
+## Session 5 questions
+[questions.LastWeekS5]
+question = "LastWeekS5"
+    [[questions.LastWeekS5.user_input]]
+    user_responses = [""]
+    robot_responses = ["SMILE", "HuhNeat"]
+
 #[questions.questionname2]
 #question = "question_audio"
 #timeout_prompts = ["", ""]
