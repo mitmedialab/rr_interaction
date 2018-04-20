@@ -1720,23 +1720,23 @@ class ScriptHandler(object):
                 else:
                     level = self._pconfig["story_retell_level"]
                 # Load the story with the script parser!
+                story_key = ""
                 if "story_name" in self._pconfig[self._session]:
-                    self._story_parser.load_script(
-                        self._study_path + self._story_script_path +
-                        self._pconfig[self._session]["story_name"] +
-                        str(level) + ".txt")
-                if "story" in self._pconfig[self._session]:
-                    self._story_parser.load_script(
-                        self._study_path + self._story_script_path +
-                        self._pconfig[self._session]["story"] + str(level) +
-                        ".txt")
+                    story_key = "story_name"
+                elif "story" in self._pconfig[self._session]:
+                    story_key = "story"
+
+                self._story_parser.load_script(
+                    self._study_path + self._story_script_path +
+                    self._pconfig[self._session][story_key] +
+                    str(level) + ".txt")
 
                 self._logger.info("Loading story \"{}\" at level {}...".format(
-                        self._pconfig[self._session]["story_name"],
+                        self._pconfig[self._session][story_key],
                         self._pconfig["story_retell_level"]))
                 # Log that the story was played.
                 self._performance_log.log_played_story(
-                        self._pconfig[self._session]["story_name"], None,
+                        self._pconfig[self._session][story_key], None,
                         self._pconfig["story_retell_level"])
             else:
                 self._logger.warning("Neither \"create\" nor \"retell\" is "
