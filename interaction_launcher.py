@@ -45,6 +45,9 @@ PIDS = ["p001", "p002", "p003", "p004", "p005", "p006", "p007", "p008", "p009",
         "p304", "p305", "p306", "p307", "p999", "p998", "p997"]
 
 
+BAG_PROCESS = None
+
+
 def check_pid(pid):
     """ Check whether a given id exists in our list of acceptable ids. """
     return pid in PIDS
@@ -113,20 +116,39 @@ def start_rosbag(pid, session):
         raise
 
 
-def close_rosbag(bag_process):
+def close_rosbag(bagp):
     """ Close the rosbag and all its child processes. """
     print "Stopping rosbag recording if it's not stopped already..."
-    process = psutil.Process(bag_process.pid)
+    process = psutil.Process(bagp.pid)
     for subp in process.get_children(recursive=True):
         subp.send_signal(signal.SIGINT)
-    bag_process.wait()
+    bagp.wait()
+
+
+def signal_handler(sig, nal):
+    """ Handle signals caught. """
+    if sig == signal.SIGINT:
+        print "Got keyboard interrupt! Exiting. {} {}".format(sig, nal)
+        # Unsubscribe from stuff and cleanup before exiting.
+        if BAG_PROCESS:
+            close_rosbag(BAG_PROCESS)
+
+
+def exit_nicely():
+    """ Exit nicely. """
+    print "Told to exit! Exiting..."
+    if BAG_PROCESS:
+        close_rosbag(BAG_PROCESS)
 
 
 def launch(experimenter, participant, session, restart):
     """ Start the rosbag recording and launch the interaction. """
+    # Set up signal handler to catch SIGINT (e.g., ctrl-c).
+    signal.signal(signal.SIGINT, signal_handler)
     try:
         # Start the rosbag recording.
-        bag_process = start_rosbag(participant, session)
+        global BAG_PROCESS
+        BAG_PROCESS = start_rosbag(participant, session)
         # Start the interaction with the provided session number, participant
         # ID, entrainment set to true, experimenter name, and the restart
         # point (if any).
@@ -135,10 +157,10 @@ def launch(experimenter, participant, session, restart):
 
     except Exception as exc:
         print "Uh oh, something went wrong! {}".format(exc)
-        if bag_process:
-            close_rosbag(bag_process)
+        if BAG_PROCESS:
+            close_rosbag(BAG_PROCESS)
         raise
 
     # After the interaction ends, stop rosbag recording.
-    if bag_process:
-        close_rosbag(bag_process)
+    if BAG_PROCESS:
+        close_rosbag(BAG_PROCESS)

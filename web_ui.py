@@ -3,11 +3,13 @@
 foo bar
 """
 import json
-import subprocess  # For starting rosbag.
+import subprocess
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from SocketServer import ThreadingMixIn
 from os import curdir, sep
+import os
 import rospy  # ROS
+import signal  # Sending SIGINT signal to the interaction process.
 from src.user_input_ros import UserFormROS
 import interaction_launcher
 
@@ -50,7 +52,8 @@ class RRHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
-            self.wfile.write(json.dumps({"running": "t" in shared, "msg": shared.get("msg")}))
+            self.wfile.write(json.dumps({"running": "t" in shared,
+                                         "msg": shared.get("msg")}))
 
         else:
             self.send_response(404)
@@ -65,12 +68,16 @@ class RRHandler(BaseHTTPRequestHandler):
         """
         if self.path == "/command":
             # Read and parse the body.
-            body = self.rfile.read(int(self.headers.getheader("Content-Length", 0)))
+            body = self.rfile.read(int(self.headers.getheader(
+                "Content-Length", 0)))
             msg = json.loads(body)
 
             # TEGA means it's actually an animation command.
             if msg["type"] == "TEGA":
                 self.ros_node.send_tega_animation(self.add_quotes(msg["cmd"]))
+            elif msg["type"] == "INTERACTION" and msg["cmd"] == "STOP":
+                # Stop the interaction.
+                os.kill(shared["t"].pid, signal.SIGINT)
             else:
                 self.ros_node.send_message(
                     self.add_quotes(msg["type"]), self.add_quotes(msg["cmd"]))
@@ -89,7 +96,8 @@ class RRHandler(BaseHTTPRequestHandler):
                     return
 
             # Read and parse the body.
-            body = self.rfile.read(int(self.headers.getheader("Content-Length", 0)))
+            body = self.rfile.read(int(self.headers.getheader(
+                "Content-Length", 0)))
             msg = json.loads(body)
             print msg
             print interaction_launcher.check_name(msg["experimenter"])
@@ -98,24 +106,25 @@ class RRHandler(BaseHTTPRequestHandler):
 
             # Validation.
             if False in [interaction_launcher.check_name(msg["experimenter"]),
-                    interaction_launcher.check_pid(msg["participant"]),
-                    interaction_launcher.check_session(int(msg["session"]))]:
+                         interaction_launcher.check_pid(msg["participant"]),
+                         interaction_launcher.check_session(
+                             int(msg["session"]))]:
                 self.send_response(400)
                 self.end_headers()
                 return
 
             print "launching"
-            shared["t"] = subprocess.Popen(["./launch_interaction.py",
-                    "-e", msg["experimenter"],
-                    "-p", msg["participant"],
-                    "-s", msg["session"],
-                    "-r", msg.get("restart", "intro"),
-                    "-n"],
-               shell=False)
+            shared["t"] = subprocess.Popen(
+                    ["./launch_interaction.py",
+                     "-e", msg["experimenter"],
+                     "-p", msg["participant"],
+                     "-s", msg["session"],
+                     "-r", msg.get("restart", "intro"),
+                     "-n"],
+                    shell=False)
 
             # Save the params for viewing later.
             shared["msg"] = msg
-
 
             self.send_response(200)
             self.end_headers()
@@ -141,7 +150,8 @@ class ThreadedServer(ThreadingMixIn, HTTPServer):
 
 if __name__ == '__main__':
     # Initialize the ROS node.
-    ros_node = UserFormROS(rospy.init_node('rr_user_input_form', anonymous=False))
+    ros_node = UserFormROS(rospy.init_node(
+        'rr_user_input_form', anonymous=False))
     shared = {}
 
     # HTTPServer creates a new instance of RRHandler for every request, bit it

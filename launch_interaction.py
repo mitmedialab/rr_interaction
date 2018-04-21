@@ -27,6 +27,7 @@ SOFTWARE.
 """
 
 import argparse  # For getting optional restart-related arguments.
+import signal  # Catching SIGINT.
 import interaction_launcher
 
 
@@ -85,6 +86,14 @@ def get_args():
     return (name, pid, session)
 
 
+def signal_handler(sig, nal):
+    """ Handle signals caught. """
+    if sig == signal.SIGINT:
+        print "Got keyboard interrupt! Exiting. {} {}".format(sig, nal)
+        # Unsubscribe from stuff and cleanup before exiting.
+        interaction_launcher.exit_nicely()
+
+
 if __name__ == '__main__':
     """ Start the relational robot interaction node and rosbag recording. This
     cannot be done in the roslaunch file because the configuration of the node
@@ -95,6 +104,9 @@ if __name__ == '__main__':
     restarted. So, instead, we get arguments from the user, try starting the
     rosbag recording, and try launching the interaction.
     """
+    # Set up signal handler to catch SIGINT (e.g., ctrl-c).
+    signal.signal(signal.SIGINT, signal_handler)
+
     PARSER = argparse.ArgumentParser(
         description="Run the interaction. Optionally, restart at a later point"
                     "in the script.")
@@ -133,3 +145,6 @@ if __name__ == '__main__':
         exit(1)
     else:
         interaction_launcher.launch(*get_args(), restart=RESTART)
+
+    # If we get here we should try to close the interaction nicely.
+    interaction_launcher.exit_nicely()
