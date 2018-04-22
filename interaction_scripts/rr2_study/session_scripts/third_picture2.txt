@@ -1,0 +1,11 @@
+STATE	start picture task picture3
+OPAL	LOAD_OBJECT	{ "name": "conversations/museum1.jpg", "tag": "PlayObject", "draggable": "false", "scale": ["30","30","30"]}
+ROBOT	DO	museumPicture
+**RRLE	ROBOT	DO	museumPicture2LE
+**RRME	ROBOT	DO	museumPicture2ME
+**NR	ROBOT	DO	museumPicture2
+QUESTION	museumPictureQ
+**NR	QUESTION	museum_why
+**RRME	QUESTION	museum_whyME
+**RRLE	QUESTION	museum_whyLE
+STATE	end picture task picture3

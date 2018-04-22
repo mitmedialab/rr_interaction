@@ -234,6 +234,16 @@ question = "WhatCouldBeHappening"
     user_responses = [""]
     robot_responses = ["SILENT_NOD"]
 
+[questions.WhatCouldHappenWizard]
+question = "WhatCouldHappenWizard"
+    [[questions.WhatCouldBeHappening.user_input]]
+    user_responses = ["don't know", "know", "not sure", "don't want"]
+    robot_responses = ["OrMaybeHappening"]
+    [[questions.WhatCouldBeHappening.user_input]]
+    user_responses = [""]
+    robot_responses = ["SILENT_NOD"]
+
+
 [questions.MakeRobotStoryLE]
 question = "MakeRobotStoryLE"
     [[questions.MakeRobotStoryLE.user_input]]
@@ -386,6 +396,104 @@ timeout_prompts = ["DidYouDressUp", "WereYouARobot"]
     [[questions.picture_holidays_q2.user_input]]
     user_responses = [""]
     robot_responses = ["Woah"]
+
+## Museum picture.
+[question.picture_museum]
+question = "museumPictureQ"
+timeout_prompts = ["museumprompt1"]
+    [[questions.picture_museum.user_input]]
+    user_responses = ["no", "none", "don't know", "know", "uh"]
+    robot_responses = ["nomuseum"]
+    [[questions.picture_museum.user_input]]
+    user_responses = [""]
+    robot_responses = ["Woah"]
+
+[question.museum_why]
+question = "museum_why"
+timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
+    [[questions.museum_why.user_input]]
+    user_responses = [""]
+    robot_responses = ["HmInterested", "PERKUP"]
+
+[question.museum_whyME]
+question = "museum_whyME"
+timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
+    [[questions.museum_whyME.user_input]]
+    user_responses = [""]
+    robot_responses = ["HmInterested", "SILENT_NOD"]
+
+[question.museum_whyLE]
+question = "museum_whyLE"
+timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
+    [[questions.museum_whyLE.user_input]]
+    user_responses = [""]
+    robot_responses = ["HmInterested", "SMILE"]
+
+## Reading books pictures.
+[question.picture_books]
+question = "PictureBook3"
+timeout_prompts = ["bookprompt1"]
+    [[questions.picture_books.user_input]]
+    user_responses = ["no", "none", "not any", "not sure", "don't know", "know", "huh"]
+    robot_responses = ["nobooks"]
+    [[questions.picture_books.user_input]]
+    user_responses = [""]
+    robot_responses = ["uhuhh"]
+
+[question.picture_books2]
+question = "TellMeMoreBooks"
+timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
+    [[questions.picture_books2.user_input]]
+    user_responses = [""]
+    robot_responses = ["HmInterested", "PERKUP"]
+
+[question.picture_books2ME]
+question = "TellMeMoreBooks"
+timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
+    [[questions.picture_books2ME.user_input]]
+    user_responses = [""]
+    robot_responses = ["HmInterested", "SILENT_NOD"]
+
+[question.picture_books2LE]
+question = "TellMeMoreBooks"
+timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
+    [[questions.picture_books2LE.user_input]]
+    user_responses = [""]
+    robot_responses = ["HmInterested", "SMILE"]
+
+
+## Holidays take 2 picture.
+[question.holidays_take2Q]
+question = "holidays_take2Q"
+timeout_prompts = ["WhatHolidays", "WhatHolidays2"]
+    [[questions.holidays_take2Q.user_input]]
+    user_responses = ["none", "know", "don't know", "no", "uh", "not sure"]
+    robot_responses = ["TellMeAboutHoliday"]
+    [[questions.holidays_take2Q.user_input]]
+    user_responses = [""]
+    robot_responses = ["Woah"]
+
+[question.holidays_why]
+question = "holidays_why"
+timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
+    [[questions.holidays_why.user_input]]
+    user_responses = [""]
+    robot_responses = ["HmInterested", "PERKUP"]
+
+[question.holidays_whyME]
+question = "holidays_why"
+timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
+    [[questions.holidays_whyME.user_input]]
+    user_responses = [""]
+    robot_responses = ["HmInterested", "SILENT_NOD"]
+
+[question.holidays_whyLE]
+question = "holidays_why"
+timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
+    [[questions.holidays_whyLE.user_input]]
+    user_responses = [""]
+    robot_responses = ["HmInterested", "SMILE"]
+
 
 ## Extra picture
 [questions.DoFinalPicture]
@@ -627,7 +735,6 @@ max_attempt = ["srPre_4_1"]
     user_responses = [""]
     robot_responses = ["srPre_4_2"]
 
-## TODO in progress: add S4-7
 [questions.DisclosureS4]
 question = "DisclosureS4"
 timeout_prompts = ["Well", "HmPrompt"]
@@ -650,6 +757,27 @@ max_attempt = ["srPre_4_1"]
     user_responses = [""]
     robot_responses = ["srPre_4_2"]
 
+[questions.DisclosureS6]
+question = "DisclosureS6"
+timeout_prompts = ["Well", "HmPrompt"]
+max_attempt = ["srPre_4_1"]
+    [[questions.DisclosureS6.user_input]]
+    user_responses = ["no", "nothing", "don't know", "know", "not sure", "don't want"]
+    robot_responses = ["FeelingShy"]
+    [[questions.DisclosureS6.user_input]]
+    user_responses = [""]
+    robot_responses = ["srPre_4_2"]
+
+[questions.DisclosureS7]
+question = "DisclosureS7"
+timeout_prompts = ["Well", "HmPrompt"]
+max_attempt = ["srPre_4_1"]
+    [[questions.DisclosureS7.user_input]]
+    user_responses = ["no", "nothing", "don't know", "know", "not sure", "don't want"]
+    robot_responses = ["FeelingShy"]
+    [[questions.DisclosureS7.user_input]]
+    user_responses = [""]
+    robot_responses = ["srPre_4_2"]
 
 
 ## Baby bird's first nest - dialogic questions.
@@ -1177,10 +1305,10 @@ question = "WhatDidYouDo"
 ## Session 3
 [questions.RememberSession2]
 question = "<last_story>"
-    [[questions.RememberSession1.user_input]]
+    [[questions.RememberSession2.user_input]]
     user_responses = ["yes", "yeah", "i remember", "maybe", "of course"]
     robot_responses = [""]
-    [[questions.RememberSession1.user_input]]
+    [[questions.RememberSession2.user_input]]
     user_responses = ["know", "no", "nah", "nope", "uh", "don't know"]
     robot_responses = ["Remember2", "<last_story>"]
 
@@ -1242,12 +1370,71 @@ question = "HavingRobotFriend"
     user_responses = [""]
     robot_responses = ["SMILE", "WhyDoYouThink", "SILENT_NOD"]
 
+[questions.RememberSession3]
+question = "<last_story>"
+    [[questions.RememberSession3.user_input]]
+    user_responses = ["yes", "yeah", "i remember", "maybe", "of course"]
+    robot_responses = [""]
+    [[questions.RememberSession3.user_input]]
+    user_responses = ["know", "no", "nah", "nope", "uh", "don't know"]
+    robot_responses = ["Remember2", "<last_story>"]
+
 ## Session 5 questions
 [questions.LastWeekS5]
 question = "LastWeekS5"
     [[questions.LastWeekS5.user_input]]
     user_responses = [""]
     robot_responses = ["SMILE", "HuhNeat"]
+
+[questions.RememberSession4]
+question = "RememberSession4"
+    [[questions.RememberSession4.user_input]]
+    user_responses = ["yes", "yeah", "i remember", "maybe", "of course", "sure"]
+    robot_responses = ["NOD"]
+    [[questions.RememberSession4.user_input]]
+    user_responses = ["no", "know", "nah", "nope", "uh", "don't know"]
+    robot_responses = ["RememberPossum"]
+
+## Session 6 questions
+[questions.RememberSession5]
+question = "RememberSession5"
+    [[questions.RememberSession5.user_input]]
+    user_responses = ["yes", "yeah", "i remember", "maybe", "of course", "sure"]
+    robot_responses = ["NOD"]
+    [[questions.RememberSession5.user_input]]
+    user_responses = ["no", "know", "nah", "nope", "uh", "don't know"]
+    robot_responses = ["RememberHenry"]
+
+[questions.WhatsFavoriteAnimal]
+question = "WhatsFavoriteAnimal"
+timeout_prompts = ["DoYouLikeAnimals"]
+    [[questions.WhatsFavoriteAnimal.user_input]]
+    user_responses = ["know", "none", "nothing", "no", "don't know", "I don't"]
+    robot_responses = ["NoAnimals"]
+    [[questions.WhatsFavoriteAnimal.user_input]]
+    user_responses = [""]
+    robot_responses = ["HuhNeat"]
+
+## Session 7 questions
+[questions.RememberSession6]
+question = "<last_story>"
+    [[questions.RememberSession6.user_input]]
+    user_responses = ["yes", "yeah", "i remember", "maybe", "of course"]
+    robot_responses = ["NOD"]
+    [[questions.RememberSession6.user_input]]
+    user_responses = ["know", "no", "nah", "nope", "uh", "don't know"]
+    robot_responses = ["Remember2", "<last_story>"]
+
+## Session 8 questions
+[questions.RememberSession7]
+question = "<last_story>"
+    [[questions.RememberSession7.user_input]]
+    user_responses = ["yes", "yeah", "i remember", "maybe", "of course"]
+    robot_responses = ["NOD"]
+    [[questions.RememberSession7.user_input]]
+    user_responses = ["know", "no", "nah", "nope", "uh", "don't know"]
+    robot_responses = ["Remember2", "<last_story>"]
+
 
 #[questions.questionname2]
 #question = "question_audio"
@@ -4517,3 +4704,30 @@ animations = [ { time = 1.1, anim = "PERKUP" } ]
 [audio.LearnMoreAboutYou]
 name = "LearnMoreAboutYou"
 animations = [ { time = 0.2, anim = "SILENT_NOD" } ]
+
+
+## Session 6
+[audio.PictureBook1]
+name = "PictureBook1"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.PictureBook1ME]
+name = "PictureBook1"
+animations = [ { time = 0.1, anim = "SILENT_INTERESTED" } ]
+
+[audio.PictureBook1LE]
+name = "PictureBook1"
+animations = [ { time = 0.1, anim = "SHIMMY" } ]
+
+[audio.museumPicture2LE]
+name = "museumPicture2"
+animations = [ { time = 2.2, anim = "SIDEPERK" } ]
+
+[audio.museumPicture2ME]
+name = "museumPicture2"
+animations = [ { time = 2.2, anim = "SILENT_NOD" } ]
+
+[audio.museumPicture2]
+name = "museumPicture2"
+animations = [ { time = 2.2, anim = "SILENT_EXCITED" } ]
+

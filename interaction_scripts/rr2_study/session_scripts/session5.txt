@@ -34,7 +34,6 @@ STATE	end introduction
 
 # Talking about what they did last time.
 STATE	start remember session
-**RR	ROBOT	DO	RememberSession4
 **RR	QUESTION	RememberSession4
 **RRSL	ROBOT	DO	YouLikedIt
 **RRSD	ROBOT	DO	YouDidntLikeIt

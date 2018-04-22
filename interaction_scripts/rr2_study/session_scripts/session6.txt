@@ -1,0 +1,153 @@
+SET	MAX_GAME_TIME	20
+SET	MAX_REPEAT_TIME	20
+SET	PROMPT_TIME	300
+SET	NUM_PROMPTS	20
+PAUSE	1
+STATE	<condition>
+OPAL	CLEAR
+ROBOT	VOLUME	0.8
+ROBOT	FIDGET	EMPTY
+
+# Sleep and wait for wakeup.
+STATE	robot sleeping
+ROBOT	DO	POSE_SLEEPING
+QUESTION	wait_for_wakeup
+STATE	start robot wakeup
+ROBOT	VOLUME	0.8
+ROBOT	DO	YAWN
+ROBOT	DO	IceCream
+ROBOT	DO	LAUGH
+STATE	end robot wakeup
+SET	PROMPT_TIME	7
+SET	NUM_PROMPTS	1
+
+# Robot introduction.
+RESTART	intro
+STATE	start introduction
+**RR	ROBOT	DO	SMILE
+**NR	ROBOT	DO	HeyNoName
+**RR	ROBOT	DO	Hey
+**RR	ROBOT	DO	<participant_name>
+**RR	ROBOT	DO	SMILE
+**RR	ROBOT	DO	PERKUP
+STATE	end introduction
+
+# Talking about what they did last time.
+STATE	start remember session
+**RR	QUESTION	RememberSession5
+**RRSL	ROBOT	DO	YouLikedIt
+**RRSD	ROBOT	DO	YouDidntLikeIt
+**RRNS	ROBOT	DO	NoStoryTold
+**RRTY	ROBOT	DO	YouRetoldStory
+**RRTN	ROBOT	DO	YouDidntRetellStory
+# NR asks a question not relating to past events with the user.
+**NR	QUESTION	WhatDidYouDo
+ROBOT	DO	PERKUP
+STATE	end remember session
+
+# Share the robot's favorite animal; ask the child's favorite animal.
+STATE	start favorite animal
+QUESTION	WhatsFavoriteAnimal
+ROBOT	DO	MyFavoriteAnimalIs
+STATE	end favorite animal
+**RRME	ROBOT	DO	LAUGH
+**RRLE	ROBOT	DO	SMILE
+**RRME	ROBOT	VOLUME	0.85
+**RRLE	ROBOT	VOLUME	0.75
+
+# Picture conversation with Third Picture Empathy/Helping task.
+#   Libraries, museums: what places have you been? Maybe on a field trip? If you could go anywhere where would you go?
+RESTART	pc
+**NR	ROBOT	DO	HelpLookPicturesNR
+**RR	ROBOT	DO	HelpLookPicturesRR
+STATE	start picture task picture1
+OPAL	LOAD_OBJECT	{ "name": "conversations/reading1.jpg", "tag": "PlayObject", "draggable": "false", "scale": ["40","40","40"]}
+**NR	ROBOT	DO	PictureBook1
+**RRME	ROBOT	DO	PictureBook1ME
+**RRLE	ROBOT	DO	PictureBook1LE
+ROBOT	DO	PictureBook2
+QUESTION	picture_books
+**NR	QUESTION	picture_books2
+**RRME	QUESTION	picture_books2ME
+**RRLE	QUESTION	picture_books2LE
+OPAL	CLEAR
+STATE	end picture task picture1
+ROBOT	DO	rr1_picturegen_01
+STATE	start picture task picture2
+OPAL	LOAD_OBJECT	{ "name": "conversations/rr1_picture_holidays.jpg", "tag": "PlayObject", "draggable": "false", "scale": ["30","30","30"]}
+ROBOT	DO	rr1_picture4_01
+**RRLE	ROBOT	VOLUME	0.7
+**RRME	ROBOT	VOLUME	0.9
+**RR	ROBOT	DO	holidays_take2_RR
+ROBOT	DO	holidays_take2
+QUESTION	holidays_take2Q
+**NR	QUESTION	holidays_why
+**RRME	QUESTION	holidays_whyME
+**RRLE	QUESTION	holidays_whyLE
+OPAL	CLEAR
+STATE	end picture task picture2
+STATE	start optional picture task picture3
+SET	NUM_PROMPTS	1
+SET	PROMPT_TIME	4
+QUESTION	DoFinalPicture
+WAIT	USER_INPUT	YESNO	20
+# If we get a positive reply, do the third picture script.
+SET	PROMPT_TIME	7
+SET	NUM_PROMPTS	1
+SET	MAX_REPEAT_TIME	1
+SET	MAX_REPEATS	1
+IF_RESPONSE	RESPONSE_YES	REPEAT	MAX_REPEATS	third_picture2txt
+STATE	end optional picture task picture3
+ROBOT	DO	Booyah
+**RR	ROBOT	DO	ThatsAllPicturesRR
+**NR	ROBOT	DO	ThatsAllPictures
+**RR	ROBOT	DO	SMILE
+OPAL	CLEAR
+
+# Self-disclosure question learning about child.
+RESTART	sdt
+STATE	start self-disclosure question
+**RRLE	ROBOT	VOLUME	0.7
+**RRME	ROBOT	VOLUME	0.9
+**RR	ROBOT	DO	LearnMoreAboutYou
+**NR	ROBOT	DO	LearnAboutYou
+SET	NUM_PROMPTS	1
+QUESTION	DisclosureS6
+SET	NUM_PROMPTS	0
+IF_RESPONSE	QUESTION	SelfDisclosureGeneric2
+IF_RESPONSE	QUESTION	SelfDisclosureGeneric
+**RR	ROBOT	DO	RobotDisclosureS6
+**RRME	ROBOT	DO	LAUGH
+**RRLE	ROBOT	DO	SMILE
+STATE	end self-disclosure question
+SET	PROMPT_TIME	8
+SET	NUM_PROMPTS	2
+
+# Create a story. Includes the Negotiation task.
+SET	MAX_REPEATS	1
+RESTART	rs1
+STATE	start story task
+**RR	ROBOT	DO	SMILE
+**RRLE	ROBOT	VOLUME	0.8
+**RRME	ROBOT	VOLUME	0.99
+ROBOT	LOOKAT	TABLET
+ROBOT	DO	rr1_story_01
+REPEAT	MAX_REPEATS	story-s6.txt
+STATE	end story task
+
+# Closing and robot goes back to sleep.
+RESTART	close
+**RRLE	ROBOT	VOLUME	0.85
+STATE	start closing
+**NR	ROBOT	DO	rr1_story_19
+**RR	ROBOT	DO	LikedPlaying
+**RR	ROBOT	DO	<participant_name>
+**RRME	ROBOT	DO	LAUGH
+**RRLE	ROBOT	DO	SMILE
+ROBOT	DO	PERKUP
+ROBOT	DO	SeeYouLaterHuman
+**RR	ROBOT	DO	LAUGH
+ROBOT	FIDGET	EMPTY
+ROBOT	DO	YAWN
+ROBOT	DO	POSE_SLEEPING
+STATE	end closing

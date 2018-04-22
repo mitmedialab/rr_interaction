@@ -1,0 +1,157 @@
+SET	MAX_GAME_TIME	20
+SET	MAX_REPEAT_TIME	20
+SET	PROMPT_TIME	300
+SET	NUM_PROMPTS	20
+PAUSE	1
+STATE	<condition>
+OPAL	CLEAR
+ROBOT	VOLUME	0.8
+ROBOT	FIDGET	EMPTY
+
+# Sleep and wait for wakeup.
+STATE	robot sleeping
+ROBOT	DO	POSE_SLEEPING
+QUESTION	wait_for_wakeup
+STATE	start robot wakeup
+ROBOT	VOLUME	0.8
+ROBOT	DO	YAWN
+ROBOT	DO	IceCream
+ROBOT	DO	LAUGH
+STATE	end robot wakeup
+SET	PROMPT_TIME	7
+SET	NUM_PROMPTS	1
+
+# Robot introduction.
+RESTART	intro
+STATE	start introduction
+**RR	ROBOT	DO	SMILE
+**NR	ROBOT	DO	HeyNoName
+**RR	ROBOT	DO	Hey
+**RR	ROBOT	DO	<participant_name>
+**RR	ROBOT	DO	SMILE
+**RR	ROBOT	DO	PERKUP
+STATE	end introduction
+
+# Talking about what they did last time.
+STATE	start remember session
+**RR	ROBOT	DO	RememberSession6
+**RR	QUESTION	RememberSession6
+**RRSL	ROBOT	DO	YouLikedIt
+**RRSD	ROBOT	DO	YouDidntLikeIt
+**RRNS	ROBOT	DO	NoStoryTold
+**RRTY	ROBOT	DO	YouMakeUpStory
+**RRTN	ROBOT	DO	YouDidntMakeUpStory
+# NR asks a question not relating to past events with the user.
+**NR	QUESTION	WhatDidYouDo
+ROBOT	DO	PERKUP
+STATE	end remember session
+
+# TODO UPDATE FOR SESSION 7 - here and below
+# Reference favorite animal from session 6.
+RESTART	pc
+STATE	start remember photo color
+# TODO how to load the right picture for RR?
+**RRME	ROBOT	VOLUME	0.85
+**RRLE	ROBOT	VOLUME	0.75
+**RR	OPAL	PARTICIPANT	<participant_photo>
+**NR	OPAL	LOAD_OBJECT	{ "name": "robot_photos/four-bots2.png", "tag": "PlayObject", "draggable": "false", "scale": ["60","60","60"]}
+**RR	ROBOT	DO	ShareS1Photo_1
+**NR	ROBOT	DO	ShareRandomPhoto_1
+ROBOT	DO	<experimenter_name>
+**NR	ROBOT	DO	ShareRandomPhoto_2
+**RR	ROBOT	DO	ShareS1Photo_2
+**RR	ROBOT	DO	<fav_color>
+**RR	ROBOT	DO	ShareS1Photo_3
+**RR	ROBOT	DO	<fav_color>
+ROBOT	DO	Booyah
+**RRME	ROBOT	DO	LAUGH
+**RRLE	ROBOT	DO	SMILE
+# Asks "can you say that again" in reply.
+QUESTION	DoYouLikePhoto
+STATE	end remember photo color
+
+# Ask questions about robots/relationship.
+# TODO - "Is having a robot friend like having another kid as a friend? Why?"
+STATE	start robot relationship question
+**RR	QUESTION	IsItHardRobotHearingRR
+**NR	QUESTION	IsItHardRobotHearing
+OPAL	CLEAR
+
+# Self-disclosure question learning about child.
+RESTART	sdt
+STATE	start self-disclosure question
+**RRLE	ROBOT	VOLUME	0.7
+**RRME	ROBOT	VOLUME	0.9
+**RR	ROBOT	DO	LearnMoreAboutYou
+**NR	ROBOT	DO	LearnAboutYou
+SET	NUM_PROMPTS	1
+QUESTION	DisclosureS3
+SET	NUM_PROMPTS	0
+IF_RESPONSE	QUESTION	SelfDisclosureGeneric2
+IF_RESPONSE	QUESTION	SelfDisclosureGeneric
+**RR	ROBOT	DO	RobotDisclosureS3
+STATE	end self-disclosure question
+SET	PROMPT_TIME	8
+SET	NUM_PROMPTS	2
+
+# Ask child to also tell a story about a robot.
+RESTART	cs1
+OPAL	LOAD_OBJECT	{ "name": "sr2-scenes/RobotStoryScene", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
+**RRLE	QUESTION	MakeRobotStoryLE
+**RRME	QUESTION	MakeRobotStoryME
+**NR	QUESTION	MakeRobotStory
+ROBOT	LOOKAT	TABLET
+OPAL	ENABLE_TOUCH
+STATE	start child robot story create task
+ROBOT	DO	WhatElseIsHappening1
+**NR	ROBOT	DO	SayTheEnd
+**RRME	ROBOT	DO	SayTheEndME
+**RRLE	ROBOT	DO	SayTheEndLE
+**NR	SET	PROMPT_TIME	1200
+**RR	SET	PROMPT_TIME	20
+SET	NUM_PROMPTS	30
+SET	BACKCHANNEL	ON STORY
+**NR	QUESTION	wait_for_story_end
+**RR	QUESTION	wait_for_story_endRR
+SET	BACKCHANNEL	OFF
+SET	NUM_PROMPTS	2
+SET	PROMPT_TIME	8
+STATE	end child robot story create task
+**RRLE	ROBOT	VOLUME	0.85
+**NR	ROBOT	DO	ILikedYourStory
+**RRME	ROBOT	DO	ILikedYourStoryME
+**RRLE	ROBOT	DO	ILikedYourStoryLE
+**RR	ROBOT	DO	SMILE
+OPAL	CLEAR
+
+# Create a story. Includes the Negotiation task.
+RESTART	rs1
+SET	MAX_REPEATS	1
+STATE	start story task
+**RR	ROBOT	DO	SMILE
+**RRLE	ROBOT	VOLUME	0.8
+**RRME	ROBOT	VOLUME	0.99
+ROBOT	LOOKAT	TABLET
+ROBOT	DO	rr1_story_01
+REPEAT	MAX_REPEATS	story-followup.txt
+STATE	end story task
+
+# TODO do a second story from robot??
+
+# Closing and robot goes back to sleep.
+RESTART	close
+**RRLE	ROBOT	VOLUME	0.85
+STATE	start closing
+**NR	ROBOT	DO	rr1_story_19
+**RR	ROBOT	DO	LikedPlaying
+**RR	ROBOT	DO	<participant_name>
+**RRME	ROBOT	DO	LAUGH
+**RRLE	ROBOT	DO	SMILE
+ROBOT	DO	PERKUP
+ROBOT	DO	SeeYouLaterHuman
+**RR	ROBOT	DO	LAUGH
+ROBOT	FIDGET	EMPTY
+ROBOT	DO	YAWN
+ROBOT	DO	POSE_SLEEPING
+STATE	end closing
+
