@@ -1235,10 +1235,96 @@ max_attempt = ["possum_and_the_peeper_a_8"]
     user_responses = [""]
     robot_responses = ["possum_and_the_peeper_a_8"]
 
-## TODO Henry's happy birthday - dialogic questions. - s5
+## Henry's happy birthday - dialogic questions. - s5
+[questions.henrys_happy_birthday_q_l_1]
+question = "henrys_happy_birthday_q_l_1"
+timeout_prompts = ["henrys_happy_birthday_h_1"]
+max_attempt = ["henrys_happy_birthday_a_1"]
+    [[questions.henrys_happy_birthday_q_l_1.user_input]]
+    user_responses = [""]
+    robot_responses = ["henrys_happy_birthday_a_1"]
 
+[questions.henrys_happy_birthday_q_l_3]
+question = "henrys_happy_birthday_q_l_3"
+timeout_prompts = ["henrys_happy_birthday_h_3"]
+max_attempt = ["henrys_happy_birthday_a_3"]
+    [[questions.henrys_happy_birthday_q_l_3.user_input]]
+    user_responses = [""]
+    robot_responses = ["henrys_happy_birthday_a_3"]
 
-## TODO Baby duck's new friend - dialogic questions. - s8
+[questions.henrys_happy_birthday_q_l_4]
+question = "henrys_happy_birthday_q_l_4"
+timeout_prompts = ["henrys_happy_birthday_h_4"]
+max_attempt = ["henrys_happy_birthday_a_4"]
+    [[questions.henrys_happy_birthday_q_l_4.user_input]]
+    user_responses = [""]
+    robot_responses = ["henrys_happy_birthday_a_4"]
+
+[questions.henrys_happy_birthday_q_l_5]
+question = "henrys_happy_birthday_q_l_5"
+timeout_prompts = ["henrys_happy_birthday_h_5"]
+max_attempt = ["henrys_happy_birthday_a_5"]
+    [[questions.henrys_happy_birthday_q_l_5.user_input]]
+    user_responses = [""]
+    robot_responses = ["henrys_happy_birthday_a_1"]
+
+[questions.henrys_happy_birthday_q_l_6]
+question = "henrys_happy_birthday_q_l_6"
+timeout_prompts = ["henrys_happy_birthday_h_6"]
+max_attempt = ["henrys_happy_birthday_a_6"]
+    [[questions.henrys_happy_birthday_q_l_6.user_input]]
+    user_responses = [""]
+    robot_responses = ["henrys_happy_birthday_a_6"]
+
+## Baby duck's new friend - dialogic questions. - s8
+[questions.baby_ducks_new_friend_q_l_1]
+question = "baby_ducks_new_friend_q_l_1"
+timeout_prompts = ["baby_ducks_new_friend_h_1"]
+max_attempt = ["baby_ducks_new_friend_q_l_1"]
+    [[questions.baby_ducks_new_friend_q_l_1.user_input]]
+    user_responses = [""]
+    robot_responses = ["baby_ducks_new_friend_q_l_1"]
+
+[questions.baby_ducks_new_friend_q_l_3]
+question = "baby_ducks_new_friend_q_l_3"
+timeout_prompts = ["baby_ducks_new_friend_h_3"]
+max_attempt = ["baby_ducks_new_friend_q_l_3"]
+    [[questions.baby_ducks_new_friend_q_l_3.user_input]]
+    user_responses = [""]
+    robot_responses = ["baby_ducks_new_friend_q_l_3"]
+
+[questions.baby_ducks_new_friend_q_l_5]
+question = "baby_ducks_new_friend_q_l_5"
+timeout_prompts = ["baby_ducks_new_friend_h_5"]
+max_attempt = ["baby_ducks_new_friend_q_l_5"]
+    [[questions.baby_ducks_new_friend_q_l_5.user_input]]
+    user_responses = [""]
+    robot_responses = ["baby_ducks_new_friend_q_l_5"]
+
+[questions.baby_ducks_new_friend_q_l_7]
+question = "baby_ducks_new_friend_q_l_7"
+timeout_prompts = ["baby_ducks_new_friend_h_7"]
+max_attempt = ["baby_ducks_new_friend_q_l_7"]
+    [[questions.baby_ducks_new_friend_q_l_7.user_input]]
+    user_responses = [""]
+    robot_responses = ["baby_ducks_new_friend_q_l_7"]
+
+[questions.baby_ducks_new_friend_q_l_8]
+question = "baby_ducks_new_friend_q_l_8"
+timeout_prompts = ["baby_ducks_new_friend_h_8"]
+max_attempt = ["baby_ducks_new_friend_q_l_8"]
+    [[questions.baby_ducks_new_friend_q_l_8.user_input]]
+    user_responses = [""]
+    robot_responses = ["baby_ducks_new_friend_q_l_8"]
+
+[questions.baby_ducks_new_friend_q_l_9]
+question = "baby_ducks_new_friend_q_l_9"
+timeout_prompts = ["baby_ducks_new_friend_h_9"]
+max_attempt = ["baby_ducks_new_friend_q_l_9"]
+    [[questions.baby_ducks_new_friend_q_l_9.user_input]]
+    user_responses = [""]
+    robot_responses = ["baby_ducks_new_friend_q_l_9"]
+
 
 ## Take a photo with the robot.
 [questions.WantAPhoto]

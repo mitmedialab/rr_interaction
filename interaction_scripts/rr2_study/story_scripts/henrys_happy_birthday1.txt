@@ -4,7 +4,7 @@ SET	NUM_PROMPTS	0
 OPAL	NEXT_PAGE
 ROBOT	DO	henrys_happy_birthday_lv1-01
 OPAL	NEXT_PAGE
- ROBOT	DO	henrys_happy_birthday_lv1-02
+ROBOT	DO	henrys_happy_birthday_lv1-02
 OPAL	NEXT_PAGE
 ROBOT	DO	henrys_happy_birthday_lv1-03
 QUESTION	henrys_happy_birthday_q_l_1

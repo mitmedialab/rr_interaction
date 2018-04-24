@@ -48,12 +48,14 @@ STATE	end remember session
 # Share the robot's favorite animal; ask the child's favorite animal.
 STATE	start favorite animal
 QUESTION	WhatsFavoriteAnimal
+OPAL	LOAD_OBJECT	{ "name": "Kinkajou.jpg", "tag": "PlayObject", "draggable": "false", "scale": ["40","40","40"]}
 ROBOT	DO	MyFavoriteAnimalIs
 STATE	end favorite animal
 **RRME	ROBOT	DO	LAUGH
 **RRLE	ROBOT	DO	SMILE
 **RRME	ROBOT	VOLUME	0.85
 **RRLE	ROBOT	VOLUME	0.75
+OPAL	CLEAR
 
 # Picture conversation with Third Picture Empathy/Helping task.
 #   Libraries, museums: what places have you been? Maybe on a field trip? If you could go anywhere where would you go?
