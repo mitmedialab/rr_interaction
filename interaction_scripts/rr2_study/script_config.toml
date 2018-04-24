@@ -236,10 +236,10 @@ question = "WhatCouldBeHappening"
 
 [questions.WhatCouldHappenWizard]
 question = "WhatCouldHappenWizard"
-    [[questions.WhatCouldBeHappening.user_input]]
+    [[questions.WhatCouldHappenWizard.user_input]]
     user_responses = ["don't know", "know", "not sure", "don't want"]
     robot_responses = ["OrMaybeHappening"]
-    [[questions.WhatCouldBeHappening.user_input]]
+    [[questions.WhatCouldHappenWizard.user_input]]
     user_responses = [""]
     robot_responses = ["SILENT_NOD"]
 
@@ -398,7 +398,7 @@ timeout_prompts = ["DidYouDressUp", "WereYouARobot"]
     robot_responses = ["Woah"]
 
 ## Museum picture.
-[question.picture_museum]
+[questions.picture_museum]
 question = "museumPictureQ"
 timeout_prompts = ["museumprompt1"]
     [[questions.picture_museum.user_input]]
@@ -408,21 +408,21 @@ timeout_prompts = ["museumprompt1"]
     user_responses = [""]
     robot_responses = ["Woah"]
 
-[question.museum_why]
+[questions.museum_why]
 question = "museum_why"
 timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
     [[questions.museum_why.user_input]]
     user_responses = [""]
     robot_responses = ["HmInterested", "PERKUP"]
 
-[question.museum_whyME]
+[questions.museum_whyME]
 question = "museum_whyME"
 timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
     [[questions.museum_whyME.user_input]]
     user_responses = [""]
     robot_responses = ["HmInterested", "SILENT_NOD"]
 
-[question.museum_whyLE]
+[questions.museum_whyLE]
 question = "museum_whyLE"
 timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
     [[questions.museum_whyLE.user_input]]
@@ -430,7 +430,7 @@ timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
     robot_responses = ["HmInterested", "SMILE"]
 
 ## Reading books pictures.
-[question.picture_books]
+[questions.picture_books]
 question = "PictureBook3"
 timeout_prompts = ["bookprompt1"]
     [[questions.picture_books.user_input]]
@@ -440,21 +440,21 @@ timeout_prompts = ["bookprompt1"]
     user_responses = [""]
     robot_responses = ["uhuhh"]
 
-[question.picture_books2]
+[questions.picture_books2]
 question = "TellMeMoreBooks"
 timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
     [[questions.picture_books2.user_input]]
     user_responses = [""]
     robot_responses = ["HmInterested", "PERKUP"]
 
-[question.picture_books2ME]
+[questions.picture_books2ME]
 question = "TellMeMoreBooks"
 timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
     [[questions.picture_books2ME.user_input]]
     user_responses = [""]
     robot_responses = ["HmInterested", "SILENT_NOD"]
 
-[question.picture_books2LE]
+[questions.picture_books2LE]
 question = "TellMeMoreBooks"
 timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
     [[questions.picture_books2LE.user_input]]
@@ -463,7 +463,7 @@ timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
 
 
 ## Holidays take 2 picture.
-[question.holidays_take2Q]
+[questions.holidays_take2Q]
 question = "holidays_take2Q"
 timeout_prompts = ["WhatHolidays", "WhatHolidays2"]
     [[questions.holidays_take2Q.user_input]]
@@ -473,21 +473,21 @@ timeout_prompts = ["WhatHolidays", "WhatHolidays2"]
     user_responses = [""]
     robot_responses = ["Woah"]
 
-[question.holidays_why]
+[questions.holidays_why]
 question = "holidays_why"
 timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
     [[questions.holidays_why.user_input]]
     user_responses = [""]
     robot_responses = ["HmInterested", "PERKUP"]
 
-[question.holidays_whyME]
+[questions.holidays_whyME]
 question = "holidays_why"
 timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
     [[questions.holidays_whyME.user_input]]
     user_responses = [""]
     robot_responses = ["HmInterested", "SILENT_NOD"]
 
-[question.holidays_whyLE]
+[questions.holidays_whyLE]
 question = "holidays_why"
 timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
     [[questions.holidays_whyLE.user_input]]
@@ -500,7 +500,7 @@ timeout_prompts = ["uhuhh", "tellMe", "keepGoing"]
 question = "DoFinalPicture"
 timeout_prompts = [""]
 max_attempt = [""]
-    [[questions.picture4_movie.user_input]]
+    [[questions.DoFinalPicture.user_input]]
     user_responses = ["don't know", "know", "not sure", "doesn't matter"]
     robot_responses = ["WeCanSkip"]
 
@@ -1654,7 +1654,7 @@ animations = [ { time = 0.1, anim = "PERKUP" },
                { time = 8.0, anim = "SILENT_SAD" } ]
 
 [audio.OkaySlideWithYou0]
-audio = "OkaySlideWithYou0"
+name = "OkaySlideWithYou0"
 animations = [ { time = 1.0, anim = "SIDEPERK" },
                { time = 6.0, anim = "SILENT_SCARED" },
                { time = 10.0, anim = "SHIMMY" } ]
@@ -1689,7 +1689,7 @@ animations = [ { time = 0.1, anim = "PERKUP" },
                { time = 8.0, anim = "SILENT_SAD" } ]
 
 [audio.OkayIllSlideToo1]
-audio = "OkayIllSlideToo1"
+name = "OkayIllSlideToo1"
 animations = [ { time = 4.0, anim = "SIDEPERK" },
                { time = 8.0, anim = "SILENT_SCARED" },
                { time = 12.0, anim = "SHIMMY" } ]
