@@ -607,8 +607,8 @@ story_type = "create"
 told_last_story = "TY"
 leftover_scene = "Castle"
 scenes = [ "Playground", "Castle",]
-negotiation_outcome = "YourChoice"
 last_story = "Iceberg"
+negotiation_outcome = "YourChoice"
 liked_last_story = "SL"
 story_level = 1
 
@@ -992,15 +992,6 @@ story_level = 1
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
-[p001.2]
-story_type = "create"
-told_last_story = "TN"
-leftover_scene = ""
-scenes = [ "Iceberg", "Castle",]
-last_story = ""
-liked_last_story = "SL"
-story_level = 1
-
 [p001.3]
 story_type = "create"
 told_last_story = "TN"
@@ -1011,13 +1002,12 @@ negotiation_outcome = "YourChoice"
 liked_last_story = "SL"
 story_level = 1
 
-[p004.3]
+[p001.2]
 story_type = "create"
 told_last_story = "TN"
-leftover_scene = "Iceberg"
-scenes = [ "Playground", "Iceberg",]
-last_story = "Castle"
-negotiation_outcome = "YourChoice"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
 liked_last_story = "SL"
 story_level = 1
 
@@ -1111,8 +1101,8 @@ story_type = "create"
 told_last_story = "TY"
 leftover_scene = "Iceberg"
 scenes = [ "Playground", "Iceberg",]
-negotiation_outcome = "YourChoice"
 last_story = "Castle"
+negotiation_outcome = "YourChoice"
 liked_last_story = "SL"
 story_level = 1
 
@@ -1789,6 +1779,16 @@ last_story = ""
 liked_last_story = "SL"
 story_level = 0
 
+[p004.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+last_story = "Castle"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
 [p304.1]
 story_type = "retell"
 liked_story = "SL"
@@ -2144,19 +2144,15 @@ Castle = "Castle-EvilKing-H"
 Iceberg = "Iceberg-sr2-session8-p006-story1"
 Playground = "Playground-sr2-session1-p007-story2"
 
-[p001.3.stories]
-Iceberg = "Iceberg-sr2-session8-p006-story1"
-Playground = "Playground-sr2-session1-p007-story2"
-
-[p004.3.stories]
-Iceberg = "Iceberg-sr2-session8-p006-story1"
-Playground = "Playground-sr2-session1-p007-story2"
-
 [p019.2.stories]
 Castle = "Castle-ReshmaParty-E"
 Iceberg = "Iceberg-PenguinSlide-E"
 
 [p032.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p004.3.stories]
 Iceberg = "Iceberg-sr2-session8-p006-story1"
 Playground = "Playground-sr2-session1-p007-story2"
 
@@ -2207,6 +2203,10 @@ Iceberg = "Iceberg-PenguinSlide-H"
 [p203.2.stories]
 Castle = "Castle-ReshmaParty-H"
 Iceberg = "Iceberg-PenguinSlide-H"
+
+[p001.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
 
 [p303.2.stories]
 Castle = "Castle-ReshmaParty-E"
