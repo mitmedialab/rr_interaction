@@ -73,7 +73,7 @@ class PerformanceLogger(object):
         self._log["session"] = session
 
         # Try opening a log file.
-        self._filename = str(participant) + "-log-00.toml"
+        self._filename = str(participant) + "-" + str(session) + "-log-00.toml"
         if os.path.isfile(directory + self._filename):
             # If it exists, get the next name to use (i.e. increment the number
             # in the filename) so that we never overwrite an existing log file.
