@@ -593,6 +593,16 @@ story_name = "henrys_happy_birthday"
 liked_last_story = "SD"
 story_level = 1
 
+[p028.4]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Playground"
+last_story = "Castle"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 2
+
 [p015.2]
 story_type = "create"
 told_last_story = "TN"
@@ -620,6 +630,16 @@ story_name = "baby_birds_first_nest"
 story_type = "retell"
 story_name = "baby_birds_first_nest"
 
+[p015.4]
+story_type = "retell"
+told_last_story = ""
+leftover_scene = "Playground"
+last_story = "Castle"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = ""
+story_level = 3
+
 [p998.2]
 story_type = "create"
 liked_last_story = "SD"
@@ -645,16 +665,6 @@ story_name = "possum_and_the_peeper"
 negotiation_outcome = "MyChoice"
 liked_last_story = "SL"
 story_level = 3
-
-[p028.4]
-story_type = "retell"
-told_last_story = "TN"
-leftover_scene = "Playground"
-last_story = "Castle"
-story_name = "possum_and_the_peeper"
-negotiation_outcome = "YourChoice"
-liked_last_story = "SL"
-story_level = 2
 
 [p998.1]
 story_type = "retell"
@@ -893,16 +903,6 @@ negotiation_outcome = "MyChoice"
 liked_last_story = "SL"
 story_level = 1
 
-[p010.4]
-story_type = "retell"
-told_last_story = "TY"
-leftover_scene = "Playground"
-last_story = "Castle"
-story_name = "possum_and_the_peeper"
-negotiation_outcome = "MyChoice"
-liked_last_story = "SL"
-story_level = 1
-
 [p010.3]
 story_type = "create"
 told_last_story = "TY"
@@ -952,6 +952,16 @@ story_level = 1
 [p007.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
+
+[p010.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Playground"
+last_story = "Castle"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
 
 [p306.3]
 story_type = "create"
@@ -1115,6 +1125,16 @@ story_level = 1
 [p025.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
+
+[p014.4]
+story_type = "retell"
+told_last_story = ""
+leftover_scene = "Iceberg"
+last_story = "Playground"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = ""
+story_level = 3
 
 [p014.3]
 story_type = "create"
@@ -1576,6 +1596,16 @@ negotiation_outcome = "MyChoice"
 liked_last_story = "SL"
 story_level = 1
 
+[p003.4]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Playground"
+last_story = "Castle"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 3
+
 [p003.2]
 story_type = "create"
 told_last_story = "TY"
@@ -1771,6 +1801,16 @@ last_story = "Castle"
 negotiation_outcome = "MyChoice"
 liked_last_story = "SL"
 story_level = 1
+
+[p002.4]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+last_story = "Playground"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 2
 
 [p305.4]
 story_type = "retell"
