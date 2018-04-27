@@ -1412,6 +1412,26 @@ negotiation_outcome = "MyChoice"
 liked_last_story = "SL"
 story_level = 1
 
+[p032.4]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Playground"
+last_story = "Iceberg"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p031.4]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Treemeadow"
+last_story = "Iceberg"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 2
+
 [p205.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
