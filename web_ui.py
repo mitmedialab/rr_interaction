@@ -7,7 +7,6 @@ import subprocess
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from SocketServer import ThreadingMixIn
 from os import curdir, sep
-import os
 import rospy  # ROS
 import signal  # Sending SIGINT signal to the interaction process.
 from src.user_input_ros import UserFormROS
@@ -77,7 +76,7 @@ class RRHandler(BaseHTTPRequestHandler):
                 self.ros_node.send_tega_animation(self.add_quotes(msg["cmd"]))
             elif msg["type"] == "INTERACTION" and msg["cmd"] == "STOP":
                 # Stop the interaction.
-                os.kill(shared["t"].pid, signal.SIGINT)
+                shared["t"].send_signal(signal.SIGINT)
             else:
                 self.ros_node.send_message(
                     self.add_quotes(msg["type"]), self.add_quotes(msg["cmd"]))

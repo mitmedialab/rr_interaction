@@ -86,14 +86,6 @@ def get_args():
     return (name, pid, session)
 
 
-def signal_handler(sig, nal):
-    """ Handle signals caught. """
-    if sig == signal.SIGINT:
-        print "Got keyboard interrupt! Exiting. {} {}".format(sig, nal)
-        # Unsubscribe from stuff and cleanup before exiting.
-        interaction_launcher.exit_nicely()
-
-
 if __name__ == '__main__':
     """ Start the relational robot interaction node and rosbag recording. This
     cannot be done in the roslaunch file because the configuration of the node
@@ -105,7 +97,7 @@ if __name__ == '__main__':
     rosbag recording, and try launching the interaction.
     """
     # Set up signal handler to catch SIGINT (e.g., ctrl-c).
-    signal.signal(signal.SIGINT, signal_handler)
+    signal.signal(signal.SIGINT, interaction_launcher.signal_handler)
 
     PARSER = argparse.ArgumentParser(
         description="Run the interaction. Optionally, restart at a later point"

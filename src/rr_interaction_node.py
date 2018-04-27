@@ -71,6 +71,16 @@ class InteractionHandler(object):
         # log_level=rospy.DEBUG)
         # The rest of our logging is set up in the log config file.
 
+    def __enter__(self):
+        """ Entering context. """
+        self._logger.debug("Entering!")
+        return self
+
+    def __exit__(self):
+        """ Exiting context. Clean up! """
+        self._logger.debug("Exiting! Cleaning up...")
+        self._ros_handler.unregister()
+
     def __init__(self):
         """ Initialize anything that needs initialization. """
         # Our ROS node. We give it a value later.
@@ -392,9 +402,6 @@ class InteractionHandler(object):
         paused = False
         log_timer = datetime.datetime.now()
 
-        # Set up signal handler to catch SIGINT (e.g., ctrl-c).
-        signal.signal(signal.SIGINT, self._signal_handler)
-
         # Start the interaction!
         self._logger.info("Starting interaction!")
         self._ros_handler.send_interaction_state(state="start interaction")
@@ -472,12 +479,15 @@ class InteractionHandler(object):
 
 if __name__ == '__main__':
     # Try launching the interaction!
+    # Set up signal handler to catch SIGINT (e.g., ctrl-c).
+    signal.signal(signal.SIGINT, self._signal_handler)
+
     try:
-        INTERACTION_HANDLER = InteractionHandler()
-        (SESSION, PARTICIPANT, ENTRAIN, EXPERIMENTER) = \
-            INTERACTION_HANDLER.parse_arguments()
-        INTERACTION_HANDLER.launch_interaction(SESSION, PARTICIPANT, ENTRAIN,
-                                               EXPERIMENTER, None)
+        with InteractionHandler() as INTERACTION_HANDLER:
+            (SESSION, PARTICIPANT, ENTRAIN, EXPERIMENTER) = \
+                INTERACTION_HANDLER.parse_arguments()
+            INTERACTION_HANDLER.launch_interaction(
+                    SESSION, PARTICIPANT, ENTRAIN, EXPERIMENTER, None)
 
     # If roscore isn't running or shuts down unexpectedly...
     except rospy.ROSInterruptException:

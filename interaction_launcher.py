@@ -32,7 +32,6 @@ import errno  # Used when checking error codes when trying to make a directory.
 import datetime  # So we can append the date and time to rosbags.
 import toml  # For reading our config file.
 import subprocess  # For starting rosbag.
-import psutil  # Dealing with closing the rosbag properly.
 import signal  # Sending SIGINT signal to rosbag.
 from src.rr_interaction_node import InteractionHandler  # Start interaction.
 
@@ -109,8 +108,10 @@ def start_rosbag(pid, session):
 
     # Start rosbag recording.
     try:
-        return subprocess.Popen(["rosbag", "record", "-a", "-O", bag],
-                                shell=False)
+        return subprocess.Popen(
+            ["/opt/ros/indigo/lib/rosbag/record", "--buffsize", "256",
+             "--chunksize", "768", "-O", bag, "--all"], shell=False)
+
     except Exception:
         print "Uh oh, something went wrong with rosbag recording!"
         raise
@@ -119,19 +120,20 @@ def start_rosbag(pid, session):
 def close_rosbag(bagp):
     """ Close the rosbag and all its child processes. """
     print "Stopping rosbag recording if it's not stopped already..."
-    process = psutil.Process(bagp.pid)
-    for subp in process.get_children(recursive=True):
-        subp.send_signal(signal.SIGINT)
+    bagp.send_signal(signal.SIGINT)
     bagp.wait()
 
 
-def signal_handler(sig, nal):
+def signal_handler(sig, frame):
     """ Handle signals caught. """
     if sig == signal.SIGINT:
-        print "Got keyboard interrupt! Exiting. {} {}".format(sig, nal)
+        print "Got keyboard Interrupt! Exiting. {} {}".format(sig, frame)
         # Unsubscribe from stuff and cleanup before exiting.
+        print BAG_PROCESS
         if BAG_PROCESS:
             close_rosbag(BAG_PROCESS)
+        print "exiting"
+        exit("Interrupted by user.")
 
 
 def exit_nicely():
@@ -143,8 +145,6 @@ def exit_nicely():
 
 def launch(experimenter, participant, session, restart):
     """ Start the rosbag recording and launch the interaction. """
-    # Set up signal handler to catch SIGINT (e.g., ctrl-c).
-    signal.signal(signal.SIGINT, signal_handler)
     try:
         # Start the rosbag recording.
         global BAG_PROCESS
@@ -152,8 +152,9 @@ def launch(experimenter, participant, session, restart):
         # Start the interaction with the provided session number, participant
         # ID, entrainment set to true, experimenter name, and the restart
         # point (if any).
-        InteractionHandler().launch_interaction(session, participant, True,
-                                                experimenter, restart)
+        with InteractionHandler() as ihandler:
+            ihandler.launch_interaction(
+                session, participant, True, experimenter, restart)
 
     except Exception as exc:
         print "Uh oh, something went wrong! {}".format(exc)
