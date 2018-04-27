@@ -73,7 +73,7 @@ condition = "NR"
 [p104]
 name = "p104"
 story_create_level = 1
-fav_color = ""
+fav_color = "redAndBlue"
 story_retell_level = 3
 personalized = true
 condition = "RR"
@@ -105,7 +105,7 @@ condition = "NR"
 [p009]
 name = "p009"
 story_create_level = 1
-fav_color = ""
+fav_color = "blue"
 story_retell_level = 3
 personalized = true
 condition = "RR"
@@ -632,12 +632,12 @@ story_name = "baby_birds_first_nest"
 
 [p015.4]
 story_type = "retell"
-told_last_story = ""
+told_last_story = "TN"
 leftover_scene = "Playground"
 last_story = "Castle"
 story_name = "possum_and_the_peeper"
 negotiation_outcome = "YourChoice"
-liked_last_story = ""
+liked_last_story = "SL"
 story_level = 3
 
 [p998.2]
@@ -1128,12 +1128,12 @@ story_name = "baby_birds_first_nest"
 
 [p014.4]
 story_type = "retell"
-told_last_story = ""
+told_last_story = "TY"
 leftover_scene = "Iceberg"
 last_story = "Playground"
 story_name = "possum_and_the_peeper"
 negotiation_outcome = "YourChoice"
-liked_last_story = ""
+liked_last_story = "SL"
 story_level = 3
 
 [p014.3]
@@ -1385,7 +1385,7 @@ told_last_story = "TN"
 leftover_scene = ""
 scenes = [ "Iceberg", "Castle",]
 last_story = ""
-liked_last_story = ""
+liked_last_story = "SL"
 story_level = 1
 
 [p021.1]
@@ -1784,7 +1784,7 @@ story_level = 1
 story_type = "create"
 told_last_story = ""
 scenes = [ "Iceberg", "Castle",]
-liked_last_story = ""
+liked_last_story = "SL"
 story_level = 1
 
 [p305.3]
