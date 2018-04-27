@@ -1,6 +1,7 @@
 # Project-specific files. Ignore generated log files, but include the examples
 # for testing purposes, and include the RR2 config files.
 performance/*-log*
+performance/dealt-with/
 
 # vim/gvim swap files
 *.swp
@@ -15,7 +16,11 @@ Icon?
 ehthumbs.db
 [Tt]humbs.db
 
-# part of git's automatically generated list of python stuff to ignore
+# Log files
+*.log*
+
+
+# Part of git's automatically generated list of python stuff to ignore:
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
