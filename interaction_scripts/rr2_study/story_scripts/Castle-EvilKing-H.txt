@@ -1,0 +1,12 @@
+ROBOT	DO	APrince
+ROBOT	DO	OnceUponATimeAPrince1
+ROBOT	DO	ThePrinceExpectedForever1
+ROBOT	DO	ThenPrincessCameAlong1
+ROBOT	DO	HeyPrinceAreStuck1
+ROBOT	DO	SoApproachingBridge1
+ROBOT	DO	EvilKingSaidNo1
+ROBOT	DO	NoLetPrinceGoFree1
+ROBOT	DO	WellOkayCrocAgreed1
+ROBOT	DO	IExpectHellRun1
+ROBOT	DO	ButAwayRanKing1
+ROBOT	DO	SoReturningToCastle1

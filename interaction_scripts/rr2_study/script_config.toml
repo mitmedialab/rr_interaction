@@ -1795,7 +1795,7 @@ animations = [ { time = 0.7, anim = "SHIMMY" } ]
 
 ## Iceberg Snowman Hat - level 0. TODO
 
-## Iceberg Snowman Hat - level 1. TODO
+## Iceberg Snowman Hat - level 1.
 [audio.TwoPenguinsPlayed1]
 name = "TwoPenguinsPlayed1"
 animations = [ { time = 0.1, anim = "PERKUP" },
@@ -1931,13 +1931,140 @@ animations = [ { time = 1.0, anim = "CIRCLING" } ]
 
 ## Castle Evil King - Level 0. TODO
 
-## Castle Evil King - Level 1. TODO
+## Castle Evil King - Level 1.
+[audio.OnceUponATimeAPrince1]
+name = "OnceUponATimeAPrince1"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
 
-## Dinoville Dino Eater - level 0. TODO
+[audio.ThePrinceExpectedForever1]
+name = "ThePrinceExpectedForever1"
+animations = [ { time = 0.2, anim = "SILENT_SAD" } ]
+
+[audio.ThenPrincessCameAlong1]
+name = "ThenPrincessCameAlong1"
+animations = [ { time = 0.5, anim = "SHIMMY" } ]
+
+[audio.HeyPrinceAreStuck1]
+name = "HeyPrinceAreStuck1"
+animations = [ { time = 0.2, anim = "SIDEPERK" } ]
+
+[audio.SoApproachingBridge1]
+name = "SoApproachingBridge1"
+animations = [ { time = 2.1, anim = "SILENT_NO" } ]
+
+[audio.EvilKingSaidNo1]
+name = "EvilKingSaidNo1"
+animations = [ { time = 0.1, anim = "SILENT_NO" },
+               { time = 4.1, anim = "SILENT_NO" } ]
+
+[audio.NoLetPrinceGoFree1]
+name = "NoLetPrinceGoFree1"
+animations = [ { time = 0.5, anim = "PERKUP" } ]
+
+[audio.WellOkayCrocAgreed1]
+name = "WellOkayCrocAgreed1"
+animations = [ { time = 0.1, anim = "SILENT_YES" } ]
+
+[audio.IExpectHellRun1]
+name = "IExpectHellRun1"
+animations = [ { time = 2.0, anim = "PERKUP" } ]
+
+[audio.ButAwayRanKing1]
+name = "ButAwayRanKing1"
+animations = [ { time = 3.5, anim = "SILENT_NO" } ]
+
+[audio.SoReturningToCastle1]
+name = "SoReturningToCastle1"
+animations = [ { time = 1.1, anim = "PROUD" } ]
+
+
+## Dinoville Dino Eater - level 0.
+[audio.OnceUponATimeTwoDinos0]
+name = "OnceUponATimeTwoDinos0"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.BaileyTallStegShort0]
+name = "BaileyTallStegShort0"
+animations = [ { time = 0.1, anim = "PROUD" },
+               { time = 1.5, anim = "SHIMMY" } ]
+
+[audio.MeatEaterToo0]
+name = "MeatEaterToo0"
+animations = [ { time = 0.8, anim = "SIDEPERK" } ]
+
+[audio.MomoWasHunting0]
+name = "MomoWasHunting0"
+animations = [ { time = 2.1, anim = "SILENT_SCARED" } ]
+
+[audio.SoMonoChasedBailey0]
+name = "SoMonoChasedBailey0"
+animations = [ { time = 0.1, anim = "SHIMMY" } ]
+
+[audio.MomoChasedSteg0]
+name = "MomoChasedSteg0"
+animations = [ { time = 1.6, anim = "SILENT_SCARED" } ]
+
+[audio.StegJumpedFromTree0]
+name = "StegJumpedFromTree0"
+animations = [ { time = 0.1, anim = "PROUD" } ]
+
+[audio.SoStegHid0]
+name = "SoStegHid0"
+animations = [ { time = 0.1, anim = "SILENT_INTERESTED" } ]
+
+[audio.MomoPlungedToo0]
+name = "MomoPlungedToo0"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.MomoUnderwaterSteg0]
+name = "MomoUnderwaterSteg0"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.DinosWereSafe0]
+name = "DinosWereSafe0"
+animations = [ { time = 0.1, anim = "PROUD" } ]
+
 
 ## Dinoville Dino Eater - level 1. TODO
 
-## Dinoville Scary Dino - level 0. TODO
+## Dinoville Scary Dino - level 0.
+[audio.OnceUponATimeMattyDino0]
+name = "OnceUponATimeMattyDino0"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.MattyPlayedClumps0]
+name = "MattyPlayedClumps0"
+animations = [ { time = 0.3, anim = "SHIMMY" } ]
+
+[audio.GrrMeanScaryDino0]
+name = "GrrMeanScaryDino0"
+animations = [ { time = 0.9, anim = "PROUD" } ]
+
+[audio.IllScareTimeSee0]
+name = "IllScareTimeSee0"
+animations = [ { time = 0.5, anim = "SIDEPERK" },
+               { time = 8.0, anim = "SILENT_NO" } ]
+
+[audio.MattyWalkSoftly0]
+name = "MattyWalkSoftly0"
+animations = [ { time = 0.5, anim = "SILENT_INTERESTED" } ]
+
+[audio.MattyJumpedOut0]
+name = "MattyJumpedOut0"
+animations = [ { time = 9.1, anim = "SILENT_SCARED" } ]
+
+[audio.MattyIAmScary0]
+name = "MattyIAmScary0"
+animations = [ { time = 0.1, anim = "SILENT_NO" } ]
+
+[audio.SteggieYoureNotScary0]
+name = "SteggieYoureNotScary0"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.ScareSteggieNext0]
+name = "ScareSteggieNext0"
+animations = [ { time = 5.1, anim = "SILENT_CONFIRM" } ]
+
 
 ## Dinoville Scary Dino - level 1. TODO
 
@@ -1947,7 +2074,51 @@ animations = [ { time = 1.0, anim = "CIRCLING" } ]
 
 ## House Sofa Pirates - level 0. TODO
 
-## House Sofa Pirates - level 1. TODO
+## House Sofa Pirates - level 1.
+[audio.OnceUponATimeEmma1]
+name = "OnceUponATimeEmma1"
+animations = [ { time = 0.8, anim = "SHIMMY" } ]
+
+[audio.IWishPirate1]
+name = "IWishPirate1"
+animations = [ { time = 0.1, anim = "SIDEPERK" } ]
+
+[audio.EmmaCaptain1]
+name = "EmmaCaptain1"
+animations = [ { time = 2.1, anim = "PERKUP" } ]
+
+[audio.HerDogFirstMate1]
+name = "HerDogFirstMate1"
+animations = [ { time = 0.1, anim = "PROUD" } ]
+
+[audio.WoofCatBoxes1]
+name = "WoofCatBoxes1"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.ThenGoingBackSail1]
+name = "ThenGoingBackSail1"
+animations = [ { time = 0.1, anim = "SHIMMY" } ]
+
+[audio.PrepareBoarded1]
+name = "PrepareBoarded1"
+animations = [ { time = 1.0, anim = "CIRCLING" } ]
+
+[audio.HoppingOntoShip1]
+name = "HoppingOntoShip1"
+animations = [ { time = 0.3, anim = "SHIMMY" } ]
+
+[audio.PlunderedShipCat1]
+name = "PlunderedShipCat1"
+animations = [ { time = 0.1, anim = "PROUD" } ]
+
+[audio.WishYouWerePirate1]
+name = "WishYouWerePirate1"
+animations = [ { time = 2.1, anim = "SIDEPERK" } ]
+
+[audio.ThenEmmaDogSail1]
+name = "ThenEmmaDogSail1"
+animations = [ { time = 0.1, anim = "SHIMMY" } ]
+
 
 ## Mars Alien Family - level 0. TODO
 ## Mars Alien Family - level 1. TODO
@@ -2041,9 +2212,70 @@ animations = [ { time = 0.1, anim = "PERKUP" },
 
 
 ## Treemeadow Bird Butterfly- level 0. TODO
+[audio.ButterflyBirdFriends0]
+name = "ButterflyBirdFriends0"
+animations = [ { time = 0.1, anim = "HAPPY_UP" } ]
+
+[audio.OneDayTeaCookies0]
+name = "OneDayTeaCookies0"
+animations = [ { time = 0.1, anim = "SHIMMY" } ]
+
+[audio.OhNoDragonEatUs0]
+name = "OhNoDragonEatUs0"
+animations = [ { time = 0.6, anim = "SILENT_SCARED" } ]
+
+[audio.DontRevealUs0]
+name = "DontRevealUs0"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.IWonderWhereDragon0]
+name = "IWonderWhereDragon0"
+animations = [ { time = 3.1, anim = "SILENT_THINKING" } ]
+
+[audio.SoBirdRevealed0]
+name = "SoBirdRevealed0"
+animations = [ { time = 0.4, anim = "SIDEPERK" },
+               { time = 3.0, anim = "SHIMMY" }]
+
+[audio.PlayedHideSeekTurns0]
+name = "PlayedHideSeekTurns0"
+animations = [ { time = 1.2, anim = "SILENT_HAPPY_WIGGLE" } ]
+
+[audio.SoDragonBirdHidSeeker0]
+name = "SoDragonBirdHidSeeker0"
+animations = [ { time = 3.1, anim = "PROUD" } ]
+
+
 ## Treemeadow Bird Butterfly - level 1. TODO
 
 ## Treemeadow  Clumsy Dragon - level 0. TODO
+[audio.OnceThereWasDragonPlunger0]
+name = "OnceThereWasDragonPlunger0"
+animations = [ { time = 0.1, anim = "PROUD" },
+               { time = 4.0, anim = "CIRCLING" } ]
+
+[audio.SawButterlfyTriedToBe0]
+name = "SawButterlfyTriedToBe0"
+animations = [ { time = 0.1, anim = "HAPPY_UP" } ]
+
+[audio.ThenSawBlueBird0]
+name = "ThenSawBlueBird0"
+animations = [ { time = 0.5, anim = "SILENT_NO" } ]
+
+[audio.IWonderBirdPlunge0]
+name = "IWonderBirdPlunge0"
+animations = [ { time = 3.1, anim = "HAPPY_UP" },
+               { time = 9.0, anim = "SILENT_NO" } ]
+
+[audio.ThenBirdCameOver0]
+name = "ThenBirdCameOver0"
+animations = [ { time = 2.1, anim = "PERKUP" } ]
+
+[audio.DragonRealizedSpecial0]
+name = "DragonRealizedSpecial0"
+animations = [ { time = 3.1, anim = "SHIMMY" } ]
+
+
 ## Treemeadow  Clumsy Dragon - level 1. TODO
 
 ## Audio with animations for the Baby Bird's First Nest story - level 1.
@@ -4043,7 +4275,21 @@ animations = [ { time = 0.1, anim = "IDLESTILL" },
 
 
 ## Experimenter names - should have anim PROUD or HEADPOINTBACK
-## TODO
+[audio.jackie]
+name = "jackie"
+animations = [ { time = 0.1, anim = "HEADPOINTBACK" } ]
+
+[audio.alicia]
+name = "alicia"
+animations = [ { time = 0.1, anim = "HEADPOINTBACK" } ]
+
+[audio.olga]
+name = "olga"
+animations = [ { time = 0.1, anim = "HEADPOINTBACK" } ]
+
+[audio.jete]
+name = "jete"
+animations = [ { time = 0.1, anim = "HEADPOINTBACK" } ]
 
 ## Participant names - should have anim PERKUP
 ## TODO

@@ -1,0 +1,7 @@
+ROBOT	DO	ADragon
+ROBOT	DO	OnceThereWasDragonPlunger0
+ROBOT	DO	SawButterlfyTriedToBe0
+ROBOT	DO	ThenSawBlueBird0
+ROBOT	DO	IWonderBirdPlunge0
+ROBOT	DO	ThenBirdCameOver0
+ROBOT	DO	DragonRealizedSpecial0

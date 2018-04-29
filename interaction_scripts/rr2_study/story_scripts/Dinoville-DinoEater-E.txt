@@ -1,0 +1,12 @@
+ROBOT	DO	ADinosaur
+ROBOT	DO	OnceUponATimeTwoDinos0
+ROBOT	DO	BaileyTallStegShort0
+ROBOT	DO	MeatEaterToo0
+ROBOT	DO	MomoWasHunting0
+ROBOT	DO	SoMonoChasedBailey0
+ROBOT	DO	MomoChasedSteg0
+ROBOT	DO	StegJumpedFromTree0
+ROBOT	DO	SoStegHid0
+ROBOT	DO	MomoPlungedToo0
+ROBOT	DO	MomoUnderwaterSteg0
+ROBOT	DO	DinosWereSafe0

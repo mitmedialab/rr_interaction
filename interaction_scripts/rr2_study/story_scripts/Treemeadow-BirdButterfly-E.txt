@@ -1,0 +1,9 @@
+ROBOT	DO	AButterfly
+ROBOT	DO	ButterflyBirdFriends0
+ROBOT	DO	OneDayTeaCookies0
+ROBOT	DO	OhNoDragonEatUs0
+ROBOT	DO	DontRevealUs0
+ROBOT	DO	IWonderWhereDragon0
+ROBOT	DO	SoBirdRevealed0
+ROBOT	DO	PlayedHideSeekTurns0
+ROBOT	DO	SoDragonBirdHidSeeker0
