@@ -1855,3 +1855,26 @@ class ScriptHandler(object):
             else:
                 self._logger.warning("Told to load participant image but name "
                                      "is not in pconfig!")
+        if "<participant_animal>" in image:
+            if "fav_color" in self._pconfig:
+                color = {}
+                color["name"] = "colors/" + self._pconfig["fav_color"]
+                color["tag"] = "PlayObject"
+                color["draggable"] = False
+                color["position"] = [0, 0, 1]
+                color["scale"] = [180, 180, 180]
+                self._ros_node.send_opal_command("LOAD_OBJECT",
+                                                 json.dumps(color))
+            if "animal" in self._pconfig:
+                img = {}
+                img["name"] = "animals/" + self._pconfig["animal"]
+                img["tag"] = "PlayObject"
+                img["draggable"] = False
+                img["position"] = [0, 0, 0]
+                img["scale"] = [15, 15, 15]
+                self._logger.info("Loading image: {}".format(img["name"]))
+                self._ros_node.send_opal_command("LOAD_OBJECT",
+                                                 json.dumps(img))
+            else:
+                self._logger.warning("Told to load participant animal, but it "
+                                     "is not in pconfig!")

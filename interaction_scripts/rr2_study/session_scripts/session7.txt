@@ -46,16 +46,16 @@ STATE	start remember session
 ROBOT	DO	PERKUP
 STATE	end remember session
 
-# TODO UPDATE FOR SESSION 7 - here and below
 # Reference favorite animal from session 6.
 RESTART	pc
 STATE	start remember photo color
-# TODO how to load the right picture for RR?
 **RRME	ROBOT	VOLUME	0.85
 **RRLE	ROBOT	VOLUME	0.75
-**RR	OPAL	PARTICIPANT	<participant_photo>
-**NR	OPAL	LOAD_OBJECT	{ "name": "robot_photos/four-bots2.png", "tag": "PlayObject", "draggable": "false", "scale": ["60","60","60"]}
-**RR	ROBOT	DO	ShareS1Photo_1
+**RR	OPAL	PARTICIPANT	<participant_animal>
+**NR	OPAL	LOAD_OBJECT	{ "name": "animals/BabyTapir.png", "tag": "PlayObject", "draggable": "false", "scale": ["60","60","60"]}
+
+# TODO UPDATE FOR SESSION 7 - here and below
+**RR	ROBOT	DO	IRememberAnimal
 **NR	ROBOT	DO	ShareRandomPhoto_1
 ROBOT	DO	<experimenter_name>
 **NR	ROBOT	DO	ShareRandomPhoto_2

@@ -1,0 +1,40 @@
+SET	MAX_GAME_TIME	20
+SET	MAX_REPEAT_TIME	20
+SET	PROMPT_TIME	300
+SET	NUM_PROMPTS	20
+PAUSE	1
+STATE	<condition>
+OPAL	CLEAR
+ROBOT	VOLUME	0.8
+ROBOT	FIDGET	EMPTY
+
+# Sleep and wait for wakeup.
+STATE	robot sleeping
+ROBOT	DO	POSE_SLEEPING
+############################## QUESTION	wait_for_wakeup
+STATE	start robot wakeup
+ROBOT	VOLUME	0.8
+ROBOT	DO	YAWN
+ROBOT	DO	IceCream
+ROBOT	DO	LAUGH
+STATE	end robot wakeup
+SET	PROMPT_TIME	7
+SET	NUM_PROMPTS	1
+
+# Closing and robot goes back to sleep.
+RESTART	close
+**RRLE	ROBOT	VOLUME	0.85
+STATE	start closing
+**NR	ROBOT	DO	rr1_story_19
+**RR	ROBOT	DO	LikedPlaying
+**RR	ROBOT	DO	<participant_name>
+**RRME	ROBOT	DO	LAUGH
+**RRLE	ROBOT	DO	SMILE
+ROBOT	DO	PERKUP
+ROBOT	DO	SeeYouLaterHuman
+**RR	ROBOT	DO	LAUGH
+ROBOT	FIDGET	EMPTY
+ROBOT	DO	YAWN
+ROBOT	DO	POSE_SLEEPING
+STATE	end closing
+
