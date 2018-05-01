@@ -48,34 +48,23 @@ STATE	end remember session
 
 # Reference favorite animal from session 6.
 RESTART	pc
-STATE	start remember photo color
+STATE	start remember animal color
 **RRME	ROBOT	VOLUME	0.85
 **RRLE	ROBOT	VOLUME	0.75
 **RR	OPAL	PARTICIPANT	<participant_animal>
 **NR	OPAL	LOAD_OBJECT	{ "name": "animals/BabyTapir.png", "tag": "PlayObject", "draggable": "false", "scale": ["60","60","60"]}
-
-# TODO UPDATE FOR SESSION 7 - here and below
 **RR	ROBOT	DO	IRememberAnimal
-**NR	ROBOT	DO	ShareRandomPhoto_1
-ROBOT	DO	<experimenter_name>
-**NR	ROBOT	DO	ShareRandomPhoto_2
-**RR	ROBOT	DO	ShareS1Photo_2
-**RR	ROBOT	DO	<fav_color>
-**RR	ROBOT	DO	ShareS1Photo_3
-**RR	ROBOT	DO	<fav_color>
+**RR	ROBOT	DO	<animal>
+**RR	ROBOT	DO	IRememberColor
+**RR	ROBOT	DO	<animal>
+**RR	ROBOT	DO	SoIFoundPicture
+**NR	ROBOT	DO	HeresAnAnimal
 ROBOT	DO	Booyah
 **RRME	ROBOT	DO	LAUGH
 **RRLE	ROBOT	DO	SMILE
 # Asks "can you say that again" in reply.
 QUESTION	DoYouLikePhoto
-STATE	end remember photo color
-
-# Ask questions about robots/relationship.
-# TODO - "Is having a robot friend like having another kid as a friend? Why?"
-STATE	start robot relationship question
-**RR	QUESTION	IsItHardRobotHearingRR
-**NR	QUESTION	IsItHardRobotHearing
-OPAL	CLEAR
+STATE	end remember animal color
 
 # Self-disclosure question learning about child.
 RESTART	sdt
@@ -85,14 +74,16 @@ STATE	start self-disclosure question
 **RR	ROBOT	DO	LearnMoreAboutYou
 **NR	ROBOT	DO	LearnAboutYou
 SET	NUM_PROMPTS	1
-QUESTION	DisclosureS3
+QUESTION	DisclosureS7
 SET	NUM_PROMPTS	0
 IF_RESPONSE	QUESTION	SelfDisclosureGeneric2
 IF_RESPONSE	QUESTION	SelfDisclosureGeneric
-**RR	ROBOT	DO	RobotDisclosureS3
+**RR	ROBOT	DO	RobotDisclosureS7
 STATE	end self-disclosure question
 SET	PROMPT_TIME	8
 SET	NUM_PROMPTS	2
+
+# TODO UPDATE FOR SESSION 7 - here and below
 
 # Ask child to also tell a story about a robot.
 RESTART	cs1

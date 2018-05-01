@@ -48,7 +48,7 @@ STATE	end remember session
 # Share the robot's favorite animal; ask the child's favorite animal.
 STATE	start favorite animal
 QUESTION	WhatsFavoriteAnimal
-OPAL	LOAD_OBJECT	{ "name": "Kinkajou.jpg", "tag": "PlayObject", "draggable": "false", "scale": ["40","40","40"]}
+OPAL	LOAD_OBJECT	{ "name": "Kinkajou.jpg", "tag": "PlayObject", "draggable": "false", "scale": ["99","99","99"]}
 ROBOT	DO	MyFavoriteAnimalIs
 STATE	end favorite animal
 **RRME	ROBOT	DO	LAUGH
@@ -63,7 +63,7 @@ RESTART	pc
 **NR	ROBOT	DO	HelpLookPicturesNR
 **RR	ROBOT	DO	HelpLookPicturesRR
 STATE	start picture task picture1
-OPAL	LOAD_OBJECT	{ "name": "conversations/reading1.jpg", "tag": "PlayObject", "draggable": "false", "scale": ["40","40","40"]}
+OPAL	LOAD_OBJECT	{ "name": "conversations/reading1.jpg", "tag": "PlayObject", "draggable": "false", "scale": ["90","90","90"]}
 **NR	ROBOT	DO	PictureBook1
 **RRME	ROBOT	DO	PictureBook1ME
 **RRLE	ROBOT	DO	PictureBook1LE
@@ -77,7 +77,7 @@ STATE	end picture task picture1
 ROBOT	DO	rr1_picturegen_01
 STATE	start picture task picture2
 OPAL	LOAD_OBJECT	{ "name": "conversations/rr1_picture_holidays.jpg", "tag": "PlayObject", "draggable": "false", "scale": ["30","30","30"]}
-ROBOT	DO	rr1_picture4_01
+ROBOT	DO	holidays_intro1
 **RRLE	ROBOT	VOLUME	0.7
 **RRME	ROBOT	VOLUME	0.9
 **RR	ROBOT	DO	holidays_take2_RR

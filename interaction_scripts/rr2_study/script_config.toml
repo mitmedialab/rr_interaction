@@ -36,7 +36,7 @@ actions = ["YES", "uhuhh", "SILENT_LAUGH", "YES", "SMILE", "uhuhh", "mmm"]
 actions = ["uhuhh", "LAUGH_AGREEMENT", "YES", "SMILE", "uhuhh", "uhuhh",
            "mmhm"]
 [backchannel_actions.long_pause_story]
-actions = ["AndThenWhatHappened", "WhatHappenedNext", "Andthen", "keepGoing"]
+actions = ["AndThenWhatHappens", "WhatHappenedNext", "Andthen", "keepGoing"]
 [backchannel_actions.random]
 actions = ["YES", "LAUGH", "SILENT_CONFIRM", "SILENT_YES", "SMILE", "uhuhh",
            "hmm", "mmm", "LAUGH_AGREEMENT", "mmhm"]
@@ -285,7 +285,7 @@ max_attempt = [""]
 
 [questions.wait_for_story_endRR]
 question = ""
-timeout_prompts = ["AndThenWhatHappened", "WhatHappenedNext", "Andthen", "keepGoing"]
+timeout_prompts = ["AndThenWhatHappens", "WhatHappenedNext", "Andthen", "keepGoing"]
 backchannel_prompts = [""]
 max_attempt = [""]
     [[questions.wait_for_story_endRR.user_input]]
@@ -1266,7 +1266,7 @@ timeout_prompts = ["henrys_happy_birthday_h_5"]
 max_attempt = ["henrys_happy_birthday_a_5"]
     [[questions.henrys_happy_birthday_q_l_5.user_input]]
     user_responses = [""]
-    robot_responses = ["henrys_happy_birthday_a_1"]
+    robot_responses = ["henrys_happy_birthday_a_5"]
 
 [questions.henrys_happy_birthday_q_l_6]
 question = "henrys_happy_birthday_q_l_6"
@@ -1759,8 +1759,8 @@ animations = [ { time = 0.7, anim = "SHIMMY" } ]
 ## end story
 
 ## Iceberg: PenguinSlide story - level 1.
-[audio.OnceUponTimeGeorge1]
-name = "OnceUponTimeGeorge1"
+[audio.OnceUponATimeGeorge1]
+name = "OnceUponATimeGeorge1"
 animations = [ { time = 0.4, anim = "SILENT_FART" } ]
 
 [audio.GeorgeLikedSliding1]
@@ -2040,8 +2040,8 @@ animations = [ { time = 0.3, anim = "SHIMMY" } ]
 name = "GrrMeanScaryDino0"
 animations = [ { time = 0.9, anim = "PROUD" } ]
 
-[audio.IllScareTimeSee0]
-name = "IllScareTimeSee0"
+[audio.IllScareTimSee0]
+name = "IllScareTimSee0"
 animations = [ { time = 0.5, anim = "SIDEPERK" },
                { time = 8.0, anim = "SILENT_NO" } ]
 
@@ -2254,8 +2254,8 @@ name = "OnceThereWasDragonPlunger0"
 animations = [ { time = 0.1, anim = "PROUD" },
                { time = 4.0, anim = "CIRCLING" } ]
 
-[audio.SawButterlfyTriedToBe0]
-name = "SawButterlfyTriedToBe0"
+[audio.SawButterflyTriedToBe0]
+name = "SawButterflyTriedToBe0"
 animations = [ { time = 0.1, anim = "HAPPY_UP" } ]
 
 [audio.ThenSawBlueBird0]

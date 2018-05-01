@@ -2,7 +2,7 @@ ROBOT	DO	ADinosaur
 ROBOT	DO	OnceUponATimeMattyDino0
 ROBOT	DO	MattyPlayedClumps0
 ROBOT	DO	GrrMeanScaryDino0
-ROBOT	DO	IllScareTimeSee0
+ROBOT	DO	IllScareTimSee0
 ROBOT	DO	MattyWalkSoftly0
 ROBOT	DO	MattyJumpedOut0
 ROBOT	DO	MattyIAmScary0
