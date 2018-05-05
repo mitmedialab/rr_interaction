@@ -56,7 +56,7 @@ STATE	start remember animal color
 **RR	ROBOT	DO	IRememberAnimal
 **RR	ROBOT	DO	<animal>
 **RR	ROBOT	DO	IRememberColor
-**RR	ROBOT	DO	<animal>
+**RR	ROBOT	DO	<fav_color>
 **RR	ROBOT	DO	SoIFoundPicture
 **NR	ROBOT	DO	HeresAnAnimal
 ROBOT	DO	Booyah
@@ -65,6 +65,13 @@ ROBOT	DO	Booyah
 # Asks "can you say that again" in reply.
 QUESTION	DoYouLikePhoto
 STATE	end remember animal color
+
+# Ask questions about robots/relationship.
+STATE	start robot relationship question
+**RR	QUESTION	IsItHardRobotHearingRR
+**NR	QUESTION	IsItHardRobotHearing
+IF_RESPONSE	QUESTION	WhyDoYouThink
+OPAL	CLEAR
 
 # Self-disclosure question learning about child.
 RESTART	sdt
@@ -83,8 +90,6 @@ STATE	end self-disclosure question
 SET	PROMPT_TIME	8
 SET	NUM_PROMPTS	2
 
-# TODO UPDATE FOR SESSION 7 - here and below
-
 # Ask child to also tell a story about a robot.
 RESTART	cs1
 OPAL	LOAD_OBJECT	{ "name": "sr2-scenes/RobotStoryScene", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
@@ -100,7 +105,7 @@ ROBOT	DO	WhatElseIsHappening1
 **RRLE	ROBOT	DO	SayTheEndLE
 **NR	SET	PROMPT_TIME	1200
 **RR	SET	PROMPT_TIME	20
-SET	NUM_PROMPTS	30
+SET	NUM_PROMPTS	50
 SET	BACKCHANNEL	ON STORY
 **NR	QUESTION	wait_for_story_end
 **RR	QUESTION	wait_for_story_endRR
@@ -126,8 +131,6 @@ ROBOT	LOOKAT	TABLET
 ROBOT	DO	rr1_story_01
 REPEAT	MAX_REPEATS	story-followup.txt
 STATE	end story task
-
-# TODO do a second story from robot??
 
 # Closing and robot goes back to sleep.
 RESTART	close

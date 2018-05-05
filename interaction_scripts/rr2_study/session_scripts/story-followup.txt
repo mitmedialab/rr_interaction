@@ -7,7 +7,7 @@ STATE	start negotiation task
 **RR	ROBOT	DO	<negotiation_outcome>
 **RR	ROBOT	DO	WeDidntDo
 **RR	ROBOT	DO	<leftover_scene>
-**RR	QUESTION	choose_sceneRR
+**RR	QUESTION	choose_sceneRR2
 **NR	QUESTION	choose_a_scene1
 WAIT	USER_INPUT	NEGOTIATE	20
 STATE	end negotiation task
@@ -43,10 +43,9 @@ STATE	start child story create
 **RRLE	QUESTION	CreateAStoryLE
 ROBOT	LOOKAT	TABLET
 OPAL	ENABLE_TOUCH
-QUESTION	WhatCouldBeHappening
 **NR	SET	PROMPT_TIME	1200
 **RR	SET	PROMPT_TIME	20
-SET	NUM_PROMPTS	30
+SET	NUM_PROMPTS	40
 SET	BACKCHANNEL	ON STORY
 **NR	QUESTION	wait_for_story_end
 **RR	QUESTION	wait_for_story_endRR
