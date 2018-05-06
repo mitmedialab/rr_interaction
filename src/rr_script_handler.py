@@ -1862,16 +1862,17 @@ class ScriptHandler(object):
                 color["tag"] = "PlayObject"
                 color["draggable"] = False
                 color["position"] = [0, 0, 1]
-                color["scale"] = [180, 180, 180]
+                color["scale"] = [190, 190, 190]
                 self._ros_node.send_opal_command("LOAD_OBJECT",
                                                  json.dumps(color))
             if "animal" in self._pconfig:
                 img = {}
-                img["name"] = "animals/" + self._pconfig["animal"]
+                img["name"] = "animals/" + self._pconfig["animal"] + \
+                    ("1" if self._sessionint == 7 else "2")
                 img["tag"] = "PlayObject"
                 img["draggable"] = False
                 img["position"] = [0, 0, 0]
-                img["scale"] = [15, 15, 15]
+                img["scale"] = [150, 150, 150]
                 self._logger.info("Loading image: {}".format(img["name"]))
                 self._ros_node.send_opal_command("LOAD_OBJECT",
                                                  json.dumps(img))
