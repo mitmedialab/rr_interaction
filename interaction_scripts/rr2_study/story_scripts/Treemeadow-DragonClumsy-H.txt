@@ -1,0 +1,9 @@
+ROBOT	DO	ADragon
+ROBOT	DO	OnceAClumsyDragon1
+ROBOT	DO	ButterflyInSky1
+ROBOT	DO	HeWonderedButterfly1
+ROBOT	DO	SpottedBlueBird1
+ROBOT	DO	DragonBirdPlunged1
+ROBOT	DO	DragonClumsyBirdHelp1
+ROBOT	DO	YouFlySoHighTired1
+ROBOT	DO	DragonRealizedSpecial1

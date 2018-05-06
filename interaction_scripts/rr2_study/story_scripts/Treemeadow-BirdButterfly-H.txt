@@ -1,0 +1,9 @@
+ROBOT	DO	AButterfly
+ROBOT	DO	OnceUponAButterflyBird1
+ROBOT	DO	TheButterflyFluttered1
+ROBOT	DO	QuickHideDragon1
+ROBOT	DO	DontRevealUs1
+ROBOT	DO	DragonJustWantsPlay1
+ROBOT	DO	LetsBeFriendsPlay1
+ROBOT	DO	RevealedPlayingNow1
+ROBOT	DO	ButterflyHidEyesFound1

@@ -1,0 +1,11 @@
+ROBOT	DO	ADinosaur
+ROBOT	DO	OnceUponATimeTwoDinos1
+ROBOT	DO	TallBaileyShortSteg1
+ROBOT	DO	ButAMeatEater1
+ROBOT	DO	MomoGoingHunting1
+ROBOT	DO	SheWasSpeedyDino1
+ROBOT	DO	StegInsteadPalmTree1
+ROBOT	DO	SoHeDoveWaterPlunge1
+ROBOT	DO	PerchedInTreeSteg1
+ROBOT	DO	MomoPlungedUnderwater1
+ROBOT	DO	StegBaileySafeNow1

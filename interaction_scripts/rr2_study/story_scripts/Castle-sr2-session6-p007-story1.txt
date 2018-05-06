@@ -1,0 +1,7 @@
+ROBOT	DO	APrincess
+ROBOT	DO	Castle-sr2-session6-p007-story1-01
+ROBOT	DO	Castle-sr2-session6-p007-story1-02
+ROBOT	DO	Castle-sr2-session6-p007-story1-03
+ROBOT	DO	Castle-sr2-session6-p007-story1-04
+ROBOT	DO	Castle-sr2-session6-p007-story1-05
+

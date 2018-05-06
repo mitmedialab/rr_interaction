@@ -176,6 +176,8 @@ condition = "NR"
 
 [p997]
 name = "jackie"
+fav_color = "yellow"
+animal = "seal"
 story_create_level = 0
 story_retell_level = 2
 personalized = true
@@ -312,6 +314,7 @@ condition = "NR"
 name = "jackie"
 story_create_level = 0
 fav_color = "red"
+animal = "monkey"
 story_retell_level = 1
 personalized = true
 condition = "RR"
@@ -382,6 +385,7 @@ condition = "NR"
 
 [p305]
 name = "p305"
+animal = "monkey"
 story_create_level = 1
 fav_color = "red"
 story_retell_level = 2
@@ -390,6 +394,7 @@ condition = "RR"
 
 [p304]
 name = "p304"
+animal = "frog"
 story_create_level = 0
 fav_color = "blueAndBlack"
 story_retell_level = 1
@@ -408,6 +413,7 @@ condition = "RR"
 name = "p302"
 story_create_level = 0
 fav_color = "pink"
+animal = "seal"
 story_retell_level = 1
 personalized = true
 condition = "RR"
@@ -1260,6 +1266,26 @@ story_name = "possum_and_the_peeper"
 negotiation_outcome = "MyChoice"
 liked_last_story = "SL"
 story_level = 3
+
+[p997.7]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Treemeadow"
+scenes = [ "Treemeadow", "Mars",]
+negotiation_outcome = "YourChoice"
+last_story = "Dinoville"
+liked_last_story = "NS"
+story_level = 1
+
+[p999.7]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Dinoville"
+scenes = [ "Pineforest","Dinoville"]
+last_story = "House"
+liked_last_story = "NS"
+negotiation_outcome = "YourChoice"
+story_level = 1
 
 [p998.7]
 story_type = "create"
@@ -2743,6 +2769,10 @@ Iceberg = "Iceberg-sr2-session1-p009-story1"
 Castle = "Castle-ReshmaParty-H"
 Iceberg = "Iceberg-PenguinSlide-H"
 
+[p999.7.stories]
+Treemeadow = "Treemeadow-sr2-session8-p013-story1"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
+
 [p304.7.stories]
 Treemeadow = "Treemeadow-sr2-session8-p013-story1"
 Pineforest = "Pineforest-sr2-session2-p015-story1"
@@ -3045,6 +3075,7 @@ Playground = "Playground-sr2-session1-p007-story2"
 
 [p998.7.stories]
 Pineforest = "Pineforest-sr2-session2-p015-story1"
+Playground = "Playground-sr2-session1-p007-story2"
 
 [p204.2.stories]
 Castle = "Castle-ReshmaParty-H"

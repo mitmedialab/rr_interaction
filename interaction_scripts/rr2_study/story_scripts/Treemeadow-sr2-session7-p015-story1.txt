@@ -1,0 +1,7 @@
+ROBOT	DO	AnimalFriends
+ROBOT	DO	Treemeadow-sr2-session7-p015-story1-01
+ROBOT	DO	Treemeadow-sr2-session7-p015-story1-02
+ROBOT	DO	Treemeadow-sr2-session7-p015-story1-03
+ROBOT	DO	Treemeadow-sr2-session7-p015-story1-04
+ROBOT	DO	Treemeadow-sr2-session7-p015-story1-05
+ROBOT	DO	Treemeadow-sr2-session7-p015-story1-06

@@ -552,13 +552,13 @@ max_attempt = ["OkayIllPick"]
 question = "whichOneDoYouWant"
 timeout_prompts = ["touchOneSoIKnow", "touchOneYouWant"]
 max_attempt = ["OkayIllPick"]
-    [[questions.choose_sceneRR.user_input]]
+    [[questions.choose_sceneRR2.user_input]]
     user_responses = ["I don't care", "doesn't matter", "either", "any", "neither", "don't know", "don't no"]
     robot_responses = ["YouDontCare"]
-    [[questions.choose_sceneRR.user_input]]
+    [[questions.choose_sceneRR2.user_input]]
     user_responses = ["you pick", "you choose", "you want", "Red pick"]
     robot_responses = ["OkayIllPick"]
-    [[questions.choose_sceneRR.tablet_input]]
+    [[questions.choose_sceneRR2.tablet_input]]
     user_responses = ["Scene"]
     robot_responses = ["IWantOtherOne"]
 
@@ -2051,7 +2051,49 @@ name = "DinosWereSafe0"
 animations = [ { time = 0.1, anim = "PROUD" } ]
 
 
-## Dinoville Dino Eater - level 1. TODO
+## Dinoville Dino Eater - level 1.
+[audio.OnceUponATimeTwoDinos1]
+name = "OnceUponATimeTwoDinos1"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.TallBaileyShortSteg1]
+name = "TallBaileyShortSteg1"
+animations = [ { time = 0.1, anim = "PROUD" },
+               { time = 3.5, anim = "SHIMMY" } ]
+
+[audio.ButAMeatEater1]
+name = "ButAMeatEater1"
+animations = [ { time = 0.8, anim = "SIDEPERK" } ]
+
+[audio.MomoGoingHunting1]
+name = "MomoGoingHunting1"
+animations = [ { time = 2.1, anim = "SILENT_SCARED" } ]
+
+[audio.SheWasSpeedyDino1]
+name = "SheWasSpeedyDino1"
+animations = [ { time = 0.3, anim = "SHIMMY" } ]
+
+[audio.StegInsteadPalmTree1]
+name = "StegInsteadPalmTree1"
+animations = [ { time = 1.6, anim = "SILENT_SCARED" },
+               { time = 6.5, anim = "PROUD" } ]
+
+[audio.SoHeDoveWaterPlunge1]
+name = "SoHeDoveWaterPlunge1"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.PerchedInTreeSteg1]
+name = "PerchedInTreeSteg1"
+animations = [ { time = 1.6, anim = "SILENT_SCARED" },
+               { time = 6.5, anim = "PROUD" } ]
+
+[audio.MomoPlungedUnderwater1]
+name = "MomoPlungedUnderwater1"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.StegBaileySafeNow1]
+name = "StegBaileySafeNow1"
+animations = [ { time = 1.1, anim = "SHIMMY" } ]
 
 ## Dinoville Scary Dino - level 0.
 [audio.OnceUponATimeMattyDino0]
@@ -2237,7 +2279,7 @@ animations = [ { time = 0.1, anim = "PERKUP" },
                { time = 3.0, anim = "SHIMMY" } ]
 
 
-## Treemeadow Bird Butterfly- level 0. TODO
+## Treemeadow Bird Butterfly- level 0.
 [audio.ButterflyBirdFriends0]
 name = "ButterflyBirdFriends0"
 animations = [ { time = 0.1, anim = "HAPPY_UP" } ]
@@ -2271,10 +2313,41 @@ animations = [ { time = 1.2, anim = "SILENT_HAPPY_WIGGLE" } ]
 name = "SoDragonBirdHidSeeker0"
 animations = [ { time = 3.1, anim = "PROUD" } ]
 
+## Treemeadow Bird Butterfly - level 1.
+[audio.OnceUponAButterflyBird1]
+name = "OnceUponAButterflyBird1"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
 
-## Treemeadow Bird Butterfly - level 1. TODO
+[audio.TheButterflyFluttered1]
+name = "TheButterflyFluttered1"
+animations = [ { time = 0.7, anim = "HAPPY_UP" } ]
 
-## Treemeadow  Clumsy Dragon - level 0. TODO
+[audio.QuickHideDragon1]
+name = "QuickHideDragon1"
+animations = [ { time = 6.6, anim = "SILENT_SCARED" } ]
+
+[audio.DontRevealUs1]
+name = "DontRevealUs1"
+animations = [ { time = 1.6, anim = "SILENT_FART" } ]
+
+[audio.DragonJustWantsPlay1]
+name = "DragonJustWantsPlay1"
+animations = [ { time = 2.1, anim = "SILENT_THINKING" } ]
+
+[audio.LetsBeFriendsPlay1]
+name = "LetsBeFriendsPlay1"
+animations = [ { time = 0.4, anim = "SIDEPERK" },
+               { time = 3.0, anim = "SHIMMY" }]
+
+[audio.RevealedPlayingNow1]
+name = "RevealedPlayingNow1"
+animations = [ { time = 1.2, anim = "SILENT_HAPPY_WIGGLE" } ]
+
+[audio.ButterflyHidEyesFound1]
+name = "ButterflyHidEyesFound1"
+animations = [ { time = 3.1, anim = "PROUD" } ]
+
+## Treemeadow  Clumsy Dragon - level 0.
 [audio.OnceThereWasDragonPlunger0]
 name = "OnceThereWasDragonPlunger0"
 animations = [ { time = 0.1, anim = "PROUD" },
@@ -2301,8 +2374,41 @@ animations = [ { time = 2.1, anim = "PERKUP" } ]
 name = "DragonRealizedSpecial0"
 animations = [ { time = 3.1, anim = "SHIMMY" } ]
 
+## Treemeadow  Clumsy Dragon - level 1.
+[audio.OnceAClumsyDragon1]
+name = "OnceAClumsyDragon1"
+animations = [ { time = 1.1, anim = "PROUD" },
+               { time = 4.0, anim = "CIRCLING" } ]
 
-## Treemeadow  Clumsy Dragon - level 1. TODO
+[audio.ButterflyInSky1]
+name = "ButterflyInSky1"
+animations = [ { time = 1.1, anim = "SILENT_INTERESTED" } ]
+
+[audio.HeWonderedButterfly1]
+name = "HeWonderedButterfly1"
+animations = [ { time = 3.1, anim = "HAPPY_UP" } ]
+
+[audio.SpottedBlueBird1]
+name = "SpottedBlueBird1"
+animations = [ { time = 4.1, anim = "SILENT_NO" } ]
+
+[audio.DragonBirdPlunged1]
+name = "DragonBirdPlunged1"
+animations = [ { time = 3.1, anim = "HAPPY_UP" },
+               { time = 9.0, anim = "SILENT_NO" } ]
+
+[audio.DragonClumsyBirdHelp1]
+name = "DragonClumsyBirdHelp1"
+animations = [ { time = 0.1, anim = "SILENT_THINKING" } ]
+
+[audio.YouFlySoHighTired1]
+name = "YouFlySoHighTired1"
+animations = [ { time = 0.1, anim = "HAPPY_UP" } ]
+
+[audio.DragonRealizedSpecial1]
+name = "DragonRealizedSpecial1"
+animations = [ { time = 0.1, anim = "SHIMMY" } ]
+
 
 ## Audio with animations for the Baby Bird's First Nest story - level 1.
 [audio.baby_birds_first_nest_lv1-01]
@@ -5058,11 +5164,116 @@ animations = [ { time = 2.1, anim = "SILENT_NOD" } ]
 name = "PineForest-sr2-session5-p013-story2-05"
 animations = [ { time = 1.1, anim = "PERKUP" } ]
 
+##
+[audio.Castle-sr2-session6-p007-story1-01]
+name = "Castle-sr2-session6-p007-story1-01"
+animations = [ { time = 0.2, anim = "SILENT_NOD" } ]
+
+[audio.Castle-sr2-session6-p007-story1-02]
+name = "Castle-sr2-session6-p007-story1-02"
+animations = [ { time = 5.2, anim = "SILENT_NO" },
+               { time = 11.0, anim = "SIDEPERK" } ]
+
+[audio.Castle-sr2-session6-p007-story1-03]
+name = "Castle-sr2-session6-p007-story1-03"
+animations = [ { time = 2.2, anim = "SILENT_FRUSTRATED" } ]
+
+[audio.Castle-sr2-session6-p007-story1-04]
+name = "Castle-sr2-session6-p007-story1-04"
+animations = [ { time = 1.2, anim = "SHIMMY" },
+               { time = 6.0, anim = "SILENT_THINKING" } ]
+
+[audio.Castle-sr2-session6-p007-story1-05]
+name = "Castle-sr2-session6-p007-story1-05"
+animations = [ { time = 0.2, anim = "PROUD" } ]
+
+##
+[audio.Playground-sr2-session8-p007-story2-01]
+name = "Playground-sr2-session8-p007-story2-01"
+animations = [ { time = 0.2, anim = "PROUD" },
+               { time = 6.0, anim = "SIDEPERK" } ]
+
+[audio.Playground-sr2-session8-p007-story2-02]
+name = "Playground-sr2-session8-p007-story2-02"
+animations = [ { time = 1.2, anim = "PERKUP" } ]
+
+[audio.Playground-sr2-session8-p007-story2-03]
+name = "Playground-sr2-session8-p007-story2-03"
+animations = [ { time = 0.2, anim = "SHIMMY" },
+               { time = 5.0, anim = "SILENT_EXCITED" } ]
+
+##
+[audio.Mars-sr2-session5-p006-story1-01]
+name = "Mars-sr2-session5-p006-story1-01"
+animations = [ { time = 1.2, anim = "PERKUP" },
+               { time = 9.0, anim = "SIDEPERK" }]
+
+[audio.Mars-sr2-session5-p006-story1-02]
+name = "Mars-sr2-session5-p006-story1-02"
+animations = [ { time = 3.2, anim = "SHIMMY" } ]
+
+[audio.Mars-sr2-session5-p006-story1-03]
+name = "Mars-sr2-session5-p006-story1-03"
+animations = [ { time = 5.2, anim = "SILENT_NOD" } ]
+
+[audio.Mars-sr2-session5-p006-story1-04]
+name = "Mars-sr2-session5-p006-story1-04"
+animations = [ { time = 3.2, anim = "SILENT_HAPPY_WIGGLE" } ]
+
+##
+[audio.Treemeadow-sr2-session7-p015-story1-01]
+name = "Treemeadow-sr2-session7-p015-story1-01"
+animations = [ { time = 1.0, anim = "PERKUP" } ]
+
+[audio.Treemeadow-sr2-session7-p015-story1-02]
+name = "Treemeadow-sr2-session7-p015-story1-02"
+animations = [ { time = 1.2, anim = "SILENT_THINKING" },
+               { time = 7.0, anim = "SILENT_FAR" } ]
+
+[audio.Treemeadow-sr2-session7-p015-story1-03]
+name = "Treemeadow-sr2-session7-p015-story1-03"
+animations = [ { time = 6.2, anim = "SHIMMY" } ]
+
+[audio.Treemeadow-sr2-session7-p015-story1-04]
+name = "Treemeadow-sr2-session7-p015-story1-04"
+animations = [ { time = 1.2, anim = "SILENT_NO" } ]
+
+[audio.Treemeadow-sr2-session7-p015-story1-05]
+name = "Treemeadow-sr2-session7-p015-story1-05"
+animations = [ { time = 3.2, anim = "SILENT_NO" } ]
+
+[audio.Treemeadow-sr2-session7-p015-story1-06]
+name = "Treemeadow-sr2-session7-p015-story1-06"
+animations = [ { time = 6.2, anim = "SILENT_HAPPY_WIGGLE" } ]
+
+##
+[audio.PineForest-sr2-session2-p015-story1-01]
+name = "PineForest-sr2-session2-p015-story1-01"
+animations = [ { time = 4.5, anim = "SILENT_NO" } ]
+
+[audio.PineForest-sr2-session2-p015-story1-02]
+name = "PineForest-sr2-session2-p015-story1-02"
+animations = [ { time = 1.0, anim = "SILENT_FART" },
+               { time = 7.0, anim = "SILENT_THINKING" } ]
+
+[audio.PineForest-sr2-session2-p015-story1-03]
+name = "PineForest-sr2-session2-p015-story1-03"
+animations = [ { time = 1.0, anim = "SHIMMY" } ]
+
+[audio.PineForest-sr2-session2-p015-story1-04]
+name = "PineForest-sr2-session2-p015-story1-04"
+animations = [ { time = 1.5, anim = "SIDEPERK" } ]
+
+[audio.PineForest-sr2-session2-p015-story1-05]
+name = "PineForest-sr2-session2-p015-story1-05"
+animations = [ { time = 1.0, anim = "SILENT_EXCITED" },
+               { time = 13.0, anim = "SILENT_SAD" } ]
+
+
 ## Session audio
 [audio.LearnMoreAboutYou]
 name = "LearnMoreAboutYou"
 animations = [ { time = 0.2, anim = "SILENT_NOD" } ]
-
 
 ## Session 6
 [audio.PictureBook1]
@@ -5088,4 +5299,3 @@ animations = [ { time = 2.2, anim = "SILENT_NOD" } ]
 [audio.museumPicture2]
 name = "museumPicture2"
 animations = [ { time = 2.2, anim = "SILENT_EXCITED" } ]
-
