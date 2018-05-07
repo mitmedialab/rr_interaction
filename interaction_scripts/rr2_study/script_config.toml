@@ -5228,7 +5228,7 @@ animations = [ { time = 1.0, anim = "PERKUP" } ]
 [audio.Treemeadow-sr2-session7-p015-story1-02]
 name = "Treemeadow-sr2-session7-p015-story1-02"
 animations = [ { time = 1.2, anim = "SILENT_THINKING" },
-               { time = 7.0, anim = "SILENT_FAR" } ]
+               { time = 7.0, anim = "SILENT_FART" } ]
 
 [audio.Treemeadow-sr2-session7-p015-story1-03]
 name = "Treemeadow-sr2-session7-p015-story1-03"
