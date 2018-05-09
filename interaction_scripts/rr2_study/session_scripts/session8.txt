@@ -11,7 +11,7 @@ ROBOT	FIDGET	EMPTY
 # Sleep and wait for wakeup.
 STATE	robot sleeping
 ROBOT	DO	POSE_SLEEPING
-############################## QUESTION	wait_for_wakeup
+QUESTION	wait_for_wakeup
 STATE	start robot wakeup
 ROBOT	VOLUME	0.8
 ROBOT	DO	YAWN
@@ -21,6 +21,139 @@ STATE	end robot wakeup
 SET	PROMPT_TIME	7
 SET	NUM_PROMPTS	1
 
+# Robot introduction.
+RESTART	intro
+STATE	start introduction
+**RR	ROBOT	DO	SMILE
+**NR	ROBOT	DO	HeyNoName
+**RR	ROBOT	DO	Hey
+**RR	ROBOT	DO	<participant_name>
+**RR	ROBOT	DO	SMILE
+**RR	ROBOT	DO	PERKUP
+STATE	end introduction
+
+# Talking about what they did last time.
+STATE	start remember session
+**RR	ROBOT	DO	RememberSession7
+**RR	QUESTION	RememberSession7
+**RRSL	ROBOT	DO	YouLikedIt
+**RRSD	ROBOT	DO	YouDidntLikeIt
+**RRNS	ROBOT	DO	NoStoryTold
+**RRTY	ROBOT	DO	YouMakeUpStory
+**RRTN	ROBOT	DO	YouDidntMakeUpStory
+# NR asks a question not relating to past events with the user.
+**NR	QUESTION	WhatDidYouDo
+ROBOT	DO	PERKUP
+STATE	end remember session
+
+# Reference favorite animal from session 6.
+RESTART	pc
+STATE	start remember animal color
+**RRME	ROBOT	VOLUME	0.85
+**RRLE	ROBOT	VOLUME	0.75
+**RR	OPAL	PARTICIPANT	<participant_animal>
+**NR	OPAL	LOAD_OBJECT	{ "name": "animals/Armadillo.png", "tag": "PlayObject", "draggable": "false", "scale": ["60","60","60"]}
+**RR	ROBOT	DO	IRememberAnimal
+**RR	ROBOT	DO	<animal>
+**RR	ROBOT	DO	IRememberColor
+**RR	ROBOT	DO	<fav_color>
+**RR	ROBOT	DO	SoIFoundPicture
+**NR	ROBOT	DO	HeresAnAnimal
+ROBOT	DO	Booyah
+**RRME	ROBOT	DO	LAUGH
+**RRLE	ROBOT	DO	SMILE
+# Asks "can you say that again" in reply.
+QUESTION	DoYouLikePhoto
+STATE	end remember animal color
+
+
+
+########################################## TODO UPDATE FOR S8
+# First activity: Anomalous Pictures.
+RESTART	apt
+STATE	start anomalous task
+ROBOT	DO	PERKUP
+**NR	QUESTION	lets_look_at_silly_pictures
+**RRLE	QUESTION	lets_look_at_silly_picturesLE
+**RRME	QUESTION	lets_look_at_silly_picturesME
+ROBOT	LOOKAT	TABLET
+OPAL	CLEAR
+STATE	start anomalous picture 1
+OPAL	LOAD_OBJECT	{ "name": "anomalous/anomalousgiraffe.png", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
+ROBOT	DO	POSE_FORWARD
+# If the child says nothing, the robot will say the max attempt speech after
+# 15s and move on. If the child does speak, the robot will use an appropriately
+# generic response.
+SET	PROMPT_TIME	10
+SET	NUM_PROMPTS	0
+QUESTION	AnomalousPicture1
+# If we get a reply, repeat the generic questions until timeout.
+SET	MAX_REPEAT_TIME	1
+SET	MAX_REPEATS	1
+IF_RESPONSE	REPEAT	MAX_REPEATS	anomalous.txt
+STATE	end anomalous picture 1
+# Do the next picture - same format.
+ROBOT	DO	PERKUP
+ROBOT	DO	LetsLookAtAnotherPicture
+ROBOT	LOOKAT	TABLET
+OPAL	CLEAR
+ROBOT	DO	POSE_FORWARD
+STATE	start anomalous picture 2
+OPAL	LOAD_OBJECT	{ "name": "anomalous/anomaloussquirrel.png", "tag": "PlayObject", "draggable": "false", "scale": ["80","80","80"]}
+SET	PROMPT_TIME	10
+SET	NUM_PROMPTS	0
+QUESTION	AnomalousPicture2
+SET	MAX_REPEAT_TIME	1
+SET	MAX_REPEATS	1
+IF_RESPONSE	REPEAT	MAX_REPEATS	anomalous.txt
+STATE	end anomalous picture 2
+OPAL	CLEAR
+ROBOT	DO	ThereThatsAll
+**RR	ROBOT	DO	SMILE
+STATE	end anomalous task
+
+########################################## TODO UPDATE FOR S8
+# Second activity: Self-disclosure task.
+# Disclosure, wait for reply. If child says something, the robot will respond,
+# and then we have two opportunities for the child to say something else before
+# the robot moves on to the next thing.
+RESTART	sdt
+STATE	start self disclosure task
+**RRLE	ROBOT	VOLUME	0.7
+**RRME	ROBOT	VOLUME	0.9
+SET	PROMPT_TIME	7
+SET	NUM_PROMPTS	1
+STATE	start disclosure 1
+QUESTION	SelfDisclosure1
+SET	NUM_PROMPTS	0
+IF_RESPONSE	QUESTION	SelfDisclosureGeneric
+IF_RESPONSE	QUESTION	SelfDisclosureGeneric2
+STATE	end disclosure 1
+SET	NUM_PROMPTS	1
+STATE	start disclosure 1
+QUESTION	SelfDisclosure2
+SET	NUM_PROMPTS	0
+IF_RESPONSE	QUESTION	SelfDisclosureGeneric2
+IF_RESPONSE	QUESTION	SelfDisclosureGeneric
+STATE	end disclosure 2
+STATE	end self disclosure task
+# Reset prompt time and number of prompts to the usual for this interaction.
+SET	PROMPT_TIME	7
+SET	NUM_PROMPTS	1
+
+# Third activity: Story retell.
+SET	MAX_REPEATS	1
+RESTART	rs1
+STATE	start story task
+**RR	ROBOT	DO	SMILE
+**RRLE	ROBOT	VOLUME	0.8
+**RRME	ROBOT	VOLUME	0.99
+ROBOT	LOOKAT	TABLET
+ROBOT	DO	rr1_story_01
+REPEAT	MAX_REPEATS	story-retell4.txt
+STATE	end story task
+
+########################################## TODO CHANGE CLOSING
 # Closing and robot goes back to sleep.
 RESTART	close
 **RRLE	ROBOT	VOLUME	0.85

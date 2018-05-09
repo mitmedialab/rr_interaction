@@ -142,23 +142,23 @@ timeout_prompts = ["PleaseIHaveAGoodIdea", "AwComeOnItllBeFun"]
 
 [questions.listen_to_story_retellRR2]
 question = "ListenToRetellRR2"
-timeout_prompts = ["ItsAboutAKid"]
+timeout_prompts = ["AwComeOnItllBeFun"]
     [[questions.listen_to_story_retellRR2.user_input]]
     user_responses = ["yes", "ok", "of course", "yeah", "okay", "sure", "story"]
     robot_responses = ["OkayExcited"]
     [[questions.listen_to_story_retellRR2.user_input]]
     user_responses = [""]
-    robot_responses = ["AwComeOnItllBeFun"]
+    robot_responses = ["ItsAboutAKid"]
 
 [questions.listen_to_story_retellRR]
 question = "ListenToRetellRR"
-timeout_prompts = ["ItsAboutAnimals"]
+timeout_prompts = ["AwComeOnItllBeFun"]
     [[questions.listen_to_story_retellRR.user_input]]
     user_responses = ["yes", "ok", "of course", "yeah", "okay", "sure", "story"]
     robot_responses = ["OkayExcited"]
     [[questions.listen_to_story_retellRR.user_input]]
     user_responses = [""]
-    robot_responses = ["AwComeOnItllBeFun"]
+    robot_responses = ["ItsAboutAnimals"]
 
 [questions.listen_to_story_retell]
 question = "ListenToRetell"
@@ -178,6 +178,24 @@ question = "rr1_story_06"
     [[questions.liked_story.user_input]]
     user_responses = ["no", "didn't", "not", "know"]
     robot_responses = ["YouDidntSorry", "AwIllHaveToPracticeMore"]
+
+[questions.RetellStoryToMe2]
+question = "RetellStoryToMe"
+    [[questions.RetellStoryToMe2.user_input]]
+    user_responses = [""]
+    robot_responses = ["ItsOkayIfDontRemember", "UseArrows"]
+
+[questions.RetellStoryToMeME2]
+question = "RetellStoryToMeME"
+    [[questions.RetellStoryToMeME2.user_input]]
+    user_responses = [""]
+    robot_responses = ["ItsOkayIfDontRemember", "UseArrowsME"]
+
+[questions.RetellStoryToMeLE2]
+question = "RetellStoryToMeLE"
+    [[questions.RetellStoryToMeLE2.user_input]]
+    user_responses = [""]
+    robot_responses = ["ItsOkayIfDontRemember", "UseArrowsLE"]
 
 [questions.RetellStoryToMe]
 question = "RetellStoryToMe"
