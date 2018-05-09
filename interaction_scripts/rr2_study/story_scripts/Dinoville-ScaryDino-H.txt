@@ -1,0 +1,10 @@
+ROBOT	DO	ADinosaur
+ROBOT	DO	OnceUponATimeMattyLived1
+ROBOT	DO	MattyPlayedClumpsTrees1
+ROBOT	DO	GrrMeanScaryDino1
+ROBOT	DO	WatchMeScareTime1
+ROBOT	DO	MattySnuckOver1
+ROBOT	DO	ButTimeCouldntHear1
+ROBOT	DO	TimNotScaredStartled1
+ROBOT	DO	MattyScaryEnd1
+ROBOT	DO	SoScareStegNext1

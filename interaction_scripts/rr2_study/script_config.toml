@@ -2153,6 +2153,43 @@ animations = [ { time = 5.1, anim = "SILENT_CONFIRM" } ]
 
 
 ## Dinoville Scary Dino - level 1. TODO
+[audio.OnceUponATimeMattyLived1]
+name = "OnceUponATimeMattyLived1"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.MattyPlayedClumpsTrees1]
+name = "MattyPlayedClumpsTrees1"
+animations = [ { time = 1.1, anim = "SHIMMY" } ]
+
+[audio.GrrMeanScaryDino1]
+name = "GrrMeanScaryDino1"
+animations = [ { time = 0.9, anim = "PROUD" } ]
+
+[audio.WatchMeScareTime1]
+name = "WatchMeScareTime1"
+animations = [ { time = 0.5, anim = "SIDEPERK" },
+               { time = 8.0, anim = "SILENT_NO" } ]
+
+[audio.MattySnuckOver1]
+name = "MattySnuckOver1"
+animations = [ { time = 0.6, anim = "SILENT_INTERESTED" } ]
+
+[audio.ButTimeCouldntHear1]
+name = "ButTimeCouldntHear1"
+animations = [ { time = 0.6, anim = "PERKUP" } ]
+
+[audio.TimNotScaredStartled1]
+name = "TimNotScaredStartled1"
+animations = [ { time = 4.1, anim = "SILENT_SCARED" } ]
+
+[audio.MattyScaryEnd1]
+name = "MattyScaryEnd1"
+animations = [ { time = 0.1, anim = "SILENT_NOD" } ]
+
+[audio.SoScareStegNext1]
+name = "SoScareStegNext1"
+animations = [ { time = 4.1, anim = "SILENT_CONFIRM" } ]
+
 
 ## House Magic Show - level 0. TODO
 
