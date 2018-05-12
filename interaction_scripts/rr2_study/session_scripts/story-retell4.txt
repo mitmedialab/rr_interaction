@@ -31,9 +31,6 @@ STATE	start child story retell
 **RRLE	ROBOT	DO	RetellStoryToMeLE
 **RRME	ROBOT	DO	RetellStoryToMeME
 ROBOT	DO	ItsOkayIfDontRemember
-**NR	ROBOT	DO	UseArrows
-**RRLE	ROBOT	DO	UseArrowsLE
-**RRME	ROBOT	DO	UseArrowsME
 ROBOT	LOOKAT	TABLET
 QUESTION	WhatHappenedFirst
 **NR	SET	PROMPT_TIME	1200

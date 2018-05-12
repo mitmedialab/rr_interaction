@@ -1318,50 +1318,50 @@ max_attempt = ["henrys_happy_birthday_a_6"]
 [questions.baby_ducks_new_friend_q_l_1]
 question = "baby_ducks_new_friend_q_l_1"
 timeout_prompts = ["baby_ducks_new_friend_h_1"]
-max_attempt = ["baby_ducks_new_friend_q_l_1"]
+max_attempt = ["baby_ducks_new_friend_a_1"]
     [[questions.baby_ducks_new_friend_q_l_1.user_input]]
     user_responses = [""]
-    robot_responses = ["baby_ducks_new_friend_q_l_1"]
+    robot_responses = ["baby_ducks_new_friend_a_1"]
 
 [questions.baby_ducks_new_friend_q_l_3]
 question = "baby_ducks_new_friend_q_l_3"
 timeout_prompts = ["baby_ducks_new_friend_h_3"]
-max_attempt = ["baby_ducks_new_friend_q_l_3"]
+max_attempt = ["baby_ducks_new_friend_a_3"]
     [[questions.baby_ducks_new_friend_q_l_3.user_input]]
     user_responses = [""]
-    robot_responses = ["baby_ducks_new_friend_q_l_3"]
+    robot_responses = ["baby_ducks_new_friend_a_3"]
 
 [questions.baby_ducks_new_friend_q_l_5]
 question = "baby_ducks_new_friend_q_l_5"
 timeout_prompts = ["baby_ducks_new_friend_h_5"]
-max_attempt = ["baby_ducks_new_friend_q_l_5"]
+max_attempt = ["baby_ducks_new_friend_a_5"]
     [[questions.baby_ducks_new_friend_q_l_5.user_input]]
     user_responses = [""]
-    robot_responses = ["baby_ducks_new_friend_q_l_5"]
+    robot_responses = ["baby_ducks_new_friend_a_5"]
 
 [questions.baby_ducks_new_friend_q_l_7]
 question = "baby_ducks_new_friend_q_l_7"
 timeout_prompts = ["baby_ducks_new_friend_h_7"]
-max_attempt = ["baby_ducks_new_friend_q_l_7"]
+max_attempt = ["baby_ducks_new_friend_a_7"]
     [[questions.baby_ducks_new_friend_q_l_7.user_input]]
     user_responses = [""]
-    robot_responses = ["baby_ducks_new_friend_q_l_7"]
+    robot_responses = ["baby_ducks_new_friend_a_7"]
 
 [questions.baby_ducks_new_friend_q_l_8]
 question = "baby_ducks_new_friend_q_l_8"
 timeout_prompts = ["baby_ducks_new_friend_h_8"]
-max_attempt = ["baby_ducks_new_friend_q_l_8"]
+max_attempt = ["baby_ducks_new_friend_a_8"]
     [[questions.baby_ducks_new_friend_q_l_8.user_input]]
     user_responses = [""]
-    robot_responses = ["baby_ducks_new_friend_q_l_8"]
+    robot_responses = ["baby_ducks_new_friend_a_8"]
 
 [questions.baby_ducks_new_friend_q_l_9]
 question = "baby_ducks_new_friend_q_l_9"
 timeout_prompts = ["baby_ducks_new_friend_h_9"]
-max_attempt = ["baby_ducks_new_friend_q_l_9"]
+max_attempt = ["baby_ducks_new_friend_a_9"]
     [[questions.baby_ducks_new_friend_q_l_9.user_input]]
     user_responses = [""]
-    robot_responses = ["baby_ducks_new_friend_q_l_9"]
+    robot_responses = ["baby_ducks_new_friend_a_9"]
 
 
 ## Take a photo with the robot.

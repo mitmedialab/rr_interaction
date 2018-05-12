@@ -63,7 +63,7 @@ RESTART	pc
 **NR	ROBOT	DO	HelpLookPicturesNR
 **RR	ROBOT	DO	HelpLookPicturesRR
 STATE	start picture task picture1
-OPAL	LOAD_OBJECT	{ "name": "conversations/reading1.jpg", "tag": "PlayObject", "draggable": "false", "scale": ["90","90","90"]}
+OPAL	LOAD_OBJECT	{ "name": "conversations/reading1.jpg", "tag": "PlayObject", "draggable": "false", "scale": ["120","120","120"]}
 **NR	ROBOT	DO	PictureBook1
 **RRME	ROBOT	DO	PictureBook1ME
 **RRLE	ROBOT	DO	PictureBook1LE
