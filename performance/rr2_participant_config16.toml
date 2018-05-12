@@ -1480,6 +1480,26 @@ negotiation_outcome = "YourChoice"
 liked_last_story = "SL"
 story_level = 3
 
+[p998.8]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Castle"
+last_story = "House"
+story_name = "baby_ducks_new_friend"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SD"
+story_level = 1
+
+[p999.8]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "House"
+last_story = "Castle"
+story_name = "baby_ducks_new_friend"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 3
+
 [p999.7]
 story_type = "create"
 told_last_story = "TY"
