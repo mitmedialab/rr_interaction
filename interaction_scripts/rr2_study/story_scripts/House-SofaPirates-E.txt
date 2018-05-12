@@ -1,0 +1,10 @@
+ROBOT	DO	AGirl
+ROBOT	DO	OnceUponTimeEmma0
+ROBOT	DO	IWishPirate0
+ROBOT	DO	EmmaWasCaptain0
+ROBOT	DO	EmmaGaveCatBoxes0
+ROBOT	DO	PrepareForBoarding0
+ROBOT	DO	ThenEmmaRanOver0
+ROBOT	DO	AhoySurrender0
+ROBOT	DO	TookTheCatsTreasure0
+ROBOT	DO	SoEmmaSailedOff0

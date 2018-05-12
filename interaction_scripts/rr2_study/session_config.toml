@@ -124,9 +124,9 @@ default_scenes = ["Pineforest"]
     story = "sr2-session2-p009-story2"
     [sessions.7.default_stories.Pineforest]
     story = "sr2-session2-p015-story1"
-    [sessions.10.default_stories.Dinoville]
+    [sessions.7.default_stories.Dinoville]
     story = "sr2-session4-p004-1-story1"
-    [sessions.10.default_stories.Mars]
+    [sessions.7.default_stories.Mars]
     story = "sr2-session3-p010-story2"
 
 [sessions.8]

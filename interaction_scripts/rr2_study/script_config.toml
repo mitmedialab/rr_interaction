@@ -2195,7 +2195,43 @@ animations = [ { time = 4.1, anim = "SILENT_CONFIRM" } ]
 
 ## House Magic Show - level 1. TODO
 
-## House Sofa Pirates - level 0. TODO
+## House Sofa Pirates - level 0.
+[audio.OnceUponTimeEmma0]
+name = "OnceUponTimeEmma0"
+animations = [ { time = 0.8, anim = "SHIMMY" } ]
+
+[audio.IWishPirate0]
+name = "IWishPirate0"
+animations = [ { time = 0.1, anim = "SIDEPERK" } ]
+
+[audio.EmmaWasCaptain0]
+name = "EmmaWasCaptain0"
+animations = [ { time = 2.1, anim = "PROUD" } ]
+
+[audio.EmmaGaveCatBoxes0]
+name = "EmmaGaveCatBoxes0"
+animations = [ { time = 5.1, anim = "SILENT_CONFIRM" } ]
+
+[audio.PrepareForBoarding0]
+name = "PrepareForBoarding0"
+animations = [ { time = 7.1, anim = "PROUD" } ]
+
+[audio.ThenEmmaRanOver0]
+name = "ThenEmmaRanOver0"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.AhoySurrender0]
+name = "AhoySurrender0"
+animations = [ { time = 0.1, anim = "SILENT_FRUSTRATED" } ]
+
+[audio.TookTheCatsTreasure0]
+name = "TookTheCatsTreasure0"
+animations = [ { time = 1.1, anim = "SIDEPERK" } ]
+
+[audio.SoEmmaSailedOff0]
+name = "SoEmmaSailedOff0"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
 
 ## House Sofa Pirates - level 1.
 [audio.OnceUponATimeEmma1]
@@ -5324,6 +5360,19 @@ name = "PineForest-sr2-session2-p015-story1-05"
 animations = [ { time = 1.0, anim = "SILENT_EXCITED" },
                { time = 13.0, anim = "SILENT_SAD" } ]
 
+##
+[audio.Dinoville-sr2-session4-p004-1-story1-01]
+name = "Dinoville-sr2-session4-p004-1-story1-01"
+animations = [ { time = 2.5, anim = "SIDEPERK" } ]
+
+[audio.Dinoville-sr2-session4-p004-1-story1-02]
+name = "Dinoville-sr2-session4-p004-1-story1-02"
+animations = [ { time = 6.5, anim = "SILENT_BOUNCINGTILT" } ]
+
+[audio.Dinoville-sr2-session4-p004-1-story1-03]
+name = "Dinoville-sr2-session4-p004-1-story1-03"
+animations = [ { time = 3.5, anim = "SILENT_SCARED" },
+               { time = 14.0, anim = "PROUD" } ]
 
 ## Session audio
 [audio.LearnMoreAboutYou]
