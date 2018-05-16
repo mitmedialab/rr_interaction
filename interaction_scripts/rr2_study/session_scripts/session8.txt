@@ -52,7 +52,7 @@ STATE	start remember animal color
 **RRME	ROBOT	VOLUME	0.85
 **RRLE	ROBOT	VOLUME	0.75
 **RR	OPAL	PARTICIPANT	<participant_animal>
-**NR	OPAL	LOAD_OBJECT	{ "name": "animals/Armadillo.png", "tag": "PlayObject", "draggable": "false", "scale": ["60","60","60"]}
+**NR	OPAL	LOAD_OBJECT	{ "name": "animals/Armadillo.png", "tag": "PlayObject", "draggable": "false", "scale": ["160","160","160"]}
 **RR	ROBOT	DO	IRememberAnimal
 **RR	ROBOT	DO	<animal>
 **RR	ROBOT	DO	IRememberColor
