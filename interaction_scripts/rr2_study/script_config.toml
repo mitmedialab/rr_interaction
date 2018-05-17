@@ -2288,6 +2288,51 @@ animations = [ { time = 0.1, anim = "SHIMMY" } ]
 ## Pineforest Floppy Hide Seek - level 0. TODO
 ## Pineforest Floppy Hide Seek - level 1. TODO
 
+[audio.OnceTimeFloppyLived1]
+name = "OnceTimeFloppyLived1"
+animations = [ { time = 1.1, anim = "SHIMMY" } ]
+
+[audio.SquirrelSeeking1]
+name = "SquirrelSeeking1"
+animations = [ { time = 1.6, anim = "SILENT_FART" } ]
+
+[audio.SoTheyHideTreeRock1]
+name = "SoTheyHideTreeRock1"
+animations = [ { time = 0.1, anim = "SHIMMY" } ]
+
+[audio.TurtleLaughedHiding1]
+name = "TurtleLaughedHiding1"
+animations = [ { time = 0.1, anim = "SILENT_INTERESTED" } ]
+
+[audio.WhereAreYouFloppy1]
+name = "WhereAreYouFloppy1"
+animations = [ { time = 3.1, anim = "SIDEPERK" } ]
+
+[audio.FloppyEarFoundYou1]
+name = "FloppyEarFoundYou1"
+animations = [ { time = 4.1, anim = "PERKUP" } ]
+
+[audio.NowYouGoHide1]
+name = "NowYouGoHide1"
+animations = [ { time = 2.0, anim = "SILENT_THINKING" } ]
+
+[audio.SquirrelUpTreeNotFound1]
+name = "SquirrelUpTreeNotFound1"
+animations = [ { time = 0.7, anim = "PROUD" } ]
+
+[audio.FloppysEatTree1]
+name = "FloppysEatTree1"
+animations = [ { time = 0.1, anim = "CIRCLING" } ]
+
+[audio.SquirrelHadToShow1]
+name = "SquirrelHadToShow1"
+animations = [ { time = 0.1, anim = "SILENT_NO" } ]
+
+[audio.SquirrelHadWon1]
+name = "SquirrelHadWon1"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+
 ## Pineforest Tinna Fortune - level 0. TODO
 ## Pineforest Tinna Fortune - level 1. TODO
 

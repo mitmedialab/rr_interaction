@@ -1,0 +1,11 @@
+ROBOT	DO	OnceTimeFloppyLived1
+ROBOT	DO	SquirrelSeeking1
+ROBOT	DO	SoTheyHideTreeRock1
+ROBOT	DO	TurtleLaughedHiding1
+ROBOT	DO	WhereAreYouFloppy1
+ROBOT	DO	FloppyEarFoundYou1
+ROBOT	DO	NowYouGoHide1
+ROBOT	DO	SquirrelUpTreeNotFound1
+ROBOT	DO	FloppysEatTree1
+ROBOT	DO	SquirrelHadToShow1
+ROBOT	DO	SquirrelHadWon1
