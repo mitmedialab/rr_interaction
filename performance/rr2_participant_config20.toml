@@ -1,0 +1,4138 @@
+[p004]
+name = "p004"
+story_create_level = 0
+fav_color = "purpleAndPink"
+story_retell_level = 1
+animal = ""
+personalized = false
+condition = "NR"
+
+[p005]
+name = "p005"
+story_create_level = 1
+fav_color = "gold"
+story_retell_level = 2
+animal = "babyPolarBear"
+personalized = true
+condition = "RR"
+
+[p006]
+name = "p006"
+story_create_level = 0
+fav_color = "black"
+story_retell_level = 1
+animal = "panther"
+personalized = false
+condition = "NR"
+
+[p007]
+name = "p007"
+story_create_level = 1
+fav_color = "green"
+story_retell_level = 2
+animal = "panda"
+personalized = true
+condition = "RR"
+
+[p026]
+name = "p026"
+story_create_level = 1
+fav_color = "pink"
+story_retell_level = 3
+animal = ""
+personalized = false
+condition = "NR"
+
+[p001]
+name = "p001"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 2
+animal = ""
+personalized = true
+condition = "RR"
+
+[p002]
+name = "p002"
+story_create_level = 1
+fav_color = "pink"
+story_retell_level = 2
+animal = "dog"
+personalized = false
+condition = "NR"
+
+[p003]
+name = "p003"
+story_create_level = 1
+fav_color = "red"
+story_retell_level = 3
+animal = "chicken"
+personalized = false
+condition = "NR"
+
+[p105]
+name = "p105"
+story_create_level = 1
+fav_color = "pinkAndGold"
+story_retell_level = 2
+animal = "bunny"
+personalized = false
+condition = "NR"
+
+[p104]
+name = "p104"
+story_create_level = 1
+fav_color = "red"
+story_retell_level = 3
+animal = ""
+personalized = true
+condition = "RR"
+
+[p022]
+name = "p022"
+story_create_level = 0
+fav_color = "yellowAndBlue"
+story_retell_level = 1
+animal = "cheetah"
+personalized = false
+condition = "NR"
+
+[p029]
+name = "p029"
+story_create_level = 1
+fav_color = "green"
+story_retell_level = 2
+animal = ""
+personalized = true
+condition = "RR"
+
+[p008]
+name = "p008"
+story_create_level = 1
+fav_color = "red"
+story_retell_level = 3
+animal = ""
+personalized = false
+condition = "NR"
+
+[p009]
+name = "p009"
+story_create_level = 1
+fav_color = "blue"
+story_retell_level = 3
+animal = "bunny"
+personalized = true
+condition = "RR"
+
+[p103]
+name = "p103"
+story_create_level = 1
+fav_color = "blue"
+story_retell_level = 3
+animal = ""
+personalized = false
+condition = "NR"
+
+[p102]
+name = "p102"
+story_create_level = 1
+fav_color = "blue"
+story_retell_level = 3
+animal = "tiger"
+personalized = true
+condition = "RR"
+
+[p021]
+name = "p021"
+story_create_level = 1
+fav_color = "green"
+story_retell_level = 3
+animal = "tiger"
+personalized = true
+condition = "RR"
+
+[p027]
+name = "p027"
+story_create_level = 1
+fav_color = "redAndBlue"
+story_retell_level = 2
+animal = "cat"
+personalized = true
+condition = "RR"
+
+[p024]
+name = "p024"
+story_create_level = 1
+fav_color = "blue"
+story_retell_level = 3
+animal = ""
+personalized = false
+condition = "NR"
+
+[p023]
+name = "p023"
+story_create_level = 1
+fav_color = "turquoise"
+story_retell_level = 3
+animal = "dog"
+personalized = true
+condition = "RR"
+
+[p025]
+name = "p025"
+story_create_level = 1
+fav_color = "blue"
+story_retell_level = 3
+animal = "owl"
+personalized = true
+condition = "RR"
+
+[p028]
+name = "p028"
+story_create_level = 1
+fav_color = "greenGoldRedOrange"
+story_retell_level = 2
+animal = ""
+personalized = false
+condition = "NR"
+
+[p997]
+name = "jackie"
+story_create_level = 0
+fav_color = "yellow"
+story_retell_level = 2
+animal = "seal"
+personalized = true
+condition = "RR"
+
+[p017]
+name = "p017"
+story_create_level = 1
+fav_color = "blue"
+story_retell_level = 3
+animal = "armadillo"
+personalized = true
+condition = "RR"
+
+[p016]
+name = "p016"
+story_create_level = 1
+fav_color = "red"
+story_retell_level = 2
+animal = ""
+personalized = false
+condition = "NR"
+
+[p015]
+name = "p015"
+story_create_level = 1
+fav_color = "red"
+story_retell_level = 3
+animal = "tiger"
+personalized = true
+condition = "RR"
+
+[p014]
+name = "p014"
+story_create_level = 1
+fav_color = "redBlueBrownBlack"
+story_retell_level = 3
+animal = ""
+personalized = false
+condition = "NR"
+
+[p013]
+name = "p013"
+story_create_level = 1
+fav_color = "lightblue"
+story_retell_level = 3
+animal = "dog"
+personalized = true
+condition = "RR"
+
+[p012]
+name = "p012"
+story_create_level = 0
+story_retell_level = 1
+animal = ""
+personalized = false
+condition = "NR"
+
+[p011]
+name = "p011"
+story_create_level = 1
+fav_color = "blue"
+story_retell_level = 3
+animal = ""
+personalized = true
+condition = "RR"
+
+[p010]
+name = "p010"
+story_create_level = 1
+fav_color = "green"
+story_retell_level = 2
+animal = ""
+personalized = false
+condition = "NR"
+
+[p101]
+name = "p101"
+story_create_level = 1
+fav_color = "purple"
+story_retell_level = 3
+animal = "dolphin"
+personalized = false
+condition = "NR"
+
+[p031]
+name = "p031"
+story_create_level = 1
+fav_color = "red"
+story_retell_level = 2
+animal = ""
+personalized = true
+condition = "RR"
+
+[p030]
+name = "p030"
+story_create_level = 1
+fav_color = "purpleAndRainbow"
+story_retell_level = 3
+animal = ""
+personalized = false
+condition = "NR"
+
+[p019]
+name = "p019"
+story_create_level = 0
+fav_color = "blue"
+story_retell_level = 1
+animal = ""
+personalized = true
+condition = "RR"
+
+[p018]
+name = "p018"
+story_create_level = 1
+fav_color = "purple"
+story_retell_level = 2
+animal = ""
+personalized = false
+condition = "NR"
+
+[p020]
+name = "p020"
+story_create_level = 1
+fav_color = "green"
+story_retell_level = 2
+animal = "lion"
+personalized = false
+condition = "NR"
+
+[p032]
+name = "p032"
+story_create_level = 1
+fav_color = "silverAndGold"
+story_retell_level = 3
+animal = ""
+personalized = false
+condition = "NR"
+
+[p998]
+name = "jackie"
+story_create_level = 1
+fav_color = "blue"
+story_retell_level = 2
+animal = ""
+personalized = false
+condition = "NR"
+
+[p999]
+name = "jackie"
+story_create_level = 0
+fav_color = "red"
+story_retell_level = 1
+animal = "monkey"
+personalized = true
+condition = "RR"
+
+[p206]
+name = "p206"
+story_create_level = 1
+fav_color = ""
+story_retell_level = 1
+animal = ""
+personalized = true
+condition = "RR"
+
+[p204]
+name = "p204"
+story_create_level = 1
+fav_color = "blue"
+story_retell_level = 2
+animal = ""
+personalized = false
+condition = "NR"
+
+[p205]
+name = "p205"
+story_create_level = 1
+fav_color = "blue"
+story_retell_level = 2
+animal = ""
+personalized = true
+condition = "RR"
+
+[p202]
+name = "p202"
+story_create_level = 1
+fav_color = "blue"
+story_retell_level = 3
+animal = ""
+personalized = false
+condition = "NR"
+
+[p203]
+name = "p203"
+story_create_level = 1
+fav_color = "redAndPink"
+story_retell_level = 3
+animal = ""
+personalized = true
+condition = "RR"
+
+[p201]
+name = "p201"
+story_create_level = 0
+fav_color = "greyAndBlack"
+story_retell_level = 1
+animal = ""
+personalized = true
+condition = "RR"
+
+[p307]
+name = "p307"
+story_create_level = 0
+fav_color = "red"
+story_retell_level = 1
+animal = "dog"
+personalized = true
+condition = "RR"
+
+[p306]
+name = "p306"
+story_create_level = 0
+fav_color = "pink"
+story_retell_level = 1
+animal = ""
+personalized = false
+condition = "NR"
+
+[p305]
+name = "p305"
+story_create_level = 1
+fav_color = "red"
+story_retell_level = 2
+animal = "monkey"
+personalized = true
+condition = "RR"
+
+[p304]
+name = "p304"
+story_create_level = 0
+fav_color = "blueAndBlack"
+story_retell_level = 1
+animal = "frog"
+personalized = false
+condition = "NR"
+
+[p303]
+name = "p303"
+story_create_level = 0
+fav_color = "blue"
+story_retell_level = 1
+animal = ""
+personalized = true
+condition = "RR"
+
+[p302]
+name = "p302"
+story_create_level = 0
+fav_color = "pink"
+story_retell_level = 1
+animal = "seal"
+personalized = true
+condition = "RR"
+
+[p301]
+name = "p301"
+story_create_level = 0
+fav_color = "blue"
+story_retell_level = 1
+animal = ""
+personalized = false
+condition = "NR"
+
+[p011.6]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Dinoville",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p011.4]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Treemeadow"
+last_story = "Playground"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p011.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 3
+
+[p011.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Playground",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p011.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Playground"
+scenes = [ "Playground", "Treemeadow",]
+last_story = "Iceberg"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p011.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p017.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p017.2]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p017.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Iceberg"
+scenes = [ "Iceberg", "Castle",]
+last_story = "Castle"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p017.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Castle"
+last_story = "Iceberg"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p017.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 3
+
+[p017.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p017.7]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Mars", "Iceberg",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p003.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+last_story = "Iceberg"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p003.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SY"
+story_level = 1
+
+[p003.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p015.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p003.7]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Treemeadow"
+scenes = [ "Pineforest", "Treemeadow",]
+negotiation_outcome = "MyChoice"
+last_story = "Dinoville"
+liked_last_story = "SL"
+story_level = 1
+
+[p003.6]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Dinoville",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p003.5]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 3
+
+[p003.4]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Playground"
+last_story = "Castle"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p304.7]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Treemeadow"
+scenes = [ "Pineforest", "Treemeadow",]
+last_story = "Dinoville"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 0
+
+[p304.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Dinoville",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 0
+
+[p304.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 1
+
+[p304.4]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Playground"
+last_story = "Iceberg"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p304.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+last_story = "Castle"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 0
+
+[p304.2]
+story_type = "create"
+told_last_story = "TY"
+scenes = [ "Iceberg", "Castle",]
+liked_last_story = "SL"
+story_level = 0
+
+[p304.1]
+story_type = "retell"
+liked_story = "SL"
+story_name = "baby_birds_first_nest"
+told_story = "TY"
+
+[p005.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 2
+
+[p005.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Iceberg"
+last_story = "Castle"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 2
+
+[p005.7]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Mars", "Iceberg",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p005.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Iceberg",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p005.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p005.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Castle"
+scenes = [ "Castle", "Iceberg",]
+last_story = "Iceberg"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p005.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p019.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Dinoville", "House",]
+last_story = ""
+liked_last_story = "SD"
+story_level = 0
+
+[p019.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Mars"
+last_story = "Iceberg"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p019.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 1
+
+[p019.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 0
+
+[p019.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Iceberg"
+scenes = [ "Iceberg", "Mars",]
+last_story = "Castle"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 0
+
+[p019.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p302.8]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Mars"
+last_story = "Treemeadow"
+story_name = "baby_ducks_new_friend"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p013.4]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Treemeadow"
+last_story = "Iceberg"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p013.5]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 3
+
+[p013.6]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Playground",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p013.7]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Playground"
+scenes = [ "Playground", "Treemeadow",]
+negotiation_outcome = "YourChoice"
+last_story = "Treemeadow"
+liked_last_story = "SL"
+story_level = 1
+
+[p302.5]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 1
+
+[p013.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p013.2]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p302.6]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Dinoville", "Treemeadow",]
+last_story = ""
+liked_last_story = "NS"
+story_level = 0
+
+[p007.7]
+story_type = "create"
+told_last_story = ""
+leftover_scene = "House"
+scenes = [ "House", "Mars",]
+negotiation_outcome = "YourChoice"
+last_story = "Treemeadow"
+liked_last_story = "NS"
+story_level = 1
+
+[p007.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Treemeadow", "House",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p007.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 2
+
+[p007.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Mars"
+last_story = "Iceberg"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 2
+
+[p007.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Iceberg"
+scenes = [ "Iceberg", "Mars",]
+last_story = "Playground"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p007.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Playground",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p007.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p009.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p009.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Iceberg"
+scenes = [ "Iceberg", "Dinoville",]
+last_story = "Castle"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p009.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p009.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 3
+
+[p009.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Dinoville"
+last_story = "Iceberg"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p009.7]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Mars", "Iceberg",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p009.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Dinoville", "PineForest",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p001.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p001.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+last_story = "Castle"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p001.2]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p001.4]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Playground"
+last_story = "Iceberg"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SD"
+story_level = 2
+
+[p306.5]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 1
+
+[p306.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Playground"
+last_story = "Castle"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SD"
+story_level = 1
+
+[p029.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 2
+
+[p029.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Playground"
+last_story = "Mars"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 2
+
+[p306.1]
+story_type = "retell"
+liked_story = "SL"
+story_name = "baby_birds_first_nest"
+told_story = "TN"
+
+[p029.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Playground",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p029.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p306.2]
+story_type = "create"
+told_last_story = "TN"
+scenes = [ "Iceberg", "Castle",]
+liked_last_story = "SL"
+story_level = 0
+
+[p025.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Castle"
+scenes = [ "Castle", "House",]
+last_story = "Iceberg"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p025.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p025.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p025.7]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "House", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p025.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Dinoville", "Iceberg",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p025.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 3
+
+[p999.8]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "House"
+last_story = "Castle"
+story_name = "baby_ducks_new_friend"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p999.7]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Dinoville"
+scenes = [ "Pineforest", "Dinoville",]
+last_story = "House"
+negotiation_outcome = "YourChoice"
+liked_last_story = "NS"
+story_level = 1
+
+[p999.6]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Castle", "House",]
+last_story = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 1
+
+[p999.5]
+story_type = "retell"
+story = "henrys_happy_birthday"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p999.4]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+last_story = "Playground"
+story_name = "possum_and_the_peeper"
+liked_last_story = "SL"
+story_level = 1
+
+[p999.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+last_story = "Castle"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 0
+
+[p999.2]
+story_type = "create"
+liked_last_story = "SL"
+scenes = [ "Castle", "Iceberg",]
+told_last_story = "TN"
+
+[p999.1]
+story_type = "retell"
+liked_story = "SL"
+story_name = "baby_birds_first_nest"
+told_story = "TN"
+
+[p023.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 3
+
+[p023.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Mars"
+last_story = "Iceberg"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p023.7]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Mars", "House",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p023.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Dinoville", "House",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p023.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p031.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p023.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Iceberg"
+scenes = [ "Iceberg", "Mars",]
+last_story = "Castle"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p023.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p021.7]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+scenes = [ "Iceberg", "Mars",]
+negotiation_outcome = "YourChoice"
+last_story = "Dinoville"
+liked_last_story = "SL"
+story_level = 1
+
+[p021.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Dinoville",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p021.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 3
+
+[p021.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Iceberg"
+last_story = "Castle"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p021.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Castle"
+scenes = [ "Castle", "Iceberg",]
+last_story = "Iceberg"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p021.2]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p021.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p027.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p027.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Castle"
+scenes = [ "Castle", "Mars",]
+last_story = "Iceberg"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p027.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p027.5]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SD"
+story_level = 2
+
+[p027.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Castle"
+last_story = "Mars"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 2
+
+[p027.7]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+scenes = [ "Iceberg", "Mars",]
+negotiation_outcome = "MyChoice"
+last_story = "Dinoville"
+liked_last_story = "SL"
+story_level = 1
+
+[p027.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Dinoville", "Iceberg",]
+last_story = ""
+liked_last_story = "SD"
+story_level = 1
+
+[p997.1]
+story_type = "retell"
+liked_story = "SD"
+story_name = "baby_birds_first_nest"
+told_story = "TY"
+
+[p997.2]
+story_type = "create"
+liked_last_story = "NS"
+scenes = [ "Castle", "Iceberg",]
+told_last_story = "TY"
+
+[p997.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Playground"
+last_story = "Castle"
+story_name = "possum_and_the_peeper"
+liked_last_story = "NS"
+story_level = 1
+
+[p997.7]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Treemeadow"
+scenes = [ "Treemeadow", "Mars",]
+last_story = "Dinoville"
+negotiation_outcome = "YourChoice"
+liked_last_story = "NS"
+story_level = 1
+
+[p307.1]
+story_type = "retell"
+liked_story = "SD"
+story_name = "baby_birds_first_nest"
+told_story = "TN"
+
+[p307.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+last_story = "Castle"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 0
+
+[p307.4]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+last_story = "Playground"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p307.5]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SD"
+story_level = 1
+
+[p028.4]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Playground"
+last_story = "Castle"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 2
+
+[p307.7]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Treemeadow"
+scenes = [ "Pineforest", "Treemeadow",]
+last_story = "Dinoville"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SD"
+story_level = 0
+
+[p015.2]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SD"
+story_level = 1
+
+[p015.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+last_story = "Iceberg"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p102.8]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Mars"
+last_story = "House"
+story_name = "baby_ducks_new_friend"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p102.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p102.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Castle"
+scenes = [ "Castle", "Mars",]
+last_story = "Iceberg"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p015.6]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Playground",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p102.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p102.7]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Mars", "House",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p102.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Dinoville", "Treemeadow",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p102.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 3
+
+[p102.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Mars"
+last_story = "Castle"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p015.4]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Playground"
+last_story = "Castle"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p104.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 3
+
+[p104.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Iceberg"
+last_story = "Castle"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p304.8]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Treemeadow"
+last_story = "Pineforest"
+story_name = "baby_ducks_new_friend"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p104.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p104.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Castle"
+scenes = [ "Castle", "Iceberg",]
+last_story = "Iceberg"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p104.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p998.2]
+story_type = "create"
+liked_last_story = "SD"
+scenes = [ "Castle", "Iceberg",]
+told_last_story = "TY"
+
+[p302.2]
+story_type = "create"
+told_last_story = "TN"
+scenes = [ "Iceberg", "Castle",]
+liked_last_story = "SL"
+story_level = 0
+
+[p998.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+last_story = "Iceberg"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SD"
+story_level = 0
+
+[p998.1]
+story_type = "retell"
+liked_story = "SD"
+story_name = "baby_birds_first_nest"
+told_story = "TY"
+
+[p998.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Dinoville", "Treemeadow",]
+last_story = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 0
+
+[p998.7]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Pineforest",]
+last_story = ""
+liked_last_story = "NS"
+story_level = 1
+
+[p998.5]
+story_type = "retell"
+story = "henrys_happy_birthday"
+told_last_story = "TN"
+leftover_scene = ""
+last_story = ""
+liked_last_story = "SD"
+story_level = 1
+
+[p104.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Dinoville", "House",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p204.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p204.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+last_story = "Iceberg"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p204.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p204.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Castle"
+last_story = "Playground"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 2
+
+[p204.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 2
+
+[p202.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Playground"
+last_story = "Castle"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p202.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 3
+
+[p202.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p202.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p202.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+last_story = "Iceberg"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p302.1]
+story_type = "retell"
+liked_story = "SL"
+story_name = "baby_birds_first_nest"
+told_story = "TN"
+
+[p302.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+last_story = "Iceberg"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 0
+
+[p206.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p206.2]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p206.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+negotiation_outcome = "YourChoice"
+last_story = "Castle"
+liked_last_story = "SL"
+story_level = 1
+
+[p302.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Castle"
+last_story = "Playground"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p302.7]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Treemeadow"
+scenes = [ "Treemeadow", "Mars",]
+last_story = "Dinoville"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 0
+
+[p013.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+scenes = [ "Iceberg", "Treemeadow",]
+last_story = "Castle"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p010.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+last_story = "Iceberg"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p010.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p010.7]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Dinoville"
+scenes = [ "Pineforest", "Dinoville",]
+negotiation_outcome = "MyChoice"
+last_story = "Treemeadow"
+liked_last_story = "SL"
+story_level = 1
+
+[p010.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Dinoville", "Treemeadow",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 0
+
+[p010.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 2
+
+[p020.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 2
+
+[p306.8]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Treemeadow"
+last_story = "Pineforest"
+story_name = "baby_ducks_new_friend"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p305.8]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Castle"
+last_story = "Playground"
+story_name = "baby_ducks_new_friend"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 2
+
+[p305.2]
+story_type = "create"
+told_last_story = ""
+scenes = [ "Iceberg", "Castle",]
+liked_last_story = ""
+story_level = 1
+
+[p305.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+last_story = "Castle"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p002.4]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+last_story = "Playground"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 2
+
+[p305.1]
+story_type = "retell"
+liked_story = ""
+story_name = "baby_birds_first_nest"
+told_story = ""
+
+[p305.6]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Castle", "House",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p002.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+last_story = "Castle"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p305.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Iceberg"
+last_story = "Playground"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 2
+
+[p305.5]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 2
+
+[p004.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p004.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 0
+
+[p004.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+last_story = "Castle"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p004.4]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+last_story = "Playground"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p004.5]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 1
+
+[p004.6]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Dinoville",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 0
+
+[p303.4]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+last_story = "Playground"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p303.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 1
+
+[p303.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Dinoville",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 0
+
+[p303.1]
+story_type = "retell"
+liked_story = "SL"
+story_name = "baby_birds_first_nest"
+told_story = "TN"
+
+[p303.2]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 0
+
+[p303.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+last_story = "Castle"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 0
+
+[p301.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Dinoville",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 0
+
+[p301.7]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Treemeadow"
+scenes = [ "Pineforest", "Treemeadow",]
+negotiation_outcome = "YourChoice"
+last_story = "Dinoville"
+liked_last_story = "SL"
+story_level = 0
+
+[p301.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Playground"
+last_story = "Castle"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p301.5]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 1
+
+[p301.2]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 0
+
+[p301.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+last_story = "Iceberg"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 0
+
+[p301.1]
+story_type = "retell"
+liked_story = "SL"
+story_name = "baby_birds_first_nest"
+told_story = "TN"
+
+[p006.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 0
+
+[p006.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+last_story = "Castle"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 0
+
+[p006.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p006.6]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Dinoville",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 0
+
+[p006.7]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Treemeadow"
+scenes = [ "Pineforest", "Treemeadow",]
+negotiation_outcome = "YourChoice"
+last_story = "Dinoville"
+liked_last_story = "SL"
+story_level = 0
+
+[p006.4]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = ""
+last_story = ""
+story_name = "possum_and_the_peeper"
+liked_last_story = "SL"
+story_level = 1
+
+[p006.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 1
+
+[p008.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "possum_and_the_peeper"
+liked_last_story = "SL"
+story_level = 3
+
+[p008.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 3
+
+[p008.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Dinoville",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p008.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p008.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p008.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+last_story = "Iceberg"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p307.8]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Treemeadow"
+last_story = "Pineforest"
+story_name = "baby_ducks_new_friend"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p028.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p028.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+last_story = "Iceberg"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p307.2]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SD"
+story_level = 0
+
+[p028.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p028.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Dinoville", "Treemeadow",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 0
+
+[p028.7]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Treemeadow"
+scenes = [ "Pineforest", "Treemeadow",]
+negotiation_outcome = "YourChoice"
+last_story = "Dinoville"
+liked_last_story = "SL"
+story_level = 1
+
+[p307.6]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Dinoville",]
+last_story = ""
+liked_last_story = "SD"
+story_level = 0
+
+[p028.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 2
+
+[p998.8]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Castle"
+last_story = "House"
+story_name = "baby_ducks_new_friend"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SD"
+story_level = 1
+
+[p024.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Dinoville", "Treemeadow",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 0
+
+[p024.7]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Treemeadow"
+scenes = [ "Pineforest", "Treemeadow",]
+negotiation_outcome = "MyChoice"
+last_story = "Dinoville"
+liked_last_story = "SL"
+story_level = 1
+
+[p024.4]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+last_story = "Playground"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p024.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 3
+
+[p024.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p024.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+last_story = "Castle"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p998.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Playground"
+last_story = "Castle"
+story_name = "possum_and_the_peeper"
+liked_last_story = "SD"
+story_level = 1
+
+[p024.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p022.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p022.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 0
+
+[p022.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+last_story = "Iceberg"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 0
+
+[p022.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Castle"
+last_story = "Playground"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SD"
+story_level = 1
+
+[p022.5]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SD"
+story_level = 1
+
+[p022.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Dinoville", "Treemeadow",]
+last_story = ""
+liked_last_story = "SD"
+story_level = 0
+
+[p022.7]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Treemeadow"
+scenes = [ "Pineforest", "Treemeadow",]
+negotiation_outcome = "YourChoice"
+last_story = "Dinoville"
+liked_last_story = "SD"
+story_level = 0
+
+[p018.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+last_story = "Castle"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p018.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p018.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p018.7]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Dinoville"
+scenes = [ "Pineforest", "Dinoville",]
+negotiation_outcome = "YourChoice"
+last_story = "Treemeadow"
+liked_last_story = "SL"
+story_level = 1
+
+[p018.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Dinoville",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p018.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 2
+
+[p018.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Playground"
+last_story = "Iceberg"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 2
+
+[p306.6]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Dinoville",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 0
+
+[p029.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Playground"
+scenes = [ "Playground", "Mars",]
+last_story = "Iceberg"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p306.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+last_story = "Iceberg"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 0
+
+[p020.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p020.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+last_story = "Iceberg"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p010.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p020.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p020.6]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Dinoville",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p020.7]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Dinoville"
+scenes = [ "Pineforest", "Dinoville",]
+last_story = "Treemeadow"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p020.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Playground"
+last_story = "Castle"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 2
+
+[p010.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Playground"
+last_story = "Castle"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p020.8]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Dinoville"
+last_story = "Pineforest"
+story_name = "baby_ducks_new_friend"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 2
+
+[p016.5]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SD"
+story_level = 2
+
+[p016.4]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = ""
+last_story = ""
+story_name = "possum_and_the_peeper"
+liked_last_story = "SL"
+story_level = 2
+
+[p016.7]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Treemeadow"
+scenes = [ "Pineforest", "Treemeadow",]
+negotiation_outcome = "YourChoice"
+last_story = "Dinoville"
+liked_last_story = "SL"
+story_level = 1
+
+[p016.6]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Dinoville",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p016.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p016.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+last_story = "Castle"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p016.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p025.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "House"
+last_story = "Castle"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p026.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Playground"
+last_story = "Castle"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p026.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 3
+
+[p026.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Dinoville",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p026.7]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Dinoville"
+scenes = [ "Pineforest", "Dinoville",]
+negotiation_outcome = "YourChoice"
+last_story = "Treemeadow"
+liked_last_story = "SL"
+story_level = 1
+
+[p026.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p026.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p026.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+last_story = "Iceberg"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p014.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Dinoville",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p014.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 3
+
+[p014.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Iceberg"
+last_story = "Playground"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p014.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+last_story = "Castle"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p014.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p014.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p032.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+last_story = "Castle"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p032.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p032.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p032.7]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Dinoville"
+scenes = [ "Pineforest", "Dinoville",]
+negotiation_outcome = "MyChoice"
+last_story = "Treemeadow"
+liked_last_story = "SL"
+story_level = 1
+
+[p032.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Dinoville",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p032.5]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 3
+
+[p032.4]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Playground"
+last_story = "Iceberg"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p031.4]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Treemeadow"
+last_story = "Iceberg"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 2
+
+[p031.5]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 2
+
+[p031.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Dinoville", "House",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p012.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p031.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p031.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+scenes = [ "Iceberg", "Treemeadow",]
+last_story = "Castle"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p105.8]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Pineforest"
+last_story = "Treemeadow"
+story_name = "baby_ducks_new_friend"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 2
+
+[p105.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p105.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p105.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+last_story = "Iceberg"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p105.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Castle"
+last_story = "Playground"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 2
+
+[p105.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 2
+
+[p105.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Dinoville",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p105.7]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Treemeadow"
+scenes = [ "Pineforest", "Treemeadow",]
+last_story = "Dinoville"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p306.7]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Treemeadow"
+scenes = [ "Pineforest", "Treemeadow",]
+last_story = "Dinoville"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SD"
+story_level = 0
+
+[p030.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p030.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+last_story = "Iceberg"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p030.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p030.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 3
+
+[p030.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Castle"
+last_story = "Playground"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p030.7]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Treemeadow"
+scenes = [ "Pineforest", "Treemeadow",]
+negotiation_outcome = "MyChoice"
+last_story = "Dinoville"
+liked_last_story = "SL"
+story_level = 1
+
+[p030.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Dinoville",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p101.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Playground"
+last_story = "Iceberg"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p101.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 3
+
+[p101.6]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Dinoville",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p101.7]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Treemeadow"
+scenes = [ "Pineforest", "Treemeadow",]
+last_story = "Dinoville"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p101.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p101.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p101.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+last_story = "Castle"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p101.8]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Pineforest"
+last_story = "Treemeadow"
+story_name = "baby_ducks_new_friend"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p015.7]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Playground", "PineForest",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p103.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SD"
+story_level = 1
+
+[p103.3]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+last_story = "Iceberg"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SD"
+story_level = 1
+
+[p103.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p015.5]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 3
+
+[p002.6]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Dinoville",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p002.7]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Dinoville"
+scenes = [ "Pineforest", "Dinoville",]
+negotiation_outcome = "MyChoice"
+last_story = "Treemeadow"
+liked_last_story = "SL"
+story_level = 1
+
+[p002.5]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 2
+
+[p002.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p305.7]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Castle"
+scenes = [ "Castle", "Playground",]
+last_story = "House"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p205.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 2
+
+[p205.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Iceberg"
+last_story = "PineForest"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 2
+
+[p205.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Iceberg"
+scenes = [ "Iceberg", "PineForest",]
+last_story = "Castle"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p205.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p205.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p002.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p029.6]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = ""
+scenes = [ "Treemeadow", "Dinoville",]
+last_story = ""
+liked_last_story = "SD"
+story_level = 1
+
+[p203.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p203.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Castle"
+scenes = [ "Castle", "Treemeadow",]
+last_story = "Iceberg"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p203.2]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = ""
+scenes = [ "Iceberg", "Castle",]
+last_story = ""
+liked_last_story = "SL"
+story_level = 1
+
+[p203.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 3
+
+[p203.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Castle"
+last_story = "Treemeadow"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 3
+
+[p201.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Iceberg"
+scenes = [ "Playground", "Iceberg",]
+last_story = "Castle"
+negotiation_outcome = "YourChoice"
+liked_last_story = "NS"
+story_level = 0
+
+[p201.2]
+story_type = "create"
+liked_last_story = "SD"
+scenes = [ "Castle", "Iceberg",]
+told_last_story = "TY"
+
+[p201.1]
+story_type = "retell"
+story_name = "baby_birds_first_nest"
+
+[p201.5]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = ""
+last_story = ""
+story_name = "henrys_happy_birthday"
+liked_last_story = "SL"
+story_level = 1
+
+[p201.4]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "Playground"
+last_story = "Iceberg"
+story_name = "possum_and_the_peeper"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p021.3.stories]
+Castle = "Castle-sr2-session1-p013-story2"
+Iceberg = "Iceberg-sr2-session1-p007-story1"
+
+[p202.3.stories]
+Castle = "Castle-sr2-session2-p009-story2"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p301.3.stories]
+Castle = "Castle-sr2-session2-p009-story2"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p020.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p011.2.stories]
+Iceberg = "Iceberg-PenguinSlide-H"
+Playground = "Playground-PlayPretend-H"
+
+[p016.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p015.7.stories]
+Playground = "Playground-sr2-session8-p004-story2"
+PineForest = "PineForest-sr2-session1-p013-story1"
+
+[p018.7.stories]
+Dinoville = "Dinoville-sr2-session4-p004-1-story1"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
+
+[p303.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p027.3.stories]
+Castle = "Castle-sr2-session2-p015-story2"
+Mars = "Mars-sr2-session5-p010-story1"
+
+[p017.3.stories]
+Castle = "Castle-sr2-session2-p004-story2"
+Iceberg = "Iceberg-sr2-session1-p009-story1"
+
+[p013.7.stories]
+Treemeadow = "Treemeadow-sr2-session8-p013-story1"
+Playground = "Playground-sr2-session8-p015-story2"
+
+[p203.3.stories]
+Treemeadow = "Treemeadow-sr2-session4-p004-1-story2"
+Castle = "Castle-sr2-session6-p013-story2"
+
+[p027.7.stories]
+Iceberg = "Iceberg-sr2-session1-p015-story1"
+Mars = "Mars-sr2-session5-p015-story1"
+
+[p006.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p010.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p304.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-E"
+Dinoville = "Dinoville-DinoEater-E"
+
+[p023.7.stories]
+House = "House-sr2-session7-p015-story2"
+Mars = "Mars-sr2-session5-p015-story1"
+
+[p305.7.stories]
+Castle = "Castle-sr2-session6-p007-story1"
+Playground = "Playground-sr2-session8-p007-story2"
+
+[p302.6.stories]
+Dinoville = "Dinoville-ScaryDino-E"
+Treemeadow = "Treemeadow-BirdButterfly-E"
+
+[p027.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p005.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p206.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p006.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
+[p023.3.stories]
+Iceberg = "Iceberg-sr2-session1-p004-story1"
+Mars = "Mars-sr2-session5-p015-story1"
+
+[p003.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-H"
+Dinoville = "Dinoville-DinoEater-H"
+
+[p024.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p999.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p009.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p302.7.stories]
+Treemeadow = "Treemeadow-sr2-session7-p015-story1"
+Mars = "Mars-sr2-session5-p006-story1"
+
+[p015.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p305.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p023.6.stories]
+Dinoville = "Dinoville-DinoEater-H"
+House = "House-SofaPirates-H"
+
+[p009.7.stories]
+Iceberg = "Iceberg-sr2-session1-p009-story1"
+Mars = "Mars-sr2-session5-p007-story1"
+
+[p029.6.stories]
+Treemeadow = "Treemeadow-BirdButterfly-H"
+Dinoville = "Dinoville-DinoEater-H"
+
+[p018.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-H"
+Dinoville = "Dinoville-DinoEater-H"
+
+[p306.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-E"
+Dinoville = "Dinoville-DinoEater-E"
+
+[p008.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p025.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p032.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p022.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
+[p004.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p016.7.stories]
+Treemeadow = "Treemeadow-sr2-session8-p013-story1"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
+
+[p204.3.stories]
+Castle = "Castle-sr2-session2-p009-story2"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p010.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-E"
+Dinoville = "Dinoville-DinoEater-E"
+
+[p101.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p026.3.stories]
+Castle = "Castle-sr2-session2-p009-story2"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p009.3.stories]
+Dinoville = "Dinoville-sr2-session6-p004-story2"
+Iceberg = "Iceberg-sr2-session1-p009-story1"
+
+[p006.7.stories]
+Treemeadow = "Treemeadow-sr2-session8-p013-story1"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
+
+[p305.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p032.7.stories]
+Dinoville = "Dinoville-sr2-session4-p004-1-story1"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
+
+[p003.7.stories]
+Treemeadow = "Treemeadow-sr2-session8-p013-story1"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
+
+[p030.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p102.3.stories]
+Castle = "Castle-sr2-session2-p004-story2"
+Mars = "Mars-sr2-session5-p010-story1"
+
+[p016.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-H"
+Dinoville = "Dinoville-DinoEater-H"
+
+[p026.7.stories]
+Dinoville = "Dinoville-sr2-session4-p004-1-story1"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
+
+[p020.7.stories]
+Dinoville = "Dinoville-sr2-session4-p004-1-story1"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
+
+[p302.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
+[p007.6.stories]
+Treemeadow = "Treemeadow-BirdButterfly-H"
+House = "House-MagicShow-H"
+
+[p013.3.stories]
+Treemeadow = "Treemeadow-sr2-session8-p013-story1"
+Iceberg = "Iceberg-sr2-session8-p007-story1"
+
+[p014.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-H"
+Dinoville = "Dinoville-DinoEater-H"
+
+[p013.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p999.6.stories]
+House = "House-SofaPirates-H"
+Castle = "Castle-EvilKing-H"
+
+[p015.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-H"
+Playground = "Playground-PlayPretend-H"
+
+[p028.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p020.3.stories]
+Castle = "Castle-sr2-session2-p009-story2"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p023.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p998.6.stories]
+Dinoville = "Dinoville-ScaryDino-E"
+Treemeadow = "Treemeadow-BirdButterfly-E"
+
+[p010.3.stories]
+Castle = "Castle-sr2-session2-p009-story2"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p031.3.stories]
+Treemeadow = "Treemeadow-sr2-session4-p004-1-story2"
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+
+[p025.6.stories]
+Dinoville = "Dinoville-DinoEater-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p201.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p105.3.stories]
+Castle = "Castle-sr2-session2-p009-story2"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p306.3.stories]
+Castle = "Castle-sr2-session2-p009-story2"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p030.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-H"
+Dinoville = "Dinoville-DinoEater-H"
+
+[p009.6.stories]
+Dinoville = "Dinoville-DinoEater-H"
+PineForest = "PineForest-FloppyHideSeek-H"
+
+[p302.3.stories]
+Castle = "Castle-sr2-session2-p009-story2"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p205.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p018.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p105.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-H"
+Dinoville = "Dinoville-DinoEater-H"
+
+[p029.3.stories]
+Playground = "Playground-sr2-session8-p015-story2"
+Mars = "Mars-sr2-session5-p010-story1"
+
+[p032.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-H"
+Dinoville = "Dinoville-DinoEater-H"
+
+[p022.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-E"
+Dinoville = "Dinoville-DinoEater-E"
+
+[p307.7.stories]
+Treemeadow = "Treemeadow-sr2-session8-p013-story1"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
+
+[p019.3.stories]
+Iceberg = "Iceberg-sr2-session1-p015-story1"
+Mars = "Mars-sr2-session5-p010-story1"
+
+[p024.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-E"
+Dinoville = "Dinoville-DinoEater-E"
+
+[p301.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-E"
+Dinoville = "Dinoville-DinoEater-E"
+
+[p006.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-E"
+Dinoville = "Dinoville-DinoEater-E"
+
+[p018.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p101.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p003.3.stories]
+Castle = "Castle-sr2-session2-p009-story2"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p017.6.stories]
+Castle = "Castle-EvilKing-H"
+Iceberg = "Iceberg-SnowmanHat-H"
+
+[p024.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p105.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p007.2.stories]
+Iceberg = "Iceberg-PenguinSlide-H"
+Playground = "Playground-PlayBall-H"
+
+[p304.7.stories]
+Treemeadow = "Treemeadow-sr2-session8-p013-story1"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
+
+[p002.7.stories]
+Dinoville = "Dinoville-sr2-session4-p004-1-story1"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
+
+[p014.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p010.7.stories]
+Dinoville = "Dinoville-sr2-session4-p004-1-story1"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
+
+[p011.3.stories]
+Treemeadow = "Treemeadow-sr2-session4-p004-1-story2"
+Playground = "Playground-sr2-session8-p006-story2"
+
+[p103.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p014.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p307.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
+[p020.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-H"
+Dinoville = "Dinoville-DinoEater-H"
+
+[p102.6.stories]
+Dinoville = "Dinoville-ScaryDino-H"
+Treemeadow = "Treemeadow-BirdButterfly-H"
+
+[p021.6.stories]
+Dinoville = "Dinoville-DinoEater-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p004.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
+[p998.7.stories]
+Playground = "Playground-sr2-session1-p007-story2"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
+
+[p025.7.stories]
+House = "House-sr2-session7-p006-story2"
+Castle = "Castle-sr2-session2-p004-story2"
+
+[p305.6.stories]
+House = "House-SofaPirates-H"
+Castle = "Castle-EvilKing-H"
+
+[p303.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-E"
+Dinoville = "Dinoville-DinoEater-E"
+
+[p028.7.stories]
+Treemeadow = "Treemeadow-sr2-session8-p013-story1"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
+
+[p021.7.stories]
+Iceberg = "Iceberg-sr2-session1-p004-story1"
+Mars = "Mars-sr2-session5-p015-story1"
+
+[p004.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-E"
+Dinoville = "Dinoville-DinoEater-E"
+
+[p008.3.stories]
+Castle = "Castle-sr2-session2-p009-story2"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p011.6.stories]
+Treemeadow = "Treemeadow-BirdButterfly-H"
+Dinoville = "Dinoville-ScaryDino-H"
+
+[p002.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p104.6.stories]
+Dinoville = "Dinoville-DinoEater-H"
+House = "House-MagicShow-H"
+
+[p019.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
+[p105.7.stories]
+Treemeadow = "Treemeadow-sr2-session8-p013-story1"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
+
+[p024.7.stories]
+Treemeadow = "Treemeadow-sr2-session8-p013-story1"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
+
+[p007.7.stories]
+House = "House-sr2-session8-p013-story2"
+Mars = "Mars-sr2-session5-p010-story1"
+
+[p104.3.stories]
+Castle = "Castle-sr2-session2-p015-story2"
+Iceberg = "Iceberg-sr2-session1-p015-story1"
+
+[p013.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-H"
+Playground = "Playground-PlayPretend-H"
+
+[p306.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
+[p031.6.stories]
+Dinoville = "Dinoville-DinoEater-H"
+House = "House-SofaPirates-H"
+
+[p022.3.stories]
+Castle = "Castle-sr2-session2-p009-story2"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p101.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-H"
+Dinoville = "Dinoville-DinoEater-H"
+
+[p007.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Mars = "Mars-sr2-session5-p010-story1"
+
+[p202.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p032.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p017.7.stories]
+Iceberg = "Iceberg-sr2-session1-p006-story1"
+Mars = "Mars-sr2-session5-p011-story1"
+
+[p025.3.stories]
+House = "House-sr2-session7-p006-story2"
+Castle = "Castle-sr2-session2-p004-story2"
+
+[p016.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p205.3.stories]
+Iceberg = "Iceberg-sr2-session1-p015-story1"
+PineForest = "PineForest-sr2-session5-p013-story2"
+
+[p002.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-H"
+Dinoville = "Dinoville-DinoEater-H"
+
+[p021.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p999.7.stories]
+Treemeadow = "Treemeadow-sr2-session8-p013-story1"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
+
+[p997.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p203.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p001.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p303.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
+[p301.7.stories]
+Treemeadow = "Treemeadow-sr2-session8-p013-story1"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
+
+[p026.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-H"
+Dinoville = "Dinoville-DinoEater-H"
+
+[p101.7.stories]
+Treemeadow = "Treemeadow-sr2-session8-p013-story1"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
+
+[p030.7.stories]
+Treemeadow = "Treemeadow-sr2-session8-p013-story1"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
+
+[p027.6.stories]
+Dinoville = "Dinoville-DinoEater-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p019.6.stories]
+Dinoville = "Dinoville-DinoEater-E"
+House = "House-SofaPirates-E"
+
+[p026.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p301.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
+[p103.3.stories]
+Castle = "Castle-sr2-session2-p009-story2"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p003.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p206.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p998.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p005.7.stories]
+Iceberg = "Iceberg-sr2-session1-p015-story1"
+Mars = "Mars-sr2-session5-p015-story1"
+
+[p001.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p102.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p304.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p002.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p029.2.stories]
+Iceberg = "Iceberg-SnowmanHat-H"
+Playground = "Playground-PlayPretend-H"
+
+[p005.3.stories]
+Castle = "Castle-sr2-session2-p004-story2"
+Iceberg = "Iceberg-sr2-session1-p006-story1"
+
+[p022.7.stories]
+Treemeadow = "Treemeadow-sr2-session8-p013-story1"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
+
+[p030.3.stories]
+Castle = "Castle-sr2-session2-p009-story2"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p102.7.stories]
+House = "House-sr2-session7-p006-story2"
+Mars = "Mars-sr2-session5-p015-story1"
+
+[p304.2.stories]
+Castle = "Castle-ReshmaParty-E"
+Iceberg = "Iceberg-PenguinSlide-E"
+
+[p204.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p307.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-E"
+Dinoville = "Dinoville-DinoEater-E"
+
+[p104.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p005.6.stories]
+Treemeadow = "Treemeadow-BirdButterfly-H"
+Iceberg = "Iceberg-SnowmanHat-H"
+
+[p306.7.stories]
+Treemeadow = "Treemeadow-sr2-session8-p013-story1"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
+
+[p028.3.stories]
+Castle = "Castle-sr2-session2-p009-story2"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p307.3.stories]
+Iceberg = "Iceberg-sr2-session8-p006-story1"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p031.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
+[p015.3.stories]
+Castle = "Castle-sr2-session2-p009-story2"
+Playground = "Playground-sr2-session1-p007-story2"
+
+[p008.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-H"
+Dinoville = "Dinoville-DinoEater-H"
+
+[p028.6.stories]
+Treemeadow = "Treemeadow-DragonClumsy-E"
+Dinoville = "Dinoville-DinoEater-E"
+
+[p017.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"

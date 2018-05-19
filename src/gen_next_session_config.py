@@ -486,6 +486,7 @@ def read_toml(toml_file):
     """ Open a toml file and return its contents as a dictionary. """
     with open(toml_file, "r") as tof:
         try:
+            print "Trying to read {}...".format(toml_file)
             contents = toml.loads(tof.read())
             return contents
         # We want to exit if we can't read any of the toml files, so we print
@@ -538,7 +539,7 @@ def process_performance_logs(prior_performance, log_files, out_dir):
     """
     # Read in past performance config file, if it exists.
     if prior_performance:
-        print "Reading past performance record..."
+        print "Reading past performance record... {}".format(prior_performance)
         performance = read_toml(prior_performance)
     else:
         performance = {}
@@ -547,6 +548,7 @@ def process_performance_logs(prior_performance, log_files, out_dir):
     # performance logs.
     print "Updating performance record with new data..."
     for logf in log_files:
+        print "Reading {}...".format(logf)
         performance = update_performance(read_toml(logf), performance)
     print "Updated performance log: {}".format(performance)
 

@@ -2193,7 +2193,50 @@ animations = [ { time = 4.1, anim = "SILENT_CONFIRM" } ]
 
 ## House Magic Show - level 0. TODO
 
-## House Magic Show - level 1. TODO
+## House Magic Show - level 1
+[audio.OnceUponATimeAlly1]
+name = "OnceUponATimeAlly1"
+animations = [ { time = 0.1, anim = "SHIMMY" } ]
+
+[audio.ButAllyPlayedByHerself1]
+name = "ButAllyPlayedByHerself1"
+animations = [ { time = 2.1, anim = "SILENT_NO" } ]
+
+[audio.PerchingSofaDogShow1]
+name = "PerchingSofaDogShow1"
+animations = [ { time = 0.1, anim = "PROUD" } ]
+
+[audio.BlueBallBehindSofa1]
+name = "BlueBallBehindSofa1"
+animations = [ { time = 3.1, anim = "SILENT_NOD" } ]
+
+[audio.DogRevealsBall1]
+name = "DogRevealsBall1"
+animations = [ { time = 1.1, anim = "PROUD" } ]
+
+[audio.AnnouncingIllVanishBall1]
+name = "AnnouncingIllVanishBall1"
+animations = [ { time = 0.1, anim = "PERKUP" } ]
+
+[audio.BallIntoBoxGone1]
+name = "BallIntoBoxGone1"
+animations = [ { time = 0.1, anim = "SILENT_NOD" } ]
+
+[audio.RevealedBallToFloor1]
+name = "RevealedBallToFloor1"
+animations = [ { time = 0.1, anim = "SILENT_LEFTRIGHTLOOKING" } ]
+
+[audio.CatWasAsleep1]
+name = "CatWasAsleep1"
+animations = [ { time = 0.1, anim = "SILENT_INTERESTED" } ]
+
+[audio.AllyThrewBallToDog1]
+name = "AllyThrewBallToDog1"
+animations = [ { time = 3.1, anim = "PROUD" } ]
+
+[audio.ThatWasGrandFinale1]
+name = "ThatWasGrandFinale1"
+animations = [ { time = 1.5, anim = "SILENT_NOD" } ]
 
 ## House Sofa Pirates - level 0.
 [audio.OnceUponTimeEmma0]
@@ -5448,3 +5491,133 @@ animations = [ { time = 2.2, anim = "SILENT_NOD" } ]
 [audio.museumPicture2]
 name = "museumPicture2"
 animations = [ { time = 2.2, anim = "SILENT_EXCITED" } ]
+
+##
+[audio.Playground-sr2-session8-p004-story2-01]
+name = "Playground-sr2-session8-p004-story2-01"
+animations = [ { time = 1.1, anim = "PERKUP" } ]
+
+[audio.Playground-sr2-session8-p004-story2-02]
+name = "Playground-sr2-session8-p004-story2-02"
+animations = [ { time = 2.5, anim = "SILENT_LEFTRIGHTLOOKING" },
+               { time = 10.0, anim = "SHIMMY" } ]
+
+[audio.Playground-sr2-session8-p004-story2-03]
+name = "Playground-sr2-session8-p004-story2-03"
+animations = [ { time = 0.1, anim = "PROUD" } ]
+
+##
+[audio.PineForest-sr2-session1-p013-story1-01]
+name = "PineForest-sr2-session1-p013-story1-01"
+animations = [ { time = 5.1, anim = "SIDEPERK" } ]
+
+[audio.PineForest-sr2-session1-p013-story1-02]
+name = "PineForest-sr2-session1-p013-story1-02"
+animations = [ { time = 0.1, anim = "SILENT_SAD" } ]
+
+[audio.PineForest-sr2-session1-p013-story1-03]
+name = "PineForest-sr2-session1-p013-story1-03"
+animations = [ { time = 0.1, anim = "SHIMMY" } ]
+
+[audio.PineForest-sr2-session1-p013-story1-04]
+name = "PineForest-sr2-session1-p013-story1-04"
+animations = [ { time = 0.1, anim = "SILENT_CONFIRM" } ]
+
+
+##
+[audio.House-sr2-session7-p015-story2-01]
+name = "House-sr2-session7-p015-story2-01"
+animations = [ { time = 3.1, anim = "PERKUP" } ]
+
+[audio.House-sr2-session7-p015-story2-02]
+name = "House-sr2-session7-p015-story2-02"
+animations = [ { time = 1.2, anim = "SILENT_THINKING" },
+               { time = 5.0, anim = "PROUD" } ]
+
+[audio.House-sr2-session7-p015-story2-03]
+name = "House-sr2-session7-p015-story2-03"
+animations = [ { time = 5.5, anim = "SILENT_THINKING" } ]
+
+[audio.House-sr2-session7-p015-story2-04]
+name = "House-sr2-session7-p015-story2-04"
+animations = [ { time = 4.2, anim = "SILENT_INTERESTED" } ]
+
+[audio.House-sr2-session7-p015-story2-05]
+name = "House-sr2-session7-p015-story2-05"
+animations = [ { time = 3.1, anim = "PERKUP" } ]
+
+[audio.House-sr2-session7-p015-story2-06]
+name = "House-sr2-session7-p015-story2-06"
+animations = [ { time = 4.1, anim = "SILENT_FART" } ]
+
+[audio.House-sr2-session7-p015-story2-07]
+name = "House-sr2-session7-p015-story2-07"
+animations = [ { time = 0.1, anim = "PROUD" } ]
+
+
+##
+[audio.House-sr2-session8-p013-story2-01]
+name = "House-sr2-session8-p013-story2-01"
+animations = [ { time = 0.1, anim = "SILENT_EXCITED" } ]
+
+[audio.House-sr2-session8-p013-story2-02]
+name = "House-sr2-session8-p013-story2-02"
+animations = [ { time = 1.1, anim = "SILENT_NO" } ]
+
+[audio.House-sr2-session8-p013-story2-03]
+name = "House-sr2-session8-p013-story2-03"
+animations = [ { time = 1.1, anim = "SILENT_YES" } ]
+
+[audio.House-sr2-session8-p013-story2-04]
+name = "House-sr2-session8-p013-story2-04"
+animations = [ { time = 0.1, anim = "SILENT_THINKING" } ]
+
+[audio.House-sr2-session8-p013-story2-05]
+name = "House-sr2-session8-p013-story2-05"
+animations = [ { time = 4.1, anim = "SILENT_CONFIRM" } ]
+
+[audio.House-sr2-session8-p013-story2-06]
+name = "House-sr2-session8-p013-story2-06"
+animations = [ { time = 2.1, anim = "PROUD" } ]
+
+
+##
+[audio.Mars-sr2-session5-p007-story1-01]
+name = "Mars-sr2-session5-p007-story1-01"
+animations = [ { time = 7.1, anim = "PROUD" } ]
+
+[audio.Mars-sr2-session5-p007-story1-02]
+name = "Mars-sr2-session5-p007-story1-02"
+animations = [ { time = 0.8, anim = "SLIENT_EXCITED" } ]
+
+[audio.Mars-sr2-session5-p007-story1-03]
+name = "Mars-sr2-session5-p007-story1-03"
+animations = [ { time = 0.1, anim = "SILENT_FART" } ]
+
+[audio.Mars-sr2-session5-p007-story1-04]
+name = "Mars-sr2-session5-p007-story1-04"
+animations = [ { time = 0.1, anim = "SHIMMY" } ]
+
+
+##
+[audio.Mars-sr2-session5-p011-story1-01]
+name = "Mars-sr2-session5-p011-story1-01"
+animations = [ { time = 4.0, anim = "SILENT_INTERESTED" } ]
+
+[audio.Mars-sr2-session5-p011-story1-02]
+name = "Mars-sr2-session5-p011-story1-02"
+animations = [ { time = 1.1, anim = "PERKUP" } ]
+
+[audio.Mars-sr2-session5-p011-story1-03]
+name = "Mars-sr2-session5-p011-story1-03"
+animations = [ { time = 0.1, anim = "SILENT_YAWN" } ]
+
+[audio.Mars-sr2-session5-p011-story1-04]
+name = "Mars-sr2-session5-p011-story1-04"
+animations = [ { time = 1.1, anim = "HAPPY_UP" } ]
+
+[audio.Mars-sr2-session5-p011-story1-05]
+name = "Mars-sr2-session5-p011-story1-05"
+animations = [ { time = 0.1, anim = "PROUD" } ]
+
+

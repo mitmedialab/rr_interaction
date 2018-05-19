@@ -1,0 +1,7 @@
+ROBOT	DO	House-sr2-session7-p015-story2-01
+ROBOT	DO	House-sr2-session7-p015-story2-02
+ROBOT	DO	House-sr2-session7-p015-story2-03
+ROBOT	DO	House-sr2-session7-p015-story2-04
+ROBOT	DO	House-sr2-session7-p015-story2-05
+ROBOT	DO	House-sr2-session7-p015-story2-06
+ROBOT	DO	House-sr2-session7-p015-story2-07

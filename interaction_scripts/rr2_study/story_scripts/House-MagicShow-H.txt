@@ -1,0 +1,12 @@
+ROBOT	DO	AGirl
+ROBOT	DO	OnceUponATimeAlly1
+ROBOT	DO	ButAllyPlayedByHerself1
+ROBOT	DO	PerchingSofaDogShow1
+ROBOT	DO	BlueBallBehindSofa1
+ROBOT	DO	DogRevealsBall1
+ROBOT	DO	AnnouncingIllVanishBall1
+ROBOT	DO	BallIntoBoxGone1
+ROBOT	DO	RevealedBallToFloor1
+ROBOT	DO	CatWasAsleep1
+ROBOT	DO	AllyThrewBallToDog1
+ROBOT	DO	ThatWasGrandFinale1
