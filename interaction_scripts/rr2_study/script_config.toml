@@ -5620,4 +5620,20 @@ animations = [ { time = 1.1, anim = "HAPPY_UP" } ]
 name = "Mars-sr2-session5-p011-story1-05"
 animations = [ { time = 0.1, anim = "PROUD" } ]
 
+##
+[audio.Mars-sr2-session3-p006-story2-01]
+name = "Mars-sr2-session3-p006-story2-01"
+animations = [ { time = 3.1, anim = "PERKUP" } ]
+
+[audio.Mars-sr2-session3-p006-story2-02]
+name = "Mars-sr2-session3-p006-story2-02"
+animations = [ { time = 5.5, anim = "SILENT_NOD" } ]
+
+[audio.Mars-sr2-session3-p006-story2-03]
+name = "Mars-sr2-session3-p006-story2-03"
+animations = [ { time = 4.1, anim = "SHIMMY" } ]
+
+[audio.Mars-sr2-session3-p006-story2-04]
+name = "Mars-sr2-session3-p006-story2-04"
+animations = [ { time = 2.5, anim = "SILENT_EXCITED" } ]
 

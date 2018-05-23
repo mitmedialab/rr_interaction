@@ -1,0 +1,5 @@
+ROBOT	DO	Mars-sr2-session3-p006-story2-01
+ROBOT	DO	Mars-sr2-session3-p006-story2-02
+ROBOT	DO	Mars-sr2-session3-p006-story2-03
+ROBOT	DO	Mars-sr2-session3-p006-story2-04
+

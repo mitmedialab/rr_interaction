@@ -1867,7 +1867,9 @@ class ScriptHandler(object):
                                                  json.dumps(color))
             if "animal" in self._pconfig:
                 img = {}
-                img["name"] = "animals/" + self._pconfig["animal"] + \
+                img["name"] = "animals/" + \
+                    (self._pconfig["animal"] if self._pconfig["animal"] !=
+                     "allOfThem" else "bunny") + \
                     ("1" if self._sessionint == 7 else "2")
                 img["tag"] = "PlayObject"
                 img["draggable"] = False
