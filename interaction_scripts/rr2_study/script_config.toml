@@ -5588,7 +5588,7 @@ animations = [ { time = 7.1, anim = "PROUD" } ]
 
 [audio.Mars-sr2-session5-p007-story1-02]
 name = "Mars-sr2-session5-p007-story1-02"
-animations = [ { time = 0.8, anim = "SLIENT_EXCITED" } ]
+animations = [ { time = 0.8, anim = "SILENT_EXCITED" } ]
 
 [audio.Mars-sr2-session5-p007-story1-03]
 name = "Mars-sr2-session5-p007-story1-03"

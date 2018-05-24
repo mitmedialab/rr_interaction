@@ -733,9 +733,9 @@ story_level = 2
 [p005.7]
 story_type = "create"
 told_last_story = "TY"
-leftover_scene = ""
+leftover_scene = "Iceberg"
 scenes = [ "Mars", "Iceberg",]
-last_story = ""
+last_story = "Treemeadow"
 liked_last_story = "SL"
 story_level = 1
 
@@ -1145,9 +1145,9 @@ story_name = "baby_birds_first_nest"
 [p025.7]
 story_type = "create"
 told_last_story = "TY"
-leftover_scene = ""
+leftover_scene = "Castle"
 scenes = [ "House", "Castle",]
-last_story = ""
+last_story = "Dinoville"
 liked_last_story = "SL"
 story_level = 1
 
@@ -1260,9 +1260,9 @@ story_level = 3
 [p023.7]
 story_type = "create"
 told_last_story = "TY"
-leftover_scene = ""
+leftover_scene = "House"
 scenes = [ "Mars", "House",]
-last_story = ""
+last_story = "Dinoville"
 liked_last_story = "SL"
 story_level = 1
 
@@ -3227,9 +3227,9 @@ story_level = 3
 [p015.7]
 story_type = "create"
 told_last_story = "TN"
-leftover_scene = ""
+leftover_scene = "Playground"
 scenes = [ "Playground", "PineForest",]
-last_story = ""
+last_story = "Treemeadow"
 liked_last_story = "SL"
 story_level = 1
 
