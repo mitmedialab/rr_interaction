@@ -5662,4 +5662,18 @@ animations = [ { time = 1.1, anim = "PERKUP"} ]
 ##
 [audio.Treemeadow-sr2-session6-p013-story1-01]
 name = "Treemeadow-sr2-session6-p013-story1-01"
-animations = [ { time = 1.1, anim = "PERKUP"} ]
+animations = [ { time = 2.1, anim = "PERKUP"} ]
+
+[audio.Treemeadow-sr2-session6-p013-story1-02]
+name = "Treemeadow-sr2-session6-p013-story1-02"
+animations = [ { time = 3.1, anim = "SIDEPERK"} ]
+
+[audio.Treemeadow-sr2-session6-p013-story1-03]
+name = "Treemeadow-sr2-session6-p013-story1-03"
+animations = [ { time = 4.5, anim = "SILENT_SCARED"} ]
+
+[audio.Treemeadow-sr2-session6-p013-story1-04]
+name = "Treemeadow-sr2-session6-p013-story1-04"
+animations = [ { time = 3.0, anim = "SILENT_INTERESTED"},
+               { time = 11.0, anim = "PERKUP"} ]
+
