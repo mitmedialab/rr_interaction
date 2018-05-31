@@ -5637,3 +5637,29 @@ animations = [ { time = 4.1, anim = "SHIMMY" } ]
 name = "Mars-sr2-session3-p006-story2-04"
 animations = [ { time = 2.5, anim = "SILENT_EXCITED" } ]
 
+##
+[audio.Castle-sr2-session2-p006-story2-01]
+name = "Castle-sr2-session2-p006-story2-01"
+animations = [ { time = 3.1, anim = "SHIMMY"} ]
+
+[audio.Castle-sr2-session2-p006-story2-02]
+name = "Castle-sr2-session2-p006-story2-02"
+animations = [ { time = 5.0, anim = "SILENT_THINKING"} ]
+
+[audio.Castle-sr2-session2-p006-story2-03]
+name = "Castle-sr2-session2-p006-story2-03"
+animations = [ { time = 2.0, anim = "SILENT_SAD"} ]
+
+[audio.Castle-sr2-session2-p006-story2-04]
+name = "Castle-sr2-session2-p006-story2-04"
+animations = [ { time = 0.1, anim = "SILENT_LEFTRIGHTLOOKING"} ]
+
+[audio.Castle-sr2-session2-p006-story2-05]
+name = "Castle-sr2-session2-p006-story2-05"
+animations = [ { time = 1.1, anim = "PERKUP"} ]
+
+
+##
+[audio.Treemeadow-sr2-session6-p013-story1-01]
+name = "Treemeadow-sr2-session6-p013-story1-01"
+animations = [ { time = 1.1, anim = "PERKUP"} ]
