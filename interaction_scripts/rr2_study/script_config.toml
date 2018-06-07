@@ -2324,6 +2324,42 @@ animations = [ { time = 0.1, anim = "SHIMMY" } ]
 
 ## Mars Alien Family - level 0. TODO
 ## Mars Alien Family - level 1. TODO
+[audio.OnceUponAnAlien1]
+name = "OnceUponAnAlien1"
+animations = [ { time = 1.1, anim = "PROUD" } ]
+
+[audio.AlienFatherBirthday1]
+name = "AlienFatherBirthday1"
+animations = [ { time = 1.1, anim = "SIDEPERK" } ]
+
+[audio.EllaSurpriseFather1]
+name = "EllaSurpriseFather1"
+animations = [ { time = 1.1, anim = "SILENT_EXCITED" } ]
+
+[audio.TheyBakedCake1]
+name = "TheyBakedCake1"
+animations = [ { time = 1.1, anim = "SHIMMY" } ]
+
+[audio.LaterTheyCakeWhiff1]
+name = "LaterTheyCakeWhiff1"
+animations = [ { time = 1.5, anim = "SILENT_INTERESTED" } ]
+
+[audio.SheWaitedWaited1]
+name = "SheWaitedWaited1"
+animations = [ { time = 0.1, anim = "SILENT_LEFTRIGHTLOOKING" } ]
+
+[audio.DidYouMakeCake1]
+name = "DidYouMakeCake1"
+animations = [ { time = 6.1, anim = "SILENT_INTERESTED" } ]
+
+[audio.SomethingLikeThat1]
+name = "SomethingLikeThat1"
+animations = [ { time = 2.1, anim = "SILENT_EXCITED" } ]
+
+[audio.ThenAteCake1]
+name = "ThenAteCake1"
+animations = [ { time = 1.1, anim = "PERKUP" } ]
+
 
 ## Mars Explore New - level 0. TODO
 ## Mars Explore New - level 1. TODO

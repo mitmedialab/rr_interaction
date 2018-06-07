@@ -615,37 +615,6 @@ negotiation_outcome = "YourChoice"
 liked_last_story = "SL"
 story_level = 3
 
-[p202.8]
-story_type = "retell"
-told_last_story = "TN"
-leftover_scene = ""
-last_story = ""
-story_name = "baby_ducks_new_friend"
-negotiation_outcome = "YourChoice"
-liked_last_story = "SL"
-story_level = 3
-
-[p203.8]
-story_type = "retell"
-told_last_story = "TY"
-leftover_scene = "Treemeadow"
-last_story = "Mars"
-story_name = "baby_ducks_new_friend"
-negotiation_outcome = "YourChoice"
-liked_last_story = "SL"
-story_level = 3
-
-[p201.8]
-story_type = "retell"
-told_last_story = "TY"
-leftover_scene = ""
-last_story = ""
-story_name = "baby_ducks_new_friend"
-negotiation_outcome = "YourChoice"
-liked_last_story = "SL"
-story_level = 1
-
-
 [p003.3]
 story_type = "create"
 told_last_story = "TN"
@@ -907,12 +876,12 @@ story_name = "baby_birds_first_nest"
 
 [p019.8]
 story_type = "retell"
-told_last_story = "TY"
+told_last_story = ""
 leftover_scene = "House"
 last_story = "Mars"
 story_name = "baby_ducks_new_friend"
 negotiation_outcome = "YourChoice"
-liked_last_story = "SL"
+liked_last_story = ""
 story_level = 1
 
 [p302.8]
@@ -1187,6 +1156,26 @@ story_name = "possum_and_the_peeper"
 negotiation_outcome = "MyChoice"
 liked_last_story = "SD"
 story_level = 2
+
+[p001.7]
+story_type = "create"
+told_last_story = "TN"
+leftover_scene = "Treemeadow"
+scenes = [ "Pineforest", "Treemeadow",]
+last_story = "Dinoville"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
+
+[p001.8]
+story_type = "retell"
+told_last_story = "TN"
+leftover_scene = "Treemeadow"
+last_story = "Pineforest"
+story_name = "baby_ducks_new_friend"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 1
 
 [p001.6]
 story_type = "create"
@@ -1662,15 +1651,11 @@ negotiation_outcome = "YourChoice"
 liked_last_story = "SL"
 story_level = 1
 
-[p028.3]
-story_type = "create"
-told_last_story = "TY"
-leftover_scene = "Castle"
-scenes = [ "Playground", "Castle",]
-last_story = "Iceberg"
-negotiation_outcome = "MyChoice"
-liked_last_story = "SL"
-story_level = 1
+[p307.1]
+story_type = "retell"
+liked_story = "SD"
+story_name = "baby_birds_first_nest"
+told_story = "TN"
 
 [p307.3]
 story_type = "create"
@@ -2009,8 +1994,8 @@ story_type = "create"
 told_last_story = ""
 leftover_scene = "Treemeadow"
 scenes = [ "Pineforest", "Treemeadow",]
-negotiation_outcome = "YourChoice"
 last_story = "Dinoville"
+negotiation_outcome = "YourChoice"
 liked_last_story = ""
 story_level = 1
 
@@ -2031,6 +2016,16 @@ leftover_scene = ""
 last_story = ""
 story_name = "henrys_happy_birthday"
 liked_last_story = "SL"
+story_level = 2
+
+[p204.8]
+story_type = "retell"
+told_last_story = ""
+leftover_scene = "Treemeadow"
+last_story = "Pineforest"
+story_name = "baby_ducks_new_friend"
+negotiation_outcome = "MyChoice"
+liked_last_story = ""
 story_level = 2
 
 [p202.4]
@@ -2066,8 +2061,8 @@ story_type = "create"
 told_last_story = ""
 leftover_scene = "Treemeadow"
 scenes = [ "Pineforest", "Treemeadow",]
-negotiation_outcome = "YourChoice"
 last_story = "Dinoville"
+negotiation_outcome = "YourChoice"
 liked_last_story = ""
 story_level = 1
 
@@ -2143,12 +2138,12 @@ negotiation_outcome = "MyChoice"
 liked_last_story = "SL"
 story_level = 1
 
-[p206.5]
-story_type = "retell"
+[p206.6]
+story_type = "create"
 told_last_story = "TY"
 leftover_scene = ""
-last_story = "possum_and_the_peeper"
-story_name = "henrys_happy_birthday"
+scenes = [ "Mars", "Castle",]
+last_story = "henrys_happy_birthday"
 liked_last_story = "SL"
 story_level = 1
 
@@ -2704,11 +2699,15 @@ last_story = ""
 liked_last_story = "SL"
 story_level = 1
 
-[p307.1]
-story_type = "retell"
-liked_story = "SD"
-story_name = "baby_birds_first_nest"
-told_story = "TN"
+[p028.3]
+story_type = "create"
+told_last_story = "TY"
+leftover_scene = "Castle"
+scenes = [ "Playground", "Castle",]
+last_story = "Iceberg"
+negotiation_outcome = "MyChoice"
+liked_last_story = "SL"
+story_level = 1
 
 [p307.2]
 story_type = "create"
@@ -2812,7 +2811,7 @@ story_level = 3
 
 [p029.8]
 story_type = "retell"
-told_last_story = "NS"
+told_last_story = ""
 leftover_scene = ""
 last_story = ""
 story_name = "baby_ducks_new_friend"
@@ -3779,8 +3778,8 @@ story_type = "create"
 told_last_story = "TY"
 leftover_scene = "Castle"
 scenes = [ "Castle", "PineForest",]
-negotiation_outcome = "YourChoice"
 last_story = "House"
+negotiation_outcome = "YourChoice"
 liked_last_story = "SL"
 story_level = 1
 
@@ -3844,6 +3843,16 @@ story_name = "henrys_happy_birthday"
 liked_last_story = "SL"
 story_level = 2
 
+[p205.8]
+story_type = "retell"
+told_last_story = "TY"
+leftover_scene = "PineForest"
+last_story = "Castle"
+story_name = "baby_ducks_new_friend"
+negotiation_outcome = "YourChoice"
+liked_last_story = "SL"
+story_level = 2
+
 [p203.1]
 story_type = "retell"
 story_name = "baby_birds_first_nest"
@@ -3891,8 +3900,8 @@ story_type = "create"
 told_last_story = "TY"
 leftover_scene = "Treemeadow"
 scenes = [ "Treemeadow", "Mars",]
-negotiation_outcome = "MyChoice"
 last_story = "Dinoville"
+negotiation_outcome = "MyChoice"
 liked_last_story = "SL"
 story_level = 1
 
@@ -3930,8 +3939,8 @@ story_type = "create"
 told_last_story = "TN"
 leftover_scene = "Treemeadow"
 scenes = [ "Treemeadow", "Mars",]
-negotiation_outcome = "MyChoice"
 last_story = "House"
+negotiation_outcome = "MyChoice"
 liked_last_story = "SL"
 story_level = 0
 
@@ -4220,6 +4229,10 @@ Pineforest = "Pineforest-sr2-session2-p015-story1"
 Castle = "Castle-ReshmaParty-H"
 Iceberg = "Iceberg-PenguinSlide-H"
 
+[p206.6.stories]
+Castle = "Castle-ReshmaParty-H"
+Mars = "Mars-AlienFather-H"
+
 [p102.3.stories]
 Castle = "Castle-sr2-session2-p004-story2"
 Mars = "Mars-sr2-session5-p010-story1"
@@ -4456,6 +4469,10 @@ Treemeadow = "Treemeadow-BirdButterfly-H"
 Dinoville = "Dinoville-DinoEater-H"
 Iceberg = "Iceberg-PenguinSlide-H"
 
+[p026.2.stories]
+Castle = "Castle-ReshmaParty-H"
+Iceberg = "Iceberg-PenguinSlide-H"
+
 [p004.2.stories]
 Castle = "Castle-ReshmaParty-E"
 Iceberg = "Iceberg-PenguinSlide-E"
@@ -4640,9 +4657,9 @@ Iceberg = "Iceberg-PenguinSlide-H"
 Dinoville = "Dinoville-DinoEater-E"
 House = "House-SofaPirates-E"
 
-[p026.2.stories]
-Castle = "Castle-ReshmaParty-H"
-Iceberg = "Iceberg-PenguinSlide-H"
+[p001.7.stories]
+Treemeadow = "Treemeadow-sr2-session8-p013-story1"
+Pineforest = "Pineforest-sr2-session2-p015-story1"
 
 [p301.2.stories]
 Castle = "Castle-ReshmaParty-E"
